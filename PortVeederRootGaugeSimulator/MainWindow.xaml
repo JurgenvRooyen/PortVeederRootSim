@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PortVeederRootGaugeSimulator"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+           mc:Ignorable="d"
+        Title="MainWindow" Height="485.95" Width="403.943">
+    <Grid Background="#FF1F1E1E">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="tankIdTag" Content="TankId" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="tankLengthTag" Content="TankLength" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,31,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="tankDiameterTag" Content="TankDiameter" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,62,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="productLevelTag" Content="ProductLevel" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,93,0,0" AutomationProperties.AcceleratorKey="productLevel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="productTemeratureTag" Content="ProductTemerature" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,155,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="waterLevelTag" Content="WaterLevel" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,124,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="Drops" Content="0 tankrops&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,186,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="volumeTag" Content="Volume" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,270,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="startDateTag" Content="StartDate" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,301,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label x:Name="durationTag" Content="Duration(min)" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,332,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="volume" HorizontalAlignment="Left" Height="31" Margin="50,270,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
+        <TextBox x:Name="duration" HorizontalAlignment="Left" Height="31" Margin="50,332,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
+        <Label x:Name="startDate" Content="to do" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="182" RenderTransformOrigin="0.624,0.889" Margin="50,301,-1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
+
+        <Button x:Name="makeTankDrop" Content="MakeTankDrop" HorizontalAlignment="Left" Margin="0,363,0,0" VerticalAlignment="Top" Width="215" Height="32" Click="MakeTankDrop_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="StartDrop" Content="StartDrop" Grid.Column="1" HorizontalAlignment="Left" Margin="50,363,-1,0" VerticalAlignment="Top" Width="182" Height="32" Click="StartDrop_Click"/>
 
     </Grid>
 </Window>
