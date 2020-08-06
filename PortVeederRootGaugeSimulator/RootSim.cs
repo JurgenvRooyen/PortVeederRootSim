@@ -6,12 +6,14 @@ namespace PortVeederRootGaugeSimulator
 {
     class RootSim
     {
+        public List<Tank> TankList { get; set; }
+
         public RootSim(List<Tank> tankList)
         {
             TankList = tankList;
         }
 
-        public List<Tank> TankList { get; set; }
+       
 
         public void addTank(Tank t)
         {

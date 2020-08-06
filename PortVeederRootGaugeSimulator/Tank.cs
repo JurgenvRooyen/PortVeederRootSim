@@ -9,13 +9,16 @@ namespace PortVeederRootGaugeSimulator
         public int TankId { get; set; }
         public double TankLength { get; set; }
         public double TankDiameter { get; set; }
+        public double FullVolume { get; set; }
         public double ProductLevel { get; set; }
         public double WaterLevel { get; set; }
         public int ProductTemerature { get; set; }
         public List<TankDrop> TankDrops { get; set; }
 
-        // Alarm 
-        public double OverFillLimit;
+        // Alarm, we could have some default value first. then user could edit it.
+        public double OverFillLimit { get; set; }
+
+
 
         public Tank(int tankId, double tankLength, double tankDiameter, double productLevel, double waterLevel, int productTemerature, List<TankDrop> tankDrops)
         {
@@ -26,13 +29,18 @@ namespace PortVeederRootGaugeSimulator
             WaterLevel = waterLevel;
             ProductTemerature = productTemerature;
             TankDrops = tankDrops;
+
+            FullVolume = Math.PI * Math.Pow(TankDiameter / 2, 2) * tankLength;
+
+            // Alarm attr
             OverFillLimit = 0.9 * TankLength;
+           
         }
 
         public bool AddTankDrop(TankDrop tp)
         {
             double PotentialIncreaseLevel = tp.Volume / (Math.PI * Math.Pow(TankDiameter / 2, 2));
-            if (getPotentialProductLevel() + PotentialIncreaseLevel > OverFillLimit)
+            if (getPotentialProductLevel() + PotentialIncreaseLevel + ProductLevel > OverFillLimit)
             {
                 return false;
             }
