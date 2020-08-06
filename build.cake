@@ -15,7 +15,7 @@ var configuration = Argument("configuration", "Release");
 Task("Clean")
     .Does(() =>
 {
-    var buildDir = Directory("./src/Example/bin") + Directory(configuration);
+    var buildDir = Directory("./build/dev/bin") + Directory(configuration);
     CleanDirectory(buildDir);
 });
 
