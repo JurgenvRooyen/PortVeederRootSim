@@ -40,7 +40,9 @@ namespace PortVeederRootGaugeSimulator
         public bool AddTankDrop(TankDrop tp)
         {
             double PotentialIncreaseLevel = tp.Volume / (Math.PI * Math.Pow(TankDiameter / 2, 2));
-            if (getPotentialProductLevel() + PotentialIncreaseLevel + ProductLevel > OverFillLimit)
+
+            // check if we could add tank or not
+            if (ProductLevel + getPotentialProductLevel() + PotentialIncreaseLevel > OverFillLimit)
             {
                 return false;
             }
@@ -49,13 +51,16 @@ namespace PortVeederRootGaugeSimulator
             return true;
         }
 
+
         public double getPotentialProductLevel()
         {
             double PotentialVolume = 0;
+
             for (int i = 0; i < TankDrops.Count; i++)
             {
                 PotentialVolume += TankDrops[i].Volume;
             }
+
             double PotentialProductLevel = PotentialVolume / (Math.PI * Math.Pow(TankDiameter / 2, 2));
 
             return PotentialProductLevel;

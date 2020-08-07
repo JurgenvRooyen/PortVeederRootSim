@@ -21,12 +21,12 @@
         <Label x:Name="volumeTag" Content="Volume" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,270,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
         <Label x:Name="startDateTag" Content="StartDate" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,301,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
         <Label x:Name="durationTag" Content="Duration(min)" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="215" RenderTransformOrigin="0.624,0.889" Margin="0,332,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="volume" HorizontalAlignment="Left" Height="31" Margin="50,270,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
-        <TextBox x:Name="duration" HorizontalAlignment="Left" Height="31" Margin="50,332,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
-        <Label x:Name="startDate" Content="to do" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="182" RenderTransformOrigin="0.624,0.889" Margin="50,301,-1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
+        <TextBox x:Name="volume" HorizontalAlignment="Left" Height="31" Margin="47,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
+        <TextBox x:Name="duration" HorizontalAlignment="Left" Height="31" Margin="47,332,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
+        <Label x:Name="startDate" Content="to do" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF7C7A7A" Height="31" Width="189" RenderTransformOrigin="0.624,0.889" Margin="47,301,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1"/>
 
         <Button x:Name="makeTankDrop" Content="MakeTankDrop" HorizontalAlignment="Left" Margin="0,363,0,0" VerticalAlignment="Top" Width="215" Height="32" Click="MakeTankDrop_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="StartDrop" Content="StartDrop" Grid.Column="1" HorizontalAlignment="Left" Margin="50,363,-1,0" VerticalAlignment="Top" Width="182" Height="32" Click="StartDrop_Click"/>
+        <Button x:Name="StartDrop" Content="StartDrop" Grid.Column="1" HorizontalAlignment="Left" Margin="47,363,0,0" VerticalAlignment="Top" Width="189" Height="32" Click="StartDrop_Click"/>
 
     </Grid>
 </Window>
