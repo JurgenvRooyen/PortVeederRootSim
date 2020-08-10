@@ -27,35 +27,20 @@ Task("Restore-NuGetPackages")
 });
 
 Task("Build")
-    .IsDependentOn("Restore-NuGetPackages")
+    .IsDependentOn("Clean")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
+    DotNetCoreBuild("./PortVeederRootGaugeSimulator.sln", new DotNetCoreBuildSettings
     {
-      // Use MSBuild
-      MSBuild(
-          "./PortVeederRootGaugeSimulator.sln",
-          settings => settings.SetConfiguration(configuration));
-    }
-    else
-    {
-      // Use XBuild
-      XBuild(
-          "./src/Example.sln",
-          settings => settings.SetConfiguration(configuration));
-    }
+        Configuration = configuration,
+    });
 });
 
 Task("Run-UnitTests")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    NUnit3(
-        "./src/**/bin/" + configuration + "/*.Tests.dll",
-        new NUnit3Settings
-        {
-            NoResults = true
-        });
+    DotNetCoreTest();
 });
 
 //////////////////////////////////////////////////////////////////////
