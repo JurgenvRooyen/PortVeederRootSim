@@ -18,7 +18,7 @@ namespace SimulatorTest
         [Test]
         public void Test2()
         {
-            Assert.Equals(1, 2);
+            Assert.AreEqual(1, 2);
         }
     }
 }
