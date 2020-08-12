@@ -58,6 +58,7 @@
             this.productLabel = new System.Windows.Forms.Label();
             this.tempUpDown = new System.Windows.Forms.NumericUpDown();
             this.tempLabel = new System.Windows.Forms.Label();
+            this.gaugeButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.tank1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).BeginInit();
@@ -355,15 +356,26 @@
             this.tempLabel.TabIndex = 0;
             this.tempLabel.Text = "Temperature";
             // 
+            // gaugeButton
+            // 
+            this.gaugeButton.Location = new System.Drawing.Point(12, 697);
+            this.gaugeButton.Name = "gaugeButton";
+            this.gaugeButton.Size = new System.Drawing.Size(143, 29);
+            this.gaugeButton.TabIndex = 2;
+            this.gaugeButton.Text = "Gauge Setup";
+            this.gaugeButton.UseVisualStyleBackColor = true;
+            this.gaugeButton.Click += new System.EventHandler(this.gaugeButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 738);
+            this.Controls.Add(this.gaugeButton);
             this.Controls.Add(this.mainMenu);
             this.Controls.Add(this.tank1);
             this.Name = "Form1";
-            this.Text = "Main Form";
+            this.Text = "Veeder-Root TLS Simulator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -409,6 +421,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.Button gaugeButton;
     }
 }
 

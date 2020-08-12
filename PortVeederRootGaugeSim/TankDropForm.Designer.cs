@@ -95,7 +95,6 @@
             this.volumeLitres.Size = new System.Drawing.Size(94, 27);
             this.volumeLitres.TabIndex = 5;
             this.volumeLitres.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.volumeLitres.Maximum = 10000;
             // 
             // durationLabel
             // 
@@ -113,7 +112,6 @@
             this.durationMinutes.Size = new System.Drawing.Size(94, 27);
             this.durationMinutes.TabIndex = 7;
             this.durationMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.durationMinutes.Maximum = 1000;
             // 
             // litresLabel
             // 
@@ -149,7 +147,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Name = "TankDropForm";
-            this.Text = "TankDropForm";
+            this.Text = "Tank Drop";
             ((System.ComponentModel.ISupportInitialize)(this.volumeLitres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.durationMinutes)).EndInit();
             this.ResumeLayout(false);
