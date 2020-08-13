@@ -294,6 +294,7 @@
             this.waterUpDown.Size = new System.Drawing.Size(85, 27);
             this.waterUpDown.TabIndex = 7;
             this.waterUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.waterUpDown.Maximum = 10000;
             // 
             // waterLabel
             // 
@@ -329,6 +330,7 @@
             this.productUpDown.Size = new System.Drawing.Size(112, 27);
             this.productUpDown.TabIndex = 3;
             this.productUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.productUpDown.Maximum = 100000;
             // 
             // productLabel
             // 
