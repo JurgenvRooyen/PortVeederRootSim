@@ -14,11 +14,5 @@ namespace SimulatorTest
         {
             Assert.Pass();
         }
-
-        [Test]
-        public void Test2()
-        {
-            Assert.Equals(1, 2);
-        }
     }
 }

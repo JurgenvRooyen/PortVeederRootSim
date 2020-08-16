@@ -32,3 +32,10 @@ steps:
     publishWebProjects: false
     zipAfterPublish: false
     modifyOutputPath: false
+    arguments: --output $(Build.ArtifactStagingDirectory)
+    
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'RootGauageSimulator'
+    publishLocation: 'pipeline'
