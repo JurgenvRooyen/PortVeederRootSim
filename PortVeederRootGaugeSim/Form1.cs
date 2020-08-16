@@ -49,5 +49,10 @@ namespace PortVeederRootGaugeSim
         {
             GaugeSetup form3 = new GaugeSetup();
         }
+
+        private void productUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
