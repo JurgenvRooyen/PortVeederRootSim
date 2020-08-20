@@ -2,18 +2,33 @@
 
 namespace PortVeederRootGaugeSim.IO
 {
+
     class TLS3XXProtocol
     {
         
         public string parse(string toParse)
         {
-            //Skip first char due to SOH marker
-            char protocolCategory = toParse[1];
-            string protocolCommand = toParse.Substring(2, 3);
-            string tankNumber = toParse.Substring(4, 5);
+            StringBuilder sb = new StringBuilder("\x02");
+
+            char protocolCategory;
+            string protocolCommand;
+            string tankNumber;
+
+            try
+            {
+                //Skip first char due to SOH marker
+                 protocolCategory = toParse[1];
+                 protocolCommand = toParse.Substring(2, 3);
+                 tankNumber = toParse.Substring(4, 5);
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                sb.Append("9999" + "\x03");
+                return sb.ToString();
+            }
 
             // TLS3XX protocol requires a prepended SOH char to mark a messages start
-            StringBuilder sb = new StringBuilder("\x02");
+            
 
             // This can probably be replaced with a key:value store to call functions
             if (protocolCategory == 'I')
@@ -32,6 +47,9 @@ namespace PortVeederRootGaugeSim.IO
                     case "902":
                         sb.Append(I902());
                         break;
+                    default:
+                        sb.Append("9999");
+                        break;
                 }
 
             } else if(protocolCategory == 'S')
@@ -47,10 +65,11 @@ namespace PortVeederRootGaugeSim.IO
                     case "628":
                         sb.Append(S628(toParse.Substring(6)));
                         break;
+                    default:
+                        sb.Append("9999");
+                        break;
                 }
-            }
-
-            if (sb.Length < 3)
+            } else
             {
                 sb.Append("9999");
             }
