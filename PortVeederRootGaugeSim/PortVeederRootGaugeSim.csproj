@@ -5,9 +5,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="IO\" />
+	</ItemGroup>
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>PortVeederRootGaugeSimulatorTest</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
 
 </Project>
