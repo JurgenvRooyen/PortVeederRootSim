@@ -9,8 +9,6 @@
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>PortVeederRootGaugeSimulatorTest</_Parameter1>
 		</AssemblyAttribute>
-	</ItemGroup>
-	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>PortVeederRootGaugeSimulatorBlackTesting</_Parameter1>
 		</AssemblyAttribute>
