@@ -20,7 +20,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean SetProductLevel(double value)
         {
-            if (value + GetPotentialProductLevel() > OverFillLimit)
+            if (value + GetPotentialProductLevel() > TankHight)
             {
                 return false;
             }
@@ -38,7 +38,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean SetWaterLevel(double value)
         {
-            if (value> HighWaterAlarmLevel)
+            if (value + productLevel + GetPotentialProductLevel() > TankHight)
             {
                 return false;
             }
@@ -193,81 +193,7 @@ namespace PortVeederRootGaugeSim
         }
 
 
-        public Alarm GetTankAlarms()
-        {
-            String AlarmStr = "";
-            int AlarmCount = 0;
-
-            // have no idea what this mean  (old file VeederRootSim.frm , line 5504)
-            // Setup data warning
-            // If ProbeAlarm(Tank -1).ListIndex = 1 Then   AlarmStr = AlarmStr + "01";
-
-
-            // Leak alarm
-            if (TankLeaking)
-            {
-                AlarmStr += "02";
-                AlarmCount += 1;
-            }
-
-            // Water alarm level
-            if (GetWaterLevel() >= HighWaterAlarmLevel)
-            {
-                AlarmStr += "03";
-                AlarmCount += 1;
-            }
-
-            // overfill alarm
-            if (VolumeToLevel(GetGrossObservedVolume()) >= OverFillLimit)
-            {
-                AlarmStr += "04";
-                AlarmCount += 1;
-            }
-
-            // low limit alarm
-            if (VolumeToLevel(GetGrossObservedVolume()) < LowProductAlarmLevel)
-            {
-                AlarmStr += "05";
-                AlarmCount += 1;
-            }
-
-            // High limit alarm
-            if (VolumeToLevel(GetGrossObservedVolume()) >=  HighProductAlarmLevel)
-            {
-                AlarmStr += "07";
-                AlarmCount += 1;
-            }
-
-            // check for invalid height alarm (water and product floats too close together)
-            // If m_ProductVolume(Tank -1) < 150 Then AlarmStr = AlarmStr + "08"
-            // the invalid volume of product alarm level need to fit the tank since tank could have differen shape
-
-            // Probe out (disconnected) alarm
-            // If ProbeAlarm(Tank -1).ListIndex = 2 Then AlarmStr = AlarmStr + "09"
-
-            // delivery required warning
-            if (GetProductLevel() <= DeliveryNeededWarningLevel)
-            {
-                AlarmStr += "11";
-                AlarmCount += 1;
-            }
-
-            // maximum level alarm
-            if (VolumeToLevel(GetGrossObservedVolume()) >= MaxSafeWorkingCapacity)
-            {
-                AlarmStr += "12";
-                AlarmCount += 1;
-            }
-
-            // trigger cold temp warning if below 8 degrees
-            if (ProductTemerature < 8)
-            {
-                AlarmStr += "27";
-                AlarmCount += 1;
-            }
-
-            return new Alarm(AlarmCount, AlarmStr);
-        }
+       
 
 
 
@@ -305,7 +231,7 @@ namespace PortVeederRootGaugeSim
 
         public override string ToString()
         {
-            return $"{{{nameof(TankId)}={TankId.ToString()}, {nameof(TankHight)}={TankHight.ToString()}, {nameof(TankDiameter)}={TankDiameter.ToString()}, {nameof(productLevel)}={GetProductLevel().ToString()}, {nameof(GetWaterLevel())}={GetWaterLevel().ToString()}, {nameof(ProductTemerature)}={ProductTemerature.ToString()}, {nameof(TankDrops)}={TankDrops.Count}, {nameof(MaxSafeWorkingCapacity)}={MaxSafeWorkingCapacity.ToString("0.##")}}}"+ "           Gross Observed Volume=" + GetGrossObservedVolume().ToString("0.##") + "           Gross Standard Volume=" + GetGrossStandardVolume().ToString("0.##") + "        Ullage=" + GetUllage().ToString("0.##");
+            return $"{{{nameof(TankId)}={TankId.ToString()}, {nameof(TankHight)}={TankHight.ToString()}, {nameof(TankDiameter)}={TankDiameter.ToString()}, {nameof(productLevel)}={GetProductLevel().ToString()}, {nameof(waterLevel)}={GetWaterLevel().ToString()}, {nameof(ProductTemerature)}={ProductTemerature.ToString()}, {nameof(TankDrops)}={TankDrops.Count}, {nameof(MaxSafeWorkingCapacity)}={MaxSafeWorkingCapacity.ToString("0.##")}}}"+ "           Gross Observed Volume=" + GetGrossObservedVolume().ToString("0.##") + "           Gross Standard Volume=" + GetGrossStandardVolume().ToString("0.##") + "        Ullage=" + GetUllage().ToString("0.##");
         }
     }
 }
