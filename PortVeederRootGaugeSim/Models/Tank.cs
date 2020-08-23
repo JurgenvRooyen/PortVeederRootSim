@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Net.Http.Headers;
+using System.Net.Mail;
 using System.Text;
+using System.Threading;
 
 namespace PortVeederRootGaugeSim
 {
@@ -32,6 +34,10 @@ namespace PortVeederRootGaugeSim
         public double HighWaterWarningLevel { get; set; }
 
 
+        // tank dropping attributes
+        Boolean TankDropping { get; set; }
+        Boolean TankLeaking { get; set; }
+        public Thread DropThread{ get; set; }
 
 
 
@@ -44,6 +50,13 @@ namespace PortVeederRootGaugeSim
             WaterLevel = waterLevel;
             ProductTemerature = productTemerature;
             TankDrops = tankDrops;
+
+            TankDropping = false;
+            DropThread = new Thread(new ThreadStart(TankDropThread));
+
+
+
+
 
             FullVolume = LevelToVolume(tankLength);
 
@@ -73,6 +86,7 @@ namespace PortVeederRootGaugeSim
             {
                 return false;
             }
+            
 
             TankDrops.Add(tp);
             return true;
@@ -80,34 +94,47 @@ namespace PortVeederRootGaugeSim
 
 
 
-        // need timer inside the class and change the way to refresh window
-        public Boolean TankDroppingPerSecond() 
+        public Boolean  TankDropPerInterval() 
         {
             for (int i = 0; i < TankDrops.Count; i++) 
             {
                 if (TankDrops[i].Dropped == false) 
                 {
-                    double IncreasdVolume = TankDrops[i].DropingTankPerSecond();
+                    double IncreasdVolume = TankDrops[i].DropingTankPerInterval();
                     ProductLevel += VolumeToLevel(IncreasdVolume);
                     return true;
+
                 }
             }
             return false;
         }
 
-        // need timer inside the class and change the way to refresh window
-        public Boolean TankLeakingPerSecond() 
+        public void TankDropThread()
         {
-            if (ProductLevel > VolumeToLevel(0.005 * FullVolume)) 
+            while (TankDropping & TankDropPerInterval()) 
             {
-                ProductLevel -= VolumeToLevel(0.005 * FullVolume);
-                return true;
+                Thread.Sleep(100);
             }
-            ProductLevel = 0;
-            return false;
+            TankDropping = false;
         }
 
+        // To start drop or stop drop
+        public void TankDropSwich()
+        {
 
+            if (TankDropping)
+            {
+                TankDropping = false;
+            }
+            else 
+            { 
+                TankDropping = true;
+                DropThread = new Thread(new ThreadStart(TankDropThread));
+                DropThread.Start(); 
+            }
+        }
+
+  
 
         public double GetPotentialProductLevel()
         {
@@ -139,6 +166,87 @@ namespace PortVeederRootGaugeSim
             return LevelToVolume(MaxSafeWorkingCapacity - ProductLevel - WaterLevel);
         }
 
+
+        public Alarm GetTankAlarms()
+        {
+            String AlarmStr = "";
+            int AlarmCount = 0;
+
+            // have no idea what this mean  (old file VeederRootSim.frm , line 5504)
+            // Setup data warning
+            // If ProbeAlarm(Tank -1).ListIndex = 1 Then   AlarmStr = AlarmStr + "01";
+
+
+            // Leak alarm
+            if (TankLeaking)
+            {
+                AlarmStr += "02";
+                AlarmCount += 1;
+            }
+
+            // Water alarm level
+            if (WaterLevel >= HighWaterAlarmLevel)
+            {
+                AlarmStr += "03";
+                AlarmCount += 1;
+            }
+
+            // overfill alarm
+            if (VolumeToLevel(GetGrossObservedVolume()) >= OverFillLimit)
+            {
+                AlarmStr += "04";
+                AlarmCount += 1;
+            }
+
+            // low limit alarm
+            if (VolumeToLevel(GetGrossObservedVolume()) < LowProductAlarmLevel)
+            {
+                AlarmStr += "05";
+                AlarmCount += 1;
+            }
+
+            // High limit alarm
+            if (VolumeToLevel(GetGrossObservedVolume()) >=  HighProductAlarmLevel)
+            {
+                AlarmStr += "07";
+                AlarmCount += 1;
+            }
+
+            // check for invalid height alarm (water and product floats too close together)
+            // If m_ProductVolume(Tank -1) < 150 Then AlarmStr = AlarmStr + "08"
+            // the invalid volume of product alarm level need to fit the tank since tank could have differen shape
+
+            // Probe out (disconnected) alarm
+            // If ProbeAlarm(Tank -1).ListIndex = 2 Then AlarmStr = AlarmStr + "09"
+
+            // delivery required warning
+            if (ProductLevel <= DeliveryNeededWarningLevel)
+            {
+                AlarmStr += "11";
+                AlarmCount += 1;
+            }
+
+            // maximum level alarm
+            if (VolumeToLevel(GetGrossObservedVolume()) >= MaxSafeWorkingCapacity)
+            {
+                AlarmStr += "12";
+                AlarmCount += 1;
+            }
+
+            // trigger cold temp warning if below 8 degrees
+            if (ProductTemerature < 8)
+            {
+                AlarmStr += "27";
+                AlarmCount += 1;
+            }
+
+            return new Alarm(AlarmCount, AlarmStr);
+        }
+
+
+
+
+
         private double VolumeToLevel(double v) 
         {
            double l =  v/ (Math.PI * Math.Pow(TankDiameter / 2, 2));
@@ -151,12 +259,20 @@ namespace PortVeederRootGaugeSim
             return v;
         }
 
+        
+
+
 
 
      
 
 
         public void Connect(Tank t)
+        {
+            //TODO-Optional
+        }
+
+        public void Leaking()
         {
             //TODO-Optional
         }
