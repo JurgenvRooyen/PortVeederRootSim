@@ -4,27 +4,27 @@ namespace PortVeederRootGaugeSim
 {
     class RootSim
     {
-        public List<Tank> TankList { get; set; }
+        public List<TankProbe> TankProbeList { get; set; }
 
-        public RootSim(List<Tank> tankList)
+        public RootSim(List<TankProbe> tankList)
         {
-            TankList = tankList;
+            TankProbeList = tankList;
         }
 
     
 
-        public void addTank(Tank t)
+        public void addTankProbek(TankProbe t)
         {
-            TankList.Add(t);
+            TankProbeList.Add(t);
         }
 
-        public void removeTank(int tankId)
+        public void removeTankProbe(int tankId)
         {
-            for (int i = 0; i < TankList.Count; i++)
+            for (int i = 0; i < TankProbeList.Count; i++)
             {
-                if (TankList[i].TankId == tankId)
+                if (TankProbeList[i].TankProbeId == tankId)
                 {
-                    TankList.Remove(TankList[i]);
+                    TankProbeList.Remove(TankProbeList[i]);
                 }
             }
         }

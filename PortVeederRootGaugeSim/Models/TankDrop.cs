@@ -5,28 +5,28 @@ namespace PortVeederRootGaugeSim
     class TankDrop
     {
         public double Volume { get; set; }
-        public String StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         public int Duration { get; set; }
-        public double DropingVolimePerInterval;
+        public double DeliveringVolumePerInterval;
         public Boolean Dropped = false;
 
         // Need to change the type of attr when link this with GUI
-        public TankDrop(double volume, String startDate, int duration)
+        public TankDrop(double volume, DateTime startDate, int duration)
         {
             Volume = volume;
             StartDate = startDate;
             Duration = duration;
-            DropingVolimePerInterval = (volume / (60 * duration))/10;
+            DeliveringVolumePerInterval = (volume / (60 * duration))/10;
         }
 
         
-        public double DropingTankPerInterval() 
+        public double DeliveringPerInterval() 
         {
             double DroppedVolume = 0;
-            if (Volume > DropingVolimePerInterval)
+            if (Volume > DeliveringVolumePerInterval)
             {
-                DroppedVolume = DropingVolimePerInterval;
-                Volume -= DropingVolimePerInterval;
+                DroppedVolume = DeliveringVolumePerInterval;
+                Volume -= DeliveringVolumePerInterval;
             }
             else 
             {
