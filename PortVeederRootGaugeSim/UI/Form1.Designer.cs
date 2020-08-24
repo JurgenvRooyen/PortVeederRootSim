@@ -36,6 +36,8 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.gaugeButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.addProbeButton = new System.Windows.Forms.Button();
+            this.deleteProbeButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +50,7 @@
             this.toolStripMenuItem3});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1174, 28);
+            this.mainMenu.Size = new System.Drawing.Size(1326, 28);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "mainMenu";
             // 
@@ -89,7 +91,7 @@
             // 
             // gaugeButton
             // 
-            this.gaugeButton.Location = new System.Drawing.Point(12, 711);
+            this.gaugeButton.Location = new System.Drawing.Point(12, 724);
             this.gaugeButton.Name = "gaugeButton";
             this.gaugeButton.Size = new System.Drawing.Size(143, 29);
             this.gaugeButton.TabIndex = 2;
@@ -99,16 +101,40 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 31);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1174, 654);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1326, 687);
             this.flowLayoutPanel1.TabIndex = 3;
+            this.flowLayoutPanel1.WrapContents = false;
+            // 
+            // addProbeButton
+            // 
+            this.addProbeButton.Location = new System.Drawing.Point(161, 724);
+            this.addProbeButton.Name = "addProbeButton";
+            this.addProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.addProbeButton.TabIndex = 4;
+            this.addProbeButton.Text = "Add Probe";
+            this.addProbeButton.UseVisualStyleBackColor = true;
+            this.addProbeButton.Click += new System.EventHandler(this.addProbeButton_Click);
+            // 
+            // deleteProbeButton
+            // 
+            this.deleteProbeButton.Location = new System.Drawing.Point(310, 724);
+            this.deleteProbeButton.Name = "deleteProbeButton";
+            this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.deleteProbeButton.TabIndex = 5;
+            this.deleteProbeButton.Text = "Delete Probe";
+            this.deleteProbeButton.UseVisualStyleBackColor = true;
+            this.deleteProbeButton.Click += new System.EventHandler(this.deleteProbeButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 792);
+            this.ClientSize = new System.Drawing.Size(1326, 837);
+            this.Controls.Add(this.deleteProbeButton);
+            this.Controls.Add(this.addProbeButton);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.gaugeButton);
             this.Controls.Add(this.mainMenu);
@@ -132,6 +158,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.Button gaugeButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button addProbeButton;
+        private System.Windows.Forms.Button deleteProbeButton;
     }
 }
 
