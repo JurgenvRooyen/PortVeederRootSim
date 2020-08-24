@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PortVeederRootGaugeSim
 {
@@ -9,26 +7,26 @@ namespace PortVeederRootGaugeSim
         public double Volume { get; set; }
         public String StartDate { get; set; }
         public int Duration { get; set; }
-        public double DropingVolimePerSecond;
+        public double DropingVolimePerInterval;
         public Boolean Dropped = false;
 
-
-        public TankDrop(int volume, String startDate, int duration)
+        // Need to change the type of attr when link this with GUI
+        public TankDrop(double volume, String startDate, int duration)
         {
             Volume = volume;
             StartDate = startDate;
             Duration = duration;
-            DropingVolimePerSecond = volume / (60 * duration);
+            DropingVolimePerInterval = (volume / (60 * duration))/10;
         }
 
         
-        public double DropingTankPerSecond() 
+        public double DropingTankPerInterval() 
         {
             double DroppedVolume = 0;
-            if (Volume > DropingVolimePerSecond)
+            if (Volume > DropingVolimePerInterval)
             {
-                DroppedVolume = DropingVolimePerSecond;
-                Volume -= DropingVolimePerSecond;
+                DroppedVolume = DropingVolimePerInterval;
+                Volume -= DropingVolimePerInterval;
             }
             else 
             {
