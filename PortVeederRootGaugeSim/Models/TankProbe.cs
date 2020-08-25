@@ -10,16 +10,19 @@ namespace PortVeederRootGaugeSim
     {
         // Tank attributes
         public int TankProbeId { get; set; }
+        public char ProductCode { get; set; }
         public string TankProbeShape { get; set; }
-        public double TankProbeHight { get; set; }
-        public double TankProbeDiameter { get; set; }
+        public float TankProbeHight { get; set; }
+        public float TankProbeDiameter { get; set; }
 
-        public double productLevel = 0 ;     public double GetProductLevel()
+        public float productLevel = 0 ;     
+        public float GetProductLevel()
         {
             return productLevel;
-        }     public Boolean SetProductLevel(double value)
+        }     
+        public Boolean SetProductLevel(float value)
         {
-            if (value + GetWaterLevel()> TankProbeHight)
+            if (value + GetWaterLevel()> TankProbeHight | value < 0)
             {
                 return false;
             }
@@ -29,12 +32,14 @@ namespace PortVeederRootGaugeSim
             
         }
 
-        private double productVolume = 0;   public double GetProductVolume()
+        private float productVolume = 0;   
+        public float GetProductVolume()
         {
             return productVolume;
-        }    public Boolean SetProductVolume(double value)
+        }    
+        public Boolean SetProductVolume(float value)
         {
-            if (value + waterVolume > FullVolume)
+            if (value + waterVolume > FullVolume | value < 0)
             {
                 return false;
             }
@@ -43,12 +48,14 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
-        public double waterLevel = 0;       public double GetWaterLevel()
+        public float waterLevel = 0;       
+        public float GetWaterLevel()
         {
             return waterLevel;
-        }       public Boolean SetWaterLevel(double value)
+        }       
+        public Boolean SetWaterLevel(float value)
         {
-            if (value + productLevel > TankProbeHight)
+            if (value + productLevel > TankProbeHight | value < 0)
             {
                 return false;
             }
@@ -57,12 +64,14 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
-        public double waterVolume = 0;      public double GetwaterVolume()
+        public float waterVolume = 0;      
+        public float GetwaterVolume()
         {
             return waterVolume;
-        }      public Boolean SetwaterVolume(double value)
+        }      
+        public Boolean SetwaterVolume(float value)
         {
-            if (value + productVolume > FullVolume)
+            if (value + productVolume > FullVolume | value < 0)
             {
                 return false;
             }
@@ -71,33 +80,34 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
-        public int ProductTemerature { get; set; }
-        public int TankDropCount { get; set; }
+        public float ProductTemerature { get; set; }
+        public float TankDropCount { get; set; }
 
-        public const double thermalExpansionCoefficient = 0.0018; 
+        public const float thermalExpansionCoefficient = 0.0018F; 
 
         // Alarm attributes
-        public double FullVolume { get; }
+        public float FullVolume { get; }
 
-        public double MaxSafeWorkingCapacity { get; set; }
-        public double OverFillLimit { get; set; }
-        public double HighProductAlarmLevel { get; set; }
-        public double DeliveryNeededWarningLevel { get; set; }
-        public double LowProductAlarmLevel { get; set; }
-        public double HighWaterAlarmLevel { get; set; }
-        public double HighWaterWarningLevel { get; set; }
+        public float MaxSafeWorkingCapacity { get; set; }
+        public float OverFillLimit { get; set; }
+        public float HighProductAlarmLevel { get; set; }
+        public float DeliveryNeededWarningLevel { get; set; }
+        public float LowProductAlarmLevel { get; set; }
+        public float HighWaterAlarmLevel { get; set; }
+        public float HighWaterWarningLevel { get; set; }
 
 
         // tank dropping attributes
         public Boolean TankDelivering { get; set; }
         public Boolean TankLeaking { get; set; }
-        public Thread DeliveringThread{ get; set; }
+        public Thread ProductChanging{ get; set; }
 
 
 
-        public TankProbe(int tankId, double tankLength, double tankDiameter, double productValue, double waterValue, int productTemerature,string unit,string tankShapeString="cylinder")
+        public TankProbe(int tankId, char productCode, float tankLength, float tankDiameter, float productValue, float waterValue, float productTemerature,string unit,string tankShapeString="cylinder")
         {
             this.TankProbeId = tankId;
+            this.ProductCode = productCode;
             this.TankProbeHight = tankLength;
             this.TankProbeDiameter = tankDiameter;
             this.TankProbeShape = tankShapeString;
@@ -116,19 +126,18 @@ namespace PortVeederRootGaugeSim
 
             this.TankDelivering = false;
             this.TankLeaking = false;
-            DeliveringThread = new Thread(new ThreadStart(DeliveryThread));
 
 
             FullVolume = LevelToVolume(tankLength);
 
     
-            MaxSafeWorkingCapacity      = 0.95 * TankProbeHight;
-            OverFillLimit               = 0.90 * TankProbeHight;
-            HighProductAlarmLevel       = 0.80 * TankProbeHight;
-            DeliveryNeededWarningLevel  = 0.30 * TankProbeHight;
-            LowProductAlarmLevel        = 0.20 * TankProbeHight;
-            HighWaterAlarmLevel         = 0.10 * TankProbeHight;
-            HighWaterWarningLevel       = 0.05 * TankProbeHight;
+            MaxSafeWorkingCapacity      = 0.95F * TankProbeHight;
+            OverFillLimit               = 0.90F * TankProbeHight;
+            HighProductAlarmLevel       = 0.80F * TankProbeHight;
+            DeliveryNeededWarningLevel  = 0.30F * TankProbeHight;
+            LowProductAlarmLevel        = 0.20F * TankProbeHight;
+            HighWaterAlarmLevel         = 0.10F * TankProbeHight;
+            HighWaterWarningLevel       = 0.05F * TankProbeHight;
 
         }
 
@@ -147,52 +156,84 @@ namespace PortVeederRootGaugeSim
 
 
 
-        public Boolean  DeliveryPerInterval() 
+        public Boolean  ProducChangePerInterval(float value) 
         {
             // could change 
-            double IncreasdVolume = 50;
+            float IncreasdVolume = value;
             return SetProductVolume(this.productVolume + IncreasdVolume);
         }
 
-        public void DeliveryThread()
+        public void ProductChangeThread(float value)
         {
-            while (this.TankDelivering & DeliveryPerInterval()) 
+            if (TankDelivering)
             {
-                Thread.Sleep(100);
+                while (TankDelivering & ProducChangePerInterval(value))
+                {
+                    Thread.Sleep(100);
+                }
+                TankDelivering = false;
+                this.TankDropCount += 1;
+                return;
             }
-            this.TankDelivering = false;
-            this.TankDropCount += 1;
-        }
-
-        public void DeliverySwich()
-        {
-
-            if (this.TankDelivering)
+            if (TankLeaking)
             {
-                this.TankDelivering = false;
-            }
-            else 
-            {
-                this.TankDelivering = true;
-                this.DeliveringThread = new Thread(new ThreadStart(DeliveryThread));
-                this.DeliveringThread.Start(); 
+                while (TankLeaking & ProducChangePerInterval(value))
+                {
+                    Thread.Sleep(100);
+                }
+                TankLeaking = false;
+                return;
             }
         }
 
   
 
-        public double GetGrossObservedVolume() 
+        public void DeliverySwich(float value)
+        {
+
+            if (TankDelivering)
+            {
+                TankDelivering = false;
+            }
+            else 
+            {
+                
+                TankDelivering = true;
+                this.ProductChanging = new Thread(() => ProductChangeThread(value)); 
+                this.ProductChanging.Start(); 
+            }
+        }
+
+        public void LeakingSwich(float value)
+        {
+
+            if (this.TankLeaking)
+            {
+                this.TankLeaking = false;
+            }
+            else
+            {
+
+                this.TankLeaking = true;
+                this.ProductChanging = new Thread(() => ProductChangeThread(-value));
+                this.ProductChanging.Start();
+            }
+        }
+
+
+
+        public float GetGrossObservedVolume() 
         {
             return LevelToVolume(GetProductLevel()) + LevelToVolume(GetWaterLevel());
         }
 
-        public double GetGrossStandardVolume()
+        public float GetGrossStandardVolume()
         {
-            double tempDelta = ProductTemerature - 15;
+            float tempDelta = ProductTemerature - 15;
             return LevelToVolume(GetProductLevel()) * (1 - thermalExpansionCoefficient * tempDelta);
         }
 
-        public double GetUllage() 
+        public float GetUllage() 
         {
             return LevelToVolume(MaxSafeWorkingCapacity - GetProductLevel() - GetWaterLevel());
         }
@@ -212,15 +253,15 @@ namespace PortVeederRootGaugeSim
 
 
 
-        private double VolumeToLevel(double v) 
+        private float VolumeToLevel(float v) 
         {
-           double l =  v/ (Math.PI * Math.Pow(TankProbeDiameter / 2, 2));
+           float l = (float)(v / (Math.PI * Math.Pow(TankProbeDiameter / 2, 2)));
            return l;
         }
 
-        private double LevelToVolume(double l)
+        private float LevelToVolume(float l)
         {
-            double v = l * (Math.PI * Math.Pow(TankProbeDiameter / 2, 2));
+            float v = (float)(l * (Math.PI * Math.Pow(TankProbeDiameter / 2, 2)));
             return v;
         }
 
@@ -237,20 +278,17 @@ namespace PortVeederRootGaugeSim
             //TODO-Optional
         }
 
-        public void Leaking()
-        {
-            //TODO-Optional
-        }
+   
 
 
         public override string ToString()
         {
             String returnString = "";
             returnString += "TankProbeId = " + TankProbeId.ToString() + "                                               ";
-            returnString += "productLevel = " + productLevel.ToString() + "               ";
-            returnString += "productVolume = " + productVolume.ToString() + "             ";
-            returnString += "waterLevel = " + waterLevel.ToString() + "                                                   ";
-            returnString += "waterVolume = " + waterVolume.ToString() + "                 ";
+            returnString += "productLevel = " + productLevel.ToString() + "                                  ";
+            returnString += "productVolume = " + productVolume.ToString() + "                               ";
+            returnString += "waterLevel = " + waterLevel.ToString() + "                                                 ";
+            returnString += "waterVolume = " + waterVolume.ToString() + "                        ";
             returnString += "ProductTemerature = " + ProductTemerature.ToString() + "                           ";
             returnString += "TankDropCount = " + TankDropCount.ToString() + "                           ";
 
