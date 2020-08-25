@@ -1,11 +1,21 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing.Text;
+using System.Text;
 
 namespace PortVeederRootGaugeSim.IO
 {
 
     class TLS3XXProtocol
     {
-        
+
+        RootSim simulator;
+
+        public TLS3XXProtocol(RootSim simulator)
+        {
+            this.simulator = simulator;
+        }
+
         public string parse(string toParse)
         {
             StringBuilder sb = new StringBuilder("\x02");
@@ -31,7 +41,7 @@ namespace PortVeederRootGaugeSim.IO
             
 
             // This can probably be replaced with a key:value store to call functions
-            if (protocolCategory == 'I')
+            if (protocolCategory == 'i')
             {         
                 switch (protocolCommand)
                 {
@@ -52,7 +62,7 @@ namespace PortVeederRootGaugeSim.IO
                         break;
                 }
 
-            } else if(protocolCategory == 'S')
+            } else if(protocolCategory == 's')
             {
                 switch (protocolCommand)
                 {
@@ -80,12 +90,54 @@ namespace PortVeederRootGaugeSim.IO
             return sb.ToString();
         }
 
+        private string singleToHex(Single number)
+        {
+            int converted = BitConverter.SingleToInt32Bits(number);
+            return converted.ToString("x");
+        }
 
-   
         //Command I201 - In Tank inventory
         private string I201(string TankNumber)
         {
-            return null;
+            List<TankProbe> probes = simulator.TankProbeList;
+
+            StringBuilder replyString = new StringBuilder();
+            // Not yet implemented into the simulator class
+            string date;
+            // Not yet implemented into the tank
+            string product;
+            //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
+            replyString.Append(Convert.ToInt16("0000", 2).ToString("x"));
+            
+            if (TankNumber == "00")
+            {
+                replyString.Append($"{7*probes.Count}");
+                foreach(TankProbe probe in probes)
+                {
+                    replyString.Append(singleToHex((float) probe.GetGrossObservedVolume()));
+                    replyString.Append(singleToHex((float) probe.GetGrossStandardVolume()));
+                    replyString.Append(singleToHex((float) probe.GetUllage()));
+                    replyString.Append(singleToHex((float) probe.GetProductLevel()));
+                    replyString.Append(singleToHex((float) probe.GetWaterLevel()));
+                    // Not implemented
+                    //replyString.Append(singleToHex((float) probe.Get));
+                    replyString.Append(singleToHex((float) probe.GetwaterVolume()));
+                }
+            } else
+            {
+                replyString.Append("7");
+                TankProbe probe = probes[Convert.ToInt32(TankNumber)];
+                replyString.Append(singleToHex((float)probe.GetGrossObservedVolume()));
+                replyString.Append(singleToHex((float)probe.GetGrossStandardVolume()));
+                replyString.Append(singleToHex((float)probe.GetUllage()));
+                replyString.Append(singleToHex((float)probe.GetProductLevel()));
+                replyString.Append(singleToHex((float)probe.GetWaterLevel()));
+                // Not implemented
+                //replyString.Append(singleToHex((float) probe.Get));
+                replyString.Append(singleToHex((float)probe.GetwaterVolume()));
+            }
+
+            return replyString.ToString();
         }
 
         //Command I202 - In Tank delivery report
