@@ -7,7 +7,7 @@ namespace PortVeederRootGaugeSim
     class RootSim
     {
         public List<TankProbe> TankProbeList { get; set; }
-        public String SystemTime { get; set; }
+        public TimeSpan SystemTime { get; set; }
 
         public RootSim(List<TankProbe> tankList)
         {
@@ -20,7 +20,7 @@ namespace PortVeederRootGaugeSim
         {
             while (true)
             {
-                SystemTime = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss\\.ff");
+                SystemTime = DateTime.Now.TimeOfDay;
                 Thread.Sleep(100);
             }
             
@@ -34,7 +34,7 @@ namespace PortVeederRootGaugeSim
             TankProbeList.Add(t);
         }
 
-        public void removeTankProbe(int tankId)
+        public void RemoveTankProbe(int tankId)
         {
             for (int i = 0; i < TankProbeList.Count; i++)
             {
@@ -47,3 +47,4 @@ namespace PortVeederRootGaugeSim
 
     }
 }
+
