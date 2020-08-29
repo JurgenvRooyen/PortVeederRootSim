@@ -1,33 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace PortVeederRootGaugeSim
 {
     class RootSim
     {
+ 
         public List<TankProbe> TankProbeList { get; set; }
         public TimeSpan SystemTime { get; set; }
 
-        public RootSim(List<TankProbe> tankList)
+
+        public RootSim(List<TankProbe> tankProbeList, TimeSpan systemTime)
         {
-            TankProbeList = tankList;
-            Thread timer = new Thread(() => TickingTime());
-            timer.Start();
+            TankProbeList = tankProbeList;
+            SystemTime = systemTime;
         }
 
-        private void TickingTime()
-        {
-            while (true)
-            {
-                SystemTime = DateTime.Now.TimeOfDay;
-                Thread.Sleep(100);
-            }
-            
-        }
 
-         
-    
 
         public void AddTankProbek(TankProbe t)
         {
