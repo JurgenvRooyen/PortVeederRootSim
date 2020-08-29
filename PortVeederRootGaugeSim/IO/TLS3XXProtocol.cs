@@ -8,51 +8,48 @@ namespace PortVeederRootGaugeSim.IO
 
     class TLS3XXProtocol
     {
-
-        RootSim simulator;
+        readonly RootSim simulator;
 
         public TLS3XXProtocol(RootSim simulator)
         {
             this.simulator = simulator;
         }
 
-        public string parse(string toParse)
+        public string Parse(string toParse)
         {
             StringBuilder sb = new StringBuilder("\x02");
 
             char protocolCategory;
             string protocolCommand;
             string tankNumber;
-
+            int probeID;
             try
             {
                 //Skip first char due to SOH marker
-                 protocolCategory = toParse[1];
-                 protocolCommand = toParse.Substring(2, 3);
-                 tankNumber = toParse.Substring(4, 5);
+                protocolCategory = toParse[1];
+                protocolCommand = toParse.Substring(2, 4);
+                tankNumber = toParse.Substring(4, 6);
+                probeID = Convert.ToInt32(tankNumber);
             }
             catch (System.ArgumentOutOfRangeException)
             {
                 sb.Append("9999" + "\x03");
                 return sb.ToString();
             }
-
-            // TLS3XX protocol requires a prepended SOH char to mark a messages start
             
-
             // This can probably be replaced with a key:value store to call functions
             if (protocolCategory == 'i')
             {         
                 switch (protocolCommand)
                 {
                     case "201":
-                        sb.Append(I201(tankNumber));
+                        sb.Append(I201(probeID));
                         break;
                     case "202":
-                        sb.Append(I202(tankNumber));
+                        sb.Append(I202(probeID));
                         break;
                     case "205":
-                        sb.Append(I205(tankNumber));
+                        sb.Append(I205(probeID));
                         break;
                     case "902":
                         sb.Append(I902());
@@ -67,7 +64,7 @@ namespace PortVeederRootGaugeSim.IO
                 switch (protocolCommand)
                 {
                     case "051":
-                        sb.Append(S051(tankNumber));
+                        sb.Append(S051(probeID));
                         break;
                     case "501":
                         sb.Append(S501(toParse.Substring(6)));
@@ -90,58 +87,62 @@ namespace PortVeederRootGaugeSim.IO
             return sb.ToString();
         }
 
-        private string singleToHex(Single number)
+        private string SingleToHex(Single number)
         {
             int converted = BitConverter.SingleToInt32Bits(number);
             return converted.ToString("x");
         }
 
         //Command I201 - In Tank inventory
-        private string I201(string TankNumber)
+        private string I201(int probeID)
         {
-            List<TankProbe> probes = simulator.TankProbeList;
 
+            List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
             // Not yet implemented into the simulator class
             string date;
-            // Not yet implemented into the tank
-            string product;
-            //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
-            replyString.Append(Convert.ToInt16("0000", 2).ToString("x"));
-            
-            if (TankNumber == "00")
+
+            string ProbeDetails(int probeID)
             {
-                replyString.Append($"{7*probes.Count}");
+                StringBuilder probeString = new StringBuilder();
+                TankProbe probe = probes[probeID-1];
+
+                probeString.Append(probeID);
+                //Not implemented yet
+                string product;
+                //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
+                probeString.Append(Convert.ToInt16("0000", 2).ToString("x"));
+                probeString.Append("07");
+                probeString.Append(SingleToHex((float)probe.GetGrossObservedVolume()));
+                probeString.Append(SingleToHex((float)probe.GetGrossStandardVolume()));
+                probeString.Append(SingleToHex((float)probe.GetUllage()));
+                probeString.Append(SingleToHex((float)probe.GetProductLevel()));
+                probeString.Append(SingleToHex((float)probe.GetWaterLevel()));
+                // Not implemented, tmeperature
+                //replyString.Append(SingleToHex((float) probe.Get));
+                probeString.Append(SingleToHex((float)probe.GetwaterVolume()));
+
+                return probeString.ToString();
+            }
+             
+            if (probeID == 0)
+            {
+                probeID++;
                 foreach(TankProbe probe in probes)
                 {
-                    replyString.Append(singleToHex((float) probe.GetGrossObservedVolume()));
-                    replyString.Append(singleToHex((float) probe.GetGrossStandardVolume()));
-                    replyString.Append(singleToHex((float) probe.GetUllage()));
-                    replyString.Append(singleToHex((float) probe.GetProductLevel()));
-                    replyString.Append(singleToHex((float) probe.GetWaterLevel()));
-                    // Not implemented
-                    //replyString.Append(singleToHex((float) probe.Get));
-                    replyString.Append(singleToHex((float) probe.GetwaterVolume()));
+                    replyString.Append(ProbeDetails(probeID));
+                    probeID++;
                 }
             } else
             {
-                replyString.Append("7");
-                TankProbe probe = probes[Convert.ToInt32(TankNumber)];
-                replyString.Append(singleToHex((float)probe.GetGrossObservedVolume()));
-                replyString.Append(singleToHex((float)probe.GetGrossStandardVolume()));
-                replyString.Append(singleToHex((float)probe.GetUllage()));
-                replyString.Append(singleToHex((float)probe.GetProductLevel()));
-                replyString.Append(singleToHex((float)probe.GetWaterLevel()));
-                // Not implemented
-                //replyString.Append(singleToHex((float) probe.Get));
-                replyString.Append(singleToHex((float)probe.GetwaterVolume()));
+                replyString.Append(ProbeDetails(probeID));
             }
 
             return replyString.ToString();
         }
 
         //Command I202 - In Tank delivery report
-        private string I202(string TankNumber)
+        private string I202(int probeID)
         {
             return null;
         }
