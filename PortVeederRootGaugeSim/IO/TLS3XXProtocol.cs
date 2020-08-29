@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Text;
@@ -13,6 +14,13 @@ namespace PortVeederRootGaugeSim.IO
         public TLS3XXProtocol(RootSim simulator)
         {
             this.simulator = simulator;
+        }
+
+        private string DateFormat(TimeSpan offset)
+        {
+            DateTime simulatorTime = System.DateTime.Now + offset;
+            string formattedTime = simulatorTime.ToString("yyyyMMddHHmm");
+            return formattedTime;
         }
 
         public string Parse(string toParse)
@@ -99,8 +107,7 @@ namespace PortVeederRootGaugeSim.IO
 
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
-            // Not yet implemented into the simulator class
-            string date;
+            replyString.Append(DateFormat(simulator.SystemTime));
 
             string ProbeDetails(int probeID)
             {
@@ -108,8 +115,7 @@ namespace PortVeederRootGaugeSim.IO
                 TankProbe probe = probes[probeID-1];
 
                 probeString.Append(probeID);
-                //Not implemented yet
-                string product;
+                probeString.Append(probe.ProductCode);
                 //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
                 probeString.Append(Convert.ToInt16("0000", 2).ToString("x"));
                 probeString.Append("07");
@@ -118,8 +124,7 @@ namespace PortVeederRootGaugeSim.IO
                 probeString.Append(SingleToHex((float)probe.GetUllage()));
                 probeString.Append(SingleToHex((float)probe.GetProductLevel()));
                 probeString.Append(SingleToHex((float)probe.GetWaterLevel()));
-                // Not implemented, tmeperature
-                //replyString.Append(SingleToHex((float) probe.Get));
+                replyString.Append(SingleToHex((float)probe.ProductTemerature));
                 probeString.Append(SingleToHex((float)probe.GetwaterVolume()));
 
                 return probeString.ToString();
@@ -148,7 +153,7 @@ namespace PortVeederRootGaugeSim.IO
         }
 
         //Command I205 - In Tank Status Report
-        private string I205(string TankNumber)
+        private string I205(int TankNumber)
         {
             return null;
         }
@@ -160,7 +165,7 @@ namespace PortVeederRootGaugeSim.IO
         }
 
         //Command S051 - Clear In Tank delivery reports
-        private string S051(string TankNumber)
+        private string S051(int TankNumber)
         {
             return null;
         }
