@@ -2,7 +2,7 @@
 
 namespace PortVeederRootGaugeSim
 {
-    class TankDrop
+    public class TankDrop
     {
         public double Volume { get; set; }
         public DateTime StartDate { get; set; }
@@ -37,8 +37,6 @@ namespace PortVeederRootGaugeSim
 
             return DroppedVolume;
         }
-
-
 
     }
 }

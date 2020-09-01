@@ -10,11 +10,26 @@ namespace PortVeederRootGaugeSim.UI
 {
     public partial class TankUserControl : UserControl
     {
+        public int tankID { get; set; }
+        public RootSim tankGauges { get; set; }
+
         public TankUserControl()
         {
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             tempUpDown.Value = 15;
+            productUpDown.Value = 800;
+            waterUpDown.Value = 20;
+        }
+
+        public TankUserControl(int id, RootSim r)
+        {
+            tankID = id;
+            tankGauges = r;
+            InitializeComponent();
+            comboBox1.SelectedIndex = 0;
+            //tempUpDown.Value = 15;
+            tempUpDown.Value = tankGauges.getProbe(tankID).ProductTemerature;
             productUpDown.Value = 800;
             waterUpDown.Value = 20;
         }

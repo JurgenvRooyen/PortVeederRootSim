@@ -88,7 +88,7 @@
             this.tank1.Size = new System.Drawing.Size(123, 647);
             this.tank1.TabIndex = 2;
             this.tank1.TabStop = false;
-            this.tank1.Text = "Tank #";
+            this.tank1.Text = "Tank " + (tankID + 1);
             // 
             // comboBox1
             // 
@@ -300,6 +300,7 @@
             this.tempUpDown.Size = new System.Drawing.Size(72, 27);
             this.tempUpDown.TabIndex = 1;
             this.tempUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+
             // 
             // tempLabel
             // 

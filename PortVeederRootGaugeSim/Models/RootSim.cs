@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace PortVeederRootGaugeSim
 {
-    class RootSim
+    public class RootSim
     {
-        public List<TankProbe> TankProbeList { get; set; }
+        public List<TankProbe> TankProbeList;
 
-        public RootSim(List<TankProbe> tankList)
+        public RootSim()
         {
-            TankProbeList = tankList;
+            TankProbeList = new List<TankProbe>();
         }
 
-    
-
-        public void addTankProbek(TankProbe t)
+        public void addTankProbe(TankProbe t)
         {
+            System.Diagnostics.Debug.WriteLine("tank probe ID" + t.TankProbeId);
             TankProbeList.Add(t);
+            System.Diagnostics.Debug.WriteLine("Number of tanks in Root Sim " + TankProbeList.Count);
         }
 
         public void removeTankProbe(int tankId)
@@ -27,6 +28,20 @@ namespace PortVeederRootGaugeSim
                     TankProbeList.Remove(TankProbeList[i]);
                 }
             }
+        }
+
+        public TankProbe getProbe (int probeNumber)
+        {
+            try
+            {
+                return TankProbeList[probeNumber];
+            } catch (System.ArgumentOutOfRangeException e)
+            {
+                System.Diagnostics.Debug.WriteLine("probe number " + probeNumber + " " + "list length " + TankProbeList.Count);
+                return TankProbeList[0];
+                   
+            }
+            
         }
 
     }
