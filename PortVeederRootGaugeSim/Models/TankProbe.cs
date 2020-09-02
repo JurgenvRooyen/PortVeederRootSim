@@ -39,7 +39,7 @@ namespace PortVeederRootGaugeSim
         }    
         public Boolean SetProductVolume(float value)
         {
-            if (value + waterVolume > fullVolume | value < 0)
+            if (value + waterVolume > FullVolume | value < 0)
             {
                 return false;
             }
@@ -71,7 +71,7 @@ namespace PortVeederRootGaugeSim
         }      
         public Boolean SetWaterVolume(float value)
         {
-            if (value + productVolume > fullVolume | value < 0)
+            if (value + productVolume > FullVolume | value < 0)
             {
                 return false;
             }
@@ -86,7 +86,7 @@ namespace PortVeederRootGaugeSim
         public const float thermalExpansionCoefficient = 0.0018F; 
 
         // Alarm attributes
-        public float fullVolume { get; }
+        public float FullVolume { get; }
 
         public float MaxSafeWorkingCapacity { get; set; }
         public float OverFillLimit { get; set; }
@@ -111,7 +111,7 @@ namespace PortVeederRootGaugeSim
             this.TankProbeHeight = tankLength;
             this.TankProbeDiameter = tankDiameter;
             this.TankProbeShape = tankShapeString;
-            fullVolume = LevelToVolume(tankLength);
+            FullVolume = LevelToVolume(tankLength);
             if (unit == "level")
             {
                 SetProductLevel(productValue);
