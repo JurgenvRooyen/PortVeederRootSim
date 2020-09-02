@@ -195,23 +195,23 @@ namespace SimulatorTest
         public void TestGetWaterVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            Assert.AreEqual(tank1.GetwaterVolume(), 100);
+            Assert.AreEqual(tank1.GetWaterVolume(), 100);
         }
 
         [Test]
         public void TestSetWaterVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            Assert.IsTrue(tank1.SetwaterVolume(150));
-            Assert.AreEqual(tank1.GetwaterVolume(), 150);
+            Assert.IsTrue(tank1.SetWaterVolume(150));
+            Assert.AreEqual(tank1.GetWaterVolume(), 150);
         }
 
         [Test]
         public void TestSetTooMuchWaterVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            Assert.IsFalse(tank1.SetwaterVolume(10000000000));
-            Assert.AreEqual(tank1.GetwaterVolume(), 100);
+            Assert.IsFalse(tank1.SetWaterVolume(10000000000));
+            Assert.AreEqual(tank1.GetWaterVolume(), 100);
         }
     }
 }
