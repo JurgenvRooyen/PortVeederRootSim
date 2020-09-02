@@ -154,18 +154,18 @@ namespace PortVeederRootGaugeSim
 
 
 
-        public Boolean  ProducChangePerInterval(float value) 
+        public Boolean  ProductChangePerInterval(float value) 
         {
             // could change 
-            float IncreasdVolume = value;
-            return SetProductVolume(this.productVolume + IncreasdVolume);
+            float IncreasedVolume = value;
+            return SetProductVolume(this.productVolume + IncreasedVolume);
         }
 
         public void ProductChangeThread(float value)
         {
             if (TankDelivering)
             {
-                while (TankDelivering & ProducChangePerInterval(value))
+                while (TankDelivering & ProductChangePerInterval(value))
                 {
                     Thread.Sleep(100);
                 }
@@ -175,7 +175,7 @@ namespace PortVeederRootGaugeSim
             }
             if (TankLeaking)
             {
-                while (TankLeaking & ProducChangePerInterval(value))
+                while (TankLeaking & ProductChangePerInterval(value))
                 {
                     Thread.Sleep(100);
                 }
@@ -186,7 +186,7 @@ namespace PortVeederRootGaugeSim
 
   
 
-        public void DeliverySwich(float value)
+        public void DeliverySwitch(float value)
         {
 
             if (TankDelivering)
@@ -202,7 +202,7 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public void LeakingSwich(float value)
+        public void LeakingSwitch(float value)
         {
 
             if (this.TankLeaking)
