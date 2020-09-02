@@ -111,6 +111,7 @@ namespace PortVeederRootGaugeSim
             this.TankProbeHight = tankLength;
             this.TankProbeDiameter = tankDiameter;
             this.TankProbeShape = tankShapeString;
+            FullVolume = LevelToVolume(tankLength);
             if (unit == "level")
             {
                 SetProductLevel(productValue);
@@ -126,9 +127,6 @@ namespace PortVeederRootGaugeSim
 
             this.TankDelivering = false;
             this.TankLeaking = false;
-
-
-            FullVolume = LevelToVolume(tankLength);
 
     
             MaxSafeWorkingCapacity      = 0.95F * TankProbeHight;

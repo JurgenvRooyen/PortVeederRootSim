@@ -20,7 +20,7 @@ namespace SimulatorTest
             List<TankProbe> testList = new List<TankProbe>();
             TimeSpan testTime = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
             RootSim test = new RootSim(testList, testTime);
-            test.AddTankProbek(tank1);
+            test.AddTankProbe(tank1);
             Assert.AreEqual(test.TankProbeList.Count, 1);
         }
 
@@ -33,9 +33,9 @@ namespace SimulatorTest
             List<TankProbe> testList = new List<TankProbe>();
             TimeSpan testTime = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
             RootSim test = new RootSim(testList, testTime);
-            test.AddTankProbek(tank1);
-            test.AddTankProbek(tank2);
-            test.AddTankProbek(tank3);
+            test.AddTankProbe(tank1);
+            test.AddTankProbe(tank2);
+            test.AddTankProbe(tank3);
             Assert.AreEqual(test.TankProbeList.Count, 3);
         }
 
@@ -46,7 +46,7 @@ namespace SimulatorTest
             List<TankProbe> testList = new List<TankProbe>();
             TimeSpan testTime = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
             RootSim test = new RootSim(testList, testTime);
-            test.AddTankProbek(tank1);
+            test.AddTankProbe(tank1);
             Assert.AreEqual(test.TankProbeList.Count, 1);
             test.RemoveTankProbe(1);
             Assert.AreEqual(test.TankProbeList.Count, 0);
@@ -62,9 +62,9 @@ namespace SimulatorTest
             List<TankProbe> testList = new List<TankProbe>();
             TimeSpan testTime = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
             RootSim test = new RootSim(testList, testTime);
-            test.AddTankProbek(tank1);
-            test.AddTankProbek(tank2);
-            test.AddTankProbek(tank3);
+            test.AddTankProbe(tank1);
+            test.AddTankProbe(tank2);
+            test.AddTankProbe(tank3);
             Assert.AreEqual(test.TankProbeList.Count, 3);
             test.RemoveTankProbe(1);
             test.RemoveTankProbe(2);
@@ -79,7 +79,7 @@ namespace SimulatorTest
             List<TankProbe> testList = new List<TankProbe>();
             TimeSpan testTime = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
             RootSim test = new RootSim(testList, testTime);
-            test.AddTankProbek(tank1);
+            test.AddTankProbe(tank1);
             Assert.AreEqual(test.TankProbeList.Count, 1);
             test.RemoveTankProbe(1);
             test.RemoveTankProbe(2);
@@ -95,7 +95,7 @@ namespace SimulatorTest
             List<TankProbe> testList = new List<TankProbe>();
             TimeSpan testTime = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
             RootSim test = new RootSim(testList, testTime);
-            test.AddTankProbek(tank1);
+            test.AddTankProbe(tank1);
             Assert.AreEqual(test.TankProbeList.Count, 1);
             test.RemoveTankProbe(-1);
             Assert.AreEqual(test.TankProbeList.Count, 1);
@@ -189,6 +189,29 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
             Assert.IsFalse(tank1.SetWaterLevel(-1));
+        }
+
+        [Test]
+        public void TestGetWaterVolume()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+            Assert.AreEqual(tank1.GetwaterVolume(), 100);
+        }
+
+        [Test]
+        public void TestSetWaterVolume()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+            Assert.IsTrue(tank1.SetwaterVolume(150));
+            Assert.AreEqual(tank1.GetwaterVolume(), 150);
+        }
+
+        [Test]
+        public void TestSetTooMuchWaterVolume()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+            Assert.IsFalse(tank1.SetwaterVolume(10000000000));
+            Assert.AreEqual(tank1.GetwaterVolume(), 100);
         }
     }
 }
