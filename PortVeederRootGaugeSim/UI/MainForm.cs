@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -36,8 +37,9 @@ namespace PortVeederRootGaugeSim
 
         private void gaugeButton_Click(object sender, EventArgs e)
         {
-            GaugeSetup form3 = new GaugeSetup();
-            form3.ShowDialog();
+            GaugeSetup form3 = new GaugeSetup(TankGauges, flowLayoutPanel);
+            //form3.ShowDialog();
+            form3.Show(this);
         }
 
         private void addProbeButton_Click(object sender, EventArgs e)
@@ -49,8 +51,9 @@ namespace PortVeederRootGaugeSim
 
         private void deleteProbeButton_Click(object sender, EventArgs e)
         {
-            if (flowLayoutPanel.Controls.Count > 0)
+            if (flowLayoutPanel.Controls.Count > 1)
             {
+                System.Diagnostics.Debug.WriteLine(flowLayoutPanel.Controls.Count);
                 flowLayoutPanel.Controls.RemoveAt(flowLayoutPanel.Controls.Count - 1);
                 TankGauges.removeTankProbe(numberOfTanks);
                 numberOfTanks--;

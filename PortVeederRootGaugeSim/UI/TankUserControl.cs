@@ -65,7 +65,6 @@ namespace PortVeederRootGaugeSim.UI
         private void tempUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.ProductTemerature = Convert.ToInt32(tempUpDown.Value);
-            System.Diagnostics.Debug.WriteLine(tankProbe.ProductTemerature);
             gov.Text = Convert.ToString(tankProbe.GetGOV());
             gsv.Text = Convert.ToString(tankProbe.GetGSV());
             ullage.Text = Convert.ToString(tankProbe.GetUllage2());
