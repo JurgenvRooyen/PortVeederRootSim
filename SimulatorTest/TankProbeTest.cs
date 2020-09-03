@@ -151,35 +151,12 @@ namespace SimulatorTest
         }
 
         [Test]
-        public void TestDeliverySwitchFalse()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            tank1.TankDelivering = false;
-            Assert.AreEqual(tank1.TankDropCount, 0);
-            tank1.DeliverySwitch(100);
-            Assert.AreEqual(tank1.TankDropCount, 1);
-            Assert.AreEqual(tank1.GetProductVolume(), 200);
-        }
-
-        [Test]
         public void TestDeliverySwitchTrue()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             tank1.TankDelivering = true;
-            Assert.AreEqual(tank1.TankDropCount, 0);
             tank1.DeliverySwitch(100);
-            Assert.AreEqual(tank1.TankDropCount, 0);
             Assert.False(tank1.TankDelivering);
-            Assert.AreEqual(tank1.GetProductVolume(), 100);
-        }
-
-        [Test]
-        public void TestLeakingSwitchFalse()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            tank1.TankLeaking = false;
-            tank1.LeakingSwitch(50);
-            Assert.AreEqual(tank1.GetProductVolume(), 50);
         }
 
         [Test]
@@ -189,7 +166,6 @@ namespace SimulatorTest
             tank1.TankLeaking = true;
             tank1.LeakingSwitch(50);
             Assert.False(tank1.TankLeaking);
-            Assert.AreEqual(tank1.GetProductVolume(), 100);
         }
 
         [Test]
