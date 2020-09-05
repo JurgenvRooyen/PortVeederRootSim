@@ -121,52 +121,52 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.GetWaterVolume(), 100);
         }
 
-        [Test]
-        public void TestTankDrop()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            TankDrop drop1 = new TankDrop(100, DateTime.Now, 20);
-            Assert.AreEqual(tank1.TankDropCount, 0);
-            Assert.True(tank1.TankDrop(drop1));
-            Assert.AreEqual(tank1.TankDropCount, 1);
-            Assert.AreEqual(tank1.GetProductVolume(), 200);
-        }
+        //[Test]
+        //public void TestTankDrop()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+        //    TankDrop drop1 = new TankDrop(100, DateTime.Now, 20);
+        //    Assert.AreEqual(tank1.TankDropCount, 0);
+        //    Assert.True(tank1.TankDrop(drop1));
+        //    Assert.AreEqual(tank1.TankDropCount, 1);
+        //    Assert.AreEqual(tank1.GetProductVolume(), 200);
+        //}
 
-        [Test]
-        public void TestTankDropTooMuch()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            TankDrop drop1 = new TankDrop(100000000000, DateTime.Now, 20);
-            Assert.AreEqual(tank1.TankDropCount, 0);
-            Assert.False(tank1.TankDrop(drop1));
-            Assert.AreEqual(tank1.TankDropCount, 0);
-        }
+        //[Test]
+        //public void TestTankDropTooMuch()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+        //    TankDrop drop1 = new TankDrop(100000000000, DateTime.Now, 20);
+        //    Assert.AreEqual(tank1.TankDropCount, 0);
+        //    Assert.False(tank1.TankDrop(drop1));
+        //    Assert.AreEqual(tank1.TankDropCount, 0);
+        //}
 
-        [Test]
-        public void TestProductChangePerInterval()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            tank1.ProductChangePerInterval(100);
-            Assert.AreEqual(tank1.GetProductVolume(), 200);
-        }
+        //[Test]
+        //public void TestProductChangePerInterval()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+        //    tank1.ProductChangePerInterval(100);
+        //    Assert.AreEqual(tank1.GetProductVolume(), 200);
+        //}
 
-        [Test]
-        public void TestDeliverySwitchTrue()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            tank1.TankDelivering = true;
-            tank1.DeliverySwitch(100);
-            Assert.False(tank1.TankDelivering);
-        }
+        //[Test]
+        //public void TestDeliverySwitchTrue()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+        //    tank1.TankDelivering = true;
+        //    tank1.DeliverySwitch(100);
+        //    Assert.False(tank1.TankDelivering);
+        //}
 
-        [Test]
-        public void TestLeakingSwitchTrue()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            tank1.TankLeaking = true;
-            tank1.LeakingSwitch(50);
-            Assert.False(tank1.TankLeaking);
-        }
+        //[Test]
+        //public void TestLeakingSwitchTrue()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
+        //    tank1.TankLeaking = true;
+        //    tank1.LeakingSwitch(50);
+        //    Assert.False(tank1.TankLeaking);
+        //}
 
         [Test]
         public void TestGetGrossObservedVolume()
@@ -182,12 +182,12 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.GetGrossStandardVolume(), 792466.75F);
         }
 
-        [Test]
-        public void TestGetUllage()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.AreEqual(tank1.GetUllage(), 5890486);
-        }
+        //[Test]
+        //public void TestGetUllage()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
+        //    Assert.AreEqual(tank1.GetUllage(), 5890486);
+        //}
 
         [Test]
         public void TestGetTankStatus()
