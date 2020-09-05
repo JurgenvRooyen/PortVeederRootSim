@@ -22,17 +22,17 @@ namespace PortVeederRootGaugeSim
         {
             return productLevel;
         }     
+
         public Boolean SetProductLevel(float value)
         {
 
-
+            if (value + GetWaterLevel() > TankProbeHeight | value < 0)
             {
                 return false;
             }
             productLevel = value;
             productVolume = (LevelToVolume(value));
-            return true;
-            
+            return true;     
         }
 
         private float productVolume = 0;   

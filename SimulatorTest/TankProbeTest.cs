@@ -182,12 +182,12 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.GetGrossStandardVolume(), 792466.75F);
         }
 
-        [Test]
-        public void TestGetUllage()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.AreEqual(tank1.GetUllage(), 5890486);
-        }
+        //[Test]
+        //public void TestGetUllage()
+        //{
+        //    TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
+        //    Assert.AreEqual(tank1.GetUllage(), 5890486);
+        //}
 
         [Test]
         public void TestGetTankStatus()
