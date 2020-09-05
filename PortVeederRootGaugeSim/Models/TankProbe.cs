@@ -14,7 +14,7 @@ namespace PortVeederRootGaugeSim
         public int TankProbeId { get; set; }
         public char ProductCode { get; set; }
         public string TankProbeShape { get; set; }
-        public float TankProbeHight { get; set; }
+        public float TankProbeHeight { get; set; }
         public float TankProbeDiameter { get; set; }
 
         public float productLevel = 0 ;     
@@ -24,7 +24,8 @@ namespace PortVeederRootGaugeSim
         }     
         public Boolean SetProductLevel(float value)
         {
-            if (value + GetWaterLevel()> TankProbeHight | value < 0)
+
+
             {
                 return false;
             }
@@ -57,7 +58,7 @@ namespace PortVeederRootGaugeSim
         }       
         public Boolean SetWaterLevel(float value)
         {
-            if (value + productLevel > TankProbeHight | value < 0)
+            if (value + productLevel > TankProbeHeight | value < 0)
             {
                 return false;
             }
@@ -67,11 +68,12 @@ namespace PortVeederRootGaugeSim
         }
 
         public float waterVolume = 0;      
-        public float GetwaterVolume()
+        public float GetWaterVolume()
         {
             return waterVolume;
-        }      
-        public Boolean SetwaterVolume(float value)
+        }
+      
+        public Boolean SetWaterVolume(float value)
         {
             if (value + productVolume > FullVolume | value < 0)
             {
@@ -82,7 +84,8 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
-        public float ProductTemerature { get; set; }
+        public float ProductTemperature { get; set; }
+        public float TankDropCount { get; set; }
 
         public const float thermalExpansionCoefficient = 0.0018F; 
 
@@ -114,9 +117,10 @@ namespace PortVeederRootGaugeSim
         {
             this.TankProbeId = tankId;
             this.ProductCode = productCode;
-            this.TankProbeHight = tankLength;
+            this.TankProbeHeight = tankLength;
             this.TankProbeDiameter = tankDiameter;
             this.TankProbeShape = tankShapeString;
+            FullVolume = LevelToVolume(tankLength);
             if (unit == "level")
             {
                 SetProductLevel(productValue);
@@ -124,15 +128,14 @@ namespace PortVeederRootGaugeSim
             }else if (unit == "volume")
             {
                 SetProductVolume(productValue);
-                SetwaterVolume(waterValue);
+                SetWaterVolume(waterValue);
             }
             
-            this.ProductTemerature = productTemerature;
+            this.ProductTemperature = productTemerature;
 
 
             this.TankDelivering = false;
             this.TankLeaking = false;
-
 
             FullVolume = LevelToVolume(tankLength);
 
@@ -149,7 +152,6 @@ namespace PortVeederRootGaugeSim
             TankLeakingPerInterval = 50;
 
             TankDroppedList = new List<TankDrop>();
-
         }
 
 
@@ -227,7 +229,9 @@ namespace PortVeederRootGaugeSim
 
   
 
+
         public void DeliverySwich(TimeSpan startTime)
+
         {
 
             if (TankDelivering)
@@ -251,14 +255,11 @@ namespace PortVeederRootGaugeSim
             }
             else
             {
-
                 this.TankLeaking = true;
                 this.ProductChanging = new Thread(() => ProductChangeThread(new TimeSpan()));
                 this.ProductChanging.Start();
             }
         }
-
-
 
         public float GetGrossObservedVolume() 
         {
@@ -267,7 +268,8 @@ namespace PortVeederRootGaugeSim
 
         public float GetGrossStandardVolume()
         {
-            float tempDelta = ProductTemerature - 15;
+
+            float tempDelta = ProductTemperature - 15;
             return LevelToVolume(GetProductLevel()) * (1 - thermalExpansionCoefficient * tempDelta);
         }
 
@@ -327,8 +329,8 @@ namespace PortVeederRootGaugeSim
             returnString += "productVolume = " + productVolume.ToString() + "                               ";
             returnString += "waterLevel = " + waterLevel.ToString() + "                                                 ";
             returnString += "waterVolume = " + waterVolume.ToString() + "                        ";
-            returnString += "ProductTemerature = " + ProductTemerature.ToString() + "                           ";
-            returnString += "TankDropCount = " + TankDroppedList.Count + "                           ";
+            returnString += "ProductTemerature = " + ProductTemperature.ToString() + "                           ";
+            returnString += "TankDropCount = " + TankDropCount.ToString() + "                           ";
 
 
             return returnString;

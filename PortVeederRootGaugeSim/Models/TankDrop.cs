@@ -31,8 +31,5 @@ namespace PortVeederRootGaugeSim
             StartingWaterVolume = startingWaterVolume;
             StartingTemperature = startingTemperature;
         }
-
-
-
     }
 }
