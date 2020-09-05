@@ -18,7 +18,7 @@ namespace PortVeederRootGaugeSim
 
 
 
-        public void AddTankProbek(TankProbe t)
+        public void AddTankProbe(TankProbe t)
         {
             TankProbeList.Add(t);
         }
