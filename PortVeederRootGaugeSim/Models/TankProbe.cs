@@ -140,13 +140,13 @@ namespace PortVeederRootGaugeSim
             FullVolume = LevelToVolume(tankLength);
 
     
-            MaxSafeWorkingCapacity      = 0.95F * TankProbeHight;
-            OverFillLimit               = 0.90F * TankProbeHight;
-            HighProductAlarmLevel       = 0.80F * TankProbeHight;
-            DeliveryNeededWarningLevel  = 0.30F * TankProbeHight;
-            LowProductAlarmLevel        = 0.20F * TankProbeHight;
-            HighWaterAlarmLevel         = 0.10F * TankProbeHight;
-            HighWaterWarningLevel       = 0.05F * TankProbeHight;
+            MaxSafeWorkingCapacity      = 0.95F * TankProbeHeight;
+            OverFillLimit               = 0.90F * TankProbeHeight;
+            HighProductAlarmLevel       = 0.80F * TankProbeHeight;
+            DeliveryNeededWarningLevel  = 0.30F * TankProbeHeight;
+            LowProductAlarmLevel        = 0.20F * TankProbeHeight;
+            HighWaterAlarmLevel         = 0.10F * TankProbeHeight;
+            HighWaterWarningLevel       = 0.05F * TankProbeHeight;
 
             TankDeliveringPerInterval = 50;
             TankLeakingPerInterval = 50;
@@ -162,16 +162,16 @@ namespace PortVeederRootGaugeSim
                                         this.GetProductVolume(),
                                         this.GetProductLevel(),
                                         this.GetGrossStandardVolume(),
-                                        this.GetwaterVolume(),
-                                        this.ProductTemerature);
+                                        this.GetWaterVolume(),
+                                        this.ProductTemperature);
             if (SetProductVolume(this.productVolume + volume))
             {
                 td.EndingTime = startTime + duration;
                 td.EndingVolume = this.GetProductVolume();
                 td.EndingVLevel = this.GetProductLevel();
                 td.EndingTemperatureCompensatedVolume = this.GetGrossStandardVolume();
-                td.EndingWaterVolume = this.GetwaterVolume();
-                td.EndingTemperature = this.ProductTemerature;
+                td.EndingWaterVolume = this.GetWaterVolume();
+                td.EndingTemperature = this.ProductTemperature;
                 this.TankDroppedList.Add(td);
                 return true;
             }
@@ -179,7 +179,7 @@ namespace PortVeederRootGaugeSim
         }
 
 
-        public Boolean  ProducChangePerInterval(float value) 
+        public Boolean  ProductChangePerInterval(float value) 
         {
             // could change 
             return SetProductVolume(this.productVolume + value);
@@ -194,11 +194,11 @@ namespace PortVeederRootGaugeSim
                                             this.GetProductVolume(),
                                             this.GetProductLevel(),
                                             this.GetGrossStandardVolume(),
-                                            this.GetwaterVolume(),
-                                            this.ProductTemerature);
+                                            this.GetWaterVolume(),
+                                            this.ProductTemperature);
                 float droppedVolume = 0f;
                 TimeSpan startDeliveringtime = DateTime.Now.TimeOfDay;
-                while (TankDelivering & ProducChangePerInterval(TankDeliveringPerInterval))
+                while (TankDelivering & ProductChangePerInterval(TankDeliveringPerInterval))
                 {
                     droppedVolume += TankDeliveringPerInterval;
                     Thread.Sleep(100);
@@ -209,8 +209,8 @@ namespace PortVeederRootGaugeSim
                 td.EndingVolume = this.GetProductVolume();
                 td.EndingVLevel = this.GetProductLevel();
                 td.EndingTemperatureCompensatedVolume = this.GetGrossStandardVolume();
-                td.EndingWaterVolume = this.GetwaterVolume();
-                td.EndingTemperature = this.ProductTemerature;
+                td.EndingWaterVolume = this.GetWaterVolume();
+                td.EndingTemperature = this.ProductTemperature;
                 this.TankDroppedList.Add(td);
                 return;
             }
@@ -218,7 +218,7 @@ namespace PortVeederRootGaugeSim
 
             if (TankLeaking)
             {
-                while (TankLeaking & ProducChangePerInterval(-TankLeakingPerInterval))
+                while (TankLeaking & ProductChangePerInterval(-TankLeakingPerInterval))
                 {
                     Thread.Sleep(100);
                 }
@@ -246,7 +246,7 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public void LeakingSwich()
+        public void LeakingSwitch()
         {
 
             if (this.TankLeaking)
