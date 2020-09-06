@@ -124,8 +124,8 @@ namespace PortVeederRootGaugeSim.IO
                 probeString.Append(SingleToHex((float)probe.GetUllage()));
                 probeString.Append(SingleToHex((float)probe.GetProductLevel()));
                 probeString.Append(SingleToHex((float)probe.GetWaterLevel()));
-                replyString.Append(SingleToHex((float)probe.ProductTemerature));
-                probeString.Append(SingleToHex((float)probe.GetwaterVolume()));
+                replyString.Append(SingleToHex((float)probe.ProductTemperature));
+                probeString.Append(SingleToHex((float)probe.GetWaterVolume()));
 
                 return probeString.ToString();
             }
