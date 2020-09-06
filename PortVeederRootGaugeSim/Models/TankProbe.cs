@@ -84,7 +84,7 @@ namespace PortVeederRootGaugeSim
         public const double thermalExpansionCoefficient = 0.0018;
 
         // Alarm attributes
-        public double FullVolume { get; }
+        public double FullVolume { get; set; }
 
         public double MaxSafeWorkingCapacity { get; set; }
         public double OverFillLimit { get; set; }

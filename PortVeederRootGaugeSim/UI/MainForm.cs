@@ -38,8 +38,8 @@ namespace PortVeederRootGaugeSim
         private void gaugeButton_Click(object sender, EventArgs e)
         {
             GaugeSetup form3 = new GaugeSetup(TankGauges, flowLayoutPanel);
-            //form3.ShowDialog();
-            form3.Show(this);
+            form3.ShowDialog();
+            
         }
 
         private void addProbeButton_Click(object sender, EventArgs e)
