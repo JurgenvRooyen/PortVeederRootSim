@@ -13,6 +13,8 @@ namespace BlackBoxTest
         TLS3XXProtocol protocol;
         TcpServer server;
         TcpClient client;
+        string soh = "\x02";
+        string eof = "\x03";
 
         [SetUp]
         public void SetUp()
@@ -40,9 +42,10 @@ namespace BlackBoxTest
             response = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
             nStream.Close();
+            Console.WriteLine(response);
             Assert.IsNotNull(response);
             Assert.AreNotEqual(response, String.Empty);
-            Assert.AreEqual("\x02" + "9999" + "\x03", response);
+            Assert.AreEqual($"{soh}9999{eof}", response);
         }
     }
 }
