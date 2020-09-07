@@ -41,13 +41,13 @@ namespace PortVeederRootGaugeSim
         {
             foreach (TankProbe t in tankGauges.TankProbeList)
             {
-                t.FullVolume = Convert.ToDouble(tankCapacityText.Text);
-                t.OverFillLimit = Convert.ToDouble(overfillLimitText.Text);
-                t.HighProductAlarmLevel = Convert.ToDouble(highLimitText.Text);
-                t.DeliveryNeededWarningLevel = Convert.ToDouble(deliveryWarningText.Text);
-                t.LowProductAlarmLevel = Convert.ToDouble(lowLimitText.Text);
-                t.HighWaterAlarmLevel = Convert.ToDouble(waterAlarmText.Text);
-                t.HighWaterWarningLevel = Convert.ToDouble(waterWarningText.Text);
+                t.FullVolume = Convert.ToSingle(tankCapacityText.Text);
+                t.OverFillLimit = Convert.ToSingle(overfillLimitText.Text);
+                t.HighProductAlarmLevel = Convert.ToSingle(highLimitText.Text);
+                t.DeliveryNeededWarningLevel = Convert.ToSingle(deliveryWarningText.Text);
+                t.LowProductAlarmLevel = Convert.ToSingle(lowLimitText.Text);
+                t.HighWaterAlarmLevel = Convert.ToSingle(waterAlarmText.Text);
+                t.HighWaterWarningLevel = Convert.ToSingle(waterWarningText.Text);
                 if (capacity90.Checked)
                 {
                     t.MaxSafeWorkingCapacity = 90;
@@ -60,7 +60,7 @@ namespace PortVeederRootGaugeSim
 
             foreach (Control control in tankGaugesControls.Controls)
             {
-                control.
+                //control.
             }
             this.Close();
         }
