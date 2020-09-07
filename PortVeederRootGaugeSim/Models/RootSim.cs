@@ -1,23 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Security.AccessControl;
+﻿using System;
+
 
 namespace PortVeederRootGaugeSim
 {
     public class RootSim
     {
-        public List<TankProbe> TankProbeList;
+        public List<TankProbe> TankProbeList { get; set; }
+        public TimeSpan SystemTime { get; set; }
 
         public RootSim()
         {
             TankProbeList = new List<TankProbe>();
+            SystemTime = new TimeSpan();
         }
 
-        public void addTankProbe(TankProbe t)
+        public RootSim(List<TankProbe> tankProbeList, TimeSpan systemTime)
+        {
+            TankProbeList = tankProbeList;
+            SystemTime = systemTime;
+        }
+
+
+
+
+        public void AddTankProbe(TankProbe t)
         {
             TankProbeList.Add(t);
         }
 
-        public void removeTankProbe(int tankId)
+        public void RemoveTankProbe(int tankId)
         {
             for (int i = 0; i < TankProbeList.Count; i++)
             {
@@ -35,3 +48,4 @@ namespace PortVeederRootGaugeSim
 
     }
 }
+
