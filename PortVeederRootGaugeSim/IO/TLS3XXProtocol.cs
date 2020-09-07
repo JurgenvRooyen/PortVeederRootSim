@@ -19,7 +19,7 @@ namespace PortVeederRootGaugeSim.IO
         private string DateFormat(TimeSpan offset)
         {
             DateTime simulatorTime = System.DateTime.Now + offset;
-            string formattedTime = simulatorTime.ToString("yyyyMMddHHmm");
+            string formattedTime = simulatorTime.ToString("yyMMddHHmm");
             return formattedTime;
         }
 
@@ -33,10 +33,9 @@ namespace PortVeederRootGaugeSim.IO
             int probeID;
             try
             {
-                //Skip first char due to SOH marker
-                protocolCategory = toParse[1];
-                protocolCommand = toParse.Substring(2, 4);
-                tankNumber = toParse.Substring(4, 6);
+                protocolCategory = toParse[0];
+                protocolCommand = toParse.Substring(1, 3);
+                tankNumber = toParse.Substring(4, 2);
                 probeID = Convert.ToInt32(tankNumber);
             }
             catch (System.ArgumentOutOfRangeException)
@@ -107,24 +106,28 @@ namespace PortVeederRootGaugeSim.IO
 
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
+            replyString.Append("i201");
+            replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
+            
 
             string ProbeDetails(int probeID)
             {
                 StringBuilder probeString = new StringBuilder();
                 TankProbe probe = probes[probeID-1];
 
-                probeString.Append(probeID);
+                probeString.Append(probeID.ToString().PadLeft(2, '0'));
                 probeString.Append(probe.ProductCode);
                 //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
-                probeString.Append(Convert.ToInt16("0000", 2).ToString("x"));
+                probeString.Append("0000");
                 probeString.Append("07");
                 probeString.Append(SingleToHex((float)probe.GetGrossObservedVolume()));
+                Console.WriteLine(SingleToHex((float)probe.GetGrossObservedVolume()));
                 probeString.Append(SingleToHex((float)probe.GetGrossStandardVolume()));
                 probeString.Append(SingleToHex((float)probe.GetUllage()));
                 probeString.Append(SingleToHex((float)probe.GetProductLevel()));
                 probeString.Append(SingleToHex((float)probe.GetWaterLevel()));
-                replyString.Append(SingleToHex((float)probe.ProductTemperature));
+                probeString.Append(SingleToHex((float)probe.ProductTemperature));
                 probeString.Append(SingleToHex((float)probe.GetWaterVolume()));
 
                 return probeString.ToString();
