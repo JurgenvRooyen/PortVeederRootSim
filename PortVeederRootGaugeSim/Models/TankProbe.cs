@@ -29,7 +29,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean SetProductLevel(float value)
         {
-            if (value + GetWaterLevel() > TankProbeHeight)
+            if (value + GetWaterLevel() > TankProbeHeight | value < 0)
             {
                 return false;
             }
@@ -83,8 +83,8 @@ namespace PortVeederRootGaugeSim
             {
                 return false;
             }
-            waterLevel = value;
-            waterVolume = value * 10;
+            waterLevel = VolumeToLevel(value);
+            waterVolume = value;
             return true;
         }
 
