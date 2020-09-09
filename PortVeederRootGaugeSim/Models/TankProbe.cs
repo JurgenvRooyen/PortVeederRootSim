@@ -186,7 +186,7 @@ namespace PortVeederRootGaugeSim
 
         }
 
-        public Boolean DropTank(float volume, TimeSpan startTime, TimeSpan duration)
+        public Boolean DropTank(float volume, DateTime startTime, TimeSpan duration)
         {
             TankDrop td = new TankDrop( volume,
                                         startTime,
@@ -215,7 +215,7 @@ namespace PortVeederRootGaugeSim
             return SetProductVolume(this.productVolume + value);
         }
 
-        public void ProductChangeThread(TimeSpan startTime)
+        public void ProductChangeThread(DateTime startTime)
         {
 
             if (TankDelivering)
@@ -261,7 +261,7 @@ namespace PortVeederRootGaugeSim
   
 
 
-        public void DeliverySwich(TimeSpan startTime)
+        public void DeliverySwich(DateTime startTime)
 
         {
 
@@ -287,7 +287,7 @@ namespace PortVeederRootGaugeSim
             else
             {
                 this.TankLeaking = true;
-                this.ProductChanging = new Thread(() => ProductChangeThread(new TimeSpan()));
+                this.ProductChanging = new Thread(() => ProductChangeThread(DateTime.Now));
                 this.ProductChanging.Start();
             }
         }
