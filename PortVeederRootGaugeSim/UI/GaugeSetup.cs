@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -10,22 +11,57 @@ namespace PortVeederRootGaugeSim
 {
     public partial class GaugeSetup : Form
     {
-        public GaugeSetup()
+        private RootSim tankGauges;
+        private FlowLayoutPanel tankGaugesControls;
+        public GaugeSetup(RootSim r, FlowLayoutPanel f)
         {
+            tankGauges = r;
+            tankGaugesControls = f;
             InitializeComponent();
-            capacity90.Checked = true;
-            tankCapacityText.Text = "20000";
-            overfillLimitText.Text = "17500";
-            highLimitText.Text = "17000";
-            deliveryWarningText.Text = "4000";
-            lowLimitText.Text = "2000";
-            waterAlarmText.Text = "1500";
-            waterWarningText.Text = "1000";
+            if (tankGauges.getProbe(0).MaxSafeWorkingCapacity == 90)
+            {
+                capacity90.Checked = true;
+            }
+            else
+            {
+                capacity95.Checked = true;
+            }
+            
+            tankCapacityText.Text = Convert.ToString(tankGauges.getProbe(0).FullVolume);
+            overfillLimitText.Text = Convert.ToString(tankGauges.getProbe(0).OverFillLimit);
+            highLimitText.Text = Convert.ToString(tankGauges.getProbe(0).HighProductAlarmLevel);
+            deliveryWarningText.Text = Convert.ToString(tankGauges.getProbe(0).DeliveryNeededWarningLevel);
+            lowLimitText.Text = Convert.ToString(tankGauges.getProbe(0).LowProductAlarmLevel);
+            waterAlarmText.Text = Convert.ToString(tankGauges.getProbe(0).HighWaterAlarmLevel);
+            waterWarningText.Text = Convert.ToString(tankGauges.getProbe(0).HighWaterWarningLevel);
+            
         }
 
         private void okayButton_Click(object sender, EventArgs e)
         {
-            //TODO: update tank information
+            foreach (TankProbe t in tankGauges.TankProbeList)
+            {
+                t.FullVolume = Convert.ToSingle(tankCapacityText.Text);
+                t.OverFillLimit = Convert.ToSingle(overfillLimitText.Text);
+                t.HighProductAlarmLevel = Convert.ToSingle(highLimitText.Text);
+                t.DeliveryNeededWarningLevel = Convert.ToSingle(deliveryWarningText.Text);
+                t.LowProductAlarmLevel = Convert.ToSingle(lowLimitText.Text);
+                t.HighWaterAlarmLevel = Convert.ToSingle(waterAlarmText.Text);
+                t.HighWaterWarningLevel = Convert.ToSingle(waterWarningText.Text);
+                if (capacity90.Checked)
+                {
+                    t.MaxSafeWorkingCapacity = 90;
+                } else
+                {
+                    t.MaxSafeWorkingCapacity = 95;
+                }
+
+            }
+
+            foreach (Control control in tankGaugesControls.Controls)
+            {
+                //control.
+            }
             this.Close();
         }
 

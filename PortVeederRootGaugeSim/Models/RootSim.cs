@@ -1,14 +1,20 @@
+﻿using System.Collections.Generic;
+using System.Security.AccessControl;
 ﻿using System;
-using System.Collections.Generic;
+
 
 namespace PortVeederRootGaugeSim
 {
-    class RootSim
+    public class RootSim
     {
- 
         public List<TankProbe> TankProbeList { get; set; }
         public TimeSpan SystemTime { get; set; }
 
+        public RootSim()
+        {
+            TankProbeList = new List<TankProbe>();
+            SystemTime = new TimeSpan();
+        }
 
         public RootSim(List<TankProbe> tankProbeList, TimeSpan systemTime)
         {
@@ -33,6 +39,11 @@ namespace PortVeederRootGaugeSim
                     TankProbeList.Remove(TankProbeList[i]);
                 }
             }
+        }
+
+        public TankProbe getProbe (int probeNumber)
+        {
+                return TankProbeList[probeNumber];
         }
 
     }

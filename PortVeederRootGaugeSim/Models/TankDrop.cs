@@ -2,7 +2,7 @@
 
 namespace PortVeederRootGaugeSim
 {
-    class TankDrop
+    public class TankDrop
     {
         public float Volume { get; set; }
         public TimeSpan StartTime { get; set; }
