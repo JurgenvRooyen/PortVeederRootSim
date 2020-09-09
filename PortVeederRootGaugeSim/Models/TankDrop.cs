@@ -5,7 +5,7 @@ namespace PortVeederRootGaugeSim
     public class TankDrop
     {
         public float Volume { get; set; }
-        public TimeSpan StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         public float StartingVolume { get; set; }
         public float StartingVLevel { get; set; }
         public float StartingTemperatureCompensatedVolume { get; set; }
@@ -14,14 +14,14 @@ namespace PortVeederRootGaugeSim
 
         public TimeSpan Duration { get; set; }
 
-        public TimeSpan EndingTime { get; set; }
+        public DateTime EndingTime { get; set; }
         public float EndingVolume { get; set; }
         public float EndingVLevel { get; set; }
         public float EndingTemperatureCompensatedVolume { get; set; }
         public float EndingWaterVolume { get; set; }
         public float EndingTemperature { get; set; }
 
-        public TankDrop(float volume, TimeSpan startTime, float startingVolume, float startingVLevel, float startingTemperatureCompensatedVolume, float startingWaterVolume, float startingTemperature)
+        public TankDrop(float volume, DateTime startTime, float startingVolume, float startingVLevel, float startingTemperatureCompensatedVolume, float startingWaterVolume, float startingTemperature)
         {
             Volume = volume;
             StartTime = startTime;
