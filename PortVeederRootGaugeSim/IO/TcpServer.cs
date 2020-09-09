@@ -34,7 +34,6 @@ namespace PortVeederRootGaugeSim.IO
 
         private async void Listen()
         {        
-            Console.WriteLine("Start listening");
             while (acceptIncoming)
             {
                 TcpClient client = await listener.AcceptTcpClientAsync();
@@ -48,7 +47,8 @@ namespace PortVeederRootGaugeSim.IO
             byte[] buffer = new byte[256];
             while ((await nStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
             {
-                string parsed = protocol.parse((System.Text.Encoding.ASCII.GetString(buffer)));
+                string parsed = protocol.Parse((System.Text.Encoding.ASCII.GetString(buffer)));
+                Console.WriteLine(parsed);
                 nStream.Write(System.Text.Encoding.ASCII.GetBytes(parsed));
             }
 
