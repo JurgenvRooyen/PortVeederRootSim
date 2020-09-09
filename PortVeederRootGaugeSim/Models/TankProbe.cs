@@ -13,9 +13,9 @@ namespace PortVeederRootGaugeSim
         // Tank attributes
         public int TankProbeId { get; set; }
         public char ProductCode { get; set; }
-        public string TankProbeShape { get; set; }
-        public float TankProbeHight { get; set; }
-        public float TankProbeDiameter { get; set; }
+        public string TankShape { get; set; }
+        public float TankHight { get; set; }
+        public float TankDiameter { get; set; }
 
         public float productLevel = 0 ;     
         public float GetProductLevel()
@@ -24,7 +24,7 @@ namespace PortVeederRootGaugeSim
         }     
         public Boolean SetProductLevel(float value)
         {
-            if (value + GetWaterLevel()> TankProbeHight | value < 0)
+            if (value + GetWaterLevel()> TankHight | value < 0)
             {
                 return false;
             }
@@ -57,7 +57,7 @@ namespace PortVeederRootGaugeSim
         }       
         public Boolean SetWaterLevel(float value)
         {
-            if (value + productLevel > TankProbeHight | value < 0)
+            if (value + productLevel > TankHight | value < 0)
             {
                 return false;
             }
@@ -114,9 +114,9 @@ namespace PortVeederRootGaugeSim
         {
             this.TankProbeId = tankId;
             this.ProductCode = productCode;
-            this.TankProbeHight = tankLength;
-            this.TankProbeDiameter = tankDiameter;
-            this.TankProbeShape = tankShapeString;
+            this.TankHight = tankLength;
+            this.TankDiameter = tankDiameter;
+            this.TankShape = tankShapeString;
             if (unit == "level")
             {
                 SetProductLevel(productValue);
@@ -137,13 +137,13 @@ namespace PortVeederRootGaugeSim
             FullVolume = LevelToVolume(tankLength);
 
     
-            MaxSafeWorkingCapacity      = 0.95F * TankProbeHight;
-            OverFillLimit               = 0.90F * TankProbeHight;
-            HighProductAlarmLevel       = 0.80F * TankProbeHight;
-            DeliveryNeededWarningLevel  = 0.30F * TankProbeHight;
-            LowProductAlarmLevel        = 0.20F * TankProbeHight;
-            HighWaterAlarmLevel         = 0.10F * TankProbeHight;
-            HighWaterWarningLevel       = 0.05F * TankProbeHight;
+            MaxSafeWorkingCapacity      = 0.95F * TankHight;
+            OverFillLimit               = 0.90F * TankHight;
+            HighProductAlarmLevel       = 0.80F * TankHight;
+            DeliveryNeededWarningLevel  = 0.30F * TankHight;
+            LowProductAlarmLevel        = 0.20F * TankHight;
+            HighWaterAlarmLevel         = 0.10F * TankHight;
+            HighWaterWarningLevel       = 0.05F * TankHight;
 
             TankDeliveringPerInterval = 50;
             TankLeakingPerInterval = 50;
@@ -284,7 +284,10 @@ namespace PortVeederRootGaugeSim
             return temp;
         }
 
-
+        public void ClearDeliveryReport()
+        {
+            this.TankDroppedList.Clear();
+        }
        
 
 
@@ -293,15 +296,17 @@ namespace PortVeederRootGaugeSim
 
         private float VolumeToLevel(float v) 
         {
-           float l = (float)(v / (Math.PI * Math.Pow(TankProbeDiameter / 2, 2)));
+           float l = (float)(v / (Math.PI * Math.Pow(TankDiameter / 2, 2)));
            return l;
         }
 
         private float LevelToVolume(float l)
         {
-            float v = (float)(l * (Math.PI * Math.Pow(TankProbeDiameter / 2, 2)));
+            float v = (float)(l * (Math.PI * Math.Pow(TankDiameter / 2, 2)));
             return v;
         }
+
+    
 
         
 
