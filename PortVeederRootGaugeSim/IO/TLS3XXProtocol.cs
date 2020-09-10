@@ -9,7 +9,8 @@ namespace PortVeederRootGaugeSim.IO
 
     class TLS3XXProtocol
     {
-        readonly RootSim simulator;
+        RootSim simulator;
+        string dateFormatString = "yyMMddHHmm";
 
         public TLS3XXProtocol(RootSim simulator)
         {
@@ -19,7 +20,7 @@ namespace PortVeederRootGaugeSim.IO
         private string DateFormat(TimeSpan offset)
         {
             DateTime simulatorTime = System.DateTime.Now + offset;
-            string formattedTime = simulatorTime.ToString("yyMMddHHmm");
+            string formattedTime = simulatorTime.ToString(dateFormatString);
             return formattedTime;
         }
 
@@ -43,10 +44,10 @@ namespace PortVeederRootGaugeSim.IO
                 sb.Append("9999" + "\x03");
                 return sb.ToString();
             }
-            
+
             // This can probably be replaced with a key:value store to call functions
             if (protocolCategory == 'i')
-            {         
+            {
                 switch (protocolCommand)
                 {
                     case "201":
@@ -66,7 +67,8 @@ namespace PortVeederRootGaugeSim.IO
                         break;
                 }
 
-            } else if(protocolCategory == 's')
+            }
+            else if (protocolCategory == 's')
             {
                 switch (protocolCommand)
                 {
@@ -83,7 +85,8 @@ namespace PortVeederRootGaugeSim.IO
                         sb.Append("9999");
                         break;
                 }
-            } else
+            }
+            else
             {
                 sb.Append("9999");
             }
@@ -109,12 +112,11 @@ namespace PortVeederRootGaugeSim.IO
             replyString.Append("i201");
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
-            
 
             string ProbeDetails(int probeID)
             {
                 StringBuilder probeString = new StringBuilder();
-                TankProbe probe = probes[probeID-1];
+                TankProbe probe = probes[probeID - 1];
 
                 probeString.Append(probeID.ToString().PadLeft(2, '0'));
                 probeString.Append(probe.ProductCode);
@@ -132,16 +134,17 @@ namespace PortVeederRootGaugeSim.IO
 
                 return probeString.ToString();
             }
-             
+
             if (probeID == 0)
             {
                 probeID++;
-                foreach(TankProbe probe in probes)
+                foreach (TankProbe probe in probes)
                 {
                     replyString.Append(ProbeDetails(probeID));
                     probeID++;
                 }
-            } else
+            }
+            else
             {
                 replyString.Append(ProbeDetails(probeID));
             }
@@ -152,7 +155,61 @@ namespace PortVeederRootGaugeSim.IO
         //Command I202 - In Tank delivery report
         private string I202(int probeID)
         {
-            return null;
+            List<TankProbe> probes = simulator.TankProbeList;
+            StringBuilder replyString = new StringBuilder();
+
+            replyString.Append("i202");
+            replyString.Append(probeID.ToString().PadLeft(2, '0'));
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            string ProbeDetails(int ProbeID)
+            {
+                StringBuilder probeString = new StringBuilder();
+                TankProbe probe = probes[probeID - 1];
+
+                probeString.Append(probeID.ToString().PadLeft(2, '0'));
+                probeString.Append(probe.ProductCode);
+
+                int totolDrops = probe.TankDroppedList.Count;
+                probeString.Append(totolDrops.ToString().PadLeft(2, '0'));
+
+                foreach (TankDrop drop in probe.TankDroppedList)
+                {
+                    probeString.Append(drop.StartTime.ToString(dateFormatString));
+                    probeString.Append(drop.EndingTime.ToString(dateFormatString));
+                    probeString.Append("10");
+
+                    probeString.Append(SingleToHex(drop.StartingVolume));
+                    probeString.Append(SingleToHex(drop.StartingTemperatureCompensatedVolume));
+                    probeString.Append(SingleToHex(drop.StartingWaterVolume));
+                    probeString.Append(SingleToHex(drop.StartingTemperature));
+
+                    probeString.Append(SingleToHex(drop.EndingVolume));
+                    probeString.Append(SingleToHex(drop.EndingTemperatureCompensatedVolume));
+                    probeString.Append(SingleToHex(drop.EndingWaterVolume));
+                    probeString.Append(SingleToHex(drop.EndingTemperature));
+                    probeString.Append(SingleToHex(drop.StartingVLevel));
+                    probeString.Append(SingleToHex(drop.EndingVLevel));
+                }
+
+                return probeString.ToString();
+            }
+
+            if (probeID == 0)
+            {
+                probeID++;
+                foreach (TankProbe probe in probes)
+                {
+                    replyString.Append(ProbeDetails(probeID));
+                    probeID++;
+                }
+            }
+            else
+            {
+                replyString.Append(ProbeDetails(probeID));
+            }
+
+            return replyString.ToString();
         }
 
         //Command I205 - In Tank Status Report
