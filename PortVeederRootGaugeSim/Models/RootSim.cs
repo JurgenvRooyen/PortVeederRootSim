@@ -1,12 +1,32 @@
-﻿using System.Collections.Generic;
-using System.Security.AccessControl;
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace PortVeederRootGaugeSim
 {
     public class RootSim
     {
+        // need to be changed after things are done 
+        public const String SoftWareVersion = "0.1";
+        public string GetSoftWareVersion()
+        {
+            string temp = SoftWareVersion;
+            return temp;
+        }
+
+        // need to be changed after things are done 
+        public const String SoftWareRevision = "0.1";
+        public string GetSoftWareRevision()
+        {
+            string temp = SoftWareRevision;
+            return temp;
+        }
+        // DateTime can not be const and need to be changed after things are done 
+        public DateTime CreationDate = Convert.ToDateTime("10/9/2020");
+        public DateTime GetCreationDate()
+        {
+            return this.CreationDate;
+        }
+
         public List<TankProbe> TankProbeList { get; set; }
         public TimeSpan SystemTime { get; set; }
 
