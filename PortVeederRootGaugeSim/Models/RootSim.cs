@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Windows.Forms;
 
 namespace PortVeederRootGaugeSim
 {
-    class RootSim
+    public class RootSim
     {
         // need to be changed after things are done 
         public const String SoftWareVersion = "0.1";
@@ -29,14 +27,14 @@ namespace PortVeederRootGaugeSim
             return this.CreationDate;
         }
 
-
-
-
-   public List<TankProbe> TankProbeList { get; set; }
+        public List<TankProbe> TankProbeList { get; set; }
         public TimeSpan SystemTime { get; set; }
 
-        
-
+        public RootSim()
+        {
+            TankProbeList = new List<TankProbe>();
+            SystemTime = new TimeSpan();
+        }
 
         public RootSim(List<TankProbe> tankProbeList, TimeSpan systemTime)
         {
@@ -47,7 +45,7 @@ namespace PortVeederRootGaugeSim
 
 
 
-        public void AddTankProbek(TankProbe t)
+        public void AddTankProbe(TankProbe t)
         {
             TankProbeList.Add(t);
         }
@@ -61,6 +59,11 @@ namespace PortVeederRootGaugeSim
                     TankProbeList.Remove(TankProbeList[i]);
                 }
             }
+        }
+
+        public TankProbe getProbe (int probeNumber)
+        {
+                return TankProbeList[probeNumber];
         }
 
     }
