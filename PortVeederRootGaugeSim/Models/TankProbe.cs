@@ -253,7 +253,7 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public void DeliverySwich(TimeSpan startTime)
+        public void DeliverySwich(DateTime startTime)
         {
 
             if (TankDelivering)
