@@ -154,6 +154,7 @@ namespace PortVeederRootGaugeSim.IO
         {
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
+
             replyString.Append("i202");
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
@@ -173,10 +174,13 @@ namespace PortVeederRootGaugeSim.IO
                 {
                     probeString.Append(drop.StartTime.ToString(dateFormatString));
                     probeString.Append(drop.EndingTime.ToString(dateFormatString));
+                    probeString.Append("10");
+
                     probeString.Append(SingleToHex(drop.StartingVolume));
                     probeString.Append(SingleToHex(drop.StartingTemperatureCompensatedVolume));
                     probeString.Append(SingleToHex(drop.StartingWaterVolume));
                     probeString.Append(SingleToHex(drop.StartingTemperature));
+
                     probeString.Append(SingleToHex(drop.EndingVolume));
                     probeString.Append(SingleToHex(drop.EndingTemperatureCompensatedVolume));
                     probeString.Append(SingleToHex(drop.EndingWaterVolume));
