@@ -61,9 +61,9 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public TankProbe getProbe (int probeNumber)
+        public TankProbe GetProbe(int probeNumber)
         {
-                return TankProbeList[probeNumber];
+            return TankProbeList[probeNumber];
         }
 
     }
