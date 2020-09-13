@@ -249,7 +249,10 @@ namespace PortVeederRootGaugeSim.IO
                     codes.Concat("07");
                 }
                 // Check for invalid fuel level alarm?
-                
+                if(probe.productLevel <= 15)
+                {
+                    codes.Concat("08");
+                }
                 //Probe disconnected not implemented
 
                 if(probe.waterLevel >= probe.HighWaterWarningLevel)
@@ -269,6 +272,9 @@ namespace PortVeederRootGaugeSim.IO
                     codes.Concat("27");
                 }
 
+                string totalAlarms = (codes.Length / 2).ToString().PadLeft(2, '0');
+                probeString.Append(totalAlarms);
+                probeString.Append(codes);
 
                 return probeString.ToString();
             }
