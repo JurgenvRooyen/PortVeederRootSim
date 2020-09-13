@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing.Text;
 using System.Text;
 
@@ -34,10 +35,15 @@ namespace PortVeederRootGaugeSim.IO
             int probeID;
             try
             {
-                protocolCategory = toParse[0];
-                protocolCommand = toParse.Substring(1, 3);
-                tankNumber = toParse.Substring(4, 2);
+                protocolCategory = toParse[1];
+                protocolCommand = toParse.Substring(2, 3);
+                tankNumber = toParse.Substring(5, 2);
                 probeID = Convert.ToInt32(tankNumber);
+
+                Debug.WriteLine("Protocol Parses");
+                Debug.WriteLine("Protocol Category: " + protocolCategory);
+                Debug.WriteLine("Protocol Command: " + protocolCommand);
+                Debug.WriteLine("Tank Number: " + tankNumber);
             }
             catch (System.ArgumentOutOfRangeException)
             {
