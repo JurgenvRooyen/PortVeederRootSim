@@ -323,7 +323,7 @@ namespace PortVeederRootGaugeSim.IO
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
 
-            replyString.Append("i205");
+            replyString.Append("s051");
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
 
