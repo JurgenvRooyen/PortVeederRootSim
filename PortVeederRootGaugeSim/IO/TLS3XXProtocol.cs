@@ -236,20 +236,20 @@ namespace PortVeederRootGaugeSim.IO
                 {
                     codes.Concat("03");
                 }
-                if(probe.productLevel + probe.waterLevel >= probe.OverFillLimit)
+                if(probe.ProductLevel + probe.waterLevel >= probe.OverFillLimit)
                 {
                     codes.Concat("04");
                 }
-                if(probe.productLevel <= probe.LowProductAlarmLevel);
+                if(probe.ProductLevel <= probe.LowProductAlarmLevel);
                 {
                     codes.Concat("05");
                 }
-                if(probe.productLevel >= probe.HighProductAlarmLevel)
+                if(probe.ProductLevel >= probe.HighProductAlarmLevel)
                 {
                     codes.Concat("07");
                 }
                 // Check for invalid fuel level alarm?
-                if(probe.productLevel <= 15)
+                if(probe.ProductLevel <= 15)
                 {
                     codes.Concat("08");
                 }
@@ -259,11 +259,11 @@ namespace PortVeederRootGaugeSim.IO
                 {
                     codes.Concat("10");
                 }
-                if(probe.productLevel <= probe.DeliveryNeededWarningLevel)
+                if(probe.ProductLevel <= probe.DeliveryNeededWarningLevel)
                 {
                     codes.Concat("11");
                 }
-                if(probe.productLevel >= probe.MaxSafeWorkingCapacity)
+                if(probe.ProductLevel >= probe.MaxSafeWorkingCapacity)
                 {
                     codes.Concat("12");
                 }
