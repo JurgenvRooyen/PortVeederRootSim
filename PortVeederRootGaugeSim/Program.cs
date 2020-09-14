@@ -1,3 +1,4 @@
+using PortVeederRootGaugeSim.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace PortVeederRootGaugeSim
         static void Main()
         {
             RootSim rootSim = new RootSim();
+            TLS3XXProtocol protocol = new TLS3XXProtocol(rootSim);
+            TcpServer server = new TcpServer(protocol);
+            server.Start();
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

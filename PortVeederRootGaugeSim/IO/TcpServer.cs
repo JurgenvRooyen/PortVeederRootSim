@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -47,8 +48,9 @@ namespace PortVeederRootGaugeSim.IO
             byte[] buffer = new byte[256];
             while ((await nStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
             {
+                Debug.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
                 string parsed = protocol.Parse((System.Text.Encoding.ASCII.GetString(buffer)));
-                Console.WriteLine(parsed);
+                Debug.WriteLine(parsed);
                 nStream.Write(System.Text.Encoding.ASCII.GetBytes(parsed));
             }
 
