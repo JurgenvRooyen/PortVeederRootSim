@@ -298,7 +298,17 @@ namespace PortVeederRootGaugeSim.IO
         //Command I902 - Getting Software and revision version
         private string I902()
         {
-            return null;
+            StringBuilder replyString = new StringBuilder();
+            replyString.Append("i90200");
+            replyString.Append(DateFormat(simulator.SystemTime));
+            replyString.Append("SOFTWARE# ");
+            replyString.Append(simulator.GetSoftWareVersion());
+            replyString.Append("-");
+            replyString.Append(simulator.GetSoftWareRevision());
+            replyString.Append("CREATED -  ");
+            replyString.Append(simulator.GetCreationDate());
+
+            return replyString.ToString();
         }
 
         //Command S051 - Clear In Tank delivery reports
