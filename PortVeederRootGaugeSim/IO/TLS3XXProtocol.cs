@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing.Text;
+using System.Linq;
 using System.Text;
 
 namespace PortVeederRootGaugeSim.IO
@@ -219,15 +218,103 @@ namespace PortVeederRootGaugeSim.IO
         }
 
         //Command I205 - In Tank Status Report
-        private string I205(int TankNumber)
+        private string I205(int probeID)
         {
-            return null;
+            List<TankProbe> probes = simulator.TankProbeList;
+            StringBuilder replyString = new StringBuilder();
+
+            replyString.Append("i205");
+            replyString.Append(probeID.ToString().PadLeft(2, '0'));
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            string ProbeDetails(int probeID)
+            {
+                StringBuilder probeString = new StringBuilder();
+                TankProbe probe = probes[probeID - 1];
+                string codes = "";
+
+                if(probe.TankLeaking)
+                {
+                    codes.Concat("02");
+                }
+
+                if(probe.waterLevel >= probe.HighWaterAlarmLevel)
+                {
+                    codes.Concat("03");
+                }
+                if(probe.ProductLevel + probe.waterLevel >= probe.OverFillLimit)
+                {
+                    codes.Concat("04");
+                }
+                if(probe.ProductLevel <= probe.LowProductAlarmLevel);
+                {
+                    codes.Concat("05");
+                }
+                if(probe.ProductLevel >= probe.HighProductAlarmLevel)
+                {
+                    codes.Concat("07");
+                }
+                // Check for invalid fuel level alarm?
+                if(probe.ProductLevel <= 15)
+                {
+                    codes.Concat("08");
+                }
+                //Probe disconnected not implemented
+
+                if(probe.waterLevel >= probe.HighWaterWarningLevel)
+                {
+                    codes.Concat("10");
+                }
+                if(probe.ProductLevel <= probe.DeliveryNeededWarningLevel)
+                {
+                    codes.Concat("11");
+                }
+                if(probe.ProductLevel >= probe.MaxSafeWorkingCapacity)
+                {
+                    codes.Concat("12");
+                }
+                if(probe.ProductTemperature < 8)
+                {
+                    codes.Concat("27");
+                }
+
+                string totalAlarms = (codes.Length / 2).ToString().PadLeft(2, '0');
+                probeString.Append(totalAlarms);
+                probeString.Append(codes);
+
+                return probeString.ToString();
+            }
+
+            if (probeID == 0)
+            {
+                probeID++;
+                foreach (TankProbe probe in probes)
+                {
+                    replyString.Append(ProbeDetails(probeID));
+                    probeID++;
+                }
+            }
+            else
+            {
+                replyString.Append(ProbeDetails(probeID));
+            }
+            return replyString.ToString();
         }
 
         //Command I902 - Getting Software and revision version
         private string I902()
         {
-            return null;
+            StringBuilder replyString = new StringBuilder();
+            replyString.Append("i90200");
+            replyString.Append(DateFormat(simulator.SystemTime));
+            replyString.Append("SOFTWARE# ");
+            replyString.Append(simulator.GetSoftWareVersion());
+            replyString.Append("-");
+            replyString.Append(simulator.GetSoftWareRevision());
+            replyString.Append("CREATED -  ");
+            replyString.Append(simulator.GetCreationDate());
+
+            return replyString.ToString();
         }
 
         //Command S051 - Clear In Tank delivery reports
