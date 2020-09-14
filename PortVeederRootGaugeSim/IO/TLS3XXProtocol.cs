@@ -318,9 +318,27 @@ namespace PortVeederRootGaugeSim.IO
         }
 
         //Command S051 - Clear In Tank delivery reports
-        private string S051(int TankNumber)
+        private string S051(int probeID)
         {
-            return null;
+            List<TankProbe> probes = simulator.TankProbeList;
+            StringBuilder replyString = new StringBuilder();
+
+            replyString.Append("i205");
+            replyString.Append(probeID.ToString().PadLeft(2, '0'));
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            if (probeID == 0)
+            {
+                foreach (TankProbe probe in probes)
+                {
+                    probe.ClearDeliveryReport();
+                }
+            }
+            else
+            {
+                probes[probeID].ClearDeliveryReport();
+            }
+                return replyString.ToString();
         }
 
         //Command S501 - Setting date and time
