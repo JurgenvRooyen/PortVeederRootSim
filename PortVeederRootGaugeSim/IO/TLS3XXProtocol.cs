@@ -84,7 +84,7 @@ namespace PortVeederRootGaugeSim.IO
                     case "501":
                         try
                         {
-                            sb.Append(S501(toParse.Substring(6)));
+                            sb.Append(S501(toParse.Substring(7,10)));
                         }
                         catch (ArgumentOutOfRangeException)
                         {
@@ -137,7 +137,6 @@ namespace PortVeederRootGaugeSim.IO
                 probeString.Append("0000");
                 probeString.Append("07");
                 probeString.Append(SingleToHex((float)probe.GetGrossObservedVolume()));
-                Console.WriteLine(SingleToHex((float)probe.GetGrossObservedVolume()));
                 probeString.Append(SingleToHex((float)probe.GetGrossStandardVolume()));
                 probeString.Append(SingleToHex((float)probe.GetUllage()));
                 probeString.Append(SingleToHex((float)probe.GetProductLevel()));
