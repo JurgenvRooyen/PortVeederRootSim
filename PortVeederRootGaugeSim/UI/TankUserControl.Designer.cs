@@ -98,7 +98,7 @@
             "Probe Ok",
             "Setup Err",
             "Probe Out"});
-            this.comboBox1.Location = new System.Drawing.Point(8, 611);
+            this.comboBox1.Location = new System.Drawing.Point(8, 508);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(106, 28);
             this.comboBox1.TabIndex = 22;
@@ -106,7 +106,7 @@
             // gsv
             // 
             this.gsv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.gsv.Location = new System.Drawing.Point(8, 359);
+            this.gsv.Location = new System.Drawing.Point(8, 189);
             this.gsv.Name = "gsv";
             this.gsv.Size = new System.Drawing.Size(106, 20);
             this.gsv.TabIndex = 2;
@@ -116,7 +116,7 @@
             // ullage
             // 
             this.ullage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ullage.Location = new System.Drawing.Point(8, 573);
+            this.ullage.Location = new System.Drawing.Point(8, 403);
             this.ullage.Name = "ullage";
             this.ullage.Size = new System.Drawing.Size(106, 20);
             this.ullage.TabIndex = 21;
@@ -127,7 +127,7 @@
             // 
             this.ullageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ullageLabel.AutoSize = true;
-            this.ullageLabel.Location = new System.Drawing.Point(35, 553);
+            this.ullageLabel.Location = new System.Drawing.Point(35, 382);
             this.ullageLabel.Name = "ullageLabel";
             this.ullageLabel.Size = new System.Drawing.Size(52, 20);
             this.ullageLabel.TabIndex = 20;
@@ -137,7 +137,7 @@
             // capacity
             // 
             this.capacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.capacity.Location = new System.Drawing.Point(8, 533);
+            this.capacity.Location = new System.Drawing.Point(8, 362);
             this.capacity.Name = "capacity";
             this.capacity.Size = new System.Drawing.Size(106, 20);
             this.capacity.TabIndex = 19;
@@ -148,7 +148,7 @@
             // 
             this.capacityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.capacityLabel.AutoSize = true;
-            this.capacityLabel.Location = new System.Drawing.Point(28, 513);
+            this.capacityLabel.Location = new System.Drawing.Point(28, 342);
             this.capacityLabel.Name = "capacityLabel";
             this.capacityLabel.Size = new System.Drawing.Size(66, 20);
             this.capacityLabel.TabIndex = 18;
@@ -158,7 +158,7 @@
             // startLeakButton
             // 
             this.startLeakButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.startLeakButton.Location = new System.Drawing.Point(8, 481);
+            this.startLeakButton.Location = new System.Drawing.Point(8, 577);
             this.startLeakButton.Name = "startLeakButton";
             this.startLeakButton.Size = new System.Drawing.Size(107, 29);
             this.startLeakButton.TabIndex = 17;
@@ -169,7 +169,7 @@
             // startDeliveryButton
             // 
             this.startDeliveryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.startDeliveryButton.Location = new System.Drawing.Point(8, 445);
+            this.startDeliveryButton.Location = new System.Drawing.Point(8, 542);
             this.startDeliveryButton.Name = "startDeliveryButton";
             this.startDeliveryButton.Size = new System.Drawing.Size(107, 29);
             this.startDeliveryButton.TabIndex = 16;
@@ -191,7 +191,7 @@
             // tankDropButton
             // 
             this.tankDropButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankDropButton.Location = new System.Drawing.Point(8, 391);
+            this.tankDropButton.Location = new System.Drawing.Point(8, 612);
             this.tankDropButton.Name = "tankDropButton";
             this.tankDropButton.Size = new System.Drawing.Size(107, 29);
             this.tankDropButton.TabIndex = 14;
@@ -203,7 +203,7 @@
             // 
             this.gsvLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.gsvLabel.AutoSize = true;
-            this.gsvLabel.Location = new System.Drawing.Point(43, 339);
+            this.gsvLabel.Location = new System.Drawing.Point(43, 169);
             this.gsvLabel.Name = "gsvLabel";
             this.gsvLabel.Size = new System.Drawing.Size(36, 20);
             this.gsvLabel.TabIndex = 13;
@@ -213,7 +213,7 @@
             // gov
             // 
             this.gov.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.gov.Location = new System.Drawing.Point(8, 319);
+            this.gov.Location = new System.Drawing.Point(8, 149);
             this.gov.Name = "gov";
             this.gov.Size = new System.Drawing.Size(106, 20);
             this.gov.TabIndex = 12;
@@ -224,7 +224,7 @@
             // 
             this.govLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.govLabel.AutoSize = true;
-            this.govLabel.Location = new System.Drawing.Point(42, 299);
+            this.govLabel.Location = new System.Drawing.Point(42, 129);
             this.govLabel.Name = "govLabel";
             this.govLabel.Size = new System.Drawing.Size(39, 20);
             this.govLabel.TabIndex = 11;
@@ -234,7 +234,7 @@
             // waterVolume
             // 
             this.waterVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.waterVolume.Location = new System.Drawing.Point(8, 260);
+            this.waterVolume.Location = new System.Drawing.Point(8, 269);
             this.waterVolume.Name = "waterVolume";
             this.waterVolume.Size = new System.Drawing.Size(106, 20);
             this.waterVolume.TabIndex = 9;
@@ -245,7 +245,7 @@
             // 
             this.waterVolLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.waterVolLabel.AutoSize = true;
-            this.waterVolLabel.Location = new System.Drawing.Point(25, 240);
+            this.waterVolLabel.Location = new System.Drawing.Point(25, 249);
             this.waterVolLabel.Name = "waterVolLabel";
             this.waterVolLabel.Size = new System.Drawing.Size(73, 20);
             this.waterVolLabel.TabIndex = 8;
@@ -255,7 +255,7 @@
             // waterUpDown
             // 
             this.waterUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.waterUpDown.Location = new System.Drawing.Point(19, 199);
+            this.waterUpDown.Location = new System.Drawing.Point(19, 99);
             this.waterUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -271,7 +271,7 @@
             // 
             this.waterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.waterLabel.AutoSize = true;
-            this.waterLabel.Location = new System.Drawing.Point(18, 176);
+            this.waterLabel.Location = new System.Drawing.Point(18, 76);
             this.waterLabel.Name = "waterLabel";
             this.waterLabel.Size = new System.Drawing.Size(86, 20);
             this.waterLabel.TabIndex = 6;
@@ -281,7 +281,7 @@
             // productVolume
             // 
             this.productVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.productVolume.Location = new System.Drawing.Point(8, 156);
+            this.productVolume.Location = new System.Drawing.Point(8, 229);
             this.productVolume.Name = "productVolume";
             this.productVolume.Size = new System.Drawing.Size(107, 20);
             this.productVolume.TabIndex = 5;
@@ -292,7 +292,7 @@
             // 
             this.productVolLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.productVolLabel.AutoSize = true;
-            this.productVolLabel.Location = new System.Drawing.Point(19, 137);
+            this.productVolLabel.Location = new System.Drawing.Point(19, 209);
             this.productVolLabel.Name = "productVolLabel";
             this.productVolLabel.Size = new System.Drawing.Size(85, 20);
             this.productVolLabel.TabIndex = 4;
@@ -302,7 +302,7 @@
             // productUpDown
             // 
             this.productUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.productUpDown.Location = new System.Drawing.Point(5, 107);
+            this.productUpDown.Location = new System.Drawing.Point(5, 46);
             this.productUpDown.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -318,7 +318,7 @@
             // 
             this.productLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.productLabel.AutoSize = true;
-            this.productLabel.Location = new System.Drawing.Point(12, 84);
+            this.productLabel.Location = new System.Drawing.Point(12, 23);
             this.productLabel.Name = "productLabel";
             this.productLabel.Size = new System.Drawing.Size(98, 20);
             this.productLabel.TabIndex = 2;
@@ -328,7 +328,7 @@
             // tempUpDown
             // 
             this.tempUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tempUpDown.Location = new System.Drawing.Point(25, 51);
+            this.tempUpDown.Location = new System.Drawing.Point(25, 312);
             this.tempUpDown.Name = "tempUpDown";
             this.tempUpDown.Size = new System.Drawing.Size(72, 27);
             this.tempUpDown.TabIndex = 1;
@@ -339,7 +339,7 @@
             // 
             this.tempLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tempLabel.AutoSize = true;
-            this.tempLabel.Location = new System.Drawing.Point(15, 28);
+            this.tempLabel.Location = new System.Drawing.Point(15, 289);
             this.tempLabel.Name = "tempLabel";
             this.tempLabel.Size = new System.Drawing.Size(93, 20);
             this.tempLabel.TabIndex = 0;
