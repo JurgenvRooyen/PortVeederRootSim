@@ -141,5 +141,15 @@ namespace SimulatorTest
 
             Assert.AreEqual(227, response.Length);
         }
+
+        [Test]
+        public void i051ClearReports()
+        {
+            string response = protocol.Parse("\x02s05101");
+            Console.WriteLine(response);
+            Assert.AreEqual(0, rootSim.TankProbeList[0].TankDroppedList.Count);
+
+            rootSim.TankProbeList[0].ClearDeliveryReport();
+        }
     }
 }
