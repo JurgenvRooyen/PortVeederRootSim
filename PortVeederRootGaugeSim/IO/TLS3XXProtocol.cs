@@ -246,7 +246,7 @@ namespace PortVeederRootGaugeSim.IO
                 {
                     codes.Concat("04");
                 }
-                if(probe.ProductLevel <= probe.LowProductAlarmLevel);
+                if(probe.ProductLevel <= probe.LowProductAlarmLevel)
                 {
                     codes.Concat("05");
                 }
