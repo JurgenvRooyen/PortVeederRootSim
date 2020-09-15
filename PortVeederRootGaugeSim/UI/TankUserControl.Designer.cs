@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tank1 = new System.Windows.Forms.GroupBox();
-            this.tankDiameter = new System.Windows.Forms.Label();
-            this.tankDiameterLabel = new System.Windows.Forms.Label();
-            this.tankLength = new System.Windows.Forms.Label();
-            this.tankLengthLabel = new System.Windows.Forms.Label();
+            this.TankGroupBox = new System.Windows.Forms.GroupBox();
+            this.ProbeDiameter = new System.Windows.Forms.Label();
+            this.ProbeDiameterLabel = new System.Windows.Forms.Label();
+            this.ProbeLength = new System.Windows.Forms.Label();
+            this.ProbeLengthLabel = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.gsv = new System.Windows.Forms.Label();
             this.ullage = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.productLabel = new System.Windows.Forms.Label();
             this.tempUpDown = new System.Windows.Forms.NumericUpDown();
             this.tempLabel = new System.Windows.Forms.Label();
-            this.tank1.SuspendLayout();
+            this.TankGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tempUpDown)).BeginInit();
@@ -64,81 +64,81 @@
             // 
             // tank1
             // 
-            this.tank1.Controls.Add(this.tankDiameter);
-            this.tank1.Controls.Add(this.tankDiameterLabel);
-            this.tank1.Controls.Add(this.tankLength);
-            this.tank1.Controls.Add(this.tankLengthLabel);
-            this.tank1.Controls.Add(this.comboBox1);
-            this.tank1.Controls.Add(this.gsv);
-            this.tank1.Controls.Add(this.ullage);
-            this.tank1.Controls.Add(this.ullageLabel);
-            this.tank1.Controls.Add(this.capacity);
-            this.tank1.Controls.Add(this.capacityLabel);
-            this.tank1.Controls.Add(this.startLeakButton);
-            this.tank1.Controls.Add(this.startDeliveryButton);
-            this.tank1.Controls.Add(this.tankDropNumber);
-            this.tank1.Controls.Add(this.tankDropButton);
-            this.tank1.Controls.Add(this.gsvLabel);
-            this.tank1.Controls.Add(this.gov);
-            this.tank1.Controls.Add(this.govLabel);
-            this.tank1.Controls.Add(this.waterVolume);
-            this.tank1.Controls.Add(this.waterVolLabel);
-            this.tank1.Controls.Add(this.waterUpDown);
-            this.tank1.Controls.Add(this.waterLabel);
-            this.tank1.Controls.Add(this.productVolume);
-            this.tank1.Controls.Add(this.productVolLabel);
-            this.tank1.Controls.Add(this.productUpDown);
-            this.tank1.Controls.Add(this.productLabel);
-            this.tank1.Controls.Add(this.tempUpDown);
-            this.tank1.Controls.Add(this.tempLabel);
-            this.tank1.Location = new System.Drawing.Point(2, 0);
-            this.tank1.Name = "tank1";
-            this.tank1.Size = new System.Drawing.Size(123, 688);
-            this.tank1.TabIndex = 2;
-            this.tank1.TabStop = false;
-            this.tank1.Text = "Probe #";
+            this.TankGroupBox.Controls.Add(this.ProbeDiameter);
+            this.TankGroupBox.Controls.Add(this.ProbeDiameterLabel);
+            this.TankGroupBox.Controls.Add(this.ProbeLength);
+            this.TankGroupBox.Controls.Add(this.ProbeLengthLabel);
+            this.TankGroupBox.Controls.Add(this.comboBox1);
+            this.TankGroupBox.Controls.Add(this.gsv);
+            this.TankGroupBox.Controls.Add(this.ullage);
+            this.TankGroupBox.Controls.Add(this.ullageLabel);
+            this.TankGroupBox.Controls.Add(this.capacity);
+            this.TankGroupBox.Controls.Add(this.capacityLabel);
+            this.TankGroupBox.Controls.Add(this.startLeakButton);
+            this.TankGroupBox.Controls.Add(this.startDeliveryButton);
+            this.TankGroupBox.Controls.Add(this.tankDropNumber);
+            this.TankGroupBox.Controls.Add(this.tankDropButton);
+            this.TankGroupBox.Controls.Add(this.gsvLabel);
+            this.TankGroupBox.Controls.Add(this.gov);
+            this.TankGroupBox.Controls.Add(this.govLabel);
+            this.TankGroupBox.Controls.Add(this.waterVolume);
+            this.TankGroupBox.Controls.Add(this.waterVolLabel);
+            this.TankGroupBox.Controls.Add(this.waterUpDown);
+            this.TankGroupBox.Controls.Add(this.waterLabel);
+            this.TankGroupBox.Controls.Add(this.productVolume);
+            this.TankGroupBox.Controls.Add(this.productVolLabel);
+            this.TankGroupBox.Controls.Add(this.productUpDown);
+            this.TankGroupBox.Controls.Add(this.productLabel);
+            this.TankGroupBox.Controls.Add(this.tempUpDown);
+            this.TankGroupBox.Controls.Add(this.tempLabel);
+            this.TankGroupBox.Location = new System.Drawing.Point(2, 0);
+            this.TankGroupBox.Name = "tank1";
+            this.TankGroupBox.Size = new System.Drawing.Size(123, 688);
+            this.TankGroupBox.TabIndex = 2;
+            this.TankGroupBox.TabStop = false;
+            this.TankGroupBox.Text = "Probe #";
             // 
-            // tankDiameter
+            // ProbeDiameter
             // 
-            this.tankDiameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankDiameter.Location = new System.Drawing.Point(8, 524);
-            this.tankDiameter.Name = "tankDiameter";
-            this.tankDiameter.Size = new System.Drawing.Size(107, 20);
-            this.tankDiameter.TabIndex = 23;
-            this.tankDiameter.Text = "*Diameter*";
-            this.tankDiameter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ProbeDiameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeDiameter.Location = new System.Drawing.Point(8, 524);
+            this.ProbeDiameter.Name = "tankDiameter";
+            this.ProbeDiameter.Size = new System.Drawing.Size(107, 20);
+            this.ProbeDiameter.TabIndex = 23;
+            this.ProbeDiameter.Text = "*Diameter*";
+            this.ProbeDiameter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tankDiameterLabel
+            // ProbeDiameterLabel
             // 
-            this.tankDiameterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankDiameterLabel.AutoSize = true;
-            this.tankDiameterLabel.Location = new System.Drawing.Point(4, 504);
-            this.tankDiameterLabel.Name = "tankDiameterLabel";
-            this.tankDiameterLabel.Size = new System.Drawing.Size(114, 20);
-            this.tankDiameterLabel.TabIndex = 23;
-            this.tankDiameterLabel.Text = "Probe Diameter";
-            this.tankDiameterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ProbeDiameterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeDiameterLabel.AutoSize = true;
+            this.ProbeDiameterLabel.Location = new System.Drawing.Point(4, 504);
+            this.ProbeDiameterLabel.Name = "tankDiameterLabel";
+            this.ProbeDiameterLabel.Size = new System.Drawing.Size(114, 20);
+            this.ProbeDiameterLabel.TabIndex = 23;
+            this.ProbeDiameterLabel.Text = "Probe Diameter";
+            this.ProbeDiameterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tankLength
+            // ProbeLength
             // 
-            this.tankLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankLength.Location = new System.Drawing.Point(8, 484);
-            this.tankLength.Name = "tankLength";
-            this.tankLength.Size = new System.Drawing.Size(107, 20);
-            this.tankLength.TabIndex = 23;
-            this.tankLength.Text = "*Length*";
-            this.tankLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ProbeLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeLength.Location = new System.Drawing.Point(8, 484);
+            this.ProbeLength.Name = "tankLength";
+            this.ProbeLength.Size = new System.Drawing.Size(107, 20);
+            this.ProbeLength.TabIndex = 23;
+            this.ProbeLength.Text = "*Length*";
+            this.ProbeLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tankLengthLabel
+            // ProbeLengthLabel
             // 
-            this.tankLengthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankLengthLabel.AutoSize = true;
-            this.tankLengthLabel.Location = new System.Drawing.Point(13, 464);
-            this.tankLengthLabel.Name = "tankLengthLabel";
-            this.tankLengthLabel.Size = new System.Drawing.Size(97, 20);
-            this.tankLengthLabel.TabIndex = 23;
-            this.tankLengthLabel.Text = "Probe Length";
-            this.tankLengthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ProbeLengthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeLengthLabel.AutoSize = true;
+            this.ProbeLengthLabel.Location = new System.Drawing.Point(13, 464);
+            this.ProbeLengthLabel.Name = "tankLengthLabel";
+            this.ProbeLengthLabel.Size = new System.Drawing.Size(97, 20);
+            this.ProbeLengthLabel.TabIndex = 23;
+            this.ProbeLengthLabel.Text = "Probe Length";
+            this.ProbeLengthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBox1
             // 
@@ -399,11 +399,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tank1);
+            this.Controls.Add(this.TankGroupBox);
             this.Name = "TankUserControl";
             this.Size = new System.Drawing.Size(127, 688);
-            this.tank1.ResumeLayout(false);
-            this.tank1.PerformLayout();
+            this.TankGroupBox.ResumeLayout(false);
+            this.TankGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tempUpDown)).EndInit();
@@ -413,7 +413,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox tank1;
+        private System.Windows.Forms.GroupBox TankGroupBox;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label gsv;
         private System.Windows.Forms.Label ullage;
@@ -437,9 +437,9 @@
         private System.Windows.Forms.Label productLabel;
         private System.Windows.Forms.NumericUpDown tempUpDown;
         private System.Windows.Forms.Label tempLabel;
-        private System.Windows.Forms.Label tankLengthLabel;
-        private System.Windows.Forms.Label tankLength;
-        private System.Windows.Forms.Label tankDiameter;
-        private System.Windows.Forms.Label tankDiameterLabel;
+        private System.Windows.Forms.Label ProbeLengthLabel;
+        private System.Windows.Forms.Label ProbeLength;
+        private System.Windows.Forms.Label ProbeDiameter;
+        private System.Windows.Forms.Label ProbeDiameterLabel;
     }
 }
