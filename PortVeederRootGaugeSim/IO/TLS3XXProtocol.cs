@@ -336,7 +336,7 @@ namespace PortVeederRootGaugeSim.IO
             }
             else
             {
-                probes[probeID].ClearDeliveryReport();
+                probes[probeID-1].ClearDeliveryReport();
             }
                 return replyString.ToString();
         }
