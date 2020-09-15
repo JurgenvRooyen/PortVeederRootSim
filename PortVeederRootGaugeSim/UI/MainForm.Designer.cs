@@ -92,7 +92,7 @@
             // 
             // gaugeButton
             // 
-            this.gaugeButton.Location = new System.Drawing.Point(11, 724);
+            this.gaugeButton.Location = new System.Drawing.Point(12, 737);
             this.gaugeButton.Name = "gaugeButton";
             this.gaugeButton.Size = new System.Drawing.Size(143, 29);
             this.gaugeButton.TabIndex = 2;
@@ -105,13 +105,13 @@
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(1326, 687);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(1326, 700);
             this.flowLayoutPanel.TabIndex = 3;
             this.flowLayoutPanel.WrapContents = false;
             // 
             // addProbeButton
             // 
-            this.addProbeButton.Location = new System.Drawing.Point(161, 724);
+            this.addProbeButton.Location = new System.Drawing.Point(161, 737);
             this.addProbeButton.Name = "addProbeButton";
             this.addProbeButton.Size = new System.Drawing.Size(143, 29);
             this.addProbeButton.TabIndex = 4;
@@ -121,7 +121,7 @@
             // 
             // deleteProbeButton
             // 
-            this.deleteProbeButton.Location = new System.Drawing.Point(310, 724);
+            this.deleteProbeButton.Location = new System.Drawing.Point(310, 737);
             this.deleteProbeButton.Name = "deleteProbeButton";
             this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
             this.deleteProbeButton.TabIndex = 5;
@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1326, 837);
+            this.ClientSize = new System.Drawing.Size(1326, 797);
             this.Controls.Add(this.deleteProbeButton);
             this.Controls.Add(this.addProbeButton);
             this.Controls.Add(this.flowLayoutPanel);
