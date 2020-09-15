@@ -98,7 +98,7 @@
             this.gaugeButton.TabIndex = 2;
             this.gaugeButton.Text = "Gauge Setup";
             this.gaugeButton.UseVisualStyleBackColor = true;
-            this.gaugeButton.Click += new System.EventHandler(this.gaugeButton_Click);
+            this.gaugeButton.Click += new System.EventHandler(this.GaugeButton_Click);
             // 
             // flowLayoutPanel
             // 
@@ -117,7 +117,7 @@
             this.addProbeButton.TabIndex = 4;
             this.addProbeButton.Text = "Add Probe";
             this.addProbeButton.UseVisualStyleBackColor = true;
-            this.addProbeButton.Click += new System.EventHandler(this.addProbeButton_Click);
+            this.addProbeButton.Click += new System.EventHandler(this.AddProbeButton_Click);
             // 
             // deleteProbeButton
             // 
@@ -127,7 +127,7 @@
             this.deleteProbeButton.TabIndex = 5;
             this.deleteProbeButton.Text = "Delete Probe";
             this.deleteProbeButton.UseVisualStyleBackColor = true;
-            this.deleteProbeButton.Click += new System.EventHandler(this.deleteProbeButton_Click);
+            this.deleteProbeButton.Click += new System.EventHandler(this.DeleteProbeButton_Click);
             // 
             // MainForm
             // 

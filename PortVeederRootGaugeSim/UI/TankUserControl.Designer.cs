@@ -214,7 +214,7 @@
             this.startLeakButton.TabIndex = 17;
             this.startLeakButton.Text = "Start Leak";
             this.startLeakButton.UseVisualStyleBackColor = true;
-            this.startLeakButton.Click += new System.EventHandler(this.startLeakButton_Click);
+            this.startLeakButton.Click += new System.EventHandler(this.StartLeakButton_Click);
             // 
             // startDeliveryButton
             // 
@@ -225,7 +225,7 @@
             this.startDeliveryButton.TabIndex = 16;
             this.startDeliveryButton.Text = "Start Delivery";
             this.startDeliveryButton.UseVisualStyleBackColor = true;
-            this.startDeliveryButton.Click += new System.EventHandler(this.startDeliveryButton_Click);
+            this.startDeliveryButton.Click += new System.EventHandler(this.StartDeliveryButton_Click);
             // 
             // tankDropNumber
             // 
@@ -246,7 +246,7 @@
             this.tankDropButton.TabIndex = 14;
             this.tankDropButton.Text = "Tank Drop";
             this.tankDropButton.UseVisualStyleBackColor = true;
-            this.tankDropButton.Click += new System.EventHandler(this.tankDropButton_Click);
+            this.tankDropButton.Click += new System.EventHandler(this.TankDropButton_Click);
             // 
             // gsvLabel
             // 
@@ -314,7 +314,7 @@
             this.waterUpDown.Size = new System.Drawing.Size(85, 27);
             this.waterUpDown.TabIndex = 7;
             this.waterUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.waterUpDown.ValueChanged += new System.EventHandler(this.waterUpDown_ValueChanged);
+            this.waterUpDown.ValueChanged += new System.EventHandler(this.WaterUpDown_ValueChanged);
             // 
             // waterLabel
             // 
@@ -361,7 +361,7 @@
             this.productUpDown.Size = new System.Drawing.Size(112, 27);
             this.productUpDown.TabIndex = 3;
             this.productUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.productUpDown.ValueChanged += new System.EventHandler(this.productUpDown_ValueChanged);
+            this.productUpDown.ValueChanged += new System.EventHandler(this.ProductUpDown_ValueChanged);
             // 
             // productLabel
             // 
@@ -382,7 +382,7 @@
             this.tempUpDown.Size = new System.Drawing.Size(72, 27);
             this.tempUpDown.TabIndex = 1;
             this.tempUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.tempUpDown.ValueChanged += new System.EventHandler(this.tempUpDown_ValueChanged);
+            this.tempUpDown.ValueChanged += new System.EventHandler(this.TempUpDown_ValueChanged);
             // 
             // tempLabel
             // 

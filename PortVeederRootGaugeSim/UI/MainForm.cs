@@ -35,21 +35,21 @@ namespace PortVeederRootGaugeSim
 
         }
 
-        private void gaugeButton_Click(object sender, EventArgs e)
+        private void GaugeButton_Click(object sender, EventArgs e)
         {
             GaugeSetup form3 = new GaugeSetup(TankGauges, flowLayoutPanel);
             form3.ShowDialog();
             
         }
 
-        private void addProbeButton_Click(object sender, EventArgs e)
+        private void AddProbeButton_Click(object sender, EventArgs e)
         {
             numberOfTanks++;
             TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 800, numberOfTanks));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
         }
 
-        private void deleteProbeButton_Click(object sender, EventArgs e)
+        private void DeleteProbeButton_Click(object sender, EventArgs e)
         {
             if (flowLayoutPanel.Controls.Count > 1)
             {
