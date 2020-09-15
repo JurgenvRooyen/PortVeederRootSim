@@ -37,7 +37,7 @@ namespace PortVeederRootGaugeSim
             
         }
 
-        private void okayButton_Click(object sender, EventArgs e)
+        private void OkayButton_Click(object sender, EventArgs e)
         {
             foreach (TankProbe t in tankGauges.TankProbeList)
             {
@@ -65,7 +65,7 @@ namespace PortVeederRootGaugeSim
             this.Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
