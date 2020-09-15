@@ -35,6 +35,8 @@ namespace PortVeederRootGaugeSim.UI
             gov.Text = tankProbe.GetGrossObservedVolume().ToString();
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
+            TankGroupBox.Text = "Probe " + Convert.ToString(id + 1);
+            tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
         }
 
         private void tankDropButton_Click(object sender, EventArgs e)
