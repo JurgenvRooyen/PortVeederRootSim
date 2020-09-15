@@ -41,7 +41,7 @@
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // mainMenu
+            // MainMenu
             // 
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -49,48 +49,46 @@
             this.OptionsMenuItem,
             this.HelpMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
-            this.MainMenu.Name = "mainMenu";
+            this.MainMenu.Name = "MainMenu";
             this.MainMenu.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
             this.MainMenu.Size = new System.Drawing.Size(1326, 30);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "mainMenu";
             // 
-            // toolStripMenuItem1
+            // FileMenuItem
             // 
             this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ExitMenuItem});
-            this.FileMenuItem.Name = "toolStripMenuItem1";
+            this.FileMenuItem.Name = "FileMenuItem";
             this.FileMenuItem.Size = new System.Drawing.Size(46, 24);
             this.FileMenuItem.Text = "File";
             // 
-            // toolStripMenuItem5
+            // ExitMenuItem
             // 
-            this.ExitMenuItem.Name = "toolStripMenuItem5";
+            this.ExitMenuItem.Name = "ExitMenuItem";
             this.ExitMenuItem.Size = new System.Drawing.Size(116, 26);
             this.ExitMenuItem.Text = "Exit";
-            this.ExitMenuItem.Click += MenuItem_Click;
             // 
-            // toolStripMenuItem2
+            // OptionsMenuItem
             // 
-            this.OptionsMenuItem.Name = "toolStripMenuItem2";
+            this.OptionsMenuItem.Name = "OptionsMenuItem";
             this.OptionsMenuItem.Size = new System.Drawing.Size(75, 24);
             this.OptionsMenuItem.Text = "Options";
             // 
-            // toolStripMenuItem3
+            // HelpMenuItem
             // 
             this.HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AboutMenuItem});
-            this.HelpMenuItem.Name = "toolStripMenuItem3";
+            this.HelpMenuItem.Name = "HelpMenuItem";
             this.HelpMenuItem.Size = new System.Drawing.Size(55, 24);
             this.HelpMenuItem.Text = "Help";
             // 
-            // toolStripMenuItem4
+            // AboutMenuItem
             // 
-            this.AboutMenuItem.Name = "toolStripMenuItem4";
+            this.AboutMenuItem.Name = "AboutMenuItem";
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
             this.AboutMenuItem.Text = "About";
-            this.AboutMenuItem.Click += MenuItem_Click;
             // 
             // gaugeButton
             // 
