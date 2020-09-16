@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using PortVeederRootGaugeSim;
 using PortVeederRootGaugeSim.IO;
 using System;
@@ -143,6 +143,14 @@ namespace SimulatorTest
         }
 
         [Test]
+        public void i051ClearReports()
+        {
+            string response = protocol.Parse("\x02s05101");
+            Console.WriteLine(response);
+            Assert.AreEqual(0, rootSim.TankProbeList[0].TankDroppedList.Count);
+
+            rootSim.TankProbeList[0].ClearDeliveryReport();
+
         public void s501()
         {
             string newDateToSet = "1801010101";
