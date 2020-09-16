@@ -28,15 +28,18 @@ namespace PortVeederRootGaugeSim.UI
             this.tankProbe = tankProbe;
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
-            tempUpDown.Value = (decimal)this.tankProbe.ProductTemperature;
+            tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
             productUpDown.Value = Convert.ToDecimal(tankProbe.GetProductLevel());
-            waterUpDown.Value = Convert.ToDecimal(tankProbe.waterLevel);
-            productVolume.Text = (tankProbe.GetProductLevel() * 10).ToString();
-            gov.Text = tankProbe.GetGrossObservedVolume().ToString();
+            waterUpDown.Value = Convert.ToDecimal(tankProbe.GetWaterLevel());
+            productVolume.Text = Convert.ToString(tankProbe.GetProductVolume());
+            gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             TankGroupBox.Text = "Probe " + Convert.ToString(id + 1);
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
+            waterVolume.Text = Convert.ToString(tankProbe.waterVolume);
+            ProbeLength.Text = Convert.ToString(tankProbe.TankProbeHeight);
+            ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
         }
 
         private void TankDropButton_Click(object sender, EventArgs e)
@@ -58,7 +61,7 @@ namespace PortVeederRootGaugeSim.UI
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetProductLevel(Convert.ToSingle(productUpDown.Value));
-            productVolume.Text = (tankProbe.GetGrossStandardVolume()).ToString();
+            productVolume.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
