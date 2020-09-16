@@ -141,5 +141,19 @@ namespace SimulatorTest
 
             Assert.AreEqual(227, response.Length);
         }
+
+        [Test]
+        public void s501()
+        {
+            string newDateToSet = "1801010101";
+            protocol.Parse("\x02s50100" + newDateToSet);
+            DateTime newDate = DateTime.Now + rootSim.SystemTime;
+
+            Assert.AreEqual(2018, newDate.Year);
+            Assert.AreEqual(01, newDate.Month);
+            Assert.AreEqual(01, newDate.Day);
+            Assert.AreEqual(01, newDate.Hour);
+            Assert.AreEqual(01, newDate.Minute);
+        }
     }
 }
