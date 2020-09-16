@@ -353,7 +353,8 @@ namespace PortVeederRootGaugeSim.IO
             void ProbeDetails(int probeID, Single limit)
             {
                 TankProbe probe = probes[probeID];
-                probe.MaxSafeWorkingCapacity = limit;
+
+                probe.SetMaxSafeWorkingCapacityByLevel(limit);
             }
 
             if (probeID == 0)
