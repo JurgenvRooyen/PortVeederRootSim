@@ -150,7 +150,9 @@ namespace SimulatorTest
             Assert.AreEqual(0, rootSim.TankProbeList[0].TankDroppedList.Count);
 
             rootSim.TankProbeList[0].ClearDeliveryReport();
+        }
 
+        [Test]
         public void s501()
         {
             string newDateToSet = "1801010101";
