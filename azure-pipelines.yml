@@ -30,7 +30,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    projects: 'PortVeederRootGaugeSim.csproj'
+    projects: 'PortVeederRootGaugeSim/PortVeederRootGaugeSim.csproj'
     publishWebProjects: false
     zipAfterPublish: false
     modifyOutputPath: false
