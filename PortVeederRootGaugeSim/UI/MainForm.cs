@@ -59,5 +59,26 @@ namespace PortVeederRootGaugeSim
                 numberOfTanks--;
             }
         }
+
+        private void MenuItem_Click(object sender, EventArgs e)
+        {
+            const string exit = "Exit";
+            const string about = "About";
+            var menuItem = (ToolStripMenuItem)sender;
+            var menuText = menuItem.Text;
+
+            switch(menuText)
+            {
+                case exit:
+                    Application.Exit();
+                    break;
+
+                case about:
+                    string message = "About information";
+                    string title = "About Veeder-Root TLS Simulator by ITL";
+                    MessageBox.Show(message, title);
+                    break;
+            }
+        }
     }
 }
