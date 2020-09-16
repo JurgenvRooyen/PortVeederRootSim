@@ -10,7 +10,7 @@ namespace PortVeederRootGaugeSim.UI
 {
     public partial class TankUserControl : UserControl
     {
-        public int tankID { get; set; }
+        public int TankID { get; set; }
         public TankProbe tankProbe;
 
         public TankUserControl()
@@ -24,7 +24,7 @@ namespace PortVeederRootGaugeSim.UI
 
         public TankUserControl(int id, TankProbe tankProbe)
         {
-            tankID = id;
+            TankID = id;
             this.tankProbe = tankProbe;
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
@@ -35,25 +35,27 @@ namespace PortVeederRootGaugeSim.UI
             gov.Text = tankProbe.GetGrossObservedVolume().ToString();
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
+            TankGroupBox.Text = "Probe " + Convert.ToString(id + 1);
+            tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
         }
 
-        private void tankDropButton_Click(object sender, EventArgs e)
+        private void TankDropButton_Click(object sender, EventArgs e)
         {
             TankDropForm form2 = new TankDropForm();
             form2.ShowDialog();
         }
 
-        private void startDeliveryButton_Click(object sender, EventArgs e)
+        private void StartDeliveryButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void startLeakButton_Click(object sender, EventArgs e)
+        private void StartLeakButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void productUpDown_ValueChanged(object sender, EventArgs e)
+        private void ProductUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetProductLevel(Convert.ToSingle(productUpDown.Value));
             productVolume.Text = (tankProbe.GetGrossStandardVolume()).ToString();
@@ -62,7 +64,7 @@ namespace PortVeederRootGaugeSim.UI
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
         }
 
-        private void tempUpDown_ValueChanged(object sender, EventArgs e)
+        private void TempUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.ProductTemperature = Convert.ToInt32(tempUpDown.Value);
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
@@ -70,7 +72,7 @@ namespace PortVeederRootGaugeSim.UI
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
         }
 
-        private void waterUpDown_ValueChanged(object sender, EventArgs e)
+        private void WaterUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetWaterLevel(Convert.ToSingle(waterUpDown.Value));
             waterVolume.Text = Convert.ToString(tankProbe.waterVolume);

@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tank1 = new System.Windows.Forms.GroupBox();
+            this.TankGroupBox = new System.Windows.Forms.GroupBox();
+            this.ProbeDiameter = new System.Windows.Forms.Label();
+            this.ProbeDiameterLabel = new System.Windows.Forms.Label();
+            this.ProbeLength = new System.Windows.Forms.Label();
+            this.ProbeLengthLabel = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.gsv = new System.Windows.Forms.Label();
             this.ullage = new System.Windows.Forms.Label();
@@ -52,285 +56,354 @@
             this.productLabel = new System.Windows.Forms.Label();
             this.tempUpDown = new System.Windows.Forms.NumericUpDown();
             this.tempLabel = new System.Windows.Forms.Label();
-            this.tank1.SuspendLayout();
+            this.TankGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tempUpDown)).BeginInit();
             this.SuspendLayout();
             // 
-            // tank1
+            // TankGroupBox
             // 
-            this.tank1.Controls.Add(this.comboBox1);
-            this.tank1.Controls.Add(this.gsv);
-            this.tank1.Controls.Add(this.ullage);
-            this.tank1.Controls.Add(this.ullageLabel);
-            this.tank1.Controls.Add(this.capacity);
-            this.tank1.Controls.Add(this.capacityLabel);
-            this.tank1.Controls.Add(this.startLeakButton);
-            this.tank1.Controls.Add(this.startDeliveryButton);
-            this.tank1.Controls.Add(this.tankDropNumber);
-            this.tank1.Controls.Add(this.tankDropButton);
-            this.tank1.Controls.Add(this.gsvLabel);
-            this.tank1.Controls.Add(this.gov);
-            this.tank1.Controls.Add(this.govLabel);
-            this.tank1.Controls.Add(this.waterVolume);
-            this.tank1.Controls.Add(this.waterVolLabel);
-            this.tank1.Controls.Add(this.waterUpDown);
-            this.tank1.Controls.Add(this.waterLabel);
-            this.tank1.Controls.Add(this.productVolume);
-            this.tank1.Controls.Add(this.productVolLabel);
-            this.tank1.Controls.Add(this.productUpDown);
-            this.tank1.Controls.Add(this.productLabel);
-            this.tank1.Controls.Add(this.tempUpDown);
-            this.tank1.Controls.Add(this.tempLabel);
-            this.tank1.Location = new System.Drawing.Point(0, 0);
-            this.tank1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tank1.Name = "tank1";
-            this.tank1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tank1.Size = new System.Drawing.Size(108, 485);
-            this.tank1.TabIndex = 2;
-            this.tank1.TabStop = false;
+            this.TankGroupBox.Controls.Add(this.ProbeDiameter);
+            this.TankGroupBox.Controls.Add(this.ProbeDiameterLabel);
+            this.TankGroupBox.Controls.Add(this.ProbeLength);
+            this.TankGroupBox.Controls.Add(this.ProbeLengthLabel);
+            this.TankGroupBox.Controls.Add(this.comboBox1);
+            this.TankGroupBox.Controls.Add(this.gsv);
+            this.TankGroupBox.Controls.Add(this.ullage);
+            this.TankGroupBox.Controls.Add(this.ullageLabel);
+            this.TankGroupBox.Controls.Add(this.capacity);
+            this.TankGroupBox.Controls.Add(this.capacityLabel);
+            this.TankGroupBox.Controls.Add(this.startLeakButton);
+            this.TankGroupBox.Controls.Add(this.startDeliveryButton);
+            this.TankGroupBox.Controls.Add(this.tankDropNumber);
+            this.TankGroupBox.Controls.Add(this.tankDropButton);
+            this.TankGroupBox.Controls.Add(this.gsvLabel);
+            this.TankGroupBox.Controls.Add(this.gov);
+            this.TankGroupBox.Controls.Add(this.govLabel);
+            this.TankGroupBox.Controls.Add(this.waterVolume);
+            this.TankGroupBox.Controls.Add(this.waterVolLabel);
+            this.TankGroupBox.Controls.Add(this.waterUpDown);
+            this.TankGroupBox.Controls.Add(this.waterLabel);
+            this.TankGroupBox.Controls.Add(this.productVolume);
+            this.TankGroupBox.Controls.Add(this.productVolLabel);
+            this.TankGroupBox.Controls.Add(this.productUpDown);
+            this.TankGroupBox.Controls.Add(this.productLabel);
+            this.TankGroupBox.Controls.Add(this.tempUpDown);
+            this.TankGroupBox.Controls.Add(this.tempLabel);
+            this.TankGroupBox.Location = new System.Drawing.Point(2, 0);
+            this.TankGroupBox.Name = "TankGroupBox";
+            this.TankGroupBox.Size = new System.Drawing.Size(123, 688);
+            this.TankGroupBox.TabIndex = 2;
+            this.TankGroupBox.TabStop = false;
+            this.TankGroupBox.Text = "Probe #";
+            // 
+            // ProbeDiameter
+            // 
+            this.ProbeDiameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeDiameter.Location = new System.Drawing.Point(8, 524);
+            this.ProbeDiameter.Name = "ProbeDiameter";
+            this.ProbeDiameter.Size = new System.Drawing.Size(107, 20);
+            this.ProbeDiameter.TabIndex = 23;
+            this.ProbeDiameter.Text = "*Diameter*";
+            this.ProbeDiameter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ProbeDiameterLabel
+            // 
+            this.ProbeDiameterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeDiameterLabel.AutoSize = true;
+            this.ProbeDiameterLabel.Location = new System.Drawing.Point(4, 504);
+            this.ProbeDiameterLabel.Name = "ProbeDiameterLabel";
+            this.ProbeDiameterLabel.Size = new System.Drawing.Size(114, 20);
+            this.ProbeDiameterLabel.TabIndex = 23;
+            this.ProbeDiameterLabel.Text = "Probe Diameter";
+            this.ProbeDiameterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ProbeLength
+            // 
+            this.ProbeLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeLength.Location = new System.Drawing.Point(8, 484);
+            this.ProbeLength.Name = "ProbeLength";
+            this.ProbeLength.Size = new System.Drawing.Size(107, 20);
+            this.ProbeLength.TabIndex = 23;
+            this.ProbeLength.Text = "*Length*";
+            this.ProbeLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ProbeLengthLabel
+            // 
+            this.ProbeLengthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProbeLengthLabel.AutoSize = true;
+            this.ProbeLengthLabel.Location = new System.Drawing.Point(13, 464);
+            this.ProbeLengthLabel.Name = "ProbeLengthLabel";
+            this.ProbeLengthLabel.Size = new System.Drawing.Size(97, 20);
+            this.ProbeLengthLabel.TabIndex = 23;
+            this.ProbeLengthLabel.Text = "Probe Length";
+            this.ProbeLengthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBox1
             // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Probe Ok",
             "Setup Err",
             "Probe Out"});
-            this.comboBox1.Location = new System.Drawing.Point(11, 458);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox1.Location = new System.Drawing.Point(8, 549);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(93, 23);
+            this.comboBox1.Size = new System.Drawing.Size(107, 28);
             this.comboBox1.TabIndex = 22;
             // 
             // gsv
             // 
-            this.gsv.AutoSize = true;
-            this.gsv.Location = new System.Drawing.Point(32, 269);
+            this.gsv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.gsv.Location = new System.Drawing.Point(8, 189);
             this.gsv.Name = "gsv";
-            this.gsv.Size = new System.Drawing.Size(38, 15);
+            this.gsv.Size = new System.Drawing.Size(106, 20);
             this.gsv.TabIndex = 2;
             this.gsv.Text = "*GSV*";
+            this.gsv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ullage
             // 
-            this.ullage.AutoSize = true;
-            this.ullage.Location = new System.Drawing.Point(29, 430);
+            this.ullage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ullage.Location = new System.Drawing.Point(8, 411);
             this.ullage.Name = "ullage";
-            this.ullage.Size = new System.Drawing.Size(50, 15);
+            this.ullage.Size = new System.Drawing.Size(106, 20);
             this.ullage.TabIndex = 21;
             this.ullage.Text = "*Ullage*";
+            this.ullage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ullageLabel
             // 
+            this.ullageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ullageLabel.AutoSize = true;
-            this.ullageLabel.Location = new System.Drawing.Point(32, 415);
+            this.ullageLabel.Location = new System.Drawing.Point(35, 391);
             this.ullageLabel.Name = "ullageLabel";
-            this.ullageLabel.Size = new System.Drawing.Size(40, 15);
+            this.ullageLabel.Size = new System.Drawing.Size(52, 20);
             this.ullageLabel.TabIndex = 20;
             this.ullageLabel.Text = "Ullage";
+            this.ullageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // capacity
             // 
-            this.capacity.AutoSize = true;
-            this.capacity.Location = new System.Drawing.Point(6, 400);
+            this.capacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.capacity.Location = new System.Drawing.Point(8, 371);
             this.capacity.Name = "capacity";
-            this.capacity.Padding = new System.Windows.Forms.Padding(17, 0, 17, 0);
-            this.capacity.Size = new System.Drawing.Size(97, 15);
+            this.capacity.Size = new System.Drawing.Size(106, 20);
             this.capacity.TabIndex = 19;
             this.capacity.Text = "*Capacity*";
+            this.capacity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // capacityLabel
             // 
+            this.capacityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.capacityLabel.AutoSize = true;
-            this.capacityLabel.Location = new System.Drawing.Point(29, 385);
+            this.capacityLabel.Location = new System.Drawing.Point(28, 351);
             this.capacityLabel.Name = "capacityLabel";
-            this.capacityLabel.Size = new System.Drawing.Size(53, 15);
+            this.capacityLabel.Size = new System.Drawing.Size(66, 20);
             this.capacityLabel.TabIndex = 18;
             this.capacityLabel.Text = "Capacity";
+            this.capacityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // startLeakButton
             // 
-            this.startLeakButton.Location = new System.Drawing.Point(6, 361);
-            this.startLeakButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.startLeakButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.startLeakButton.Location = new System.Drawing.Point(8, 618);
             this.startLeakButton.Name = "startLeakButton";
-            this.startLeakButton.Size = new System.Drawing.Size(94, 22);
+            this.startLeakButton.Size = new System.Drawing.Size(107, 29);
             this.startLeakButton.TabIndex = 17;
             this.startLeakButton.Text = "Start Leak";
             this.startLeakButton.UseVisualStyleBackColor = true;
-            this.startLeakButton.Click += new System.EventHandler(this.startLeakButton_Click);
+            this.startLeakButton.Click += new System.EventHandler(this.StartLeakButton_Click);
             // 
             // startDeliveryButton
             // 
-            this.startDeliveryButton.Location = new System.Drawing.Point(6, 334);
-            this.startDeliveryButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.startDeliveryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.startDeliveryButton.Location = new System.Drawing.Point(8, 583);
             this.startDeliveryButton.Name = "startDeliveryButton";
-            this.startDeliveryButton.Size = new System.Drawing.Size(94, 22);
+            this.startDeliveryButton.Size = new System.Drawing.Size(107, 29);
             this.startDeliveryButton.TabIndex = 16;
             this.startDeliveryButton.Text = "Start Delivery";
             this.startDeliveryButton.UseVisualStyleBackColor = true;
-            this.startDeliveryButton.Click += new System.EventHandler(this.startDeliveryButton_Click);
+            this.startDeliveryButton.Click += new System.EventHandler(this.StartDeliveryButton_Click);
             // 
             // tankDropNumber
             // 
-            this.tankDropNumber.AutoSize = true;
-            this.tankDropNumber.Location = new System.Drawing.Point(29, 317);
+            this.tankDropNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tankDropNumber.Location = new System.Drawing.Point(8, 431);
             this.tankDropNumber.Name = "tankDropNumber";
-            this.tankDropNumber.Size = new System.Drawing.Size(47, 15);
+            this.tankDropNumber.Size = new System.Drawing.Size(107, 20);
             this.tankDropNumber.TabIndex = 15;
             this.tankDropNumber.Text = "# drops";
+            this.tankDropNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tankDropButton
             // 
-            this.tankDropButton.Location = new System.Drawing.Point(6, 293);
-            this.tankDropButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tankDropButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tankDropButton.Location = new System.Drawing.Point(8, 653);
             this.tankDropButton.Name = "tankDropButton";
-            this.tankDropButton.Size = new System.Drawing.Size(94, 22);
+            this.tankDropButton.Size = new System.Drawing.Size(107, 29);
             this.tankDropButton.TabIndex = 14;
             this.tankDropButton.Text = "Tank Drop";
             this.tankDropButton.UseVisualStyleBackColor = true;
-            this.tankDropButton.Click += new System.EventHandler(this.tankDropButton_Click);
+            this.tankDropButton.Click += new System.EventHandler(this.TankDropButton_Click);
             // 
             // gsvLabel
             // 
+            this.gsvLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.gsvLabel.AutoSize = true;
-            this.gsvLabel.Location = new System.Drawing.Point(36, 254);
+            this.gsvLabel.Location = new System.Drawing.Point(43, 169);
             this.gsvLabel.Name = "gsvLabel";
-            this.gsvLabel.Size = new System.Drawing.Size(28, 15);
+            this.gsvLabel.Size = new System.Drawing.Size(36, 20);
             this.gsvLabel.TabIndex = 13;
             this.gsvLabel.Text = "GSV";
+            this.gsvLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gov
             // 
-            this.gov.AutoSize = true;
-            this.gov.Location = new System.Drawing.Point(30, 239);
+            this.gov.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.gov.Location = new System.Drawing.Point(8, 149);
             this.gov.Name = "gov";
-            this.gov.Size = new System.Drawing.Size(41, 15);
+            this.gov.Size = new System.Drawing.Size(106, 20);
             this.gov.TabIndex = 12;
             this.gov.Text = "*GOV*";
+            this.gov.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // govLabel
             // 
+            this.govLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.govLabel.AutoSize = true;
-            this.govLabel.Location = new System.Drawing.Point(36, 224);
+            this.govLabel.Location = new System.Drawing.Point(42, 129);
             this.govLabel.Name = "govLabel";
-            this.govLabel.Size = new System.Drawing.Size(31, 15);
+            this.govLabel.Size = new System.Drawing.Size(39, 20);
             this.govLabel.TabIndex = 11;
             this.govLabel.Text = "GOV";
+            this.govLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // waterVolume
             // 
-            this.waterVolume.AutoSize = true;
-            this.waterVolume.Location = new System.Drawing.Point(36, 195);
+            this.waterVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.waterVolume.Location = new System.Drawing.Point(8, 278);
             this.waterVolume.Name = "waterVolume";
-            this.waterVolume.Size = new System.Drawing.Size(33, 15);
+            this.waterVolume.Size = new System.Drawing.Size(106, 20);
             this.waterVolume.TabIndex = 9;
             this.waterVolume.Text = "*Vol*";
+            this.waterVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // waterVolLabel
             // 
+            this.waterVolLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.waterVolLabel.AutoSize = true;
-            this.waterVolLabel.Location = new System.Drawing.Point(22, 180);
+            this.waterVolLabel.Location = new System.Drawing.Point(25, 258);
             this.waterVolLabel.Name = "waterVolLabel";
-            this.waterVolLabel.Size = new System.Drawing.Size(57, 15);
+            this.waterVolLabel.Size = new System.Drawing.Size(73, 20);
             this.waterVolLabel.TabIndex = 8;
             this.waterVolLabel.Text = "Water Vol";
+            this.waterVolLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // waterUpDown
             // 
-            this.waterUpDown.Location = new System.Drawing.Point(14, 149);
-            this.waterUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.waterUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.waterUpDown.Location = new System.Drawing.Point(8, 99);
             this.waterUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.waterUpDown.Name = "waterUpDown";
-            this.waterUpDown.Size = new System.Drawing.Size(74, 23);
+            this.waterUpDown.Size = new System.Drawing.Size(106, 27);
             this.waterUpDown.TabIndex = 7;
             this.waterUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.waterUpDown.ValueChanged += new System.EventHandler(this.waterUpDown_ValueChanged);
+            this.waterUpDown.ValueChanged += new System.EventHandler(this.WaterUpDown_ValueChanged);
             // 
             // waterLabel
             // 
+            this.waterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.waterLabel.AutoSize = true;
-            this.waterLabel.Location = new System.Drawing.Point(17, 132);
+            this.waterLabel.Location = new System.Drawing.Point(18, 76);
             this.waterLabel.Name = "waterLabel";
-            this.waterLabel.Size = new System.Drawing.Size(68, 15);
+            this.waterLabel.Size = new System.Drawing.Size(86, 20);
             this.waterLabel.TabIndex = 6;
             this.waterLabel.Text = "Water Level";
+            this.waterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // productVolume
             // 
-            this.productVolume.AutoSize = true;
-            this.productVolume.Location = new System.Drawing.Point(36, 117);
+            this.productVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.productVolume.Location = new System.Drawing.Point(8, 238);
             this.productVolume.Name = "productVolume";
-            this.productVolume.Size = new System.Drawing.Size(0, 15);
+            this.productVolume.Size = new System.Drawing.Size(107, 20);
             this.productVolume.TabIndex = 5;
+            this.productVolume.Text = "*Vol*";
+            this.productVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // productVolLabel
             // 
+            this.productVolLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.productVolLabel.AutoSize = true;
-            this.productVolLabel.Location = new System.Drawing.Point(17, 105);
+            this.productVolLabel.Location = new System.Drawing.Point(19, 218);
             this.productVolLabel.Name = "productVolLabel";
-            this.productVolLabel.Size = new System.Drawing.Size(68, 15);
+            this.productVolLabel.Size = new System.Drawing.Size(85, 20);
             this.productVolLabel.TabIndex = 4;
             this.productVolLabel.Text = "Product Vol";
+            this.productVolLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // productUpDown
             // 
-            this.productUpDown.Location = new System.Drawing.Point(6, 80);
-            this.productUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.productUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.productUpDown.Location = new System.Drawing.Point(8, 46);
             this.productUpDown.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.productUpDown.Name = "productUpDown";
-            this.productUpDown.Size = new System.Drawing.Size(98, 23);
+            this.productUpDown.Size = new System.Drawing.Size(107, 27);
             this.productUpDown.TabIndex = 3;
             this.productUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.productUpDown.ValueChanged += new System.EventHandler(this.productUpDown_ValueChanged);
+            this.productUpDown.ValueChanged += new System.EventHandler(this.ProductUpDown_ValueChanged);
             // 
             // productLabel
             // 
+            this.productLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.productLabel.AutoSize = true;
-            this.productLabel.Location = new System.Drawing.Point(6, 62);
+            this.productLabel.Location = new System.Drawing.Point(12, 23);
             this.productLabel.Name = "productLabel";
-            this.productLabel.Size = new System.Drawing.Size(79, 15);
+            this.productLabel.Size = new System.Drawing.Size(98, 20);
             this.productLabel.TabIndex = 2;
             this.productLabel.Text = "Product Level";
+            this.productLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tempUpDown
             // 
-            this.tempUpDown.Location = new System.Drawing.Point(24, 38);
-            this.tempUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tempUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tempUpDown.Location = new System.Drawing.Point(8, 321);
             this.tempUpDown.Name = "tempUpDown";
-            this.tempUpDown.Size = new System.Drawing.Size(63, 23);
+            this.tempUpDown.Size = new System.Drawing.Size(107, 27);
             this.tempUpDown.TabIndex = 1;
             this.tempUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.tempUpDown.ValueChanged += new System.EventHandler(this.tempUpDown_ValueChanged);
+            this.tempUpDown.ValueChanged += new System.EventHandler(this.TempUpDown_ValueChanged);
             // 
             // tempLabel
             // 
+            this.tempLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tempLabel.AutoSize = true;
-            this.tempLabel.Location = new System.Drawing.Point(14, 21);
+            this.tempLabel.Location = new System.Drawing.Point(15, 298);
             this.tempLabel.Name = "tempLabel";
-            this.tempLabel.Size = new System.Drawing.Size(73, 15);
+            this.tempLabel.Size = new System.Drawing.Size(93, 20);
             this.tempLabel.TabIndex = 0;
             this.tempLabel.Text = "Temperature";
+            this.tempLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TankUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tank1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Controls.Add(this.TankGroupBox);
             this.Name = "TankUserControl";
-            this.Size = new System.Drawing.Size(111, 490);
-            this.tank1.ResumeLayout(false);
-            this.tank1.PerformLayout();
+            this.Size = new System.Drawing.Size(127, 688);
+            this.TankGroupBox.ResumeLayout(false);
+            this.TankGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tempUpDown)).EndInit();
@@ -340,7 +413,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox tank1;
+        private System.Windows.Forms.GroupBox TankGroupBox;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label gsv;
         private System.Windows.Forms.Label ullage;
@@ -364,5 +437,9 @@
         private System.Windows.Forms.Label productLabel;
         private System.Windows.Forms.NumericUpDown tempUpDown;
         private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.Label ProbeLengthLabel;
+        private System.Windows.Forms.Label ProbeLength;
+        private System.Windows.Forms.Label ProbeDiameter;
+        private System.Windows.Forms.Label ProbeDiameterLabel;
     }
 }

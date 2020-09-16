@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -99,7 +100,14 @@ namespace PortVeederRootGaugeSim.IO
                         sb.Append(S051(probeID));
                         break;
                     case "501":
-                        sb.Append(S501(toParse.Substring(6)));
+                        try
+                        {
+                            sb.Append(S501(toParse.Substring(7,10)));
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+                            sb.Append("9999");
+                        }
                         break;
                     case "628":
                         sb.Append(S628(probeID, toParse.Substring(6)));
@@ -141,7 +149,6 @@ namespace PortVeederRootGaugeSim.IO
                 probeString.Append("0000");
                 probeString.Append("07");
                 probeString.Append(SingleToHex((float)probe.GetGrossObservedVolume()));
-                Console.WriteLine(SingleToHex((float)probe.GetGrossObservedVolume()));
                 probeString.Append(SingleToHex((float)probe.GetGrossStandardVolume()));
                 probeString.Append(SingleToHex((float)probe.GetUllage()));
                 probeString.Append(SingleToHex((float)probe.GetProductLevel()));
@@ -258,7 +265,7 @@ namespace PortVeederRootGaugeSim.IO
                 {
                     codes.Concat("04");
                 }
-                if(probe.ProductLevel <= probe.LowProductAlarmLevel);
+                if(probe.ProductLevel <= probe.LowProductAlarmLevel)
                 {
                     codes.Concat("05");
                 }
@@ -330,15 +337,50 @@ namespace PortVeederRootGaugeSim.IO
         }
 
         //Command S051 - Clear In Tank delivery reports
-        private string S051(int TankNumber)
+        private string S051(int probeID)
         {
-            return null;
+            List<TankProbe> probes = simulator.TankProbeList;
+            StringBuilder replyString = new StringBuilder();
+
+            replyString.Append("s051");
+            replyString.Append(probeID.ToString().PadLeft(2, '0'));
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            if (probeID == 0)
+            {
+                foreach (TankProbe probe in probes)
+                {
+                    probe.ClearDeliveryReport();
+                }
+            }
+            else
+            {
+                probes[probeID-1].ClearDeliveryReport();
+            }
+                return replyString.ToString();
         }
 
         //Command S501 - Setting date and time
         private string S501(string setString)
         {
-            return null;
+            StringBuilder replyString = new StringBuilder();
+            replyString.Append("s501");
+            replyString.Append("00");
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            try
+            {
+                DateTime dateToSet = DateTime.ParseExact(setString, dateFormatString, new CultureInfo("en-NZ"));
+                TimeSpan dateAsOffset = dateToSet - DateTime.Now;
+                simulator.SystemTime = dateAsOffset;
+                replyString.Append(setString);
+            }
+            catch (FormatException)
+            {
+                return "9999";
+            }
+
+            return replyString.ToString();
         }
 
         //Command S628 - Set Tank Maximum Value
