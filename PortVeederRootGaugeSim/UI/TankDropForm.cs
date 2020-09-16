@@ -18,13 +18,13 @@ namespace PortVeederRootGaugeSim
             volumeLitres.Value = 5000;
             durationMinutes.Value = 20;
         }
-        private void okButton_Click(object sender, EventArgs e)
+        private void OkayButton_Click(object sender, EventArgs e)
         {
             //TODO: update tank drop information
             this.Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
