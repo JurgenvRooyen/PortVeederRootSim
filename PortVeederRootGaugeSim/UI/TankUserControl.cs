@@ -36,6 +36,7 @@ namespace PortVeederRootGaugeSim.UI
             waterUpDown.Value = Convert.ToDecimal(tankProbe.GetWaterLevel());
             productVolume.Text = Convert.ToString(tankProbe.GetProductVolume());
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
+            gsv.Text = gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             TankGroupBox.Text = "Probe " + Convert.ToString(id + 1);
@@ -43,6 +44,51 @@ namespace PortVeederRootGaugeSim.UI
             waterVolume.Text = Convert.ToString(tankProbe.waterVolume);
             ProbeLength.Text = Convert.ToString(tankProbe.TankProbeHeight);
             ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
+        }
+
+        public void SetNewTempUpDown()
+        {
+            tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
+        }
+
+        public void SetNewProductUpDown()
+        {
+            productUpDown.Value = Convert.ToDecimal(this.tankProbe.ProductLevel);
+        }
+
+        public void SetNewProductVolume()
+        {
+            productVolume.Text = Convert.ToString(this.tankProbe.GetProductVolume());
+        }
+
+        public void SetNewWaterUpDown()
+        {
+            waterUpDown.Value = Convert.ToDecimal(tankProbe.GetWaterLevel());
+        }
+
+        public void SetNewWaterVolume()
+        {
+            waterVolume.Text = Convert.ToString(tankProbe.waterVolume);
+        }
+
+        public void SetNewGOV()
+        {
+            gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
+        }
+
+        public void SetNewGSV()
+        {
+            gsv.Text = gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
+        }
+
+        public void SetNewCapacity()
+        {
+            capacity.Text = Convert.ToString(tankProbe.FullVolume);
+        }
+
+        public void SetNewUllage()
+        {
+            ullage.Text = Convert.ToString(tankProbe.GetUllage());
         }
 
         private void StartDeliveryButton_Click(object sender, EventArgs e)
@@ -69,12 +115,12 @@ namespace PortVeederRootGaugeSim.UI
         {
             if (this.tankProbe.TankLeaking)
             {
-                this.tankProbe.TankLeaking = false;
+                this.tankProbe.LeakingSwitch();
                 startLeakButton.Text = "Start Leak";
             }
             else
             {
-                this.tankProbe.TankLeaking = true;
+                this.tankProbe.LeakingSwitch();
                 startLeakButton.Text = "Stop Leak";
             }
         }
@@ -82,7 +128,7 @@ namespace PortVeederRootGaugeSim.UI
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetProductLevel(Convert.ToSingle(productUpDown.Value));
-            productVolume.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
+            productVolume.Text = Convert.ToString(tankProbe.GetProductVolume());
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
