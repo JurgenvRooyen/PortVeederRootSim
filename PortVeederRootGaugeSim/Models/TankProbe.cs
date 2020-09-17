@@ -178,18 +178,30 @@ namespace PortVeederRootGaugeSim
 
         }
 
-        public Boolean DropTank(float volume, DateTime startTime, TimeSpan duration)
+        public Boolean ProductChangePerInterval(float value)
         {
-            TankDrop td = new TankDrop(volume,
+            // could change 
+            return SetProductVolume(this.productVolume + value);
+        }
+
+        public void ProductChangeThreadDelivery(float volume, DateTime startTime, TimeSpan duration)
+        {
+            if (TankDelivering)
+            {
+                TankDrop td = new TankDrop(0,
                                         startTime,
                                         this.GetProductVolume(),
                                         this.GetProductLevel(),
                                         this.GetGrossStandardVolume(),
                                         this.GetWaterVolume(),
                                         this.ProductTemperature);
-
-            if (SetProductVolume(this.productVolume + volume))
-            {
+                float droppedVolume = 0f;
+                while (TankDelivering & ProductChangePerInterval(TankDeliveringPerInterval) & droppedVolume < volume)
+                {
+                    droppedVolume += TankDeliveringPerInterval;
+                    Thread.Sleep(100);
+                }
+                td.Volume = droppedVolume;
                 td.EndingTime = startTime + duration;
                 td.EndingVolume = this.GetProductVolume();
                 td.EndingVLevel = this.GetProductLevel();
@@ -198,50 +210,14 @@ namespace PortVeederRootGaugeSim
                 td.EndingTemperature = this.ProductTemperature;
 
                 this.TankDroppedList.Add(td);
-                return true;
-            }
-            return false;
-        }
-
-        public Boolean ProductChangePerInterval(float value)
-        {
-            // could change 
-            return SetProductVolume(this.productVolume + value);
-        }
-
-        public void ProductChangeThread(DateTime startTime)
-        {
-
-            if (TankDelivering)
-            {
-                TankDrop td = new TankDrop(0,
-                                            startTime,
-                                            this.GetProductVolume(),
-                                            this.GetProductLevel(),
-                                            this.GetGrossStandardVolume(),
-                                            this.GetWaterVolume(),
-                                            this.ProductTemperature);
-                float droppedVolume = 0f;
-                TimeSpan startDeliveringTime = DateTime.Now.TimeOfDay;
-                while (TankDelivering & ProductChangePerInterval(TankDeliveringPerInterval))
-                {
-                    droppedVolume += TankDeliveringPerInterval;
-                    Thread.Sleep(100);
-                }
-                td.Volume = droppedVolume;
-                TimeSpan endDeliveringTime = DateTime.Now.TimeOfDay;
-                td.EndingTime = startTime + startDeliveringTime - endDeliveringTime;
-                td.EndingVolume = this.GetProductVolume();
-                td.EndingVLevel = this.GetProductLevel();
-                td.EndingTemperatureCompensatedVolume = this.GetGrossStandardVolume();
-                td.EndingWaterVolume = this.GetWaterVolume();
-                td.EndingTemperature = this.ProductTemperature;
-
-                this.TankDroppedList.Add(td);
+                TankDelivering = false;
                 return;
             }
+            return;
+        }
 
-
+        public void ProductChangeThreadLeaking()
+        {
             if (TankLeaking)
             {
                 while (TankLeaking & ProductChangePerInterval(-TankLeakingPerInterval))
@@ -253,7 +229,7 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public void DeliverySwitch(DateTime startTime)
+        public void DeliverySwitch(float volume, DateTime startTime, TimeSpan duration)
         {
 
             if (TankDelivering)
@@ -263,7 +239,7 @@ namespace PortVeederRootGaugeSim
             else
             {
                 TankDelivering = true;
-                this.ProductChanging = new Thread(() => ProductChangeThread(startTime));
+                this.ProductChanging = new Thread(() => ProductChangeThreadDelivery(volume, startTime, duration));
                 this.ProductChanging.Start();
             }
         }
@@ -278,7 +254,7 @@ namespace PortVeederRootGaugeSim
             else
             {
                 this.TankLeaking = true;
-                this.ProductChanging = new Thread(() => ProductChangeThread(DateTime.Now));
+                this.ProductChanging = new Thread(() => ProductChangeThreadLeaking());
                 this.ProductChanging.Start();
             }
         }
