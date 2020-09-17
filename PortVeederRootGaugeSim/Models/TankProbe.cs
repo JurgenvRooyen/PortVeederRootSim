@@ -432,7 +432,7 @@ namespace PortVeederRootGaugeSim
         {
             String returnString = "";
             returnString += "TankProbeId = " + TankProbeId.ToString() + "                                               ";
-            returnString += "productVolume = " + productVolume.ToString() + "                               ";
+            returnString += "productVolume = " + ProductVolume.ToString() + "                               ";
             returnString += "productLevel = " + ProductLevel.ToString() + "                                  ";
             returnString += "productVolume = " + ProductVolume.ToString() + "                               ";
             returnString += "waterLevel = " + waterLevel.ToString() + "                                                 ";
