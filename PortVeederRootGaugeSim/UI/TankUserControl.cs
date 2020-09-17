@@ -58,11 +58,6 @@ namespace PortVeederRootGaugeSim.UI
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
         }
 
-        public void SetNewTankDropNumber()
-        {
-            tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
-        }
-
         private void StartDeliveryButton_Click(object sender, EventArgs e)
         {
             TankDropForm tankDrop = new TankDropForm();
