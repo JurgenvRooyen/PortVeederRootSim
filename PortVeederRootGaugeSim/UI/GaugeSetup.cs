@@ -60,7 +60,7 @@ namespace PortVeederRootGaugeSim
 
             foreach (Control control in tankGaugesControls.Controls)
             {
-                control.Update();
+                //control.
             }
             this.Close();
         }
