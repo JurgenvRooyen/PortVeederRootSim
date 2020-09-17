@@ -154,14 +154,14 @@ namespace PortVeederRootGaugeSim
         public TankProbe(int tankId, float tankLength, float tankDiameter, float productValue, float waterValue, int productTemperature)
         {
             this.TankProbeId = tankId;
-            this.FullVolume = LevelToVolume(tankLength);
+            this.TankProbeHeight = tankLength;
             this.TankProbeDiameter = tankDiameter;
+            this.ProductLevel = productValue;
+            SetWaterLevel(waterValue);
             this.ProductTemperature = productTemperature;
+            FullVolume = LevelToVolume(tankLength);
             this.TankDelivering = false;
             this.TankLeaking = false;
-            this.TankProbeHeight = tankLength;
-            SetWaterLevel(waterValue);
-            this.ProductLevel = productValue;
 
             MaxSafeWorkingCapacity = 0.95F * TankProbeHeight;
             OverFillLimit = 0.90F * TankProbeHeight;
