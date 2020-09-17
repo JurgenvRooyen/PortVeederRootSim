@@ -72,8 +72,6 @@ namespace PortVeederRootGaugeSim.IO
             catch(Exception e)
             {
                 Debug.WriteLine(e.Message);
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
                 return "9999";
             }
         }
@@ -81,20 +79,16 @@ namespace PortVeederRootGaugeSim.IO
         public string Parse(string toParse)
         {
             StringBuilder sb = new StringBuilder("\x02");
-
-            char protocolCategory;
             string protocolCommand;
             string tankNumber;
             int probeID;
             try
             {
-                protocolCategory = toParse[1];
-                protocolCommand = toParse.Substring(2, 3);
+                protocolCommand = toParse.Substring(1, 4);
                 tankNumber = toParse.Substring(5, 2);
                 probeID = Convert.ToInt32(tankNumber);
 
                 Debug.WriteLine("Protocol Parses");
-                Debug.WriteLine("Protocol Category: " + protocolCategory);
                 Debug.WriteLine("Protocol Command: " + protocolCommand);
                 Debug.WriteLine("Tank Number: " + tankNumber);
             }
@@ -109,36 +103,26 @@ namespace PortVeederRootGaugeSim.IO
             }
 
             // This can probably be replaced with a key:value store to call functions
-            if (protocolCategory == 'i')
-            {
+
                 switch (protocolCommand)
                 {
-                    case "201":
+                    case "i201":
                         sb.Append(CommandResponse("i201", probeID, I201));
                         break;
-                    case "202":
+                    case "i202":
                         sb.Append(CommandResponse("i202", probeID, I202));
                         break;
-                    case "205":
+                    case "i205":
                         sb.Append(CommandResponse("i205", probeID, I205));
                         break;
-                    case "902":
+                    case "i902":
                         sb.Append(I902());
                         break;
-                    default:
-                        sb.Append("9999");
-                        break;
-                }
 
-            }
-            else if (protocolCategory == 's')
-            {
-                switch (protocolCommand)
-                {
-                    case "051":
+                    case "s051":
                         sb.Append(CommandResponse("s051", probeID, S051));
                         break;
-                    case "501":
+                    case "s501":
                         try
                         {
                             sb.Append(S501(toParse.Substring(7,10)));
@@ -148,18 +132,14 @@ namespace PortVeederRootGaugeSim.IO
                             sb.Append("9999");
                         }
                         break;
-                    case "628":
+                    case "s628":
                         sb.Append(S628(probeID, toParse.Substring(6)));
                         break;
                     default:
                         sb.Append("9999");
                         break;
                 }
-            }
-            else
-            {
-                sb.Append("9999");
-            }
+
 
             // TLS3XX protocol requires an ending ETX char to mark a messages end, this can be disabled if necessary.
             // TODO: investigate if enabler requires ETX marking or supports it?
@@ -239,7 +219,6 @@ namespace PortVeederRootGaugeSim.IO
             {
                 codes += "02";
             }
-
             if(probe.waterLevel >= probe.HighWaterAlarmLevel)
             {
                 codes += "03";
@@ -320,17 +299,10 @@ namespace PortVeederRootGaugeSim.IO
             replyString.Append("00");
             replyString.Append(DateFormat(simulator.SystemTime));
 
-            try
-            {
-                DateTime dateToSet = DateTime.ParseExact(setString, dateFormatString, new CultureInfo("en-NZ"));
-                TimeSpan dateAsOffset = dateToSet - DateTime.Now;
-                simulator.SystemTime = dateAsOffset;
-                replyString.Append(setString);
-            }
-            catch (FormatException)
-            {
-                return "9999";
-            }
+            DateTime dateToSet = DateTime.ParseExact(setString, dateFormatString, new CultureInfo("en-NZ"));
+            TimeSpan dateAsOffset = dateToSet - DateTime.Now;
+            simulator.SystemTime = dateAsOffset;
+            replyString.Append(setString);
 
             return replyString.ToString();
         }
@@ -353,7 +325,6 @@ namespace PortVeederRootGaugeSim.IO
 
             if (probeID == 0)
             {
-                probeID++;
                 foreach (TankProbe probe in probes)
                 {
                     ProbeDetails(probeID, HexToSingle(setString));

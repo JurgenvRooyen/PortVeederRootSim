@@ -153,7 +153,7 @@ namespace SimulatorTest
         }
       
         [Test]
-        public void i051ClearReports()
+        public void i051ClearReportsTest()
         {
             string response = protocol.Parse("\x02s05101");
             Console.WriteLine(response);
@@ -163,7 +163,7 @@ namespace SimulatorTest
         }
 
         [Test]
-        public void s501()
+        public void s501SetDateTest()
         {
             string newDateToSet = "1801010101";
             protocol.Parse("\x02s50100" + newDateToSet);
@@ -174,6 +174,15 @@ namespace SimulatorTest
             Assert.AreEqual(01, newDate.Day);
             Assert.AreEqual(01, newDate.Hour);
             Assert.AreEqual(01, newDate.Minute);
+        }
+
+        [Test]
+        public void s501SetBadDateTest()
+        {
+            string newDateToSet = "ABCDEFG";
+            string response = protocol.Parse("\x02s50100" + newDateToSet);
+
+            Assert.AreEqual("\x02" + "9999" + "\x03", response);
         }
     }
 }
