@@ -20,6 +20,7 @@ namespace PortVeederRootGaugeSim
     {
         public int numberOfTanks = 0;
         public RootSim TankGauges;
+        public static System.Windows.Forms.Timer refreshTimer = new System.Windows.Forms.Timer();
 
         public MainForm(RootSim r)
         {
@@ -33,7 +34,16 @@ namespace PortVeederRootGaugeSim
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            refreshTimer.Tick += TimerEventProcessor;
+            refreshTimer.Interval = 500;
+            refreshTimer.Enabled = true;
+        }
 
+        private void TimerEventProcessor(object sender, EventArgs e)
+        {
+            foreach (TankUserControl probeControl in flowLayoutPanel.Controls) {
+                probeControl.UpdateLabels();
+            }
         }
 
         private void GaugeButton_Click(object sender, EventArgs e)
