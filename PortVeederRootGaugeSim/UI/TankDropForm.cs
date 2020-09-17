@@ -21,6 +21,7 @@ namespace PortVeederRootGaugeSim
         private void OkayButton_Click(object sender, EventArgs e)
         {
             //TODO: update tank drop information
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 

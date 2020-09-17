@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PortVeederRootGaugeSim.UI
 {
@@ -26,6 +27,8 @@ namespace PortVeederRootGaugeSim.UI
         {
             TankID = id;
             this.tankProbe = tankProbe;
+            tankProbe.TankDelivering = false;
+            tankProbe.TankLeaking = false;
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
@@ -42,20 +45,38 @@ namespace PortVeederRootGaugeSim.UI
             ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
         }
 
-        private void TankDropButton_Click(object sender, EventArgs e)
-        {
-            TankDropForm form2 = new TankDropForm();
-            form2.ShowDialog();
-        }
-
         private void StartDeliveryButton_Click(object sender, EventArgs e)
         {
+            if (this.tankProbe.TankDelivering)
+            {
+                this.tankProbe.TankDelivering = false;
+                startDeliveryButton.Text = "Start Delivery";
+            }
+            else
+            {
+                TankDropForm tankDrop = new TankDropForm();
+                DialogResult result = tankDrop.ShowDialog();
 
+                if (result == DialogResult.OK)
+                {
+                    this.tankProbe.TankDelivering = true;
+                    startDeliveryButton.Text = "Stop Delivery";
+                }
+            }
         }
 
         private void StartLeakButton_Click(object sender, EventArgs e)
         {
-
+            if (this.tankProbe.TankLeaking)
+            {
+                this.tankProbe.TankLeaking = false;
+                startLeakButton.Text = "Start Leak";
+            }
+            else
+            {
+                this.tankProbe.TankLeaking = true;
+                startLeakButton.Text = "Stop Leak";
+            }
         }
 
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
