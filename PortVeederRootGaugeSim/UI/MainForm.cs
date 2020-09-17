@@ -42,16 +42,7 @@ namespace PortVeederRootGaugeSim
         private void TimerEventProcessor(object sender, EventArgs e)
         {
             foreach (TankUserControl probeControl in flowLayoutPanel.Controls) {
-                probeControl.SetNewTempUpDown();
-                probeControl.SetNewProductUpDown();
-                probeControl.SetNewProductVolume();
-                probeControl.SetNewWaterUpDown();
-                probeControl.SetNewWaterVolume();
-                probeControl.SetNewGOV();
-                probeControl.SetNewGSV();
-                probeControl.SetNewCapacity();
-                probeControl.SetNewUllage();
-                probeControl.SetNewTankDropNumber();
+                probeControl.UpdateLabels();
             }
         }
 

@@ -27,8 +27,6 @@ namespace PortVeederRootGaugeSim.UI
         {
             TankID = id;
             this.tankProbe = tankProbe;
-            tankProbe.TankDelivering = false;
-            tankProbe.TankLeaking = false;
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
@@ -46,53 +44,17 @@ namespace PortVeederRootGaugeSim.UI
             ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
         }
 
-        public void SetNewTempUpDown()
+        public void UpdateLabels()
         {
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
-        }
-
-        public void SetNewProductUpDown()
-        {
-            productUpDown.Value = Convert.ToDecimal(this.tankProbe.ProductLevel);
-        }
-
-        public void SetNewProductVolume()
-        {
-            productVolume.Text = Convert.ToString(this.tankProbe.GetProductVolume());
-        }
-
-        public void SetNewWaterUpDown()
-        {
+            productUpDown.Value = Convert.ToDecimal(tankProbe.ProductLevel);
+            productVolume.Text = Convert.ToString(tankProbe.GetProductVolume());
             waterUpDown.Value = Convert.ToDecimal(tankProbe.GetWaterLevel());
-        }
-
-        public void SetNewWaterVolume()
-        {
             waterVolume.Text = Convert.ToString(tankProbe.waterVolume);
-        }
-
-        public void SetNewGOV()
-        {
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
-        }
-
-        public void SetNewGSV()
-        {
             gsv.Text = gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
-        }
-
-        public void SetNewCapacity()
-        {
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
-        }
-
-        public void SetNewUllage()
-        {
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
-        }
-
-        public void SetNewTankDropNumber()
-        {
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
         }
 
