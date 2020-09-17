@@ -13,7 +13,7 @@ namespace PortVeederRootGaugeSim.IO
     {
         TcpListener listener;
         // Dependecy injection for the protocol to call, possibly specify an interface for protocol to support multiple protocols?
-        PortVeederRoot protocol;
+        IProtocol protocol;
         bool acceptIncoming;
         Byte[] bytes;
 
