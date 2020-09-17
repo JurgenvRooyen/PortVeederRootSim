@@ -91,23 +91,22 @@ namespace PortVeederRootGaugeSim.UI
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
         }
 
+        public void SetNewTankDropNumber()
+        {
+            tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
+        }
+
         private void StartDeliveryButton_Click(object sender, EventArgs e)
         {
-            if (this.tankProbe.TankDelivering)
-            {
-                this.tankProbe.TankDelivering = false;
-                startDeliveryButton.Text = "Start Delivery";
-            }
-            else
-            {
-                TankDropForm tankDrop = new TankDropForm();
-                DialogResult result = tankDrop.ShowDialog();
+            TankDropForm tankDrop = new TankDropForm();
+            DialogResult result = tankDrop.ShowDialog();
 
-                if (result == DialogResult.OK)
-                {
-                    this.tankProbe.TankDelivering = true;
-                    startDeliveryButton.Text = "Stop Delivery";
-                }
+            if (result == DialogResult.OK)
+            {
+                DateTime dropStartDate = tankDrop.GetStartDate();
+                float dropVolume = Convert.ToSingle(tankDrop.GetVolume());
+                Double dropDuration = Convert.ToDouble(tankDrop.GetDuration());
+                this.tankProbe.DropTank(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
             }
         }
 

@@ -51,6 +51,7 @@ namespace PortVeederRootGaugeSim
                 probeControl.SetNewGSV();
                 probeControl.SetNewCapacity();
                 probeControl.SetNewUllage();
+                probeControl.SetNewTankDropNumber();
             }
         }
 
