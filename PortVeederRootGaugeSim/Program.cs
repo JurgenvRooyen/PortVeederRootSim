@@ -16,7 +16,7 @@ namespace PortVeederRootGaugeSim
         static void Main()
         {
             RootSim rootSim = new RootSim();
-            TLS3XXProtocol protocol = new TLS3XXProtocol(rootSim);
+            PortVeederRoot protocol = new PortVeederRoot(rootSim);
             TcpServer server = new TcpServer(protocol);
             server.Start();
 

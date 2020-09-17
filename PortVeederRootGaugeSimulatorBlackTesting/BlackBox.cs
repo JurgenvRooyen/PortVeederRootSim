@@ -10,7 +10,7 @@ namespace BlackBoxTest
 {
     class BlackBox
     {
-        TLS3XXProtocol protocol;
+        PortVeederRoot protocol;
         TcpServer server;
         TcpClient client;
         string soh = "\x02";
@@ -24,7 +24,7 @@ namespace BlackBoxTest
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
             RootSim rootSim = new RootSim(tankprobeList, timeSpan);
-            protocol = new TLS3XXProtocol(rootSim);
+            protocol = new PortVeederRoot(rootSim);
             server = new TcpServer(protocol);
             server.Start();
             client = new TcpClient("127.0.0.1", 10001);

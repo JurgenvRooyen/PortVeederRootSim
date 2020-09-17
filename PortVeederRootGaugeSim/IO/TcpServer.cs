@@ -13,11 +13,11 @@ namespace PortVeederRootGaugeSim.IO
     {
         TcpListener listener;
         // Dependecy injection for the protocol to call, possibly specify an interface for protocol to support multiple protocols?
-        TLS3XXProtocol protocol;
+        PortVeederRoot protocol;
         bool acceptIncoming;
         Byte[] bytes;
 
-        public TcpServer(TLS3XXProtocol protocol)
+        public TcpServer(PortVeederRoot protocol)
         {
             Int32 port = 10001;
             IPAddress addr = IPAddress.Parse("127.0.0.1");
