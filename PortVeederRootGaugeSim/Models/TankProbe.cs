@@ -325,6 +325,11 @@ namespace PortVeederRootGaugeSim
             return v;
         }
 
+        public void SetMaxSafeWorkingCapacityByLevel(float volume)
+        {
+            MaxSafeWorkingCapacity = VolumeToLevel(volume);
+        }
+
         public void Connect(TankProbe t)
         {
             //TODO-Optional

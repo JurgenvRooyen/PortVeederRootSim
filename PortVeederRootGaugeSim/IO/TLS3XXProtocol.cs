@@ -25,6 +25,24 @@ namespace PortVeederRootGaugeSim.IO
             return formattedTime;
         }
 
+        private float HexToSingle(string hex)
+        {
+            byte[] singleByte = new byte[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                singleByte[singleByte.Length - i - 1] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+            }
+
+            return BitConverter.ToSingle(singleByte);
+        }
+
+        private string SingleToHex(Single number)
+        {
+            int converted = BitConverter.SingleToInt32Bits(number);
+            return converted.ToString("x");
+        }
+
         public string Parse(string toParse)
         {
             StringBuilder sb = new StringBuilder("\x02");
@@ -92,7 +110,7 @@ namespace PortVeederRootGaugeSim.IO
                         }
                         break;
                     case "628":
-                        sb.Append(S628(toParse.Substring(6)));
+                        sb.Append(S628(probeID, toParse.Substring(6)));
                         break;
                     default:
                         sb.Append("9999");
@@ -108,12 +126,6 @@ namespace PortVeederRootGaugeSim.IO
             // TODO: investigate if enabler requires ETX marking or supports it?
             sb.Append("\x03");
             return sb.ToString();
-        }
-
-        private string SingleToHex(Single number)
-        {
-            int converted = BitConverter.SingleToInt32Bits(number);
-            return converted.ToString("x");
         }
 
         //Command I201 - In Tank inventory
@@ -372,9 +384,37 @@ namespace PortVeederRootGaugeSim.IO
         }
 
         //Command S628 - Set Tank Maximum Value
-        private string S628(string setString)
+        private string S628(int probeID, string setString)
         {
-            return null;
+            StringBuilder replyString = new StringBuilder();
+            List<TankProbe> probes = simulator.TankProbeList;
+            replyString.Append("s628");
+            replyString.Append(probeID.ToString().PadLeft(2, '0'));
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            void ProbeDetails(int probeID, Single limit)
+            {
+                TankProbe probe = probes[probeID];
+
+                probe.SetMaxSafeWorkingCapacityByLevel(limit);
+            }
+
+            if (probeID == 0)
+            {
+                probeID++;
+                foreach (TankProbe probe in probes)
+                {
+                    ProbeDetails(probeID, HexToSingle(setString));
+                    replyString.Append(setString);
+                    probeID++;
+                }
+            }
+            else
+            {
+                ProbeDetails(probeID, HexToSingle(setString));
+                replyString.Append(setString);
+            }
+            return replyString.ToString();
         }
     }
 }
