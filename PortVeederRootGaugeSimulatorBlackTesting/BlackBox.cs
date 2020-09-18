@@ -3,8 +3,8 @@ using PortVeederRootGaugeSim;
 using PortVeederRootGaugeSim.IO;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace BlackBoxTest
 {
@@ -13,11 +13,9 @@ namespace BlackBoxTest
         PortVeederRoot protocol;
         TcpServer server;
         TcpClient client;
-        string soh = "\x02";
-        string eof = "\x03";
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             TankProbe tankProbe = new TankProbe(1, 't', 100, 1, 10, 10, 15, "level");
             List<TankProbe> tankprobeList = new List<TankProbe>();
@@ -27,25 +25,42 @@ namespace BlackBoxTest
             protocol = new PortVeederRoot(rootSim);
             server = new TcpServer(protocol);
             server.Start();
-            client = new TcpClient("127.0.0.1", 10001);
         }
 
-        [Test]
-        public void Response()
+        [SetUp]
+        public void SetUp()
         {
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes("test");
+            client = new TcpClient();
+        }
+
+        [TestCase("test")]
+        [TestCase("i99900")]
+        [TestCase("i20199")]
+        public void InvalidCommandTest(string toTest)
+        {
+            client.Connect("127.0.0.1", 10001);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(toTest);
             NetworkStream nStream = client.GetStream();
             nStream.Write(data);
 
-            string response;
-            Int32 bytes = nStream.Read(data, 0, data.Length);
-            response = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+            System.Threading.Thread.Sleep(1000);
+
+            string response = "";
+
+            while (true)
+            {
+                byte[] bytes = new byte[1];
+                nStream.Read(bytes, 0, 1);
+                string decode = Encoding.UTF8.GetString(bytes);
+                response += decode;
+                if (decode == "\x03") { break; }
+            }
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual("\x002" + "9999" + "\x003", response);
 
             nStream.Close();
-            Console.WriteLine(response);
-            Assert.IsNotNull(response);
-            Assert.AreNotEqual(response, String.Empty);
-            Assert.AreEqual($"{soh}9999{eof}", response);
+            client.Close();
         }
     }
 }
