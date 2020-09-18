@@ -279,6 +279,7 @@ namespace PortVeederRootGaugeSim
                 td.EndingTemperature = this.ProductTemperature;
                 TankDropCount++;
                 this.TankDroppedList.Add(td);
+                TankDelivering = false;
                 return;
             }
             return;
