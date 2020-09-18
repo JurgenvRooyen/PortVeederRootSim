@@ -18,7 +18,7 @@ namespace PortVeederRootGaugeSim
             tankGauges = r;
             tankGaugesControls = f;
             InitializeComponent();
-            if (tankGauges.getProbe(0).MaxSafeWorkingCapacity == 90)
+            if (tankGauges.GetProbe(0).MaxSafeWorkingCapacity == 90)
             {
                 capacity90.Checked = true;
             }
@@ -27,17 +27,17 @@ namespace PortVeederRootGaugeSim
                 capacity95.Checked = true;
             }
             
-            tankCapacityText.Text = Convert.ToString(tankGauges.getProbe(0).FullVolume);
-            overfillLimitText.Text = Convert.ToString(tankGauges.getProbe(0).OverFillLimit);
-            highLimitText.Text = Convert.ToString(tankGauges.getProbe(0).HighProductAlarmLevel);
-            deliveryWarningText.Text = Convert.ToString(tankGauges.getProbe(0).DeliveryNeededWarningLevel);
-            lowLimitText.Text = Convert.ToString(tankGauges.getProbe(0).LowProductAlarmLevel);
-            waterAlarmText.Text = Convert.ToString(tankGauges.getProbe(0).HighWaterAlarmLevel);
-            waterWarningText.Text = Convert.ToString(tankGauges.getProbe(0).HighWaterWarningLevel);
+            tankCapacityText.Text = Convert.ToString(tankGauges.GetProbe(0).FullVolume);
+            overfillLimitText.Text = Convert.ToString(tankGauges.GetProbe(0).OverFillLimit);
+            highLimitText.Text = Convert.ToString(tankGauges.GetProbe(0).HighProductAlarmLevel);
+            deliveryWarningText.Text = Convert.ToString(tankGauges.GetProbe(0).DeliveryNeededWarningLevel);
+            lowLimitText.Text = Convert.ToString(tankGauges.GetProbe(0).LowProductAlarmLevel);
+            waterAlarmText.Text = Convert.ToString(tankGauges.GetProbe(0).HighWaterAlarmLevel);
+            waterWarningText.Text = Convert.ToString(tankGauges.GetProbe(0).HighWaterWarningLevel);
             
         }
 
-        private void okayButton_Click(object sender, EventArgs e)
+        private void OkayButton_Click(object sender, EventArgs e)
         {
             foreach (TankProbe t in tankGauges.TankProbeList)
             {
@@ -65,7 +65,7 @@ namespace PortVeederRootGaugeSim
             this.Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
