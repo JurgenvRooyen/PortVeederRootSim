@@ -104,11 +104,13 @@ namespace PortVeederRootGaugeSim
         {
             if (ConnectProbeButton.Text.StartsWith("Connect"))
             {
+                TankGauges.GetProbe(0).Connect(TankGauges.GetProbe(1));
                 ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Color.Green;
             }
             else
             {
+                TankGauges.GetProbe(0).Disconnect(TankGauges.GetProbe(1));
                 ConnectProbeButton.Text = "Connect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Control.DefaultBackColor;
                 ConnectProbeButton.UseVisualStyleBackColor = true;
