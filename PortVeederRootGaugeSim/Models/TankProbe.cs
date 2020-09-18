@@ -196,10 +196,20 @@ namespace PortVeederRootGaugeSim
                                         this.GetWaterVolume(),
                                         this.ProductTemperature);
                 float droppedVolume = 0f;
-                while (TankDelivering & ProductChangePerInterval(TankDeliveringPerInterval) & droppedVolume < volume)
+                while (TankDelivering && droppedVolume < volume)
                 {
-                    droppedVolume += TankDeliveringPerInterval;
-                    Thread.Sleep(100);
+                    if ((droppedVolume + TankDeliveringPerInterval) <= volume)
+                    {
+                        droppedVolume += TankDeliveringPerInterval;
+                        ProductChangePerInterval(TankDeliveringPerInterval);
+                        Thread.Sleep(100);
+                    }
+                    else
+                    {
+                        droppedVolume += (volume - droppedVolume);
+                        ProductChangePerInterval(volume - droppedVolume);
+                        Thread.Sleep(100);
+                    }
                 }
                 td.Volume = droppedVolume;
                 td.EndingTime = startTime + duration;
