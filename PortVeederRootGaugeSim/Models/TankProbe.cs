@@ -341,7 +341,7 @@ namespace PortVeederRootGaugeSim
 
         public float GetUllage()
         {
-            return Math.Max(0, LevelToVolume(FullVolume - ProductLevel - GetWaterLevel()));
+            return Math.Max(0, LevelToVolume(TankProbeHeight - ProductLevel - GetWaterLevel()));
         }
 
         public Boolean[] GetTankStatus()
