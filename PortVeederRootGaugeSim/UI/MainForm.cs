@@ -110,6 +110,7 @@ namespace PortVeederRootGaugeSim
             else
             {
                 ConnectProbeButton.Text = "Connect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Control.DefaultBackColor;
                 ConnectProbeButton.UseVisualStyleBackColor = true;
             }
         }
