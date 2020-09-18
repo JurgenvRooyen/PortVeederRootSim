@@ -8,7 +8,7 @@ namespace SimulatorTest
 {
     class ProtocolTest
     {
-        TLS3XXProtocol protocol;
+        PortVeederRoot protocol;
         RootSim rootSim;
 
         private float HexToSingle(string hex)
@@ -32,7 +32,7 @@ namespace SimulatorTest
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
             rootSim = new RootSim(tankprobeList, timeSpan);
-            protocol = new TLS3XXProtocol(rootSim);
+            protocol = new PortVeederRoot(rootSim);
 
             TankDrop td = new TankDrop(10, DateTime.Now, 5, 5, 15, 6, 15);
             td.EndingTemperatureCompensatedVolume = 10;
@@ -59,7 +59,7 @@ namespace SimulatorTest
         public void CommandEchoTest(string command)
         {
             string response = protocol.Parse("\x02" + command);
-
+            Console.WriteLine(response);
             Assert.AreEqual(command, response.Substring(1, 6));
         }
 
@@ -153,7 +153,7 @@ namespace SimulatorTest
         }
       
         [Test]
-        public void i051ClearReports()
+        public void i051ClearReportsTest()
         {
             string response = protocol.Parse("\x02s05101");
             Console.WriteLine(response);
@@ -163,7 +163,7 @@ namespace SimulatorTest
         }
 
         [Test]
-        public void s501()
+        public void s501SetDateTest()
         {
             string newDateToSet = "1801010101";
             protocol.Parse("\x02s50100" + newDateToSet);
@@ -174,6 +174,15 @@ namespace SimulatorTest
             Assert.AreEqual(01, newDate.Day);
             Assert.AreEqual(01, newDate.Hour);
             Assert.AreEqual(01, newDate.Minute);
+        }
+
+        [Test]
+        public void s501SetBadDateTest()
+        {
+            string newDateToSet = "ABCDEFG";
+            string response = protocol.Parse("\x02s50100" + newDateToSet);
+
+            Assert.AreEqual("\x02" + "9999" + "\x03", response);
         }
     }
 }
