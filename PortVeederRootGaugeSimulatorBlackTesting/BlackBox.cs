@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using PortVeederRootGaugeSim;
 using PortVeederRootGaugeSim.IO;
 using System;

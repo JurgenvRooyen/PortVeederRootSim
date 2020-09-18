@@ -156,7 +156,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             tank1.TankDelivering = true;
-            tank1.DeliverySwitch(DateTime.Now);
+            tank1.DeliverySwitch(100, DateTime.Now, TimeSpan.Zero);
             Assert.False(tank1.TankDelivering);
         }
 
@@ -165,7 +165,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             tank1.TankDelivering = false;
-            tank1.DeliverySwitch(DateTime.Now);
+            tank1.DeliverySwitch(100, DateTime.Now, TimeSpan.Zero);
             Assert.True(tank1.TankDelivering);
         }
 

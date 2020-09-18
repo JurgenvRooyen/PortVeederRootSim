@@ -56,6 +56,26 @@ namespace PortVeederRootGaugeSim.UI
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
+            if (this.tankProbe.TankDelivering)
+            {
+                startLeakButton.Enabled = false;
+                startDeliveryButton.Text = "Delivering...";
+            }
+            if (!this.tankProbe.TankDelivering)
+            {
+                startLeakButton.Enabled = true;
+                startDeliveryButton.Text = "Start Delivery";
+            }
+            if (this.tankProbe.TankLeaking)
+            {
+                startDeliveryButton.Enabled = false;
+                startLeakButton.Text = "Stop Leak";
+            }
+            if (!this.tankProbe.TankLeaking)
+            {
+                startDeliveryButton.Enabled = true;
+                startLeakButton.Text = "Start Leak";
+            }
         }
 
         private void StartDeliveryButton_Click(object sender, EventArgs e)
@@ -68,22 +88,13 @@ namespace PortVeederRootGaugeSim.UI
                 DateTime dropStartDate = tankDrop.GetStartDate();
                 float dropVolume = Convert.ToSingle(tankDrop.GetVolume());
                 Double dropDuration = Convert.ToDouble(tankDrop.GetDuration());
-                this.tankProbe.DropTank(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                this.tankProbe.DeliverySwitch(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
             }
         }
 
         private void StartLeakButton_Click(object sender, EventArgs e)
         {
-            if (this.tankProbe.TankLeaking)
-            {
-                this.tankProbe.LeakingSwitch();
-                startLeakButton.Text = "Start Leak";
-            }
-            else
-            {
-                this.tankProbe.LeakingSwitch();
-                startLeakButton.Text = "Stop Leak";
-            }
+            this.tankProbe.LeakingSwitch();
         }
 
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
