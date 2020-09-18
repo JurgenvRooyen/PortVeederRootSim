@@ -200,14 +200,14 @@ namespace PortVeederRootGaugeSim
                 {
                     if ((droppedVolume + TankDeliveringPerInterval) <= volume)
                     {
-                        droppedVolume += TankDeliveringPerInterval;
                         ProductChangePerInterval(TankDeliveringPerInterval);
+                        droppedVolume += TankDeliveringPerInterval;
                         Thread.Sleep(100);
                     }
                     else
                     {
-                        droppedVolume += (volume - droppedVolume);
                         ProductChangePerInterval(volume - droppedVolume);
+                        droppedVolume += (volume - droppedVolume);
                         Thread.Sleep(100);
                     }
                 }
