@@ -31,10 +31,12 @@ namespace PortVeederRootGaugeSim.UI
             tempUpDown.Value = (decimal)this.tankProbe.ProductTemperature;
             productUpDown.Value = Convert.ToDecimal(tankProbe.GetProductLevel());
             waterUpDown.Value = Convert.ToDecimal(tankProbe.waterLevel);
-            productVolume.Text = (tankProbe.GetProductLevel() * 10).ToString();
-            gov.Text = tankProbe.GetGrossObservedVolume().ToString();
+            productVolume.Text = Convert.ToString(tankProbe.GetProductLevel() * 10);
+            gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
+            waterVolume.Text = Convert.ToString(tankProbe.waterVolume);
+
         }
 
         private void tankDropButton_Click(object sender, EventArgs e)
@@ -56,7 +58,7 @@ namespace PortVeederRootGaugeSim.UI
         private void productUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetProductLevel(Convert.ToSingle(productUpDown.Value));
-            productVolume.Text = (tankProbe.GetGrossStandardVolume()).ToString();
+            productVolume.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
@@ -77,6 +79,16 @@ namespace PortVeederRootGaugeSim.UI
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
+        }
+
+        private void gaugeSetupButton_Click(object sender, EventArgs e)
+        {
+            GaugeSetup form3 = new GaugeSetup(tankProbe);
+            form3.ShowDialog();
+            gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
+            capacity.Text = Convert.ToString(tankProbe.FullVolume);
+            ullage.Text = Convert.ToString(tankProbe.GetUllage());
+            this.Refresh();
         }
     }
 }

@@ -13,6 +13,18 @@ namespace PortVeederRootGaugeSim
         public float TankProbeHeight { get; set; }
         public float TankProbeDiameter { get; set; }
 
+        public void SetTankProbeHeight(float probeHeight)
+        {
+            TankProbeHeight = probeHeight;
+            FullVolume = LevelToVolume(probeHeight);
+        }
+
+        public void SetTankProbeDiameter(float probeDiameter)
+        {
+            TankProbeDiameter = probeDiameter;
+            FullVolume = LevelToVolume(TankProbeHeight);
+        }
+
         public float ProductLevel { get; set; }
 
         public float GetProductLevel()
@@ -149,33 +161,6 @@ namespace PortVeederRootGaugeSim
             TankLeakingPerInterval = 50;
 
             TankDroppedList = new List<TankDrop>();
-        }
-
-        public TankProbe(int tankId, float tankLength, float tankDiameter, float productValue, float waterValue, int productTemperature)
-        {
-            this.TankProbeId = tankId;
-            this.FullVolume = LevelToVolume(tankLength);
-            this.TankProbeDiameter = tankDiameter;
-            this.ProductTemperature = productTemperature;
-            this.TankDelivering = false;
-            this.TankLeaking = false;
-            this.TankProbeHeight = tankLength;
-            SetWaterLevel(waterValue);
-            this.ProductLevel = productValue;
-
-            MaxSafeWorkingCapacity = 0.95F * TankProbeHeight;
-            OverFillLimit = 0.90F * TankProbeHeight;
-            HighProductAlarmLevel = 0.80F * TankProbeHeight;
-            DeliveryNeededWarningLevel = 0.30F * TankProbeHeight;
-            LowProductAlarmLevel = 0.20F * TankProbeHeight;
-            HighWaterAlarmLevel = 0.10F * TankProbeHeight;
-            HighWaterWarningLevel = 0.05F * TankProbeHeight;
-
-            TankDeliveringPerInterval = 50;
-            TankLeakingPerInterval = 50;
-
-            TankDroppedList = new List<TankDrop>();
-
         }
 
         public Boolean DropTank(float volume, DateTime startTime, TimeSpan duration)
@@ -344,11 +329,5 @@ namespace PortVeederRootGaugeSim
 
             return returnString;
         }
-
-        public string GetProductVolumeString()
-        {
-            return Convert.ToString(productVolume);
-        }
-
     }
 }

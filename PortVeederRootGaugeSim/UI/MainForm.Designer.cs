@@ -100,7 +100,7 @@
             this.gaugeButton.TabIndex = 2;
             this.gaugeButton.Text = "Gauge Setup";
             this.gaugeButton.UseVisualStyleBackColor = true;
-            this.gaugeButton.Click += new System.EventHandler(this.gaugeButton_Click);
+            //this.gaugeButton.Click += new System.EventHandler(this.gaugeButton_Click);
             // 
             // flowLayoutPanel
             // 

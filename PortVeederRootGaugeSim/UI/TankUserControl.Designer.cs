@@ -52,6 +52,7 @@
             this.productLabel = new System.Windows.Forms.Label();
             this.tempUpDown = new System.Windows.Forms.NumericUpDown();
             this.tempLabel = new System.Windows.Forms.Label();
+            this.gaugeSetupButton = new System.Windows.Forms.Button();
             this.tank1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).BeginInit();
@@ -60,6 +61,7 @@
             // 
             // tank1
             // 
+            this.tank1.Controls.Add(this.gaugeSetupButton);
             this.tank1.Controls.Add(this.comboBox1);
             this.tank1.Controls.Add(this.gsv);
             this.tank1.Controls.Add(this.ullage);
@@ -87,7 +89,7 @@
             this.tank1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tank1.Name = "tank1";
             this.tank1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tank1.Size = new System.Drawing.Size(108, 485);
+            this.tank1.Size = new System.Drawing.Size(108, 514);
             this.tank1.TabIndex = 2;
             this.tank1.TabStop = false;
             // 
@@ -321,6 +323,16 @@
             this.tempLabel.TabIndex = 0;
             this.tempLabel.Text = "Temperature";
             // 
+            // gaugeSetupButton
+            // 
+            this.gaugeSetupButton.Location = new System.Drawing.Point(6, 486);
+            this.gaugeSetupButton.Name = "gaugeSetupButton";
+            this.gaugeSetupButton.Size = new System.Drawing.Size(94, 23);
+            this.gaugeSetupButton.TabIndex = 23;
+            this.gaugeSetupButton.Text = "Gauge Setup";
+            this.gaugeSetupButton.UseVisualStyleBackColor = true;
+            this.gaugeSetupButton.Click += new System.EventHandler(this.gaugeSetupButton_Click);
+            // 
             // TankUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -328,7 +340,7 @@
             this.Controls.Add(this.tank1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "TankUserControl";
-            this.Size = new System.Drawing.Size(111, 490);
+            this.Size = new System.Drawing.Size(111, 521);
             this.tank1.ResumeLayout(false);
             this.tank1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).EndInit();
@@ -364,5 +376,6 @@
         private System.Windows.Forms.Label productLabel;
         private System.Windows.Forms.NumericUpDown tempUpDown;
         private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.Button gaugeSetupButton;
     }
 }

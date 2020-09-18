@@ -25,9 +25,10 @@ namespace PortVeederRootGaugeSim
         {
             TankGauges = r;
             InitializeComponent();
-            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 1, 17));
+            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 198, 122, 0, 0, 15, "level"));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
             
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -35,18 +36,18 @@ namespace PortVeederRootGaugeSim
 
         }
 
-        private void gaugeButton_Click(object sender, EventArgs e)
-        {
-            GaugeSetup form3 = new GaugeSetup(TankGauges, flowLayoutPanel);
-            form3.ShowDialog();
+        //private void gaugeButton_Click(object sender, EventArgs e)
+        //{
+        //    GaugeSetup form3 = new GaugeSetup(TankGauges.GetProbe(0), flowLayoutPanel.Controls(0);
+        //    form3.ShowDialog();
             
-        }
+        //}
 
         private void addProbeButton_Click(object sender, EventArgs e)
         {
             numberOfTanks++;
-            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 800, numberOfTanks));
-            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
+            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 198, 122, 0, 0, 15, "level"));
+            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));       
         }
 
         private void deleteProbeButton_Click(object sender, EventArgs e)
