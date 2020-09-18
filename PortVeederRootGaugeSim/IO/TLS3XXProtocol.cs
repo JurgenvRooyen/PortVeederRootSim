@@ -212,8 +212,8 @@ namespace PortVeederRootGaugeSim.IO
                     probeString.Append(SingleToHex(drop.EndingTemperatureCompensatedVolume));
                     probeString.Append(SingleToHex(drop.EndingWaterVolume));
                     probeString.Append(SingleToHex(drop.EndingTemperature));
-                    probeString.Append(SingleToHex(drop.StartingVLevel));
-                    probeString.Append(SingleToHex(drop.EndingVLevel));
+                    probeString.Append(SingleToHex(drop.StartingLevel));
+                    probeString.Append(SingleToHex(drop.EndingLevel));
                 }
 
                 return probeString.ToString();
