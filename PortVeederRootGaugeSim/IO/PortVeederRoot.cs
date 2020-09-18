@@ -129,13 +129,21 @@ namespace PortVeederRootGaugeSim.IO
                         }
                         catch (ArgumentOutOfRangeException)
                         {
+
                             sb.Append("9999");
                         }
                         break;
                     case "s628":
-                        sb.Append(S628(probeID, toParse.Substring(6)));
-                        break;
-                    default:
+                    try
+                    {
+                        sb.Append(S628(probeID, toParse.Substring(7, 8)));                      
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        sb.Append("9999");
+                    }
+                    break;
+                default:
                         sb.Append("9999");
                         break;
                 }

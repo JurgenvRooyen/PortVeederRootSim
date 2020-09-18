@@ -143,23 +143,21 @@ namespace SimulatorTest
         }
 
         [Test]
-        public void i628Test()
+        public void s628Test()
         {
             float originalMax = rootSim.TankProbeList[0].MaxSafeWorkingCapacity;
-            float newMax = rootSim.TankProbeList[0].FullVolume / 2;
-            protocol.Parse("\x02i20201"+ newMax);
-
+            string newMax = BitConverter.SingleToInt32Bits(rootSim.TankProbeList[0].FullVolume / 2).ToString("x");
+            string response = protocol.Parse("\x02s62800"+ newMax);
+            Console.WriteLine(newMax);
             Assert.AreNotEqual(originalMax, rootSim.TankProbeList[0]);
+            Assert.AreNotEqual("\x002" + "9999" + "\x003", response);
         }
       
         [Test]
-        public void i051ClearReportsTest()
+        public void s051ClearReportsTest()
         {
             string response = protocol.Parse("\x02s05101");
-            Console.WriteLine(response);
             Assert.AreEqual(0, rootSim.TankProbeList[0].TankDroppedList.Count);
-
-            rootSim.TankProbeList[0].ClearDeliveryReport();
         }
 
         [Test]
