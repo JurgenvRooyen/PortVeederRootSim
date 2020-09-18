@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Threading;
 
 namespace PortVeederRootGaugeSim
@@ -14,7 +15,7 @@ namespace PortVeederRootGaugeSim
         public float TankProbeDiameter { get; set; }
 
         private readonly object ProductLevelLock = new object();
-        private float ProductLevel { get; set; }
+        public float ProductLevel { get; set; }
 
         public float GetProductLevel()
         {
@@ -75,7 +76,7 @@ namespace PortVeederRootGaugeSim
         }
         public Boolean SetWaterLevel(float value)
         {
-            if (value + GetProductLevel() > TankProbeHeight | value < 0)
+            if (value + ProductLevel > TankProbeHeight | value < 0)
             {
                 return false;
             }
@@ -215,7 +216,7 @@ namespace PortVeederRootGaugeSim
             TankDrop td = new TankDrop(volume,
                                         startTime,
                                         this.GetProductVolume(),
-                                        this.GetProductLevel(),
+                                        this.ProductLevel,
                                         this.GetGrossStandardVolume(),
                                         this.GetWaterVolume(),
                                         this.ProductTemperature);
@@ -224,7 +225,7 @@ namespace PortVeederRootGaugeSim
             {
                 td.EndingTime = startTime + duration;
                 td.EndingVolume = this.GetProductVolume();
-                td.EndingLevel = this.GetProductLevel();
+                td.EndingLevel = this.ProductLevel;
                 td.EndingTemperatureCompensatedVolume = this.GetGrossStandardVolume();
                 td.EndingWaterVolume = this.GetWaterVolume();
                 td.EndingTemperature = this.ProductTemperature;
@@ -248,7 +249,7 @@ namespace PortVeederRootGaugeSim
                 TankDrop td = new TankDrop(0,
                                             startTime,
                                             this.GetProductVolume(),
-                                            this.GetProductLevel(),
+                                            this.ProductLevel,
                                             this.GetGrossStandardVolume(),
                                             this.GetWaterVolume(),
                                             this.ProductTemperature);
@@ -263,7 +264,7 @@ namespace PortVeederRootGaugeSim
                 TimeSpan endDeliveringTime = DateTime.Now.TimeOfDay;
                 td.EndingTime = startTime + startDeliveringTime - endDeliveringTime;
                 td.EndingVolume = this.GetProductVolume();
-                td.EndingLevel = this.GetProductLevel();
+                td.EndingLevel = this.ProductLevel;
                 td.EndingTemperatureCompensatedVolume = this.GetGrossStandardVolume();
                 td.EndingWaterVolume = this.GetWaterVolume();
                 td.EndingTemperature = this.ProductTemperature;
@@ -316,18 +317,18 @@ namespace PortVeederRootGaugeSim
 
         public float GetGrossObservedVolume()
         {
-            return LevelToVolume(GetProductLevel()) + LevelToVolume(GetWaterLevel());
+            return LevelToVolume(ProductLevel) + LevelToVolume(GetWaterLevel());
         }
 
         public float GetGrossStandardVolume()
         {
             float tempDelta = ProductTemperature - 15;
-            return LevelToVolume(GetProductLevel()) * (1 - thermalExpansionCoefficient * tempDelta);
+            return LevelToVolume(ProductLevel) * (1 - thermalExpansionCoefficient * tempDelta);
         }
 
         public float GetUllage()
         {
-            return Math.Max(0, LevelToVolume(FullVolume - GetProductLevel() - GetWaterLevel()));
+            return Math.Max(0, LevelToVolume(FullVolume - ProductLevel - GetWaterLevel()));
         }
 
         public Boolean[] GetTankStatus()
