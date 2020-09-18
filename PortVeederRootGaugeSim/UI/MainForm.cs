@@ -29,6 +29,7 @@ namespace PortVeederRootGaugeSim
             TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 1, 17));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
             deleteProbeButton.Enabled = false;
+            ConnectProbeButton.Enabled = false;
             
         }
 
@@ -56,6 +57,7 @@ namespace PortVeederRootGaugeSim
         private void AddProbeButton_Click(object sender, EventArgs e)
         {
             deleteProbeButton.Enabled = true;
+            ConnectProbeButton.Enabled = true;
             numberOfTanks++;
             TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 800, numberOfTanks));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
@@ -72,6 +74,7 @@ namespace PortVeederRootGaugeSim
                 if (flowLayoutPanel.Controls.Count.Equals(1))
                 {
                     deleteProbeButton.Enabled = false;
+                    ConnectProbeButton.Enabled = false;
                 }
             }
         }
@@ -94,6 +97,21 @@ namespace PortVeederRootGaugeSim
                     string title = "About Veeder-Root TLS Simulator by ITL";
                     MessageBox.Show(message, title);
                     break;
+            }
+        }
+
+        private void ConnectProbeButton_Click(object sender, EventArgs e)
+        {
+            if (ConnectProbeButton.Text.StartsWith("Connect"))
+            {
+                ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Color.Green;
+            }
+            else
+            {
+                ConnectProbeButton.Text = "Connect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Control.DefaultBackColor;
+                ConnectProbeButton.UseVisualStyleBackColor = true;
             }
         }
     }

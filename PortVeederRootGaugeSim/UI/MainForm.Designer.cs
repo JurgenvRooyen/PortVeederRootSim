@@ -38,6 +38,7 @@
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.addProbeButton = new System.Windows.Forms.Button();
             this.deleteProbeButton = new System.Windows.Forms.Button();
+            this.ConnectProbeButton = new System.Windows.Forms.Button();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,7 +93,7 @@
             // 
             // gaugeButton
             // 
-            this.gaugeButton.Location = new System.Drawing.Point(12, 737);
+            this.gaugeButton.Location = new System.Drawing.Point(208, 737);
             this.gaugeButton.Name = "gaugeButton";
             this.gaugeButton.Size = new System.Drawing.Size(143, 29);
             this.gaugeButton.TabIndex = 2;
@@ -111,7 +112,7 @@
             // 
             // addProbeButton
             // 
-            this.addProbeButton.Location = new System.Drawing.Point(161, 737);
+            this.addProbeButton.Location = new System.Drawing.Point(357, 737);
             this.addProbeButton.Name = "addProbeButton";
             this.addProbeButton.Size = new System.Drawing.Size(143, 29);
             this.addProbeButton.TabIndex = 4;
@@ -121,7 +122,7 @@
             // 
             // deleteProbeButton
             // 
-            this.deleteProbeButton.Location = new System.Drawing.Point(310, 737);
+            this.deleteProbeButton.Location = new System.Drawing.Point(506, 737);
             this.deleteProbeButton.Name = "deleteProbeButton";
             this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
             this.deleteProbeButton.TabIndex = 5;
@@ -129,11 +130,22 @@
             this.deleteProbeButton.UseVisualStyleBackColor = true;
             this.deleteProbeButton.Click += new System.EventHandler(this.DeleteProbeButton_Click);
             // 
+            // ConnectProbeButton
+            // 
+            this.ConnectProbeButton.Location = new System.Drawing.Point(12, 737);
+            this.ConnectProbeButton.Name = "ConnectProbeButton";
+            this.ConnectProbeButton.Size = new System.Drawing.Size(190, 29);
+            this.ConnectProbeButton.TabIndex = 5;
+            this.ConnectProbeButton.Text = "Connect Probe 1 + 2";
+            this.ConnectProbeButton.UseVisualStyleBackColor = true;
+            this.ConnectProbeButton.Click += new System.EventHandler(this.ConnectProbeButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1326, 797);
+            this.Controls.Add(this.ConnectProbeButton);
             this.Controls.Add(this.deleteProbeButton);
             this.Controls.Add(this.addProbeButton);
             this.Controls.Add(this.flowLayoutPanel);
@@ -161,6 +173,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button addProbeButton;
         private System.Windows.Forms.Button deleteProbeButton;
+        private System.Windows.Forms.Button ConnectProbeButton;
     }
 }
 
