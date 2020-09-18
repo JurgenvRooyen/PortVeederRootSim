@@ -20,6 +20,7 @@ namespace PortVeederRootGaugeSim
     {
         public int numberOfTanks = 0;
         public RootSim TankGauges;
+        public static System.Windows.Forms.Timer refreshTimer = new System.Windows.Forms.Timer();
 
         public MainForm(RootSim r)
         {
@@ -28,12 +29,22 @@ namespace PortVeederRootGaugeSim
             TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 1, 17));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
             deleteProbeButton.Enabled = false;
+            ConnectProbeButton.Enabled = false;
             
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            refreshTimer.Tick += TimerEventProcessor;
+            refreshTimer.Interval = 500;
+            refreshTimer.Enabled = true;
+        }
 
+        private void TimerEventProcessor(object sender, EventArgs e)
+        {
+            foreach (TankUserControl probeControl in flowLayoutPanel.Controls) {
+                probeControl.UpdateLabels();
+            }
         }
 
         private void GaugeButton_Click(object sender, EventArgs e)
@@ -46,6 +57,7 @@ namespace PortVeederRootGaugeSim
         private void AddProbeButton_Click(object sender, EventArgs e)
         {
             deleteProbeButton.Enabled = true;
+            ConnectProbeButton.Enabled = true;
             numberOfTanks++;
             TankGauges.AddTankProbe(new TankProbe(numberOfTanks, 500, 50, numberOfTanks, 800, numberOfTanks));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
@@ -62,6 +74,7 @@ namespace PortVeederRootGaugeSim
                 if (flowLayoutPanel.Controls.Count.Equals(1))
                 {
                     deleteProbeButton.Enabled = false;
+                    ConnectProbeButton.Enabled = false;
                 }
             }
         }
@@ -84,6 +97,21 @@ namespace PortVeederRootGaugeSim
                     string title = "About Veeder-Root TLS Simulator by ITL";
                     MessageBox.Show(message, title);
                     break;
+            }
+        }
+
+        private void ConnectProbeButton_Click(object sender, EventArgs e)
+        {
+            if (ConnectProbeButton.Text.StartsWith("Connect"))
+            {
+                ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Color.Green;
+            }
+            else
+            {
+                ConnectProbeButton.Text = "Connect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Control.DefaultBackColor;
+                ConnectProbeButton.UseVisualStyleBackColor = true;
             }
         }
     }

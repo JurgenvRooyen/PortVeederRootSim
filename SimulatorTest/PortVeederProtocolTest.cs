@@ -40,7 +40,7 @@ namespace SimulatorTest
             td.EndingVolume = 10;
             td.EndingWaterVolume = 11;
             td.EndingTime = DateTime.Now;
-            td.EndingVLevel = 10;
+            td.EndingLevel = 10;
 
             tankProbe.TankDroppedList.Add(td);
         }
@@ -134,7 +134,7 @@ namespace SimulatorTest
             td.EndingVolume = 10;
             td.EndingWaterVolume = 11;
             td.EndingTime = DateTime.Now;
-            td.EndingVLevel = 10;
+            td.EndingLevel = 10;
 
             rootSim.TankProbeList[0].TankDroppedList.Add(td);
             string response = protocol.Parse("\x02i20201");
