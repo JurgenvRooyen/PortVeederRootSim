@@ -133,7 +133,7 @@ namespace SimulatorTest
         }
 
         [Test]
-        public void TestTooMuchTankDrop()
+        public void TestTankDropTooMuch()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             TimeSpan duration = new DateTime(2010, 8, 18, 13, 30, 30) - new DateTime(2010, 1, 1, 8, 0, 15);
