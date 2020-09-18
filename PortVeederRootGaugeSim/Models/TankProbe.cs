@@ -293,6 +293,7 @@ namespace PortVeederRootGaugeSim
                 {
                     Thread.Sleep(100);
                 }
+                TankLeaking = false;
                 return;
             }
         }
