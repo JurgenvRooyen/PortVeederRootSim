@@ -34,7 +34,6 @@
             this.OptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gaugeButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.addProbeButton = new System.Windows.Forms.Button();
             this.deleteProbeButton = new System.Windows.Forms.Button();
@@ -51,6 +50,7 @@
             this.HelpMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
+
             this.MainMenu.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
             this.MainMenu.Size = new System.Drawing.Size(1326, 30);
             this.MainMenu.TabIndex = 0;
@@ -88,23 +88,14 @@
             // 
             this.AboutMenuItem.Name = "AboutMenuItem";
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.AboutMenuItem.Size = new System.Drawing.Size(126, 22);
             this.AboutMenuItem.Text = "About";
-            // 
-            // gaugeButton
-            // 
-            this.gaugeButton.Location = new System.Drawing.Point(208, 737);
-            this.gaugeButton.Name = "gaugeButton";
-            this.gaugeButton.Size = new System.Drawing.Size(143, 29);
-            this.gaugeButton.TabIndex = 2;
-            this.gaugeButton.Text = "Gauge Setup";
-            this.gaugeButton.UseVisualStyleBackColor = true;
-            this.gaugeButton.Click += new System.EventHandler(this.GaugeButton_Click);
             // 
             // flowLayoutPanel
             // 
             this.flowLayoutPanel.AutoScroll = true;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 23);
+            this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Size = new System.Drawing.Size(1326, 700);
             this.flowLayoutPanel.TabIndex = 3;
@@ -114,7 +105,7 @@
             // 
             this.addProbeButton.Location = new System.Drawing.Point(357, 737);
             this.addProbeButton.Name = "addProbeButton";
-            this.addProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.addProbeButton.Size = new System.Drawing.Size(125, 22);
             this.addProbeButton.TabIndex = 4;
             this.addProbeButton.Text = "Add Probe";
             this.addProbeButton.UseVisualStyleBackColor = true;
@@ -124,7 +115,7 @@
             // 
             this.deleteProbeButton.Location = new System.Drawing.Point(506, 737);
             this.deleteProbeButton.Name = "deleteProbeButton";
-            this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.deleteProbeButton.Size = new System.Drawing.Size(125, 22);
             this.deleteProbeButton.TabIndex = 5;
             this.deleteProbeButton.Text = "Delete Probe";
             this.deleteProbeButton.UseVisualStyleBackColor = true;
@@ -142,15 +133,15 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1326, 797);
             this.Controls.Add(this.ConnectProbeButton);
             this.Controls.Add(this.deleteProbeButton);
             this.Controls.Add(this.addProbeButton);
             this.Controls.Add(this.flowLayoutPanel);
-            this.Controls.Add(this.gaugeButton);
             this.Controls.Add(this.MainMenu);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "Veeder-Root TLS Simulator";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -169,7 +160,6 @@
         private System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
-        private System.Windows.Forms.Button gaugeButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button addProbeButton;
         private System.Windows.Forms.Button deleteProbeButton;

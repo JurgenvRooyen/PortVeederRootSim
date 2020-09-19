@@ -13,15 +13,26 @@ namespace PortVeederRootGaugeSim
         public string TankProbeShape { get; set; }
         public float TankProbeHeight { get; set; }
         public float TankProbeDiameter { get; set; }
+        public void SetTankProbeHeight(float probeHeight)
+        {
+            TankProbeHeight = probeHeight;
+            FullVolume = LevelToVolume(probeHeight);
+            SetWaterLevel(waterLevel);
+        }
+        public void SetTankProbeDiameter(float probeDiameter)
+        {
+            TankProbeDiameter = probeDiameter;
+            FullVolume = LevelToVolume(TankProbeHeight);
+            SetWaterLevel(waterLevel);
+        }
 
         private readonly object ProductLevelLock = new object();
-        public float ProductLevel { get; set; }
 
+        public float ProductLevel { get; set; }
         public float GetProductLevel()
         {
             return ProductLevel;
         }
-
         public Boolean SetProductLevel(float value)
         {
 
@@ -40,7 +51,6 @@ namespace PortVeederRootGaugeSim
 
             return true;
         }
-
         private readonly object ProductVolumeLock = new object();
 
         private float ProductVolume = 0;
@@ -68,7 +78,6 @@ namespace PortVeederRootGaugeSim
 
             return true;
         }
-
         public float waterLevel = 0;
         public float GetWaterLevel()
         {
@@ -84,13 +93,11 @@ namespace PortVeederRootGaugeSim
             waterVolume = LevelToVolume(value);
             return true;
         }
-
         public float waterVolume = 0;
         public float GetWaterVolume()
         {
             return waterVolume;
         }
-
         public Boolean SetWaterVolume(float value)
         {
             if (value + ProductVolume > FullVolume | value < 0)
@@ -101,10 +108,15 @@ namespace PortVeederRootGaugeSim
             waterVolume = value;
             return true;
         }
-
         public float ProductTemperature { get; set; }
         public float TankDropCount { get; set; }
         public const float thermalExpansionCoefficient = 0.0018F;
+        public float safeWorkingCapacityModifier;
+        public void setSafeWorkingCapacityModifier(float workingCapacity)
+        {
+            safeWorkingCapacityModifier = workingCapacity;
+            MaxSafeWorkingCapacity = TankProbeHeight * workingCapacity;
+        }
 
         // Alarm attributes
 
@@ -161,40 +173,7 @@ namespace PortVeederRootGaugeSim
             this.TankDelivering = false;
             this.TankLeaking = false;
 
-
-            FullVolume = LevelToVolume(tankLength);
-
-            MaxSafeWorkingCapacity = 0.95F * TankProbeHeight;
-            OverFillLimit = 0.90F * TankProbeHeight;
-            HighProductAlarmLevel = 0.80F * TankProbeHeight;
-            DeliveryNeededWarningLevel = 0.30F * TankProbeHeight;
-            LowProductAlarmLevel = 0.20F * TankProbeHeight;
-            HighWaterAlarmLevel = 0.10F * TankProbeHeight;
-            HighWaterWarningLevel = 0.05F * TankProbeHeight;
-
-            TankDeliveringPerInterval = 50;
-            TankLeakingPerInterval = 50;
-
-            TankDroppedList = new List<TankDrop>();
-
-            Connecting = false;
-        }
-
-        public TankProbe(int tankId, float tankLength, float tankDiameter, float productValue, float waterValue, int productTemperature)
-        {
-            this.TankProbeId = tankId;
-            this.TankProbeHeight = tankLength;
-            this.TankProbeDiameter = tankDiameter;
-            this.ProductLevel = productValue;
-            SetWaterLevel(waterValue);
-            this.ProductTemperature = productTemperature;
-            FullVolume = LevelToVolume(tankLength);
-            this.TankDelivering = false;
-            this.TankLeaking = false;
-            this.TankProbeHeight = tankLength;
-            SetWaterLevel(waterValue);
-            this.ProductLevel = productValue;
-
+            this.safeWorkingCapacityModifier = 0.95F;
 
             MaxSafeWorkingCapacity = 0.95F * TankProbeHeight;
             OverFillLimit = 0.90F * TankProbeHeight;
@@ -208,7 +187,6 @@ namespace PortVeederRootGaugeSim
             TankLeakingPerInterval = 50;
 
             TankDroppedList = new List<TankDrop>();
-
         }
 
         // DropTank is no longer used as there is not Tank Drop button on UI
@@ -341,7 +319,7 @@ namespace PortVeederRootGaugeSim
 
         public float GetUllage()
         {
-            return Math.Max(0, LevelToVolume(TankProbeHeight - ProductLevel - GetWaterLevel()));
+            return Math.Max(0, LevelToVolume(TankProbeHeight - GetProductLevel() - GetWaterLevel()));
         }
 
         public Boolean[] GetTankStatus()
@@ -467,10 +445,10 @@ namespace PortVeederRootGaugeSim
             return returnString;
         }
 
-        public string GetProductVolumeString()
+        public float getSafeWorkingCapacityVolume()
         {
-            return Convert.ToString(ProductVolume);
-        }
+            return LevelToVolume(MaxSafeWorkingCapacity);
 
+        }
     }
 }

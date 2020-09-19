@@ -55,6 +55,7 @@
             this.productLabel = new System.Windows.Forms.Label();
             this.tempUpDown = new System.Windows.Forms.NumericUpDown();
             this.tempLabel = new System.Windows.Forms.Label();
+            this.gaugeSetupButton = new System.Windows.Forms.Button();
             this.TankGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).BeginInit();
@@ -382,6 +383,16 @@
             this.tempLabel.Text = "Temperature";
             this.tempLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // gaugeSetupButton
+            // 
+            this.gaugeSetupButton.Location = new System.Drawing.Point(6, 486);
+            this.gaugeSetupButton.Name = "gaugeSetupButton";
+            this.gaugeSetupButton.Size = new System.Drawing.Size(94, 23);
+            this.gaugeSetupButton.TabIndex = 23;
+            this.gaugeSetupButton.Text = "Gauge Setup";
+            this.gaugeSetupButton.UseVisualStyleBackColor = true;
+            this.gaugeSetupButton.Click += new System.EventHandler(this.gaugeSetupButton_Click);
+            // 
             // TankUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -423,6 +434,7 @@
         private System.Windows.Forms.Label productLabel;
         private System.Windows.Forms.NumericUpDown tempUpDown;
         private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.Button gaugeSetupButton;
         private System.Windows.Forms.Label ProbeLengthLabel;
         private System.Windows.Forms.Label ProbeLength;
         private System.Windows.Forms.Label ProbeDiameter;

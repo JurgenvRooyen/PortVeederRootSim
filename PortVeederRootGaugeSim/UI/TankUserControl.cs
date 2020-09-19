@@ -122,5 +122,16 @@ namespace PortVeederRootGaugeSim.UI
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
         }
+
+        private void gaugeSetupButton_Click(object sender, EventArgs e)
+        {
+            GaugeSetup form3 = new GaugeSetup(tankProbe);
+            form3.ShowDialog();
+            gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
+            gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
+            capacity.Text = Convert.ToString(tankProbe.FullVolume);
+            ullage.Text = Convert.ToString(tankProbe.GetUllage());
+            this.Refresh();
+        }
     }
 }
