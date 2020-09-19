@@ -56,6 +56,8 @@ namespace PortVeederRootGaugeSim.UI
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
+            ProbeLength.Text = Convert.ToString(tankProbe.TankProbeHeight);
+            ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
             if (this.tankProbe.TankDelivering)
             {
                 startLeakButton.Enabled = false;
@@ -123,7 +125,7 @@ namespace PortVeederRootGaugeSim.UI
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
         }
 
-        private void gaugeSetupButton_Click(object sender, EventArgs e)
+        private void GaugeSetupButton_Click(object sender, EventArgs e)
         {
             GaugeSetup form3 = new GaugeSetup(tankProbe);
             form3.ShowDialog();
