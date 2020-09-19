@@ -22,12 +22,21 @@ steps:
     version: 
 
 - task: DotNetCoreCLI@2
+  displayName: 'Whitebox Tests'
   inputs:
     command: 'test'
     projects: 'SimulatorTest/PortVeederRootGaugeSimulatorTest.csproj'
-    testRunTitle: 'Tests'
+    testRunTitle: 'WhiteBoxTests'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Blackbox Tests'
+  inputs:
+    command: 'test'
+    projects: 'PortVeederRootGaugeSimulatorBlackTesting/PortVeederRootGaugeSimulatorBlackTesting.csproj'
+    testRunTitle: 'BlackBoxTests'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
   inputs:
     command: 'publish'
     projects: 'PortVeederRootGaugeSim/PortVeederRootGaugeSim.csproj'
