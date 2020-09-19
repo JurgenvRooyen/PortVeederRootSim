@@ -54,6 +54,7 @@
             this.tankDiameterLabel = new System.Windows.Forms.Label();
             this.tankLengthLabel = new System.Windows.Forms.Label();
             this.tankVolumeText = new System.Windows.Forms.Label();
+            this.safeWorkingCapacityText = new System.Windows.Forms.Label();
             this.safeWorkingCapacityBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +91,7 @@
             this.capacity95.TabStop = true;
             this.capacity95.Text = "95% of Capacity";
             this.capacity95.UseVisualStyleBackColor = true;
+            this.capacity95.CheckedChanged += new System.EventHandler(this.capacity95_CheckedChanged);
             // 
             // capacity90
             // 
@@ -102,6 +104,7 @@
             this.capacity90.TabStop = true;
             this.capacity90.Text = "90% of Capacity";
             this.capacity90.UseVisualStyleBackColor = true;
+            this.capacity90.CheckedChanged += new System.EventHandler(this.capacity90_CheckedChanged);
             // 
             // okayButton
             // 
@@ -128,7 +131,7 @@
             // tankCapacityLabel
             // 
             this.tankCapacityLabel.AutoSize = true;
-            this.tankCapacityLabel.Location = new System.Drawing.Point(95, 122);
+            this.tankCapacityLabel.Location = new System.Drawing.Point(100, 120);
             this.tankCapacityLabel.Name = "tankCapacityLabel";
             this.tankCapacityLabel.Size = new System.Drawing.Size(74, 15);
             this.tankCapacityLabel.TabIndex = 4;
@@ -185,11 +188,11 @@
             // safeWorkingCapacityLabel
             // 
             this.safeWorkingCapacityLabel.AutoSize = true;
-            this.safeWorkingCapacityLabel.Location = new System.Drawing.Point(104, 142);
+            this.safeWorkingCapacityLabel.Location = new System.Drawing.Point(60, 142);
             this.safeWorkingCapacityLabel.Name = "safeWorkingCapacityLabel";
-            this.safeWorkingCapacityLabel.Size = new System.Drawing.Size(166, 15);
+            this.safeWorkingCapacityLabel.Size = new System.Drawing.Size(126, 15);
             this.safeWorkingCapacityLabel.TabIndex = 6;
-            this.safeWorkingCapacityLabel.Text = "Safe working capacity is 18000";
+            this.safeWorkingCapacityLabel.Text = "Safe Working Capacity";
             // 
             // noteLabel
             // 
@@ -271,6 +274,7 @@
             this.tankHeightText.Name = "tankHeightText";
             this.tankHeightText.Size = new System.Drawing.Size(156, 23);
             this.tankHeightText.TabIndex = 5;
+            this.tankHeightText.TextChanged += new System.EventHandler(this.tankHeightText_TextChanged);
             // 
             // tankDiameterLabel
             // 
@@ -299,11 +303,21 @@
             this.tankVolumeText.TabIndex = 13;
             this.tankVolumeText.Text = "*VOL*";
             // 
+            // safeWorkingCapacityText
+            // 
+            this.safeWorkingCapacityText.AutoSize = true;
+            this.safeWorkingCapacityText.Location = new System.Drawing.Point(193, 139);
+            this.safeWorkingCapacityText.Name = "safeWorkingCapacityText";
+            this.safeWorkingCapacityText.Size = new System.Drawing.Size(42, 15);
+            this.safeWorkingCapacityText.TabIndex = 14;
+            this.safeWorkingCapacityText.Text = "*SWC*";
+            // 
             // GaugeSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 414);
+            this.Controls.Add(this.safeWorkingCapacityText);
             this.Controls.Add(this.tankVolumeText);
             this.Controls.Add(this.tankLengthLabel);
             this.Controls.Add(this.tankDiameterLabel);
@@ -366,5 +380,6 @@
         private System.Windows.Forms.Label tankDiameterLabel;
         private System.Windows.Forms.Label tankLengthLabel;
         private System.Windows.Forms.Label tankVolumeText;
+        private System.Windows.Forms.Label safeWorkingCapacityText;
     }
 }

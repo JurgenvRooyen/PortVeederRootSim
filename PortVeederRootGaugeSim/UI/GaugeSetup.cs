@@ -19,13 +19,13 @@ namespace PortVeederRootGaugeSim
             tankGauge = tp;
             InitializeComponent();
 
-            if (tankGauge.MaxSafeWorkingCapacity == 90)
+            if (tankGauge.safeWorkingCapacityModifier == 0.95)
             {
-                capacity90.Checked = true;
+                capacity95.Checked = true;
             }
             else
             {
-                capacity95.Checked = true;
+                capacity90.Checked = true;
             }
             
             tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
@@ -37,6 +37,7 @@ namespace PortVeederRootGaugeSim
             waterWarningText.Text = Convert.ToString(tankGauge.HighWaterWarningLevel);
             tankHeightText.Text = Convert.ToString(tankGauge.TankProbeHeight);
             tankDiameterText.Text = Convert.ToString(tankGauge.TankProbeDiameter);
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
         }
 
         private void okayButton_Click(object sender, EventArgs e)
@@ -47,17 +48,6 @@ namespace PortVeederRootGaugeSim
             tankGauge.LowProductAlarmLevel = Convert.ToSingle(lowLimitText.Text);
             tankGauge.HighWaterAlarmLevel = Convert.ToSingle(waterAlarmText.Text);
             tankGauge.HighWaterWarningLevel = Convert.ToSingle(waterWarningText.Text);
-            tankGauge.TankProbeDiameter = Convert.ToSingle(tankDiameterText.Text);
-            tankGauge.SetTankProbeHeight(Convert.ToSingle(tankHeightText.Text));
-
-            if (capacity90.Checked)
-            {
-                tankGauge.MaxSafeWorkingCapacity = 90;
-            } else
-            {
-                tankGauge.MaxSafeWorkingCapacity = 95;
-            }
-
             this.Close();
         }
 
@@ -70,6 +60,26 @@ namespace PortVeederRootGaugeSim
         {
             tankGauge.SetTankProbeDiameter(Convert.ToSingle(tankDiameterText.Text));
             tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+        }
+
+        private void capacity90_CheckedChanged(object sender, EventArgs e)
+        {
+            tankGauge.setSafeWorkingCapacityModifier(0.90F);
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+        }
+
+        private void capacity95_CheckedChanged(object sender, EventArgs e)
+        {
+            tankGauge.setSafeWorkingCapacityModifier(0.95F);
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+        }
+
+        private void tankHeightText_TextChanged(object sender, EventArgs e)
+        {
+            tankGauge.SetTankProbeHeight(Convert.ToSingle(tankHeightText.Text));
+            tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
         }
     }
 }

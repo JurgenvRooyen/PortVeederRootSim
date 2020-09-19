@@ -28,14 +28,15 @@ namespace PortVeederRootGaugeSim.UI
             this.tankProbe = tankProbe;
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
-            tempUpDown.Value = (decimal)this.tankProbe.ProductTemperature;
+            tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
             productUpDown.Value = Convert.ToDecimal(tankProbe.GetProductLevel());
             waterUpDown.Value = Convert.ToDecimal(tankProbe.waterLevel);
-            productVolume.Text = Convert.ToString(tankProbe.GetProductLevel() * 10);
+            productVolume.Text = Convert.ToString(tankProbe.GetProductVolume());
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             waterVolume.Text = Convert.ToString(tankProbe.waterVolume);
+            gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
 
         }
 
@@ -86,6 +87,7 @@ namespace PortVeederRootGaugeSim.UI
             GaugeSetup form3 = new GaugeSetup(tankProbe);
             form3.ShowDialog();
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
+            gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             capacity.Text = Convert.ToString(tankProbe.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             this.Refresh();
