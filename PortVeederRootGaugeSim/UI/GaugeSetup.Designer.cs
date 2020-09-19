@@ -115,7 +115,7 @@
             this.okayButton.TabIndex = 2;
             this.okayButton.Text = "OK";
             this.okayButton.UseVisualStyleBackColor = true;
-            this.okayButton.Click += new System.EventHandler(this.okayButton_Click);
+            this.okayButton.Click += new System.EventHandler(this.OkayButton_Click);
             // 
             // cancelButton
             // 
@@ -126,7 +126,7 @@
             this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // tankCapacityLabel
             // 

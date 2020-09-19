@@ -40,7 +40,7 @@ namespace PortVeederRootGaugeSim
             safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
         }
 
-        private void okayButton_Click(object sender, EventArgs e)
+        private void OkayButton_Click(object sender, EventArgs e)
         {
             tankGauge.OverFillLimit = Convert.ToSingle(overfillLimitText.Text);
             tankGauge.HighProductAlarmLevel = Convert.ToSingle(highLimitText.Text);
@@ -51,7 +51,7 @@ namespace PortVeederRootGaugeSim
             this.Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
