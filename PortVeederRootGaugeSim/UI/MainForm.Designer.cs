@@ -50,9 +50,8 @@
             this.HelpMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-
             this.MainMenu.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.MainMenu.Size = new System.Drawing.Size(1326, 30);
+            this.MainMenu.Size = new System.Drawing.Size(1331, 30);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "mainMenu";
             // 
@@ -88,24 +87,23 @@
             // 
             this.AboutMenuItem.Name = "AboutMenuItem";
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.AboutMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
             this.AboutMenuItem.Text = "About";
             // 
             // flowLayoutPanel
             // 
             this.flowLayoutPanel.AutoScroll = true;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 23);
-            this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(1326, 700);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(1331, 708);
             this.flowLayoutPanel.TabIndex = 3;
             this.flowLayoutPanel.WrapContents = false;
             // 
             // addProbeButton
             // 
-            this.addProbeButton.Location = new System.Drawing.Point(357, 737);
+            this.addProbeButton.Location = new System.Drawing.Point(208, 745);
             this.addProbeButton.Name = "addProbeButton";
-            this.addProbeButton.Size = new System.Drawing.Size(125, 22);
+            this.addProbeButton.Size = new System.Drawing.Size(143, 29);
             this.addProbeButton.TabIndex = 4;
             this.addProbeButton.Text = "Add Probe";
             this.addProbeButton.UseVisualStyleBackColor = true;
@@ -113,9 +111,9 @@
             // 
             // deleteProbeButton
             // 
-            this.deleteProbeButton.Location = new System.Drawing.Point(506, 737);
+            this.deleteProbeButton.Location = new System.Drawing.Point(357, 745);
             this.deleteProbeButton.Name = "deleteProbeButton";
-            this.deleteProbeButton.Size = new System.Drawing.Size(125, 22);
+            this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
             this.deleteProbeButton.TabIndex = 5;
             this.deleteProbeButton.Text = "Delete Probe";
             this.deleteProbeButton.UseVisualStyleBackColor = true;
@@ -123,7 +121,7 @@
             // 
             // ConnectProbeButton
             // 
-            this.ConnectProbeButton.Location = new System.Drawing.Point(12, 737);
+            this.ConnectProbeButton.Location = new System.Drawing.Point(12, 745);
             this.ConnectProbeButton.Name = "ConnectProbeButton";
             this.ConnectProbeButton.Size = new System.Drawing.Size(190, 29);
             this.ConnectProbeButton.TabIndex = 5;
@@ -133,15 +131,14 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1326, 797);
+            this.ClientSize = new System.Drawing.Size(1331, 797);
             this.Controls.Add(this.ConnectProbeButton);
             this.Controls.Add(this.deleteProbeButton);
             this.Controls.Add(this.addProbeButton);
             this.Controls.Add(this.flowLayoutPanel);
             this.Controls.Add(this.MainMenu);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "Veeder-Root TLS Simulator";
             this.Load += new System.EventHandler(this.MainForm_Load);

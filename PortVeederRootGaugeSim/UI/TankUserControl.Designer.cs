@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.TankGroupBox = new System.Windows.Forms.GroupBox();
+            this.GaugeSetupButton = new System.Windows.Forms.Button();
             this.ProbeDiameter = new System.Windows.Forms.Label();
             this.ProbeDiameterLabel = new System.Windows.Forms.Label();
             this.ProbeLength = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@
             this.productLabel = new System.Windows.Forms.Label();
             this.tempUpDown = new System.Windows.Forms.NumericUpDown();
             this.tempLabel = new System.Windows.Forms.Label();
-            this.gaugeSetupButton = new System.Windows.Forms.Button();
             this.TankGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productUpDown)).BeginInit();
@@ -64,6 +64,7 @@
             // 
             // TankGroupBox
             // 
+            this.TankGroupBox.Controls.Add(this.GaugeSetupButton);
             this.TankGroupBox.Controls.Add(this.ProbeDiameter);
             this.TankGroupBox.Controls.Add(this.ProbeDiameterLabel);
             this.TankGroupBox.Controls.Add(this.ProbeLength);
@@ -92,15 +93,26 @@
             this.TankGroupBox.Controls.Add(this.tempLabel);
             this.TankGroupBox.Location = new System.Drawing.Point(2, 0);
             this.TankGroupBox.Name = "TankGroupBox";
-            this.TankGroupBox.Size = new System.Drawing.Size(123, 654);
+            this.TankGroupBox.Size = new System.Drawing.Size(123, 679);
             this.TankGroupBox.TabIndex = 2;
             this.TankGroupBox.TabStop = false;
             this.TankGroupBox.Text = "Probe #";
             // 
+            // GaugeSetupButton
+            // 
+            this.GaugeSetupButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GaugeSetupButton.Location = new System.Drawing.Point(8, 644);
+            this.GaugeSetupButton.Name = "GaugeSetupButton";
+            this.GaugeSetupButton.Size = new System.Drawing.Size(107, 29);
+            this.GaugeSetupButton.TabIndex = 17;
+            this.GaugeSetupButton.Text = "Gauge Setup";
+            this.GaugeSetupButton.UseVisualStyleBackColor = true;
+            this.GaugeSetupButton.Click += new System.EventHandler(this.GaugeSetupButton_Click);
+            // 
             // ProbeDiameter
             // 
             this.ProbeDiameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProbeDiameter.Location = new System.Drawing.Point(8, 527);
+            this.ProbeDiameter.Location = new System.Drawing.Point(8, 517);
             this.ProbeDiameter.Name = "ProbeDiameter";
             this.ProbeDiameter.Size = new System.Drawing.Size(107, 20);
             this.ProbeDiameter.TabIndex = 23;
@@ -111,7 +123,7 @@
             // 
             this.ProbeDiameterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ProbeDiameterLabel.AutoSize = true;
-            this.ProbeDiameterLabel.Location = new System.Drawing.Point(4, 507);
+            this.ProbeDiameterLabel.Location = new System.Drawing.Point(4, 497);
             this.ProbeDiameterLabel.Name = "ProbeDiameterLabel";
             this.ProbeDiameterLabel.Size = new System.Drawing.Size(114, 20);
             this.ProbeDiameterLabel.TabIndex = 23;
@@ -121,7 +133,7 @@
             // ProbeLength
             // 
             this.ProbeLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProbeLength.Location = new System.Drawing.Point(8, 487);
+            this.ProbeLength.Location = new System.Drawing.Point(8, 477);
             this.ProbeLength.Name = "ProbeLength";
             this.ProbeLength.Size = new System.Drawing.Size(107, 20);
             this.ProbeLength.TabIndex = 23;
@@ -132,7 +144,7 @@
             // 
             this.ProbeLengthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ProbeLengthLabel.AutoSize = true;
-            this.ProbeLengthLabel.Location = new System.Drawing.Point(13, 467);
+            this.ProbeLengthLabel.Location = new System.Drawing.Point(13, 457);
             this.ProbeLengthLabel.Name = "ProbeLengthLabel";
             this.ProbeLengthLabel.Size = new System.Drawing.Size(97, 20);
             this.ProbeLengthLabel.TabIndex = 23;
@@ -147,7 +159,7 @@
             "Probe Ok",
             "Setup Err",
             "Probe Out"});
-            this.comboBox1.Location = new System.Drawing.Point(8, 550);
+            this.comboBox1.Location = new System.Drawing.Point(8, 540);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(107, 28);
             this.comboBox1.TabIndex = 22;
@@ -155,7 +167,7 @@
             // gsv
             // 
             this.gsv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.gsv.Location = new System.Drawing.Point(8, 192);
+            this.gsv.Location = new System.Drawing.Point(8, 191);
             this.gsv.Name = "gsv";
             this.gsv.Size = new System.Drawing.Size(106, 20);
             this.gsv.TabIndex = 2;
@@ -165,7 +177,7 @@
             // ullage
             // 
             this.ullage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ullage.Location = new System.Drawing.Point(8, 414);
+            this.ullage.Location = new System.Drawing.Point(8, 404);
             this.ullage.Name = "ullage";
             this.ullage.Size = new System.Drawing.Size(106, 20);
             this.ullage.TabIndex = 21;
@@ -176,7 +188,7 @@
             // 
             this.ullageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ullageLabel.AutoSize = true;
-            this.ullageLabel.Location = new System.Drawing.Point(35, 394);
+            this.ullageLabel.Location = new System.Drawing.Point(35, 384);
             this.ullageLabel.Name = "ullageLabel";
             this.ullageLabel.Size = new System.Drawing.Size(52, 20);
             this.ullageLabel.TabIndex = 20;
@@ -186,7 +198,7 @@
             // capacity
             // 
             this.capacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.capacity.Location = new System.Drawing.Point(8, 374);
+            this.capacity.Location = new System.Drawing.Point(8, 364);
             this.capacity.Name = "capacity";
             this.capacity.Size = new System.Drawing.Size(106, 20);
             this.capacity.TabIndex = 19;
@@ -197,7 +209,7 @@
             // 
             this.capacityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.capacityLabel.AutoSize = true;
-            this.capacityLabel.Location = new System.Drawing.Point(28, 354);
+            this.capacityLabel.Location = new System.Drawing.Point(28, 344);
             this.capacityLabel.Name = "capacityLabel";
             this.capacityLabel.Size = new System.Drawing.Size(66, 20);
             this.capacityLabel.TabIndex = 18;
@@ -207,7 +219,7 @@
             // startLeakButton
             // 
             this.startLeakButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.startLeakButton.Location = new System.Drawing.Point(8, 619);
+            this.startLeakButton.Location = new System.Drawing.Point(8, 609);
             this.startLeakButton.Name = "startLeakButton";
             this.startLeakButton.Size = new System.Drawing.Size(107, 29);
             this.startLeakButton.TabIndex = 17;
@@ -218,7 +230,7 @@
             // startDeliveryButton
             // 
             this.startDeliveryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.startDeliveryButton.Location = new System.Drawing.Point(8, 584);
+            this.startDeliveryButton.Location = new System.Drawing.Point(8, 574);
             this.startDeliveryButton.Name = "startDeliveryButton";
             this.startDeliveryButton.Size = new System.Drawing.Size(107, 29);
             this.startDeliveryButton.TabIndex = 16;
@@ -229,7 +241,7 @@
             // tankDropNumber
             // 
             this.tankDropNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankDropNumber.Location = new System.Drawing.Point(8, 434);
+            this.tankDropNumber.Location = new System.Drawing.Point(8, 424);
             this.tankDropNumber.Name = "tankDropNumber";
             this.tankDropNumber.Size = new System.Drawing.Size(107, 20);
             this.tankDropNumber.TabIndex = 15;
@@ -240,7 +252,7 @@
             // 
             this.gsvLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.gsvLabel.AutoSize = true;
-            this.gsvLabel.Location = new System.Drawing.Point(43, 172);
+            this.gsvLabel.Location = new System.Drawing.Point(43, 169);
             this.gsvLabel.Name = "gsvLabel";
             this.gsvLabel.Size = new System.Drawing.Size(36, 20);
             this.gsvLabel.TabIndex = 13;
@@ -250,7 +262,7 @@
             // gov
             // 
             this.gov.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.gov.Location = new System.Drawing.Point(8, 152);
+            this.gov.Location = new System.Drawing.Point(8, 149);
             this.gov.Name = "gov";
             this.gov.Size = new System.Drawing.Size(106, 20);
             this.gov.TabIndex = 12;
@@ -271,7 +283,7 @@
             // waterVolume
             // 
             this.waterVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.waterVolume.Location = new System.Drawing.Point(8, 281);
+            this.waterVolume.Location = new System.Drawing.Point(8, 271);
             this.waterVolume.Name = "waterVolume";
             this.waterVolume.Size = new System.Drawing.Size(106, 20);
             this.waterVolume.TabIndex = 9;
@@ -282,7 +294,7 @@
             // 
             this.waterVolLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.waterVolLabel.AutoSize = true;
-            this.waterVolLabel.Location = new System.Drawing.Point(25, 261);
+            this.waterVolLabel.Location = new System.Drawing.Point(25, 251);
             this.waterVolLabel.Name = "waterVolLabel";
             this.waterVolLabel.Size = new System.Drawing.Size(73, 20);
             this.waterVolLabel.TabIndex = 8;
@@ -318,7 +330,7 @@
             // productVolume
             // 
             this.productVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.productVolume.Location = new System.Drawing.Point(8, 241);
+            this.productVolume.Location = new System.Drawing.Point(8, 231);
             this.productVolume.Name = "productVolume";
             this.productVolume.Size = new System.Drawing.Size(107, 20);
             this.productVolume.TabIndex = 5;
@@ -329,7 +341,7 @@
             // 
             this.productVolLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.productVolLabel.AutoSize = true;
-            this.productVolLabel.Location = new System.Drawing.Point(19, 221);
+            this.productVolLabel.Location = new System.Drawing.Point(19, 211);
             this.productVolLabel.Name = "productVolLabel";
             this.productVolLabel.Size = new System.Drawing.Size(85, 20);
             this.productVolLabel.TabIndex = 4;
@@ -365,7 +377,7 @@
             // tempUpDown
             // 
             this.tempUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tempUpDown.Location = new System.Drawing.Point(8, 324);
+            this.tempUpDown.Location = new System.Drawing.Point(8, 314);
             this.tempUpDown.Name = "tempUpDown";
             this.tempUpDown.Size = new System.Drawing.Size(107, 27);
             this.tempUpDown.TabIndex = 1;
@@ -376,22 +388,12 @@
             // 
             this.tempLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tempLabel.AutoSize = true;
-            this.tempLabel.Location = new System.Drawing.Point(15, 304);
+            this.tempLabel.Location = new System.Drawing.Point(15, 291);
             this.tempLabel.Name = "tempLabel";
             this.tempLabel.Size = new System.Drawing.Size(93, 20);
             this.tempLabel.TabIndex = 0;
             this.tempLabel.Text = "Temperature";
             this.tempLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gaugeSetupButton
-            // 
-            this.gaugeSetupButton.Location = new System.Drawing.Point(6, 486);
-            this.gaugeSetupButton.Name = "gaugeSetupButton";
-            this.gaugeSetupButton.Size = new System.Drawing.Size(94, 23);
-            this.gaugeSetupButton.TabIndex = 23;
-            this.gaugeSetupButton.Text = "Gauge Setup";
-            this.gaugeSetupButton.UseVisualStyleBackColor = true;
-            this.gaugeSetupButton.Click += new System.EventHandler(this.gaugeSetupButton_Click);
             // 
             // TankUserControl
             // 
@@ -399,7 +401,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.TankGroupBox);
             this.Name = "TankUserControl";
-            this.Size = new System.Drawing.Size(127, 654);
+            this.Size = new System.Drawing.Size(127, 683);
             this.TankGroupBox.ResumeLayout(false);
             this.TankGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.waterUpDown)).EndInit();
@@ -434,10 +436,10 @@
         private System.Windows.Forms.Label productLabel;
         private System.Windows.Forms.NumericUpDown tempUpDown;
         private System.Windows.Forms.Label tempLabel;
-        private System.Windows.Forms.Button gaugeSetupButton;
         private System.Windows.Forms.Label ProbeLengthLabel;
         private System.Windows.Forms.Label ProbeLength;
         private System.Windows.Forms.Label ProbeDiameter;
         private System.Windows.Forms.Label ProbeDiameterLabel;
+        private System.Windows.Forms.Button GaugeSetupButton;
     }
 }
