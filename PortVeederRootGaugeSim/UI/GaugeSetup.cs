@@ -58,9 +58,19 @@ namespace PortVeederRootGaugeSim
 
         private void tankDiameterText_TextChanged(object sender, EventArgs e)
         {
-            tankGauge.SetTankProbeDiameter(Convert.ToSingle(tankDiameterText.Text));
-            tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
-            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+            try
+            {
+                tankGauge.SetTankProbeDiameter(Convert.ToSingle(tankDiameterText.Text));
+                tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+            }
+            catch (FormatException f)
+            {
+                tankGauge.SetTankProbeDiameter(0F);
+                tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+            }
+
         }
 
         private void capacity90_CheckedChanged(object sender, EventArgs e)
@@ -77,9 +87,19 @@ namespace PortVeederRootGaugeSim
 
         private void tankHeightText_TextChanged(object sender, EventArgs e)
         {
-            tankGauge.SetTankProbeHeight(Convert.ToSingle(tankHeightText.Text));
-            tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
-            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+            try
+            {
+                tankGauge.SetTankProbeHeight(Convert.ToSingle(tankHeightText.Text));
+                tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+            }
+            catch (FormatException f)
+            {
+                tankGauge.SetTankProbeHeight(0F);
+                tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.getSafeWorkingCapacityVolume());
+            }
+
         }
     }
 }
