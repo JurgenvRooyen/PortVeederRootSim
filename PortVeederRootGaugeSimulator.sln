@@ -8,11 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1320F09-DB01-480E-85C4-B818D6D420A3}"
 	ProjectSection(SolutionItems) = preProject
 		build.cake = build.cake
+		build.ps1 = build.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortVeederRootGaugeSim", "PortVeederRootGaugeSim\PortVeederRootGaugeSim.csproj", "{AB06B899-D89D-4E37-8B89-A429E74C9DA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortVeederRootGaugeSimulatorBlackTesting", "PortVeederRootGaugeSimulatorBlackTesting\PortVeederRootGaugeSimulatorBlackTesting.csproj", "{E5A89E2D-DFA6-424A-864E-76881E4C8851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortVeederRootGaugeSimulatorBlackTesting", "PortVeederRootGaugeSimulatorBlackTesting\PortVeederRootGaugeSimulatorBlackTesting.csproj", "{E5A89E2D-DFA6-424A-864E-76881E4C8851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

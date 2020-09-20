@@ -43,12 +43,33 @@ Task("Run-UnitTests")
     DotNetCoreTest();
 });
 
+Task("Publish-Full")
+    .IsDependentOn("Run-UnitTests")
+    .Does(() =>
+{
+    DotNetCorePublish("./PortVeederRootGaugeSimulator.sln");
+});
+
+
+Task("Publish-Minimal")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    DotNetCorePublish("./PortVeederRootGaugeSimulator.sln");
+});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
     .IsDependentOn("Run-UnitTests");
+
+Task("Publish")
+.IsDependentOn("Publish-Full");
+
+Task("PublishLean")
+.IsDependentOn("Publish-Minimal");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
