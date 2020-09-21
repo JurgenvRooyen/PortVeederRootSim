@@ -2,6 +2,7 @@
 
 namespace PortVeederRootGaugeSim
 {
+    [Serializable]
     public class TankDrop
     {
         public float Volume { get; set; }

@@ -141,6 +141,7 @@
             this.Controls.Add(this.MainMenu);
             this.Name = "MainForm";
             this.Text = "Veeder-Root TLS Simulator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
