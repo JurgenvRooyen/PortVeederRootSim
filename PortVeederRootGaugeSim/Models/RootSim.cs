@@ -101,13 +101,10 @@ namespace PortVeederRootGaugeSim
             {
                 File.Delete(filename);
             }
-            else
-            {
-                IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream(filename, FileMode.CreateNew);
-                formatter.Serialize(stream, this.TankProbeList);
-                stream.Close();
-            }
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(filename, FileMode.CreateNew);
+            formatter.Serialize(stream, this.TankProbeList);
+            stream.Close();
         }
 
     }
