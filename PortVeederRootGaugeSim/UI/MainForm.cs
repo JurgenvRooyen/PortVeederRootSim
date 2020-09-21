@@ -28,10 +28,10 @@ namespace PortVeederRootGaugeSim
             InitializeComponent();
             try
             {
-                r.LoadFile("ProbePersistence");
-                foreach (TankProbe tank in r.TankProbeList)
+                TankGauges.LoadFile("ProbePersistence");
+                foreach (TankProbe tank in TankGauges.TankProbeList)
                 {
-                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, r.GetProbe(numberOfTanks)));
+                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
                     numberOfTanks++;
                 }
                 numberOfTanks--;
