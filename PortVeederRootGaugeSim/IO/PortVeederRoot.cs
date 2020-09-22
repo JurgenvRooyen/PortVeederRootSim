@@ -170,10 +170,10 @@ namespace PortVeederRootGaugeSim.IO
             probeString.Append(SingleToHex(probe.GetGrossObservedVolume()));
             probeString.Append(SingleToHex(probe.GetGrossStandardVolume()));
             probeString.Append(SingleToHex(probe.GetUllage()));
-            probeString.Append(SingleToHex(probe.GetProductLevel()));
-            probeString.Append(SingleToHex(probe.GetWaterLevel()));
+            probeString.Append(SingleToHex(probe.ProductLevel));
+            probeString.Append(SingleToHex(probe.WaterLevel));
             probeString.Append(SingleToHex(probe.ProductTemperature));
-            probeString.Append(SingleToHex(probe.GetWaterVolume()));
+            probeString.Append(SingleToHex(probe.WaterVolume));
 
             return probeString.ToString();
         }
@@ -227,11 +227,12 @@ namespace PortVeederRootGaugeSim.IO
             {
                 codes += "02";
             }
-            if(probe.waterLevel >= probe.HighWaterAlarmLevel)
+            if(probe.WaterLevel >= probe.HighWaterAlarmLevel)
             {
                 codes += "03";
             }
-            if(probe.ProductLevel + probe.waterLevel >= probe.OverFillLimit)
+            // TODO need check  after change tank from Vertical to Horizontal
+            if (probe.ProductLevel + probe.WaterLevel >= probe.OverFillLimitLevel)
             {
                 codes += "04";
             }
@@ -250,7 +251,7 @@ namespace PortVeederRootGaugeSim.IO
             }
             //Probe disconnected not implemented
 
-            if(probe.waterLevel >= probe.HighWaterWarningLevel)
+            if(probe.WaterLevel >= probe.HighWaterWarningLevel)
             {
                 codes += "10";
             }
@@ -324,6 +325,7 @@ namespace PortVeederRootGaugeSim.IO
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
 
+            // TODO need check  after change tank from Vertical to Horizontal
             void ProbeDetails(int probeID, Single limit)
             {
                 TankProbe probe = probes[probeID];

@@ -19,7 +19,7 @@ namespace SimulatorTest
         public void TestSetProductLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.IsTrue(tank1.SetProductLevel(150));
+            Assert.IsTrue(tank1.SetByProductLevel(150));
             Assert.AreEqual(tank1.GetProductLevel(), 150);
         }
 
@@ -27,7 +27,7 @@ namespace SimulatorTest
         public void TestSetTooMuchProductLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.IsFalse(tank1.SetProductLevel(10000000000));
+            Assert.IsFalse(tank1.SetByProductLevel(10000000000));
             Assert.AreEqual(tank1.GetProductLevel(), 100);
         }
 
@@ -35,7 +35,7 @@ namespace SimulatorTest
         public void TestSetNegativeProductLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.IsFalse(tank1.SetProductLevel(-1));
+            Assert.IsFalse(tank1.SetByProductLevel(-1));
         }
 
         [Test]
@@ -191,8 +191,8 @@ namespace SimulatorTest
         public void TestGetGrossObservedVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            float productLevel = (float)(tank1.GetProductLevel() * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
-            float waterLevel = (float)(tank1.GetWaterLevel() * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
+            float productLevel = (float)(tank1.GetProductLevel() * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
+            float waterLevel = (float)(tank1.GetWaterLevel() * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
             float expectedResult = productLevel + waterLevel;
             Assert.AreEqual(tank1.GetGrossObservedVolume(), expectedResult);
         }
@@ -201,7 +201,7 @@ namespace SimulatorTest
         public void TestGetGrossStandardVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            float productLevel = (float)(tank1.GetProductLevel() * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
+            float productLevel = (float)(tank1.GetProductLevel() * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
             float tempDelta = tank1.ProductTemperature - 15;
             float thermalExpansionCoefficient = TankProbe.thermalExpansionCoefficient;
             float expectedResult = productLevel * (1 - thermalExpansionCoefficient * tempDelta);
@@ -216,7 +216,7 @@ namespace SimulatorTest
             float productLevel = tank1.GetProductLevel();
             float waterLevel = tank1.GetWaterLevel();
             float l = height - productLevel - waterLevel;
-            float expectedResult = (float)(l * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
+            float expectedResult = (float)(l * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
             Assert.AreEqual(tank1.GetUllage(), expectedResult);
         }
 

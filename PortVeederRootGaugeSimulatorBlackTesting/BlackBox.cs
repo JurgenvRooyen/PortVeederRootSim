@@ -144,7 +144,7 @@ namespace BlackBoxTest
 
             Assert.AreEqual(tankProbe.GetGrossObservedVolume(), volume);
             Assert.AreEqual(tankProbe.ProductTemperature, temperature);
-            Assert.AreEqual(tankProbe.waterVolume, waterVolume);
+            Assert.AreEqual(tankProbe.WaterVolume, waterVolume);
         }
 
         [Test]

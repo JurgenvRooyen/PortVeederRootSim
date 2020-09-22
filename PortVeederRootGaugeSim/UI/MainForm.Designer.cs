@@ -50,8 +50,8 @@
             this.HelpMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.MainMenu.Size = new System.Drawing.Size(1331, 30);
+            this.MainMenu.Padding = new System.Windows.Forms.Padding(5, 3, 0, 3);
+            this.MainMenu.Size = new System.Drawing.Size(1165, 27);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "mainMenu";
             // 
@@ -60,19 +60,19 @@
             this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ExitMenuItem});
             this.FileMenuItem.Name = "FileMenuItem";
-            this.FileMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.FileMenuItem.Size = new System.Drawing.Size(39, 21);
             this.FileMenuItem.Text = "File";
             // 
             // ExitMenuItem
             // 
             this.ExitMenuItem.Name = "ExitMenuItem";
-            this.ExitMenuItem.Size = new System.Drawing.Size(116, 26);
+            this.ExitMenuItem.Size = new System.Drawing.Size(96, 22);
             this.ExitMenuItem.Text = "Exit";
             // 
             // OptionsMenuItem
             // 
             this.OptionsMenuItem.Name = "OptionsMenuItem";
-            this.OptionsMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.OptionsMenuItem.Size = new System.Drawing.Size(66, 21);
             this.OptionsMenuItem.Text = "Options";
             // 
             // HelpMenuItem
@@ -80,30 +80,30 @@
             this.HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AboutMenuItem});
             this.HelpMenuItem.Name = "HelpMenuItem";
-            this.HelpMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.HelpMenuItem.Size = new System.Drawing.Size(47, 21);
             this.HelpMenuItem.Text = "Help";
             // 
             // AboutMenuItem
             // 
             this.AboutMenuItem.Name = "AboutMenuItem";
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.AboutMenuItem.Size = new System.Drawing.Size(132, 22);
             this.AboutMenuItem.Text = "About";
             // 
             // flowLayoutPanel
             // 
             this.flowLayoutPanel.AutoScroll = true;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 26);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(1331, 708);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(1165, 602);
             this.flowLayoutPanel.TabIndex = 3;
             this.flowLayoutPanel.WrapContents = false;
             // 
             // addProbeButton
             // 
-            this.addProbeButton.Location = new System.Drawing.Point(208, 745);
+            this.addProbeButton.Location = new System.Drawing.Point(182, 633);
             this.addProbeButton.Name = "addProbeButton";
-            this.addProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.addProbeButton.Size = new System.Drawing.Size(125, 25);
             this.addProbeButton.TabIndex = 4;
             this.addProbeButton.Text = "Add Probe";
             this.addProbeButton.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@
             // 
             // deleteProbeButton
             // 
-            this.deleteProbeButton.Location = new System.Drawing.Point(357, 745);
+            this.deleteProbeButton.Location = new System.Drawing.Point(312, 633);
             this.deleteProbeButton.Name = "deleteProbeButton";
-            this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.deleteProbeButton.Size = new System.Drawing.Size(125, 25);
             this.deleteProbeButton.TabIndex = 5;
             this.deleteProbeButton.Text = "Delete Probe";
             this.deleteProbeButton.UseVisualStyleBackColor = true;
@@ -121,9 +121,9 @@
             // 
             // ConnectProbeButton
             // 
-            this.ConnectProbeButton.Location = new System.Drawing.Point(12, 745);
+            this.ConnectProbeButton.Location = new System.Drawing.Point(10, 633);
             this.ConnectProbeButton.Name = "ConnectProbeButton";
-            this.ConnectProbeButton.Size = new System.Drawing.Size(190, 29);
+            this.ConnectProbeButton.Size = new System.Drawing.Size(166, 25);
             this.ConnectProbeButton.TabIndex = 5;
             this.ConnectProbeButton.Text = "Connect Probe 1 + 2";
             this.ConnectProbeButton.UseVisualStyleBackColor = true;
@@ -131,9 +131,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1331, 797);
+            this.ClientSize = new System.Drawing.Size(1165, 677);
             this.Controls.Add(this.ConnectProbeButton);
             this.Controls.Add(this.deleteProbeButton);
             this.Controls.Add(this.addProbeButton);
