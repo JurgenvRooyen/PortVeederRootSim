@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace PortVeederRootGaugeSim
 {
+    [Serializable]
     public class RootSim
     {
         // need to be changed after things are done 
@@ -64,6 +68,43 @@ namespace PortVeederRootGaugeSim
         public TankProbe GetProbe(int probeNumber)
         {
             return TankProbeList[probeNumber];
+        }
+
+        public void LoadFile(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                throw new FileNotFoundException();
+            }
+            else
+            {
+                this.TankProbeList.Clear();
+
+                try
+                {
+                    IFormatter formatter = new BinaryFormatter();
+                    Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    List<TankProbe> newList = (List<TankProbe>)formatter.Deserialize(stream);
+                    foreach (TankProbe tank in newList)
+                    {
+                        this.AddTankProbe(tank);
+                    }
+                    stream.Close();
+                }
+                catch { }
+            }
+        }
+
+        public void SaveFile(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(filename, FileMode.CreateNew);
+            formatter.Serialize(stream, this.TankProbeList);
+            stream.Close();
         }
 
     }

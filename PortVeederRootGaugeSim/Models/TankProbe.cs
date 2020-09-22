@@ -5,6 +5,7 @@ using System.Threading;
 
 namespace PortVeederRootGaugeSim
 {
+    [Serializable]
     public class TankProbe
     {
         // Tank attributes
