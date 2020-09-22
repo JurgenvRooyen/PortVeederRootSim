@@ -322,8 +322,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean[] GetTankStatus()
         {
-            //TODO
-            //Need To Add Invalid Fuel Height Alarm !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             Boolean[] temp = { TankDelivering, TankLeaking };
 
             return temp;
