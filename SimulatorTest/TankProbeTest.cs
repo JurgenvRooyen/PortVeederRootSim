@@ -19,8 +19,8 @@ namespace SimulatorTest
         public void TestSetProductLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.IsTrue(tank1.SetByProductLevel(150));
-            Assert.AreEqual(tank1.ProductLevel, 150);
+            Assert.IsTrue(tank1.SetByProductLevel(50));
+            Assert.AreEqual(tank1.ProductLevel, 50);
         }
 
         [Test]
@@ -79,8 +79,8 @@ namespace SimulatorTest
         public void TestSetWaterLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.IsTrue(tank1.SetWaterLevel(150));
-            Assert.AreEqual(tank1.WaterLevel, 150);
+            Assert.IsTrue(tank1.SetWaterLevel(50));
+            Assert.AreEqual(tank1.WaterLevel, 50);
         }
 
         [Test]
@@ -191,8 +191,8 @@ namespace SimulatorTest
         public void TestGetGrossObservedVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            float productLevel = (float)(tank1.ProductLevel * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
-            float waterLevel = (float)(tank1.WaterLevel * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
+            float productLevel = tank1.ProductLevel;
+            float waterLevel = tank1.WaterLevel;
             float expectedResult = productLevel + waterLevel;
             Assert.AreEqual(tank1.GetGrossObservedVolume(), expectedResult);
         }
@@ -213,10 +213,11 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
             float length = tank1.TankProbeLength;
+            float diameter = tank1.TankProbeDiameter;
             float productLevel = tank1.ProductLevel;
             float waterLevel = tank1.WaterLevel;
-            float l = length - productLevel - waterLevel;
-            float expectedResult = (float)(l * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
+            float l = diameter - productLevel - waterLevel;
+            float expectedResult = PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(l, length, diameter);
             Assert.AreEqual(tank1.GetUllage(), expectedResult);
         }
 
