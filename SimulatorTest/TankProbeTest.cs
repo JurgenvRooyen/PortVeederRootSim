@@ -12,7 +12,7 @@ namespace SimulatorTest
         public void TestGetProductLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.AreEqual(tank1.GetProductLevel(), 100);
+            Assert.AreEqual(tank1.ProductLevel, 100);
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
             Assert.IsTrue(tank1.SetByProductLevel(150));
-            Assert.AreEqual(tank1.GetProductLevel(), 150);
+            Assert.AreEqual(tank1.ProductLevel, 150);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
             Assert.IsFalse(tank1.SetByProductLevel(10000000000));
-            Assert.AreEqual(tank1.GetProductLevel(), 100);
+            Assert.AreEqual(tank1.ProductLevel, 100);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace SimulatorTest
         public void TestGetProductVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            Assert.AreEqual(tank1.GetProductVolume(), 100);
+            Assert.AreEqual(tank1.ProductVolume, 100);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             Assert.IsTrue(tank1.SetProductVolume(150));
-            Assert.AreEqual(tank1.GetProductVolume(), 150);
+            Assert.AreEqual(tank1.ProductVolume, 150);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             Assert.IsFalse(tank1.SetProductVolume(10000000000));
-            Assert.AreEqual(tank1.GetProductVolume(), 100);
+            Assert.AreEqual(tank1.ProductVolume, 100);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace SimulatorTest
         public void TestGetWaterLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            Assert.AreEqual(tank1.GetWaterLevel(), 100);
+            Assert.AreEqual(tank1.WaterLevel, 100);
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
             Assert.IsTrue(tank1.SetWaterLevel(150));
-            Assert.AreEqual(tank1.GetWaterLevel(), 150);
+            Assert.AreEqual(tank1.WaterLevel, 150);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
             Assert.IsFalse(tank1.SetWaterLevel(10000000000));
-            Assert.AreEqual(tank1.GetWaterLevel(), 100);
+            Assert.AreEqual(tank1.WaterLevel, 100);
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace SimulatorTest
         public void TestGetWaterVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
-            Assert.AreEqual(tank1.GetWaterVolume(), 100);
+            Assert.AreEqual(tank1.WaterVolume, 100);
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             Assert.IsTrue(tank1.SetWaterVolume(150));
-            Assert.AreEqual(tank1.GetWaterVolume(), 150);
+            Assert.AreEqual(tank1.WaterVolume, 150);
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             Assert.IsFalse(tank1.SetWaterVolume(10000000000));
-            Assert.AreEqual(tank1.GetWaterVolume(), 100);
+            Assert.AreEqual(tank1.WaterVolume, 100);
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.TankDroppedList.Count, 0);
             Assert.True(tank1.DropTank(100, DateTime.Now, duration));
             Assert.AreEqual(tank1.TankDroppedList.Count, 1);
-            Assert.AreEqual(tank1.GetProductVolume(), 200);
+            Assert.AreEqual(tank1.ProductVolume, 200);
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.TankDroppedList.Count, 0);
             Assert.False(tank1.DropTank(100000000000, DateTime.Now, duration));
             Assert.AreEqual(tank1.TankDroppedList.Count, 0);
-            Assert.AreEqual(tank1.GetProductVolume(), 100);
+            Assert.AreEqual(tank1.ProductVolume, 100);
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "volume", "cylinder");
             tank1.ProductChangePerInterval(100);
-            Assert.AreEqual(tank1.GetProductVolume(), 200);
+            Assert.AreEqual(tank1.ProductVolume, 200);
         }
 
         [Test]
@@ -191,8 +191,8 @@ namespace SimulatorTest
         public void TestGetGrossObservedVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            float productLevel = (float)(tank1.GetProductLevel() * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
-            float waterLevel = (float)(tank1.GetWaterLevel() * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
+            float productLevel = (float)(tank1.ProductLevel * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
+            float waterLevel = (float)(tank1.WaterLevel * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
             float expectedResult = productLevel + waterLevel;
             Assert.AreEqual(tank1.GetGrossObservedVolume(), expectedResult);
         }
@@ -201,7 +201,7 @@ namespace SimulatorTest
         public void TestGetGrossStandardVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            float productLevel = (float)(tank1.GetProductLevel() * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
+            float productLevel = (float)(tank1.ProductLevel * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
             float tempDelta = tank1.ProductTemperature - 15;
             float thermalExpansionCoefficient = TankProbe.thermalExpansionCoefficient;
             float expectedResult = productLevel * (1 - thermalExpansionCoefficient * tempDelta);
@@ -212,11 +212,11 @@ namespace SimulatorTest
         public void TestGetUllage()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 100, 100, 100, 10, "level", "cylinder");
-            float height = tank1.TankProbeHeight;
-            float productLevel = tank1.GetProductLevel();
-            float waterLevel = tank1.GetWaterLevel();
-            float l = height - productLevel - waterLevel;
-            float expectedResult = (float)(l * (Math.PI * Math.Pow(tank1.TankProbeRadius / 2, 2)));
+            float length = tank1.TankProbeLength;
+            float productLevel = tank1.ProductLevel;
+            float waterLevel = tank1.WaterLevel;
+            float l = length - productLevel - waterLevel;
+            float expectedResult = (float)(l * (Math.PI * Math.Pow(tank1.TankProbeDiameter / 2, 2)));
             Assert.AreEqual(tank1.GetUllage(), expectedResult);
         }
 
@@ -251,7 +251,7 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.TankDroppedList.Count, 0);
             Assert.True(tank1.DropTank(100, DateTime.Now, duration));
             Assert.AreEqual(tank1.TankDroppedList.Count, 1);
-            Assert.AreEqual(tank1.GetProductVolume(), 200);
+            Assert.AreEqual(tank1.ProductVolume, 200);
             tank1.ClearDeliveryReport();
             Assert.AreEqual(tank1.TankDroppedList.Count, 0);
         }
