@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PortVeederRootGaugeSim.Models
 {
-    class Helper
+    static class Helper
     {
      
 
