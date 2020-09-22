@@ -10,8 +10,9 @@ namespace PortVeederRootGaugeSim
         public int TankProbeId { get; set; }
         public char ProductCode { get; set; }
         public string TankProbeShape { get; set; }
-        public float TankProbeLength { get; set; }
-        public float TankProbeDiameter { get; set; }
+        public float TankProbeLength { get; private set; }
+        
+        public float TankProbeDiameter { get; private set; }
 
             // critical section starts
         private readonly object ProductLevelLock = new object();
@@ -57,6 +58,24 @@ namespace PortVeederRootGaugeSim
 
 
         // Getters and Setters
+
+        public void SetTankProbeLength(float value)
+        {
+            TankProbeLength = value;
+            FullVolume = Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter, TankProbeLength, TankProbeDiameter);
+
+
+        }
+
+        public void SetTankProbeDiameter(float value)
+        {
+            TankProbeDiameter = value;
+            FullVolume = Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter, TankProbeLength, TankProbeDiameter);
+
+
+        }
+
+
         public Boolean SetByProductLevel(float value)
         {
 
