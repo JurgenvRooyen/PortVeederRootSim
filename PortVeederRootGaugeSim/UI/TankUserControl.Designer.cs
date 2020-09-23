@@ -177,7 +177,7 @@
             // ullage
             // 
             this.ullage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ullage.Location = new System.Drawing.Point(8, 404);
+            this.ullage.Location = new System.Drawing.Point(8, 417);
             this.ullage.Name = "ullage";
             this.ullage.Size = new System.Drawing.Size(106, 20);
             this.ullage.TabIndex = 21;
@@ -188,7 +188,7 @@
             // 
             this.ullageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ullageLabel.AutoSize = true;
-            this.ullageLabel.Location = new System.Drawing.Point(35, 384);
+            this.ullageLabel.Location = new System.Drawing.Point(35, 397);
             this.ullageLabel.Name = "ullageLabel";
             this.ullageLabel.Size = new System.Drawing.Size(52, 20);
             this.ullageLabel.TabIndex = 20;
@@ -198,7 +198,7 @@
             // capacity
             // 
             this.capacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.capacity.Location = new System.Drawing.Point(8, 364);
+            this.capacity.Location = new System.Drawing.Point(8, 377);
             this.capacity.Name = "capacity";
             this.capacity.Size = new System.Drawing.Size(106, 20);
             this.capacity.TabIndex = 19;
@@ -209,7 +209,7 @@
             // 
             this.capacityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.capacityLabel.AutoSize = true;
-            this.capacityLabel.Location = new System.Drawing.Point(28, 344);
+            this.capacityLabel.Location = new System.Drawing.Point(28, 357);
             this.capacityLabel.Name = "capacityLabel";
             this.capacityLabel.Size = new System.Drawing.Size(66, 20);
             this.capacityLabel.TabIndex = 18;
@@ -241,7 +241,7 @@
             // tankDropNumber
             // 
             this.tankDropNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankDropNumber.Location = new System.Drawing.Point(8, 424);
+            this.tankDropNumber.Location = new System.Drawing.Point(8, 437);
             this.tankDropNumber.Name = "tankDropNumber";
             this.tankDropNumber.Size = new System.Drawing.Size(107, 20);
             this.tankDropNumber.TabIndex = 15;
