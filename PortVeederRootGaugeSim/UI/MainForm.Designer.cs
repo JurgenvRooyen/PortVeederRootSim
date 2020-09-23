@@ -33,14 +33,14 @@
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProtocolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EchoTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PortVeederRootMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.addProbeButton = new System.Windows.Forms.Button();
             this.deleteProbeButton = new System.Windows.Forms.Button();
             this.ConnectProbeButton = new System.Windows.Forms.Button();
-            this.EchoTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PortVeederRootMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +72,7 @@
             this.ExitMenuItem.Name = "ExitMenuItem";
             this.ExitMenuItem.Size = new System.Drawing.Size(116, 26);
             this.ExitMenuItem.Text = "Exit";
+            this.ExitMenuItem.Click += MenuItem_Click;
             // 
             // OptionsMenuItem
             // 
@@ -88,6 +89,20 @@
             this.ProtocolMenuItem.Size = new System.Drawing.Size(79, 24);
             this.ProtocolMenuItem.Text = "Protocol";
             // 
+            // EchoTestMenuItem
+            // 
+            this.EchoTestMenuItem.Name = "EchoTestMenuItem";
+            this.EchoTestMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.EchoTestMenuItem.Text = "Echo Test";
+            this.EchoTestMenuItem.Click += MenuItem_Click;
+            // 
+            // PortVeederRootMenuItem
+            // 
+            this.PortVeederRootMenuItem.Name = "PortVeederRootMenuItem";
+            this.PortVeederRootMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.PortVeederRootMenuItem.Text = "Port Veeder-Root";
+            this.EchoTestMenuItem.Click += MenuItem_Click;
+            // 
             // HelpMenuItem
             // 
             this.HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -102,6 +117,7 @@
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
             this.AboutMenuItem.Text = "About";
+            this.AboutMenuItem.Click += MenuItem_Click;
             // 
             // flowLayoutPanel
             // 
@@ -141,18 +157,6 @@
             this.ConnectProbeButton.Text = "Connect Probe 1 + 2";
             this.ConnectProbeButton.UseVisualStyleBackColor = true;
             this.ConnectProbeButton.Click += new System.EventHandler(this.ConnectProbeButton_Click);
-            // 
-            // EchoTestMenuItem
-            // 
-            this.EchoTestMenuItem.Name = "EchoTestMenuItem";
-            this.EchoTestMenuItem.Size = new System.Drawing.Size(206, 26);
-            this.EchoTestMenuItem.Text = "Echo Test";
-            // 
-            // PortVeederRootMenuItem
-            // 
-            this.PortVeederRootMenuItem.Name = "PortVeederRootMenuItem";
-            this.PortVeederRootMenuItem.Size = new System.Drawing.Size(206, 26);
-            this.PortVeederRootMenuItem.Text = "Port Veeder-Root";
             // 
             // MainForm
             // 
