@@ -113,7 +113,7 @@ namespace PortVeederRootGaugeSim.IO
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                sb.Append("9999" + "\x03");
+                sb.Append("9999&&fecf" + "\x03"); // Parity for the error is always the same
                 return sb.ToString();
             }
 

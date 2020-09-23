@@ -99,7 +99,7 @@ namespace BlackBoxTest
             string response = SendRequest(toTest);
 
             Assert.IsNotNull(response);
-            Assert.AreEqual("\x002" + "9999" + "\x003", response);
+            Assert.AreEqual("\x01" + "9999&&fecf" + "\x03", response);
         }
 
         [TestCase("i20100")]
@@ -125,7 +125,7 @@ namespace BlackBoxTest
         {
             string response = SendRequest(toTest);
 
-            Assert.AreEqual("\x002" + "9999" + "\x003", response);
+            Assert.AreEqual("\x001" + "9999&&fecf" + "\x003", response);
         }
 
         [Test]
