@@ -191,6 +191,7 @@
             this.noteLabel.TabIndex = 7;
             this.noteLabel.Text = "NOTE: Fuel draw off level is usually between the low limit\r\nand high water alarm " +
     "levels\r\n";
+            this.noteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // overfillLimitLabel
             // 
@@ -222,7 +223,7 @@
             // lowLimitLabel
             // 
             this.lowLimitLabel.AutoSize = true;
-            this.lowLimitLabel.Location = new System.Drawing.Point(126, 315);
+            this.lowLimitLabel.Location = new System.Drawing.Point(135, 314);
             this.lowLimitLabel.Name = "lowLimitLabel";
             this.lowLimitLabel.Size = new System.Drawing.Size(73, 20);
             this.lowLimitLabel.TabIndex = 11;
@@ -265,7 +266,7 @@
             // tankDiameterLabel
             // 
             this.tankDiameterLabel.AutoSize = true;
-            this.tankDiameterLabel.Location = new System.Drawing.Point(96, 476);
+            this.tankDiameterLabel.Location = new System.Drawing.Point(104, 475);
             this.tankDiameterLabel.Name = "tankDiameterLabel";
             this.tankDiameterLabel.Size = new System.Drawing.Size(104, 20);
             this.tankDiameterLabel.TabIndex = 12;
@@ -274,7 +275,7 @@
             // tankLengthLabel
             // 
             this.tankLengthLabel.AutoSize = true;
-            this.tankLengthLabel.Location = new System.Drawing.Point(110, 512);
+            this.tankLengthLabel.Location = new System.Drawing.Point(120, 511);
             this.tankLengthLabel.Name = "tankLengthLabel";
             this.tankLengthLabel.Size = new System.Drawing.Size(87, 20);
             this.tankLengthLabel.TabIndex = 12;
