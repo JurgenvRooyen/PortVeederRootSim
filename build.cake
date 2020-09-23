@@ -108,7 +108,7 @@ Task("Default")
     .IsDependentOn("Run-UnitTests");
 
 Task("Publish")
-.IsDependentOn("Publish-Minimal86"");
+    .IsDependentOn("Publish-Minimal86");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
