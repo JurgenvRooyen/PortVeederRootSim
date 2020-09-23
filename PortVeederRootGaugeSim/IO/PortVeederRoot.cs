@@ -43,6 +43,21 @@ namespace PortVeederRootGaugeSim.IO
             return converted.ToString("x");
         }
 
+        private string CalculateChecksum(String message)
+        {
+            int stringValue = 0;
+
+            foreach(char c in message)
+            {
+                stringValue += c;
+            }
+
+            int compliment = 0 - stringValue;
+            string hexValue = compliment.ToString("x");
+
+            return hexValue.Substring(hexValue.Length - 4);
+        }
+
         // Function to provide the necessary logic for looping where necessary
         private string CommandResponse(string echo, int probeID, Func<int, string> function)
         {
@@ -78,7 +93,7 @@ namespace PortVeederRootGaugeSim.IO
 
         public string Parse(string toParse)
         {
-            StringBuilder sb = new StringBuilder("\x02");
+            StringBuilder sb = new StringBuilder("\x01");
             string protocolCommand;
             string tankNumber;
             int probeID;
@@ -148,9 +163,8 @@ namespace PortVeederRootGaugeSim.IO
                         break;
                 }
 
-
-            // TLS3XX protocol requires an ending ETX char to mark a messages end, this can be disabled if necessary.
-            // TODO: investigate if enabler requires ETX marking or supports it?
+            sb.Append("&&");
+            sb.Append(CalculateChecksum(sb.ToString()));
             sb.Append("\x03");
             return sb.ToString();
         }
