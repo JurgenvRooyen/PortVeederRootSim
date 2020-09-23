@@ -48,7 +48,7 @@ namespace SimulatorTest
         [Test]
         public void InvalidProtocolTest()
         {
-            Assert.AreEqual(protocol.Parse("i000"), "\x02" +"9999"+"\x03");
+            Assert.AreEqual(protocol.Parse("i000"), "\x01" + "9999&&fecf" + "\x03");
         }
 
         // Parameterised Tests
@@ -96,7 +96,7 @@ namespace SimulatorTest
             rootSim.AddTankProbe(new TankProbe(2, 't', 100, 1, 10, 10, 15, "volume"));
             string response = protocol.Parse("\x02i20100");
 
-            Assert.AreEqual(148, response.Length);
+            Assert.AreEqual(154, response.Length);
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace SimulatorTest
             rootSim.TankProbeList[0].TankDroppedList.Add(td);
             string response = protocol.Parse("\x02i20201");
 
-            Assert.AreEqual(227, response.Length);
+            Assert.AreEqual(233, response.Length);
         }
 
         [Test]
@@ -180,7 +180,8 @@ namespace SimulatorTest
             string newDateToSet = "ABCDEFG";
             string response = protocol.Parse("\x02s50100" + newDateToSet);
 
-            Assert.AreEqual("\x02" + "9999" + "\x03", response);
+            Assert.AreEqual("\x01" + "9999" + "&&", response.Substring(0, 7));
+            Assert.AreEqual("\x03", response.Substring(response.Length-1));
         }
     }
 }
