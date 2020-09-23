@@ -19,12 +19,14 @@ namespace PortVeederRootGaugeSim
             TankProbeHeight = probeHeight;
             FullVolume = LevelToVolume(probeHeight);
             SetWaterLevel(waterLevel);
+            MaxSafeWorkingCapacity = TankProbeHeight * safeWorkingCapacityModifier;
         }
         public void SetTankProbeDiameter(float probeDiameter)
         {
             TankProbeDiameter = probeDiameter;
             FullVolume = LevelToVolume(TankProbeHeight);
             SetWaterLevel(waterLevel);
+            MaxSafeWorkingCapacity = TankProbeHeight * safeWorkingCapacityModifier;
         }
 
         private readonly object ProductLevelLock = new object();
