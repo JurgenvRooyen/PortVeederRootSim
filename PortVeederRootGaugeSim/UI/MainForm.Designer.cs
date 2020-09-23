@@ -125,7 +125,7 @@
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Size = new System.Drawing.Size(1331, 708);
-            this.flowLayoutPanel.TabIndex = 3;
+            this.flowLayoutPanel.TabIndex = 1;
             this.flowLayoutPanel.WrapContents = false;
             // 
             // addProbeButton
@@ -133,7 +133,7 @@
             this.addProbeButton.Location = new System.Drawing.Point(208, 745);
             this.addProbeButton.Name = "addProbeButton";
             this.addProbeButton.Size = new System.Drawing.Size(143, 29);
-            this.addProbeButton.TabIndex = 4;
+            this.addProbeButton.TabIndex = 3;
             this.addProbeButton.Text = "Add Probe";
             this.addProbeButton.UseVisualStyleBackColor = true;
             this.addProbeButton.Click += new System.EventHandler(this.AddProbeButton_Click);
@@ -143,7 +143,7 @@
             this.deleteProbeButton.Location = new System.Drawing.Point(357, 745);
             this.deleteProbeButton.Name = "deleteProbeButton";
             this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
-            this.deleteProbeButton.TabIndex = 5;
+            this.deleteProbeButton.TabIndex = 4;
             this.deleteProbeButton.Text = "Delete Probe";
             this.deleteProbeButton.UseVisualStyleBackColor = true;
             this.deleteProbeButton.Click += new System.EventHandler(this.DeleteProbeButton_Click);
@@ -153,7 +153,7 @@
             this.ConnectProbeButton.Location = new System.Drawing.Point(12, 745);
             this.ConnectProbeButton.Name = "ConnectProbeButton";
             this.ConnectProbeButton.Size = new System.Drawing.Size(190, 29);
-            this.ConnectProbeButton.TabIndex = 5;
+            this.ConnectProbeButton.TabIndex = 2;
             this.ConnectProbeButton.Text = "Connect Probe 1 + 2";
             this.ConnectProbeButton.UseVisualStyleBackColor = true;
             this.ConnectProbeButton.Click += new System.EventHandler(this.ConnectProbeButton_Click);
