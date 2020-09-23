@@ -72,7 +72,6 @@
             this.ExitMenuItem.Name = "ExitMenuItem";
             this.ExitMenuItem.Size = new System.Drawing.Size(116, 26);
             this.ExitMenuItem.Text = "Exit";
-            this.ExitMenuItem.Click += MenuItem_Click;
             // 
             // OptionsMenuItem
             // 
@@ -94,14 +93,12 @@
             this.EchoTestMenuItem.Name = "EchoTestMenuItem";
             this.EchoTestMenuItem.Size = new System.Drawing.Size(206, 26);
             this.EchoTestMenuItem.Text = "Echo Test";
-            this.EchoTestMenuItem.Click += MenuItem_Click;
             // 
             // PortVeederRootMenuItem
             // 
             this.PortVeederRootMenuItem.Name = "PortVeederRootMenuItem";
             this.PortVeederRootMenuItem.Size = new System.Drawing.Size(206, 26);
             this.PortVeederRootMenuItem.Text = "Port Veeder-Root";
-            this.EchoTestMenuItem.Click += MenuItem_Click;
             // 
             // HelpMenuItem
             // 
@@ -117,7 +114,6 @@
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
             this.AboutMenuItem.Text = "About";
-            this.AboutMenuItem.Click += MenuItem_Click;
             // 
             // flowLayoutPanel
             // 
