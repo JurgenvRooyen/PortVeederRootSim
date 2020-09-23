@@ -68,16 +68,8 @@ Task("Run-UnitTests")
     DotNetCoreTest("./SimulatorTest",testSettings,coverletSettingsWB);
 });
 
-Task("Publish-Full")
-    .IsDependentOn("Run-UnitTests")
-    .Does(() =>
-{
-    DotNetCorePublish("./PortVeederRootGaugeSimulator.sln");
-});
-
-
 Task("Publish-Minimal64")
-    .IsDependentOn("Build")
+    .IsDependentOn("Run-UnitTests")
     .Does(() =>
 {
      var settings = new DotNetCorePublishSettings
@@ -116,10 +108,7 @@ Task("Default")
     .IsDependentOn("Run-UnitTests");
 
 Task("Publish")
-.IsDependentOn("Publish-Full");
-
-Task("PublishLean")
-.IsDependentOn("Publish-Minimal86");
+    .IsDependentOn("Publish-Minimal86");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
