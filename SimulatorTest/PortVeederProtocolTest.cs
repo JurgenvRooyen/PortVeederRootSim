@@ -48,7 +48,7 @@ namespace SimulatorTest
         [Test]
         public void InvalidProtocolTest()
         {
-            Assert.AreEqual(protocol.Parse("i000"), "\x01" + "9999&&fecf" + "\x03");
+            Assert.AreEqual(protocol.Parse("i000"), "\x01" + "9999&&FECF" + "\x03");
         }
 
         // Parameterised Tests
