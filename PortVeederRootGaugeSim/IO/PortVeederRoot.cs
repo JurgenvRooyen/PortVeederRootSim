@@ -172,13 +172,13 @@ namespace PortVeederRootGaugeSim.IO
             //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
             probeString.Append("0000");
             probeString.Append("07");
-            probeString.Append(SingleToHex(probe.GetGrossObservedVolume()));
-            probeString.Append(SingleToHex(probe.GetGrossStandardVolume()));
-            probeString.Append(SingleToHex(probe.GetUllage()));
-            probeString.Append(SingleToHex(probe.ProductLevel));
-            probeString.Append(SingleToHex(probe.WaterLevel));
-            probeString.Append(SingleToHex(probe.ProductTemperature));
-            probeString.Append(SingleToHex(probe.WaterVolume));
+            probeString.Append(SingleToHex(probe.GetGrossObservedVolume()).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.GetGrossStandardVolume()).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.GetUllage()).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.ProductLevel).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.WaterLevel).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.ProductTemperature).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.WaterVolume).PadLeft(8, '0'));
 
             return probeString.ToString();
         }
@@ -203,17 +203,17 @@ namespace PortVeederRootGaugeSim.IO
                 probeString.Append(drop.EndingTime.ToString(dateFormatString));
                 probeString.Append("10");
 
-                probeString.Append(SingleToHex(drop.StartingVolume));
-                probeString.Append(SingleToHex(drop.StartingTemperatureCompensatedVolume));
-                probeString.Append(SingleToHex(drop.StartingWaterVolume));
-                probeString.Append(SingleToHex(drop.StartingTemperature));
+                probeString.Append(SingleToHex(drop.StartingVolume).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.StartingTemperatureCompensatedVolume).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.StartingWaterVolume).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.StartingTemperature).PadLeft(8, '0'));
 
-                probeString.Append(SingleToHex(drop.EndingVolume));
-                probeString.Append(SingleToHex(drop.EndingTemperatureCompensatedVolume));
-                probeString.Append(SingleToHex(drop.EndingWaterVolume));
-                probeString.Append(SingleToHex(drop.EndingTemperature));
-                probeString.Append(SingleToHex(drop.StartingLevel));
-                probeString.Append(SingleToHex(drop.EndingLevel));
+                probeString.Append(SingleToHex(drop.EndingVolume).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.EndingTemperatureCompensatedVolume).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.EndingWaterVolume).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.EndingTemperature).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.StartingLevel).PadLeft(8, '0'));
+                probeString.Append(SingleToHex(drop.EndingLevel).PadLeft(8, '0'));
             }
 
             return probeString.ToString();

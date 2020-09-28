@@ -27,7 +27,8 @@ namespace SimulatorTest
         public void SetUp()
         {
             //tankId, productCode, tankLength, tankDiameter, productValue, waterValue, productTemerature
-            TankProbe tankProbe = new TankProbe(1, 't', 100, 1, 10, 10, 15, "volume");
+            // Test tank capacity is 3140L
+            TankProbe tankProbe = new TankProbe(1, 't', 1000, 2000, 500, 500, 15, "level");
             List<TankProbe> tankprobeList = new List<TankProbe>();
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
@@ -76,7 +77,6 @@ namespace SimulatorTest
         {
             //Testing against known values specified in constructor
             string response = protocol.Parse("\x02i20101");
-
             string hexVolume = response.Substring(26, 8);
             string hexTemperature = response.Substring(66, 8);
             string hexWaterVol = response.Substring(74, 8);
@@ -85,9 +85,9 @@ namespace SimulatorTest
             float temperature = HexToSingle(hexTemperature);
             float waterVolume = HexToSingle(hexWaterVol);
 
-            Assert.AreEqual(20, volume);
+            Assert.AreEqual(1570, (int)volume);
             Assert.AreEqual(15, temperature);
-            Assert.AreEqual(10, waterVolume);
+            Assert.AreEqual(614, (int)waterVolume);
         }
 
         [Test]

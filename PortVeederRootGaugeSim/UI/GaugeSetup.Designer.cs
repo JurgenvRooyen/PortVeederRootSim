@@ -242,7 +242,7 @@
             this.tankDiameterText.Name = "tankDiameterText";
             this.tankDiameterText.Size = new System.Drawing.Size(178, 27);
             this.tankDiameterText.TabIndex = 8;
-            this.tankDiameterText.TextChanged += new System.EventHandler(this.tankDiameterText_TextChanged);
+            this.tankDiameterText.TextChanged += new System.EventHandler(this.TankDiameterText_TextChanged);
 
             // 
             // tankHeightText
@@ -251,7 +251,7 @@
             this.tankHeightText.Name = "tankHeightText";
             this.tankHeightText.Size = new System.Drawing.Size(178, 27);
             this.tankHeightText.TabIndex = 9;
-            this.tankHeightText.TextChanged += new System.EventHandler(this.tankHeightText_TextChanged);
+            this.tankHeightText.TextChanged += new System.EventHandler(this.TankHeightText_TextChanged);
             // 
             // tankDiameterLabel
             // 

@@ -181,7 +181,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 2000, 300, 100, 10, "level", "cylinder");
 
-            float expectedResult = tank1.ProductVolume * (1  - 0.0018F) * (tank1.ProductTemperature - 15);
+            float expectedResult = tank1.ProductVolume * (1  - 0.0018F * (tank1.ProductTemperature - 15));
             Assert.AreEqual(tank1.GetGrossStandardVolume(), expectedResult);
         }
 

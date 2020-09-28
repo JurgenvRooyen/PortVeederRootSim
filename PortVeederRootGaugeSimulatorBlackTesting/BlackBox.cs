@@ -133,7 +133,6 @@ namespace BlackBoxTest
         {
             string response = SendRequest("i20101");
 
-
             string hexVolume = response.Substring(26, 8);
             string hexTemperature = response.Substring(66, 8);
             string hexWaterVol = response.Substring(74, 8);
