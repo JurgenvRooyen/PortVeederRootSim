@@ -32,6 +32,9 @@
             this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProtocolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EchoTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PortVeederRootMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -47,6 +50,7 @@
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileMenuItem,
             this.OptionsMenuItem,
+            this.ProtocolMenuItem,
             this.HelpMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
@@ -68,12 +72,36 @@
             this.ExitMenuItem.Name = "ExitMenuItem";
             this.ExitMenuItem.Size = new System.Drawing.Size(96, 22);
             this.ExitMenuItem.Text = "Exit";
+            this.ExitMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
             // 
             // OptionsMenuItem
             // 
             this.OptionsMenuItem.Name = "OptionsMenuItem";
             this.OptionsMenuItem.Size = new System.Drawing.Size(66, 21);
             this.OptionsMenuItem.Text = "Options";
+            // 
+            // ProtocolMenuItem
+            // 
+            this.ProtocolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.EchoTestMenuItem,
+            this.PortVeederRootMenuItem});
+            this.ProtocolMenuItem.Name = "ProtocolMenuItem";
+            this.ProtocolMenuItem.Size = new System.Drawing.Size(79, 24);
+            this.ProtocolMenuItem.Text = "Protocol";
+            // 
+            // EchoTestMenuItem
+            // 
+            this.EchoTestMenuItem.Name = "EchoTestMenuItem";
+            this.EchoTestMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.EchoTestMenuItem.Text = "Echo Test";
+            this.EchoTestMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
+            // 
+            // PortVeederRootMenuItem
+            // 
+            this.PortVeederRootMenuItem.Name = "PortVeederRootMenuItem";
+            this.PortVeederRootMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.PortVeederRootMenuItem.Text = "Port Veeder-Root";
+            this.PortVeederRootMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
             // 
             // HelpMenuItem
             // 
@@ -89,22 +117,23 @@
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.AboutMenuItem.Size = new System.Drawing.Size(132, 22);
             this.AboutMenuItem.Text = "About";
+            this.AboutMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
             // 
             // flowLayoutPanel
             // 
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 26);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(1165, 602);
-            this.flowLayoutPanel.TabIndex = 3;
+            this.flowLayoutPanel.Size = new System.Drawing.Size(1331, 708);
+            this.flowLayoutPanel.TabIndex = 1;
             this.flowLayoutPanel.WrapContents = false;
             // 
             // addProbeButton
             // 
             this.addProbeButton.Location = new System.Drawing.Point(182, 633);
             this.addProbeButton.Name = "addProbeButton";
-            this.addProbeButton.Size = new System.Drawing.Size(125, 25);
-            this.addProbeButton.TabIndex = 4;
+            this.addProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.addProbeButton.TabIndex = 3;
             this.addProbeButton.Text = "Add Probe";
             this.addProbeButton.UseVisualStyleBackColor = true;
             this.addProbeButton.Click += new System.EventHandler(this.AddProbeButton_Click);
@@ -113,8 +142,8 @@
             // 
             this.deleteProbeButton.Location = new System.Drawing.Point(312, 633);
             this.deleteProbeButton.Name = "deleteProbeButton";
-            this.deleteProbeButton.Size = new System.Drawing.Size(125, 25);
-            this.deleteProbeButton.TabIndex = 5;
+            this.deleteProbeButton.Size = new System.Drawing.Size(143, 29);
+            this.deleteProbeButton.TabIndex = 4;
             this.deleteProbeButton.Text = "Delete Probe";
             this.deleteProbeButton.UseVisualStyleBackColor = true;
             this.deleteProbeButton.Click += new System.EventHandler(this.DeleteProbeButton_Click);
@@ -123,8 +152,8 @@
             // 
             this.ConnectProbeButton.Location = new System.Drawing.Point(10, 633);
             this.ConnectProbeButton.Name = "ConnectProbeButton";
-            this.ConnectProbeButton.Size = new System.Drawing.Size(166, 25);
-            this.ConnectProbeButton.TabIndex = 5;
+            this.ConnectProbeButton.Size = new System.Drawing.Size(190, 29);
+            this.ConnectProbeButton.TabIndex = 2;
             this.ConnectProbeButton.Text = "Connect Probe 1 + 2";
             this.ConnectProbeButton.UseVisualStyleBackColor = true;
             this.ConnectProbeButton.Click += new System.EventHandler(this.ConnectProbeButton_Click);
@@ -141,6 +170,7 @@
             this.Controls.Add(this.MainMenu);
             this.Name = "MainForm";
             this.Text = "Veeder-Root TLS Simulator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
@@ -161,6 +191,9 @@
         private System.Windows.Forms.Button addProbeButton;
         private System.Windows.Forms.Button deleteProbeButton;
         private System.Windows.Forms.Button ConnectProbeButton;
+        private System.Windows.Forms.ToolStripMenuItem ProtocolMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem EchoTestMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PortVeederRootMenuItem;
     }
 }
 

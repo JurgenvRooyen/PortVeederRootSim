@@ -3,14 +3,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace PortVeederRootGaugeSim.IO
 {
     class TcpServer
     {
         readonly TcpListener listener;
-        // Dependecy injection for the protocol to call, possibly specify an interface for protocol to support multiple protocols?
-        IProtocol protocol;
+        public IProtocol protocol { get; set; }
         bool acceptIncoming;
 
         public TcpServer(PortVeederRoot protocol)
@@ -25,19 +25,19 @@ namespace PortVeederRootGaugeSim.IO
         {
             listener.Start();
             acceptIncoming = true;
-            Listen();
+            _ = Listen();
         }
 
-        private async void Listen()
+        private async Task Listen()
         {
             while (acceptIncoming)
             {
                 TcpClient client = await listener.AcceptTcpClientAsync();
-                HandleClient(client);
+                await HandleClient(client);
             }
         }
 
-        private async void HandleClient(TcpClient client)
+        private async Task HandleClient(TcpClient client)
         {
             NetworkStream nStream = client.GetStream();
             byte[] buffer = new byte[256];

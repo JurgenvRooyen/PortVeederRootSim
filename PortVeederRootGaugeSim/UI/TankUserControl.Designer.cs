@@ -94,7 +94,6 @@
             this.TankGroupBox.Location = new System.Drawing.Point(2, 0);
             this.TankGroupBox.Name = "TankGroupBox";
             this.TankGroupBox.Size = new System.Drawing.Size(123, 679);
-            this.TankGroupBox.TabIndex = 2;
             this.TankGroupBox.TabStop = false;
             this.TankGroupBox.Text = "Probe #";
             // 
@@ -104,7 +103,7 @@
             this.GaugeSetupButton.Location = new System.Drawing.Point(8, 644);
             this.GaugeSetupButton.Name = "GaugeSetupButton";
             this.GaugeSetupButton.Size = new System.Drawing.Size(107, 29);
-            this.GaugeSetupButton.TabIndex = 17;
+            this.GaugeSetupButton.TabIndex = 7;
             this.GaugeSetupButton.Text = "Gauge Setup";
             this.GaugeSetupButton.UseVisualStyleBackColor = true;
             this.GaugeSetupButton.Click += new System.EventHandler(this.GaugeSetupButton_Click);
@@ -115,7 +114,6 @@
             this.ProbeDiameter.Location = new System.Drawing.Point(8, 517);
             this.ProbeDiameter.Name = "ProbeDiameter";
             this.ProbeDiameter.Size = new System.Drawing.Size(107, 20);
-            this.ProbeDiameter.TabIndex = 23;
             this.ProbeDiameter.Text = "*Diameter*";
             this.ProbeDiameter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -126,7 +124,6 @@
             this.ProbeDiameterLabel.Location = new System.Drawing.Point(4, 497);
             this.ProbeDiameterLabel.Name = "ProbeDiameterLabel";
             this.ProbeDiameterLabel.Size = new System.Drawing.Size(114, 20);
-            this.ProbeDiameterLabel.TabIndex = 23;
             this.ProbeDiameterLabel.Text = "Probe Diameter";
             this.ProbeDiameterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -136,7 +133,6 @@
             this.ProbeLength.Location = new System.Drawing.Point(8, 477);
             this.ProbeLength.Name = "ProbeLength";
             this.ProbeLength.Size = new System.Drawing.Size(107, 20);
-            this.ProbeLength.TabIndex = 23;
             this.ProbeLength.Text = "*Length*";
             this.ProbeLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -147,7 +143,6 @@
             this.ProbeLengthLabel.Location = new System.Drawing.Point(13, 457);
             this.ProbeLengthLabel.Name = "ProbeLengthLabel";
             this.ProbeLengthLabel.Size = new System.Drawing.Size(97, 20);
-            this.ProbeLengthLabel.TabIndex = 23;
             this.ProbeLengthLabel.Text = "Probe Length";
             this.ProbeLengthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -162,7 +157,7 @@
             this.comboBox1.Location = new System.Drawing.Point(8, 540);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(107, 28);
-            this.comboBox1.TabIndex = 22;
+            this.comboBox1.TabIndex = 4;
             // 
             // gsv
             // 
@@ -170,17 +165,15 @@
             this.gsv.Location = new System.Drawing.Point(8, 191);
             this.gsv.Name = "gsv";
             this.gsv.Size = new System.Drawing.Size(106, 20);
-            this.gsv.TabIndex = 2;
             this.gsv.Text = "*GSV*";
             this.gsv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ullage
             // 
             this.ullage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ullage.Location = new System.Drawing.Point(8, 404);
+            this.ullage.Location = new System.Drawing.Point(8, 417);
             this.ullage.Name = "ullage";
             this.ullage.Size = new System.Drawing.Size(106, 20);
-            this.ullage.TabIndex = 21;
             this.ullage.Text = "*Ullage*";
             this.ullage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -188,20 +181,18 @@
             // 
             this.ullageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ullageLabel.AutoSize = true;
-            this.ullageLabel.Location = new System.Drawing.Point(35, 384);
+            this.ullageLabel.Location = new System.Drawing.Point(35, 397);
             this.ullageLabel.Name = "ullageLabel";
             this.ullageLabel.Size = new System.Drawing.Size(52, 20);
-            this.ullageLabel.TabIndex = 20;
             this.ullageLabel.Text = "Ullage";
             this.ullageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // capacity
             // 
             this.capacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.capacity.Location = new System.Drawing.Point(8, 364);
+            this.capacity.Location = new System.Drawing.Point(8, 377);
             this.capacity.Name = "capacity";
             this.capacity.Size = new System.Drawing.Size(106, 20);
-            this.capacity.TabIndex = 19;
             this.capacity.Text = "*Capacity*";
             this.capacity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -209,10 +200,9 @@
             // 
             this.capacityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.capacityLabel.AutoSize = true;
-            this.capacityLabel.Location = new System.Drawing.Point(28, 344);
+            this.capacityLabel.Location = new System.Drawing.Point(28, 357);
             this.capacityLabel.Name = "capacityLabel";
             this.capacityLabel.Size = new System.Drawing.Size(66, 20);
-            this.capacityLabel.TabIndex = 18;
             this.capacityLabel.Text = "Capacity";
             this.capacityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -222,7 +212,7 @@
             this.startLeakButton.Location = new System.Drawing.Point(8, 609);
             this.startLeakButton.Name = "startLeakButton";
             this.startLeakButton.Size = new System.Drawing.Size(107, 29);
-            this.startLeakButton.TabIndex = 17;
+            this.startLeakButton.TabIndex = 6;
             this.startLeakButton.Text = "Start Leak";
             this.startLeakButton.UseVisualStyleBackColor = true;
             this.startLeakButton.Click += new System.EventHandler(this.StartLeakButton_Click);
@@ -233,7 +223,7 @@
             this.startDeliveryButton.Location = new System.Drawing.Point(8, 574);
             this.startDeliveryButton.Name = "startDeliveryButton";
             this.startDeliveryButton.Size = new System.Drawing.Size(107, 29);
-            this.startDeliveryButton.TabIndex = 16;
+            this.startDeliveryButton.TabIndex = 5;
             this.startDeliveryButton.Text = "Start Delivery";
             this.startDeliveryButton.UseVisualStyleBackColor = true;
             this.startDeliveryButton.Click += new System.EventHandler(this.StartDeliveryButton_Click);
@@ -241,10 +231,9 @@
             // tankDropNumber
             // 
             this.tankDropNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tankDropNumber.Location = new System.Drawing.Point(8, 424);
+            this.tankDropNumber.Location = new System.Drawing.Point(8, 437);
             this.tankDropNumber.Name = "tankDropNumber";
             this.tankDropNumber.Size = new System.Drawing.Size(107, 20);
-            this.tankDropNumber.TabIndex = 15;
             this.tankDropNumber.Text = "# drops";
             this.tankDropNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -255,7 +244,6 @@
             this.gsvLabel.Location = new System.Drawing.Point(43, 169);
             this.gsvLabel.Name = "gsvLabel";
             this.gsvLabel.Size = new System.Drawing.Size(36, 20);
-            this.gsvLabel.TabIndex = 13;
             this.gsvLabel.Text = "GSV";
             this.gsvLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -265,7 +253,6 @@
             this.gov.Location = new System.Drawing.Point(8, 149);
             this.gov.Name = "gov";
             this.gov.Size = new System.Drawing.Size(106, 20);
-            this.gov.TabIndex = 12;
             this.gov.Text = "*GOV*";
             this.gov.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -276,7 +263,6 @@
             this.govLabel.Location = new System.Drawing.Point(42, 129);
             this.govLabel.Name = "govLabel";
             this.govLabel.Size = new System.Drawing.Size(39, 20);
-            this.govLabel.TabIndex = 11;
             this.govLabel.Text = "GOV";
             this.govLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -286,7 +272,6 @@
             this.waterVolume.Location = new System.Drawing.Point(8, 271);
             this.waterVolume.Name = "waterVolume";
             this.waterVolume.Size = new System.Drawing.Size(106, 20);
-            this.waterVolume.TabIndex = 9;
             this.waterVolume.Text = "*Vol*";
             this.waterVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -297,7 +282,6 @@
             this.waterVolLabel.Location = new System.Drawing.Point(25, 251);
             this.waterVolLabel.Name = "waterVolLabel";
             this.waterVolLabel.Size = new System.Drawing.Size(73, 20);
-            this.waterVolLabel.TabIndex = 8;
             this.waterVolLabel.Text = "Water Vol";
             this.waterVolLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -312,7 +296,7 @@
             0});
             this.waterUpDown.Name = "waterUpDown";
             this.waterUpDown.Size = new System.Drawing.Size(106, 27);
-            this.waterUpDown.TabIndex = 7;
+            this.waterUpDown.TabIndex = 2;
             this.waterUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.waterUpDown.ValueChanged += new System.EventHandler(this.WaterUpDown_ValueChanged);
             // 
@@ -323,7 +307,6 @@
             this.waterLabel.Location = new System.Drawing.Point(18, 76);
             this.waterLabel.Name = "waterLabel";
             this.waterLabel.Size = new System.Drawing.Size(86, 20);
-            this.waterLabel.TabIndex = 6;
             this.waterLabel.Text = "Water Level";
             this.waterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -333,7 +316,6 @@
             this.productVolume.Location = new System.Drawing.Point(8, 231);
             this.productVolume.Name = "productVolume";
             this.productVolume.Size = new System.Drawing.Size(107, 20);
-            this.productVolume.TabIndex = 5;
             this.productVolume.Text = "*Vol*";
             this.productVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -344,7 +326,6 @@
             this.productVolLabel.Location = new System.Drawing.Point(19, 211);
             this.productVolLabel.Name = "productVolLabel";
             this.productVolLabel.Size = new System.Drawing.Size(85, 20);
-            this.productVolLabel.TabIndex = 4;
             this.productVolLabel.Text = "Product Vol";
             this.productVolLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -359,7 +340,7 @@
             0});
             this.productUpDown.Name = "productUpDown";
             this.productUpDown.Size = new System.Drawing.Size(107, 27);
-            this.productUpDown.TabIndex = 3;
+            this.productUpDown.TabIndex = 1;
             this.productUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.productUpDown.ValueChanged += new System.EventHandler(this.ProductUpDown_ValueChanged);
             // 
@@ -370,7 +351,6 @@
             this.productLabel.Location = new System.Drawing.Point(12, 23);
             this.productLabel.Name = "productLabel";
             this.productLabel.Size = new System.Drawing.Size(98, 20);
-            this.productLabel.TabIndex = 2;
             this.productLabel.Text = "Product Level";
             this.productLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -380,7 +360,7 @@
             this.tempUpDown.Location = new System.Drawing.Point(8, 314);
             this.tempUpDown.Name = "tempUpDown";
             this.tempUpDown.Size = new System.Drawing.Size(107, 27);
-            this.tempUpDown.TabIndex = 1;
+            this.tempUpDown.TabIndex = 3;
             this.tempUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tempUpDown.ValueChanged += new System.EventHandler(this.TempUpDown_ValueChanged);
             // 
@@ -391,7 +371,6 @@
             this.tempLabel.Location = new System.Drawing.Point(15, 291);
             this.tempLabel.Name = "tempLabel";
             this.tempLabel.Size = new System.Drawing.Size(93, 20);
-            this.tempLabel.TabIndex = 0;
             this.tempLabel.Text = "Temperature";
             this.tempLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

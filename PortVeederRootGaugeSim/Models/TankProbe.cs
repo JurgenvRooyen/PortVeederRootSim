@@ -4,6 +4,7 @@ using System.Threading;
 
 namespace PortVeederRootGaugeSim
 {
+    [Serializable]
     public class TankProbe
     {
         // Tank attributes
@@ -67,16 +68,12 @@ namespace PortVeederRootGaugeSim
         {
             TankProbeLength = value;
             FullVolume = Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter, TankProbeLength, TankProbeDiameter);
-
-
         }
 
         public void SetTankProbeDiameter(float value)
         {
             TankProbeDiameter = value;
             FullVolume = Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter, TankProbeLength, TankProbeDiameter);
-
-
         }
 
 

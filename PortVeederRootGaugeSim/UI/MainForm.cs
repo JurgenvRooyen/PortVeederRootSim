@@ -26,12 +26,33 @@ namespace PortVeederRootGaugeSim
         {
             TankGauges = r;
             InitializeComponent();
-            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 198, 122, 0, 0, 15, "level"));
-            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
-            deleteProbeButton.Enabled = false;
-            ConnectProbeButton.Enabled = false;
-            
-
+            try
+            {
+                TankGauges.LoadFile("ProbePersistence");
+                foreach (TankProbe tank in TankGauges.TankProbeList)
+                {
+                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
+                    numberOfTanks++;
+                }
+                numberOfTanks--;
+                if (flowLayoutPanel.Controls.Count < 2)
+                {
+                    deleteProbeButton.Enabled = false;
+                    ConnectProbeButton.Enabled = false;
+                }
+                else
+                {
+                    deleteProbeButton.Enabled = true;
+                    ConnectProbeButton.Enabled = true;
+                }
+            }
+            catch
+            {
+                TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 198, 122, 0, 0, 15, "level"));
+                flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
+                deleteProbeButton.Enabled = false;
+                ConnectProbeButton.Enabled = false;
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -39,6 +60,11 @@ namespace PortVeederRootGaugeSim
             refreshTimer.Tick += TimerEventProcessor;
             refreshTimer.Interval = 500;
             refreshTimer.Enabled = true;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            TankGauges.SaveFile("ProbePersistence");
         }
 
         private void TimerEventProcessor(object sender, EventArgs e)

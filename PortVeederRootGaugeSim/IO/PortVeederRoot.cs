@@ -43,6 +43,21 @@ namespace PortVeederRootGaugeSim.IO
             return converted.ToString("x");
         }
 
+        private string CalculateChecksum(String message)
+        {
+            int stringValue = 0;
+
+            foreach(char c in message)
+            {
+                stringValue += c;
+            }
+
+            int compliment = 0 - stringValue;
+            string hexValue = compliment.ToString("X");
+
+            return hexValue.Substring(hexValue.Length - 4);
+        }
+
         // Function to provide the necessary logic for looping where necessary
         private string CommandResponse(string echo, int probeID, Func<int, string> function)
         {
@@ -51,37 +66,34 @@ namespace PortVeederRootGaugeSim.IO
             replyString.Append(echo);
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
-
-            try
+            
+            if (probeID == 0)
             {
-                if (probeID == 0)
-                {
-                    probeID++;
-                    foreach (TankProbe probe in probes)
-                    {
-                        replyString.Append(function(probeID));
-                        probeID++;
-                    }
-                }
-                else
+                probeID++;
+                foreach (TankProbe probe in probes)
                 {
                     replyString.Append(function(probeID));
+                    probeID++;
                 }
-                return replyString.ToString();
-            } 
-            catch(Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                return "9999";
             }
+            else
+            {
+                replyString.Append(function(probeID));
+            }
+            return replyString.ToString();
         }
 
         public string Parse(string toParse)
         {
-            StringBuilder sb = new StringBuilder("\x02");
+            StringBuilder sb = new StringBuilder("\x01");
             string protocolCommand;
             string tankNumber;
             int probeID;
+
+
+            // possible exceptions arise from:
+            // String.Substring - ArgumentOutOfRangeException
+            // Convert.ToInt32 - FormatException, OverflowException
             try
             {
                 protocolCommand = toParse.Substring(1, 4);
@@ -91,18 +103,6 @@ namespace PortVeederRootGaugeSim.IO
                 Debug.WriteLine("Protocol Parses");
                 Debug.WriteLine("Protocol Command: " + protocolCommand);
                 Debug.WriteLine("Tank Number: " + tankNumber);
-            }
-            // possible exceptions arise from:
-            // String.Substring - ArgumentOutOfRangeException
-            // Convert.ToInt32 - FormatException, OverflowException
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                sb.Append("9999" + "\x03");
-                return sb.ToString();
-            }
-
-            // This can probably be replaced with a key:value store to call functions
 
                 switch (protocolCommand)
                 {
@@ -115,6 +115,9 @@ namespace PortVeederRootGaugeSim.IO
                     case "i205":
                         sb.Append(CommandResponse("i205", probeID, I205));
                         break;
+                    case "i501":
+                        sb.Append(I501());
+                        break;
                     case "i902":
                         sb.Append(I902());
                         break;
@@ -123,34 +126,36 @@ namespace PortVeederRootGaugeSim.IO
                         sb.Append(CommandResponse("s051", probeID, S051));
                         break;
                     case "s501":
-                        try
-                        {
-                            sb.Append(S501(toParse.Substring(7,10)));
-                        }
-                        catch (ArgumentOutOfRangeException)
-                        {
-
-                            sb.Append("9999");
-                        }
+                        sb.Append(S501(toParse.Substring(7, 10)));
                         break;
                     case "s628":
-                    try
-                    {
-                        sb.Append(S628(probeID, toParse.Substring(7, 8)));                      
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        sb.Append("9999");
-                    }
-                    break;
-                default:
+                        sb.Append(S628(probeID, toParse.Substring(7, 8)));
+                        break;
+                    default:
                         sb.Append("9999");
                         break;
+                    }
                 }
+            catch (ArgumentOutOfRangeException e)
+            {
+                sb.Append("9999");
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.StackTrace);
+            }
+            catch (FormatException e)
+            {
+                sb.Append("9999");
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.StackTrace);
+            }catch (OverflowException e)
+            {
+                sb.Append("9999");
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.StackTrace);
+            }
 
-
-            // TLS3XX protocol requires an ending ETX char to mark a messages end, this can be disabled if necessary.
-            // TODO: investigate if enabler requires ETX marking or supports it?
+            sb.Append("&&");
+            sb.Append(CalculateChecksum(sb.ToString()));
             sb.Append("\x03");
             return sb.ToString();
         }
@@ -273,6 +278,18 @@ namespace PortVeederRootGaugeSim.IO
             probeString.Append(codes);
 
             return probeString.ToString();
+        }
+
+        //Command I501 - Time of Day Inquiry
+        private string I501()
+        {
+            StringBuilder replyString = new StringBuilder();
+
+            replyString.Append("i50100");
+            replyString.Append(DateFormat(simulator.SystemTime));
+            replyString.Append(DateFormat(simulator.SystemTime));
+
+            return replyString.ToString();
         }
 
         //Command I902 - Getting Software and revision version

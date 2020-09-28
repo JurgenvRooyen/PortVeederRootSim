@@ -65,7 +65,7 @@ namespace PortVeederRootGaugeSim
                 tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
                 safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MaxSafeWorkingCapacity);
             }
-            catch (FormatException f)
+            catch (FormatException)
             {
                 tankGauge.SetTankProbeDiameter(0F);
                 tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
@@ -95,7 +95,7 @@ namespace PortVeederRootGaugeSim
                 tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
                 safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MaxSafeWorkingCapacity);
             }
-            catch (FormatException f)
+            catch (FormatException)
             {
                 tankGauge.SetTankProbeLength(0F);
                 tankVolumeText.Text = Convert.ToString(tankGauge.FullVolume);
