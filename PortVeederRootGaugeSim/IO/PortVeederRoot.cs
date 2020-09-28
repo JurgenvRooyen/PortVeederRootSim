@@ -53,7 +53,7 @@ namespace PortVeederRootGaugeSim.IO
             }
 
             int compliment = 0 - stringValue;
-            string hexValue = compliment.ToString("x");
+            string hexValue = compliment.ToString("X");
 
             return hexValue.Substring(hexValue.Length - 4);
         }
