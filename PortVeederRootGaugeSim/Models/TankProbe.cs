@@ -9,6 +9,8 @@ namespace PortVeederRootGaugeSim
         // Tank attributes
         public int TankProbeId { get; set; }
         public char ProductCode { get; set; }
+
+        public string TankprobeStatus { get; set; }
         public string TankProbeShape { get; set; }
         public float TankProbeLength { get; private set; }
         
@@ -27,12 +29,14 @@ namespace PortVeederRootGaugeSim
         public float ProductTemperature { get; set; }
         public float TankDropCount { get; set; }
         public const float thermalExpansionCoefficient = 0.0018F;
-        public float safeWorkingCapacityModifier;
+
+        
 
 
         // Alarm attributes
         public float FullVolume { get; set; }
         public float MaxSafeWorkingCapacity { get; set; }
+        public float MaxSafeWorkingCapacityModifier { get; set; }
         public float OverFillLimitLevel { get; set; }
         public float HighProductAlarmLevel { get; set; }
         public float DeliveryNeededWarningLevel { get; set; }
@@ -150,6 +154,7 @@ namespace PortVeederRootGaugeSim
         {
             TankProbeId = tankId;
             ProductCode = productCode;
+            TankprobeStatus = "OK";
             TankProbeLength = tankLength;
             TankProbeDiameter = tankDiameter;
             TankProbeShape = tankShapeString;
@@ -171,8 +176,8 @@ namespace PortVeederRootGaugeSim
             TankDelivering = false;
             TankLeaking = false;
 
-
-            MaxSafeWorkingCapacity = 0.95F * FullVolume;
+            MaxSafeWorkingCapacityModifier = 0.95f;
+            MaxSafeWorkingCapacity = MaxSafeWorkingCapacityModifier * FullVolume;
 
             OverFillLimitLevel = 0.90F * TankProbeDiameter;
             HighProductAlarmLevel = 0.80F * TankProbeDiameter;
@@ -187,32 +192,6 @@ namespace PortVeederRootGaugeSim
             TankDroppedList = new List<TankDrop>();
         }
 
-        // DropTank is no longer used as there is not Tank Drop button on UI
-        // TODO: delete this if it is never used in future
-        public Boolean DropTank(float volume, DateTime startTime, TimeSpan duration)
-        {
-            TankDrop td = new TankDrop( volume,
-                                        startTime,
-                                        ProductVolume,
-                                        ProductLevel,
-                                        GetGrossStandardVolume(),
-                                        WaterVolume,
-                                        ProductTemperature);
-
-            if (SetProductVolume(ProductVolume + volume))
-            {
-                td.EndingTime = startTime + duration;
-                td.EndingVolume = ProductVolume;
-                td.EndingLevel = ProductLevel;
-                td.EndingTemperatureCompensatedVolume = GetGrossStandardVolume();
-                td.EndingWaterVolume = WaterVolume;
-                td.EndingTemperature = ProductTemperature;
-                TankDropCount++;
-                TankDroppedList.Add(td);
-                return true;
-            }
-            return false;
-        }
 
         public Boolean ProductChangePerInterval(float value)
         {
@@ -306,7 +285,7 @@ namespace PortVeederRootGaugeSim
 
         public float GetGrossObservedVolume()
         {
-            return Models.Helper.LevelToVolume_Horizontal(ProductLevel, TankProbeLength, TankProbeDiameter);
+            return Models.Helper.LevelToVolume_Horizontal(ProductLevel + WaterLevel, TankProbeLength, TankProbeDiameter);
         }
 
         public float GetGrossStandardVolume()
@@ -317,7 +296,7 @@ namespace PortVeederRootGaugeSim
 
         public float GetUllage()
         {
-            return Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter-ProductLevel, TankProbeLength, TankProbeDiameter);
+            return Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter-ProductLevel - WaterLevel, TankProbeLength, TankProbeDiameter);
         }
 
         public Boolean[] GetTankStatus()

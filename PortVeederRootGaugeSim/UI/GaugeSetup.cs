@@ -19,7 +19,7 @@ namespace PortVeederRootGaugeSim
             tankGauge = tp;
             InitializeComponent();
 
-            if (tankGauge.safeWorkingCapacityModifier == 0.95)
+            if (tankGauge.MaxSafeWorkingCapacityModifier == 0.95f)
             {
                 capacity95.Checked = true;
             }
