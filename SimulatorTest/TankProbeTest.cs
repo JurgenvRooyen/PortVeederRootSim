@@ -58,9 +58,8 @@ namespace SimulatorTest
         public void TestSetTooMuchProductVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 2000, 100, 100, 10);
-            float productVolume = PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(100, tank1.TankProbeLength, tank1.TankProbeDiameter);
             Assert.IsFalse(tank1.SetProductVolume(10000000000));
-            Assert.AreEqual(tank1.ProductVolume, productVolume);
+            Assert.AreEqual(tank1.ProductLevel, 100);
         }
 
         [Test]
@@ -174,9 +173,7 @@ namespace SimulatorTest
         public void TestGetGrossObservedVolume()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), 1000, 2000, 300, 100, 10);
-            float productVolume = PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(tank1.ProductLevel, tank1.TankProbeLength, tank1.TankProbeDiameter);
-            float waterVolumev = PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(tank1.WaterLevel, tank1.TankProbeLength, tank1.TankProbeDiameter);
-            float expectedResult = productVolume + waterVolumev;
+            float expectedResult = PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(tank1.ProductLevel+ tank1.WaterLevel, tank1.TankProbeLength, tank1.TankProbeDiameter);
             Assert.AreEqual(tank1.GetGrossObservedVolume(), expectedResult);
         }
 
