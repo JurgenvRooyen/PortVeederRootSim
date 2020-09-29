@@ -86,7 +86,7 @@
             this.capacity95.TabStop = true;
             this.capacity95.Text = "95% of Capacity";
             this.capacity95.UseVisualStyleBackColor = true;
-            this.capacity95.CheckedChanged += new System.EventHandler(this.capacity95_CheckedChanged);
+            this.capacity95.CheckedChanged += new System.EventHandler(this.Capacity95_CheckedChanged);
             // 
             // capacity90
             // 
@@ -98,7 +98,7 @@
             this.capacity90.TabStop = true;
             this.capacity90.Text = "90% of Capacity";
             this.capacity90.UseVisualStyleBackColor = true;
-            this.capacity90.CheckedChanged += new System.EventHandler(this.capacity90_CheckedChanged);
+            this.capacity90.CheckedChanged += new System.EventHandler(this.Capacity90_CheckedChanged);
             // 
             // okayButton
             // 
@@ -242,7 +242,8 @@
             this.tankDiameterText.Name = "tankDiameterText";
             this.tankDiameterText.Size = new System.Drawing.Size(178, 27);
             this.tankDiameterText.TabIndex = 8;
-            this.tankDiameterText.TextChanged += new System.EventHandler(this.tankDiameterText_TextChanged);
+            this.tankDiameterText.TextChanged += new System.EventHandler(this.TankDiameterText_TextChanged);
+
             // 
             // tankHeightText
             // 
@@ -250,7 +251,7 @@
             this.tankHeightText.Name = "tankHeightText";
             this.tankHeightText.Size = new System.Drawing.Size(178, 27);
             this.tankHeightText.TabIndex = 9;
-            this.tankHeightText.TextChanged += new System.EventHandler(this.tankHeightText_TextChanged);
+            this.tankHeightText.TextChanged += new System.EventHandler(this.TankHeightText_TextChanged);
             // 
             // tankDiameterLabel
             // 

@@ -133,7 +133,6 @@ namespace BlackBoxTest
         {
             string response = SendRequest("i20101");
 
-
             string hexVolume = response.Substring(26, 8);
             string hexTemperature = response.Substring(66, 8);
             string hexWaterVol = response.Substring(74, 8);
@@ -144,7 +143,7 @@ namespace BlackBoxTest
 
             Assert.AreEqual(tankProbe.GetGrossObservedVolume(), volume);
             Assert.AreEqual(tankProbe.ProductTemperature, temperature);
-            Assert.AreEqual(tankProbe.waterVolume, waterVolume);
+            Assert.AreEqual(tankProbe.WaterVolume, waterVolume);
         }
 
         [Test]
