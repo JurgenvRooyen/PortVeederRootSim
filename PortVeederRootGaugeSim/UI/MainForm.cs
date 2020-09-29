@@ -22,7 +22,7 @@ namespace PortVeederRootGaugeSim
                 TankGauges.LoadFile("ProbePersistence");
                 foreach (TankProbe tank in TankGauges.TankProbeList)
                 {
-                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
+                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
                     numberOfTanks++;
                 }
                 numberOfTanks--;
@@ -40,7 +40,7 @@ namespace PortVeederRootGaugeSim
             catch
             {
                 TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 3379, 1880, 0, 0, 15, "level"));
-                flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));
+                flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
                 deleteProbeButton.Enabled = false;
                 ConnectProbeButton.Enabled = false;
             }
@@ -71,7 +71,7 @@ namespace PortVeederRootGaugeSim
             ConnectProbeButton.Enabled = true;
             numberOfTanks++;
             TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 3379, 1880, 0, 0, 15, "level"));
-            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.GetProbe(numberOfTanks)));       
+            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));       
         }
 
         private void DeleteProbeButton_Click(object sender, EventArgs e)
@@ -114,13 +114,13 @@ namespace PortVeederRootGaugeSim
         {
             if (ConnectProbeButton.Text.StartsWith("Connect"))
             {
-                TankGauges.GetProbe(0).Connect(TankGauges.GetProbe(1));
+                TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
                 ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Color.Green;
             }
             else
             {
-                TankGauges.GetProbe(0).Disconnect(TankGauges.GetProbe(1));
+                TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
                 ConnectProbeButton.Text = "Connect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Control.DefaultBackColor;
                 ConnectProbeButton.UseVisualStyleBackColor = true;
