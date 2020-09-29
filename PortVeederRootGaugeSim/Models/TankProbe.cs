@@ -29,6 +29,7 @@ namespace PortVeederRootGaugeSim
         public float WaterVolume { get; set; }
         public float ProductTemperature { get; set; }
         public float TankDropCount { get; set; }
+
         public const float thermalExpansionCoefficient = 0.0018F;
 
         
@@ -80,7 +81,7 @@ namespace PortVeederRootGaugeSim
         public Boolean SetByProductLevel(float value)
         {
 
-            if (value + WaterLevel > TankProbeDiameter | value < 0)
+            if (value + WaterLevel > TankProbeDiameter || value < 0)
             {
                 return false;
             }
@@ -99,7 +100,7 @@ namespace PortVeederRootGaugeSim
         public Boolean SetProductVolume(float value)
         {
 
-            if (value + WaterVolume > FullVolume | value < 0)
+            if (value + WaterVolume > FullVolume || value < 0)
             {
                 return false;
             }
@@ -121,7 +122,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean SetWaterLevel(float value)
         {
-            if (value + ProductLevel > TankProbeDiameter | value < 0)
+            if (value + ProductLevel > TankProbeDiameter || value < 0)
             {
                 return false;
             }
@@ -132,7 +133,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean SetWaterVolume(float value)
         {
-            if (value + ProductVolume > FullVolume | value < 0)
+            if (value + ProductVolume > FullVolume || value < 0)
             {
                 return false;
             }
@@ -147,27 +148,19 @@ namespace PortVeederRootGaugeSim
         }
 
 
-        public TankProbe(int tankId, char productCode, float tankLength, float tankDiameter,  float productValue, float waterValue, float productTemperature, string unit, string tankShapeString = "cylinder")
+        public TankProbe(int tankId, char productCode, float tankLength, float tankDiameter,  float productLevel, float waterLevel, float productTemperature)
         {
             TankProbeId = tankId;
             ProductCode = productCode;
             TankprobeStatus = "OK";
             TankProbeLength = tankLength;
             TankProbeDiameter = tankDiameter;
-            TankProbeShape = tankShapeString;
             FullVolume = Models.Helper.LevelToVolume_Horizontal(tankDiameter,tankLength, TankProbeDiameter);
 
-            if (unit == "level")
-            {
-                SetWaterLevel(waterValue);
-                SetByProductLevel(productValue);  
-            }
-            else if (unit == "volume")
-            {
-                SetWaterVolume(waterValue);
-                SetProductVolume(productValue); 
-            }
-            ProductTemperature = productTemperature;
+ 
+            SetWaterLevel(waterLevel);
+            SetByProductLevel(productLevel);  
+
 
 
             TankDelivering = false;
@@ -241,12 +234,11 @@ namespace PortVeederRootGaugeSim
         {
             if (TankLeaking)
             {
-                while (TankLeaking & ProductChangePerInterval(-TankLeakingPerInterval))
+                while (TankLeaking && ProductChangePerInterval(-TankLeakingPerInterval))
                 {
                     Thread.Sleep(100);
                 }
                 TankLeaking = false;
-                return;
             }
         }
 
@@ -282,18 +274,19 @@ namespace PortVeederRootGaugeSim
 
         public float GetGrossObservedVolume()
         {
-            return Models.Helper.LevelToVolume_Horizontal(ProductLevel + WaterLevel, TankProbeLength, TankProbeDiameter);
+            return ProductVolume + WaterVolume;
         }
 
         public float GetGrossStandardVolume()
         {
             float tempDelta = ProductTemperature - 15;
-            return Models.Helper.LevelToVolume_Horizontal(ProductLevel, TankProbeLength, TankProbeDiameter) * (1 - thermalExpansionCoefficient * tempDelta);
+            return ProductVolume * (1 - thermalExpansionCoefficient * tempDelta);
         }
 
         public float GetUllage()
         {
-            return Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter-ProductLevel - WaterLevel, TankProbeLength, TankProbeDiameter);
+
+            return FullVolume - WaterVolume - ProductVolume;
         }
 
         public Boolean[] GetTankStatus()
@@ -355,7 +348,7 @@ namespace PortVeederRootGaugeSim
 
         public Boolean Connect(TankProbe t)
         {
-            if (t.Connecting | Connecting)
+            if (t.Connecting || Connecting)
             {
                 return false;
             }

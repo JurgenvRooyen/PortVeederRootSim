@@ -91,7 +91,10 @@ namespace PortVeederRootGaugeSim
                     }
                     stream.Close();
                 }
-                catch { }
+                catch (Exception e) 
+                { 
+                    Console.WriteLine(e); 
+                }
             }
         }
 
