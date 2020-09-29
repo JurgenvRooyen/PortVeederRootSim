@@ -50,7 +50,7 @@
             this.waterAlarmLabel = new System.Windows.Forms.Label();
             this.waterWarningLabel = new System.Windows.Forms.Label();
             this.tankDiameterText = new System.Windows.Forms.TextBox();
-            this.tankHeightText = new System.Windows.Forms.TextBox();
+            this.tankLengthText = new System.Windows.Forms.TextBox();
             this.tankDiameterLabel = new System.Windows.Forms.Label();
             this.tankLengthLabel = new System.Windows.Forms.Label();
             this.tankVolumeText = new System.Windows.Forms.Label();
@@ -247,11 +247,11 @@
             // 
             // tankHeightText
             // 
-            this.tankHeightText.Location = new System.Drawing.Point(214, 508);
-            this.tankHeightText.Name = "tankHeightText";
-            this.tankHeightText.Size = new System.Drawing.Size(178, 27);
-            this.tankHeightText.TabIndex = 9;
-            this.tankHeightText.TextChanged += new System.EventHandler(this.TankHeightText_TextChanged);
+            this.tankLengthText.Location = new System.Drawing.Point(214, 508);
+            this.tankLengthText.Name = "tankHeightText";
+            this.tankLengthText.Size = new System.Drawing.Size(178, 27);
+            this.tankLengthText.TabIndex = 9;
+            this.tankLengthText.TextChanged += new System.EventHandler(this.TankLengthText_TextChanged);
             // 
             // tankDiameterLabel
             // 
@@ -292,7 +292,7 @@
             this.Controls.Add(this.tankVolumeText);
             this.Controls.Add(this.tankLengthLabel);
             this.Controls.Add(this.tankDiameterLabel);
-            this.Controls.Add(this.tankHeightText);
+            this.Controls.Add(this.tankLengthText);
             this.Controls.Add(this.tankDiameterText);
             this.Controls.Add(this.waterWarningLabel);
             this.Controls.Add(this.waterAlarmLabel);
@@ -346,7 +346,7 @@
         private System.Windows.Forms.Label waterAlarmLabel;
         private System.Windows.Forms.Label waterWarningLabel;
         private System.Windows.Forms.TextBox tankDiameterText;
-        private System.Windows.Forms.TextBox tankHeightText;
+        private System.Windows.Forms.TextBox tankLengthText;
         private System.Windows.Forms.Label tankDiameterLabel;
         private System.Windows.Forms.Label tankLengthLabel;
         private System.Windows.Forms.Label tankVolumeText;

@@ -1,26 +1,17 @@
-﻿using PortVeederRootGaugeSim;
-using PortVeederRootGaugeSim.UI;
+﻿using PortVeederRootGaugeSim.UI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
 namespace PortVeederRootGaugeSim
 {
-    
+
     public partial class MainForm : Form
     {
-        public int numberOfTanks = 0;
-        public RootSim TankGauges;
-        public static System.Windows.Forms.Timer refreshTimer = new System.Windows.Forms.Timer();
+        private int numberOfTanks = 0;
+        private readonly RootSim TankGauges;
+        private static readonly Timer refreshTimer = new Timer();
 
         public MainForm(RootSim r)
         {
