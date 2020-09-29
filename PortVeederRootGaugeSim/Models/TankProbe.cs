@@ -155,6 +155,7 @@ namespace PortVeederRootGaugeSim
             TankprobeStatus = "OK";
             TankProbeLength = tankLength;
             TankProbeDiameter = tankDiameter;
+            ProductTemperature = productTemperature;
             FullVolume = Models.Helper.LevelToVolume_Horizontal(tankDiameter,tankLength, TankProbeDiameter);
 
  
