@@ -65,11 +65,6 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public TankProbe GetProbe(int probeNumber)
-        {
-            return TankProbeList[probeNumber];
-        }
-
         public void LoadFile(string filename)
         {
             if (!File.Exists(filename))
