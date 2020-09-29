@@ -91,7 +91,8 @@ namespace PortVeederRootGaugeSim
             }
             lock (ProductVolumeLock)
             {
-                ProductVolume = Models.Helper.LevelToVolume_Horizontal(value, TankProbeLength, TankProbeDiameter);
+                float totalVolume = Models.Helper.LevelToVolume_Horizontal(value + WaterLevel, TankProbeLength, TankProbeDiameter);
+                ProductVolume = totalVolume - WaterVolume;
             }
 
             return true;
@@ -274,7 +275,8 @@ namespace PortVeederRootGaugeSim
 
         public float GetGrossObservedVolume()
         {
-            return ProductVolume + WaterVolume;
+            //return ProductVolume + WaterVolume;
+            return Models.Helper.LevelToVolume_Horizontal(WaterLevel+ProductLevel, TankProbeLength,TankProbeDiameter);
         }
 
         public float GetGrossStandardVolume()
