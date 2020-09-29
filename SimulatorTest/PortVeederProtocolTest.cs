@@ -28,7 +28,7 @@ namespace SimulatorTest
         {
             //tankId, productCode, tankLength, tankDiameter, productValue, waterValue, productTemerature
             // Test tank capacity is 3140L
-            TankProbe tankProbe = new TankProbe(1, 't', 1000, 2000, 500, 500, 15, "level");
+            TankProbe tankProbe = new TankProbe(1, 't', 1000, 2000, 500, 500, 15);
             List<TankProbe> tankprobeList = new List<TankProbe>();
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
@@ -93,7 +93,7 @@ namespace SimulatorTest
         [Test]
         public void i201MultipleTest()
         {
-            rootSim.AddTankProbe(new TankProbe(2, 't', 100, 1, 10, 10, 15, "volume"));
+            rootSim.AddTankProbe(new TankProbe(2, 't', 100, 1, 10, 10, 15));
             string response = protocol.Parse("\x02i20100");
 
             Assert.AreEqual(154, response.Length);
