@@ -87,7 +87,6 @@ namespace PortVeederRootGaugeSim
         {
             if (flowLayoutPanel.Controls.Count > 1)
             {
-                System.Diagnostics.Debug.WriteLine(flowLayoutPanel.Controls.Count);
                 flowLayoutPanel.Controls.RemoveAt(flowLayoutPanel.Controls.Count - 1);
                 TankGauges.RemoveTankProbe(numberOfTanks);
                 numberOfTanks--;
