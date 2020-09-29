@@ -308,9 +308,10 @@ namespace PortVeederRootGaugeSim
         public void TankConnectiongThread(TankProbe t)
         {
             float speed = Math.Min(TankDeliveringPerInterval, t.TankDeliveringPerInterval);
+            float volumeDifference = ProductVolume - t.ProductVolume;
             while (Connecting)
             {
-                float volumeDifference = ProductVolume - t.ProductVolume;
+                volumeDifference = ProductVolume - t.ProductVolume;
 
                 if (volumeDifference > 0)
                 {
