@@ -6,17 +6,17 @@ namespace PortVeederRootGaugeSim.Models
 {
     static class Helper
     {
-     
+
 
 
 
         // Horizontal cylinder only
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
         {
-            double R = diameter / 2 / 1000;
-            double L = length / 1000;
-            double level = l / 1000;
-            double v = length * ((R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - (level * level)));
+            double R = diameter / 2;
+            double L = length;
+            double level = l;
+            double v = L * ((R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - (level * level))) / 1000000;
             return (float)v;
         }
 
@@ -60,22 +60,5 @@ namespace PortVeederRootGaugeSim.Models
             return 0;
 
         }
-
-
-
-        // Vertical cylinder Only
-        public static float VolumeToLevel_Vertical(float v, float TankProbeDiameter)
-        {
-            float l = (float)(v / (Math.PI * Math.Pow(TankProbeDiameter / 2, 2)));
-            return l;
-        }
-
-        public static float LevelToVolume_Vertical(float level, float Length, float R)
-        {
-            float v = Length * (float)(level * (R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - level * level));
-            return v;
-        }
-
-
     }
 }
