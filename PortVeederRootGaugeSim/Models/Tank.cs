@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace PortVeederRootGaugeSim
 {
+    [Serializable]
     public class Tank
     {
         public float TankLength { get; set; }
@@ -39,8 +40,8 @@ namespace PortVeederRootGaugeSim
             HighWaterAlarmLevel = 0.10F * TankDiameter;
             HighWaterWarningLevel = 0.05F * TankDiameter;
 
-            TankDeliveringPerInterval = 50;
-            TankLeakingPerInterval = 50;
+            TankDeliveringPerInterval = 10;
+            TankLeakingPerInterval = 10;
         }
     }
 }
