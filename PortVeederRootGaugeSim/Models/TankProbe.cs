@@ -88,7 +88,14 @@ namespace PortVeederRootGaugeSim
             {
                 float totalLevel = WaterLevel + ProductLevel;
                 float totalVolume = Models.Helper.LevelToVolume_Horizontal(totalLevel, MyTank.TankLength, MyTank.TankDiameter);
-                ProductVolume = totalVolume - WaterVolume;
+
+                float productVolume = totalVolume - WaterVolume;
+                if (productVolume < 0)
+                {
+                    productVolume = 0;
+                }
+
+                ProductVolume = productVolume;
             }
 
             return true;
@@ -130,7 +137,13 @@ namespace PortVeederRootGaugeSim
             float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,totalVolume,0, MyTank.TankLength, MyTank.TankDiameter);
             lock (ProductLevelLock)
             {
-                ProductLevel = totalLevel - WaterLevel;
+                float productVolume = totalVolume - WaterVolume;
+                if (productVolume < 0)
+                {
+                    productVolume = 0;
+                }
+
+                ProductVolume = productVolume;
             }
             return true;
         }
@@ -394,7 +407,7 @@ namespace PortVeederRootGaugeSim
             returnString += "ProductTemerature = " + ProductTemperature.ToString() + "                           ";
             returnString += "TankDropCount = " + TankDropCount.ToString() + "                                         ";
             returnString += "GOV = " + GetGrossObservedVolume().ToString("0.00") + "                                             ";
-            returnString += "GSV = " + GetGrossStandardVolume().ToString("0.00") + "                                        ";
+            returnString += "GSV = " + GetGrossStandardVolume().ToString("0.00") + "                                             ";
             returnString += "Ullage = " + GetUllage().ToString("0.00") + "                           ";
             returnString += (WaterVolume + ProductVolume).ToString();
 

@@ -6,16 +6,16 @@ namespace PortVeederRootGaugeSim.Models
 {
     static class Helper
     {
-
+     
 
 
 
         // Horizontal cylinder only
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
         {
-            double R = diameter / 2;
-            double L = length;
-            double level = l;
+            double R = diameter / 2 ;
+            double L = length ;
+            double level = l ;
             double v = L * ((R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - (level * level))) / 1000000;
             return (float)v;
         }
