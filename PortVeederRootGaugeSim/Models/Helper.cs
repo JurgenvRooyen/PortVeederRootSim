@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace PortVeederRootGaugeSim.Models
 {
     static class Helper
     {
-     
 
-
-
-        // Horizontal cylinder only
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
         {
-            double R = diameter / 2 / 1000;
-            double L = length / 1000;
-            double level = l / 1000;
-            double v = length * ((R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - (level * level)));
+            double R = diameter / 2 ;
+            double L = length ;
+            double level = l ;
+            double v = L * ((R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - (level * level))) / 1000000;
             return (float)v;
         }
 
@@ -61,19 +58,17 @@ namespace PortVeederRootGaugeSim.Models
 
         }
 
-
-
-        // Vertical cylinder Only
-        public static float VolumeToLevel_Vertical(float v, float TankProbeDiameter)
+        public static Tuple<float, float> ProductFlowing(float productT1, float productT2,float speed)
         {
-            float l = (float)(v / (Math.PI * Math.Pow(TankProbeDiameter / 2, 2)));
-            return l;
-        }
+            float high = Math.Max(productT1, productT2);
+            float low = Math.Min(productT1, productT2);
+            float difference = high - low;
+            if (difference/2 <= speed)
+            {
+                return Tuple.Create((high + low) / 2, (high + low) / 2);
+            }
 
-        public static float LevelToVolume_Vertical(float level, float Length, float R)
-        {
-            float v = Length * (float)(level * (R * R * Math.Acos((R - level) / R)) - (R - level) * Math.Sqrt((2 * R * level) - level * level));
-            return v;
+            return Tuple.Create(high- speed, low+speed);
         }
 
 

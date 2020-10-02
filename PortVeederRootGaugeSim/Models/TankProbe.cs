@@ -12,12 +12,13 @@ namespace PortVeederRootGaugeSim
         public char ProductCode { get; set; }
 
         public string TankprobeStatus { get; set; }
-        public string TankProbeShape { get; set; }
-        public float TankProbeLength { get; private set; }
+
+        public Tank MyTank { get; set; }
+
         
-        public float TankProbeDiameter { get; private set; }
 
             // critical section starts
+
         private readonly object ProductLevelLock = new object();
         public float ProductLevel { get; private set; }
 
@@ -35,16 +36,9 @@ namespace PortVeederRootGaugeSim
         
 
 
-        // Alarm attributes
-        public float FullVolume { get; set; }
-        public float MaxSafeWorkingCapacity { get; set; }
+        // Alarm attributes TODO
+
         public float MaxSafeWorkingCapacityModifier { get; set; }
-        public float OverFillLimitLevel { get; set; }
-        public float HighProductAlarmLevel { get; set; }
-        public float DeliveryNeededWarningLevel { get; set; }
-        public float LowProductAlarmLevel { get; set; }
-        public float HighWaterAlarmLevel { get; set; }
-        public float HighWaterWarningLevel { get; set; }
 
 
         // tank dropping attributes
@@ -52,36 +46,37 @@ namespace PortVeederRootGaugeSim
 
 
         public Boolean TankDelivering { get; set; }
-        public float TankDeliveringPerInterval { get; set; }
         public Boolean TankLeaking { get; set; }
-        public float TankLeakingPerInterval { get; set; }
-
-
-        // connection status
-        public Boolean Connecting { get; set; }
-        public int ConnectedTo { get; set; } // store other tank's ID
-
 
 
         // Getters and Setters
 
-        public void SetTankProbeLength(float value)
-        {
-            TankProbeLength = value;
-            FullVolume = Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter, TankProbeLength, TankProbeDiameter);
+        public void SetTankLength(float value)
+        {          
+            MyTank.TankDiameter = value;
+            MyTank.FullVolume = Models.Helper.LevelToVolume_Horizontal(MyTank.TankDiameter, value, MyTank.TankDiameter);
+            WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,WaterVolume,0,MyTank.TankLength, MyTank.TankDiameter);
+            float totalVolume = WaterVolume + ProductVolume;
+            float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, totalVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
+            ProductLevel = totalLevel - WaterLevel;
+
         }
 
-        public void SetTankProbeDiameter(float value)
+        public void SetTankDiameter(float value)
         {
-            TankProbeDiameter = value;
-            FullVolume = Models.Helper.LevelToVolume_Horizontal(TankProbeDiameter, TankProbeLength, TankProbeDiameter);
+            MyTank.TankDiameter = value;
+            MyTank.FullVolume = Models.Helper.LevelToVolume_Horizontal(MyTank.TankDiameter, MyTank.TankLength, MyTank.TankDiameter);
+            WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, WaterVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
+            float totalVolume = WaterVolume + ProductVolume;
+            float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, totalVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
+            ProductLevel = totalLevel - WaterLevel;
         }
 
 
-        public Boolean SetByProductLevel(float value)
+        public Boolean SetProductLevel(float value)
         {
 
-            if (value + WaterLevel > TankProbeDiameter || value < 0)
+            if (value + WaterLevel > MyTank.TankDiameter || value < 0)
             {
                 return false;
             }
@@ -89,9 +84,15 @@ namespace PortVeederRootGaugeSim
             {
                 ProductLevel = value;
             }
+            
             lock (ProductVolumeLock)
             {
-                ProductVolume = Models.Helper.LevelToVolume_Horizontal(value, TankProbeLength, TankProbeDiameter);
+                float totalLevel = WaterLevel + ProductLevel;
+                float totalVolume = Models.Helper.LevelToVolume_Horizontal(totalLevel, MyTank.TankLength, MyTank.TankDiameter);
+
+                float productVolume = totalVolume - WaterVolume;
+
+                ProductVolume = Math.Max(0,productVolume);
             }
 
             return true;
@@ -100,7 +101,7 @@ namespace PortVeederRootGaugeSim
         public Boolean SetProductVolume(float value)
         {
 
-            if (value + WaterVolume > FullVolume || value < 0)
+            if (value + WaterVolume > MyTank.FullVolume || value < 0)
             {
                 return false;
             }
@@ -112,7 +113,8 @@ namespace PortVeederRootGaugeSim
 
             lock (ProductLevelLock)
             {
-                ProductLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, value, 0, TankProbeLength, TankProbeDiameter);
+                float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, value+WaterVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
+                ProductLevel = totalLevel - WaterLevel;
             }
 
             return true;
@@ -122,45 +124,86 @@ namespace PortVeederRootGaugeSim
 
         public Boolean SetWaterLevel(float value)
         {
-            if (value + ProductLevel > TankProbeDiameter || value < 0)
+            if (value + ProductLevel > MyTank.TankDiameter || value < 0)
             {
                 return false;
             }
             WaterLevel = value;
-            WaterVolume = Models.Helper.LevelToVolume_Horizontal(value, TankProbeLength, TankProbeDiameter);
+            WaterVolume = Models.Helper.LevelToVolume_Horizontal(value, MyTank.TankLength, MyTank.TankDiameter); ;
+            float totalVolume = WaterVolume + ProductVolume;
+            float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,totalVolume,0, MyTank.TankLength, MyTank.TankDiameter);
+            lock (ProductLevelLock)
+            {
+                float productVolume = totalVolume - WaterVolume;
+                if (productVolume < 0)
+                {
+                    productVolume = 0;
+                }
+
+                ProductVolume = productVolume;
+            }
             return true;
         }
-
-        public Boolean SetWaterVolume(float value)
+        public float GetGrossObservedVolume()
         {
-            if (value + ProductVolume > FullVolume || value < 0)
-            {
-                return false;
-            }
-            WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, value, 0, TankProbeLength, TankProbeDiameter);
-            WaterVolume = value;
-            return true;
+            return WaterVolume + ProductVolume;
+        }
+
+        public float GetGrossStandardVolume()
+        {
+            float tempDelta = ProductTemperature - 15;
+            return ProductVolume * (1 - thermalExpansionCoefficient * tempDelta);
+        }
+
+        public float GetUllage()
+        {
+
+            return MyTank.FullVolume - WaterVolume - ProductVolume;
+        }
+
+        public Boolean[] GetTankStatus()
+        {
+
+            Boolean[] temp = { TankDelivering, TankLeaking };
+
+            return temp;
+        }
+
+        public void ClearDeliveryReport()
+        {
+            TankDroppedList.Clear();
         }
 
         public void SetMaxSafeWorkingCapacityByLevel(float level)
         {
-            MaxSafeWorkingCapacity = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, level, 0, TankProbeLength, TankProbeDiameter);
+            MyTank.MaxSafeWorkingCapacity = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, level, 0, MyTank.TankDiameter, MyTank.TankDiameter);
         }
 
 
-        public TankProbe(int tankId, char productCode, float tankLength, float tankDiameter,  float productLevel, float waterLevel, float productTemperature)
+
+
+        private void InitializeTankLevels(Tank tank, float productLevel, float waterLevel)
+        {
+            WaterLevel = waterLevel;
+            WaterVolume = Models.Helper.LevelToVolume_Horizontal(waterLevel, tank.TankLength,tank.TankDiameter);
+            ProductLevel = productLevel;
+            float totalVolume = Models.Helper.LevelToVolume_Horizontal(waterLevel + productLevel, tank.TankLength, tank.TankDiameter);
+            ProductVolume = totalVolume - WaterVolume;
+
+        }
+
+        public TankProbe(int tankId, char productCode, Tank tank,  float productLevel, float waterLevel, float productTemperature)
         {
             TankProbeId = tankId;
             ProductCode = productCode;
             TankprobeStatus = "OK";
-            TankProbeLength = tankLength;
-            TankProbeDiameter = tankDiameter;
-            ProductTemperature = productTemperature;
-            FullVolume = Models.Helper.LevelToVolume_Horizontal(tankDiameter,tankLength, TankProbeDiameter);
 
- 
-            SetWaterLevel(waterLevel);
-            SetByProductLevel(productLevel);  
+            ProductTemperature = productTemperature;
+
+            MyTank = tank;
+
+            InitializeTankLevels(MyTank,productLevel, waterLevel);
+
 
 
 
@@ -168,17 +211,6 @@ namespace PortVeederRootGaugeSim
             TankLeaking = false;
 
             MaxSafeWorkingCapacityModifier = 0.95f;
-            MaxSafeWorkingCapacity = MaxSafeWorkingCapacityModifier * FullVolume;
-
-            OverFillLimitLevel = 0.90F * TankProbeDiameter;
-            HighProductAlarmLevel = 0.80F * TankProbeDiameter;
-            DeliveryNeededWarningLevel = 0.30F * TankProbeDiameter;
-            LowProductAlarmLevel = 0.20F * TankProbeDiameter;
-            HighWaterAlarmLevel = 0.10F * TankProbeDiameter;
-            HighWaterWarningLevel = 0.05F * TankProbeDiameter;
-
-            TankDeliveringPerInterval = 50;
-            TankLeakingPerInterval = 50;
 
             TankDroppedList = new List<TankDrop>();
         }
@@ -186,6 +218,10 @@ namespace PortVeederRootGaugeSim
 
         public Boolean ProductChangePerInterval(float value)
         {
+            if (TankLeaking && ProductVolume < Math.Abs(value))
+            {
+                return SetProductVolume(0);
+            }
             return SetProductVolume(ProductVolume + value);
         }
 
@@ -203,17 +239,17 @@ namespace PortVeederRootGaugeSim
                 float droppedVolume = 0f;
                 while (TankDelivering && droppedVolume < volume)
                 {
-                    if ((droppedVolume + TankDeliveringPerInterval) <= volume)
+                    if ((droppedVolume + MyTank.TankDeliveringPerInterval) <= volume)
                     {
-                        ProductChangePerInterval(TankDeliveringPerInterval);
-                        droppedVolume += TankDeliveringPerInterval;
-                        Thread.Sleep(100);
+                        ProductChangePerInterval(MyTank.TankDeliveringPerInterval);
+                        droppedVolume += MyTank.TankDeliveringPerInterval;
+                        Thread.Sleep(200);
                     }
                     else
                     {
                         ProductChangePerInterval(volume - droppedVolume);
                         droppedVolume += (volume - droppedVolume);
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                     }
                 }
                 td.Volume = droppedVolume;
@@ -235,15 +271,16 @@ namespace PortVeederRootGaugeSim
         {
             if (TankLeaking)
             {
-                while (TankLeaking && ProductChangePerInterval(-TankLeakingPerInterval))
+                while (TankLeaking && ProductChangePerInterval(-MyTank.TankLeakingPerInterval))
                 {
-                    Thread.Sleep(100);
+
+                    Thread.Sleep(200);
                 }
                 TankLeaking = false;
             }
         }
 
-        public void DeliverySwitch(float volume, DateTime startTime, TimeSpan duration)
+        public Boolean DeliverySwitch(float volume, DateTime startTime, TimeSpan duration)
         {
 
             if (TankDelivering)
@@ -252,10 +289,15 @@ namespace PortVeederRootGaugeSim
             }
             else
             {
+                if (volume+ProductVolume > MyTank.FullVolume)
+                {
+                    return false;
+                }
                 TankDelivering = true;
                 Thread ProductChanging = new Thread(() => ProductChangeThreadDelivery(volume, startTime, duration));
                 ProductChanging.Start();
             }
+            return true;
         }
 
         public void LeakingSwitch()
@@ -273,91 +315,49 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        public float GetGrossObservedVolume()
-        {
-            //return ProductVolume + WaterVolume;
-            return Models.Helper.LevelToVolume_Horizontal(WaterLevel+ProductLevel, TankProbeLength,TankProbeDiameter);
-        }
-
-        public float GetGrossStandardVolume()
-        {
-            float tempDelta = ProductTemperature - 15;
-            return ProductVolume * (1 - thermalExpansionCoefficient * tempDelta);
-        }
-
-        public float GetUllage()
-        {
-
-            return FullVolume - WaterVolume - ProductVolume;
-        }
-
-        public Boolean[] GetTankStatus()
-        {
-
-            Boolean[] temp = { TankDelivering, TankLeaking };
-
-            return temp;
-        }
-
-        public void ClearDeliveryReport()
-        {
-            TankDroppedList.Clear();
-        }
+ 
 
     
 
 
         public void TankConnectiongThread(TankProbe t)
         {
-            float speed = Math.Min(TankDeliveringPerInterval, t.TankDeliveringPerInterval);
-            while (Connecting)
+            float speed = Math.Min(MyTank.TankDeliveringPerInterval, t.MyTank.TankDeliveringPerInterval);
+            while (MyTank.Connecting)
             {
-                float volumeDifference = ProductVolume - t.ProductVolume;
 
-                if (volumeDifference > 0)
+                while (ProductVolume != t.ProductVolume)
                 {
-                    if (Math.Abs(speed) < volumeDifference)
-                    {
-                        SetProductVolume(ProductVolume - speed);
-                        t.SetProductVolume(t.ProductVolume + speed);
-                    }
-                    else if (Math.Abs(speed) >= volumeDifference)
-                    {
-                        SetProductVolume(ProductVolume - volumeDifference / 2);
-                        t.SetProductVolume(t.ProductVolume + volumeDifference / 2);
-                    }
-                }
 
-                if (volumeDifference < 0)
-                {
-                    if (Math.Abs(speed) < Math.Abs(volumeDifference))
+                    Tuple<float, float> Levels = Models.Helper.ProductFlowing(ProductVolume, t.ProductVolume, speed);
+                    if (ProductVolume> t.ProductVolume)
                     {
-                        SetProductVolume(ProductVolume + speed);
-                        t.SetProductVolume(t.ProductVolume - speed);
+                        SetProductVolume(Levels.Item1);
+                        t.SetProductVolume(Levels.Item2);
                     }
-                    else if (Math.Abs(speed) >= Math.Abs(volumeDifference))
+                    else
                     {
-                        SetProductVolume(ProductVolume + volumeDifference / 2);
-                        t.SetProductVolume(t.ProductVolume - volumeDifference / 2);
+                        SetProductVolume(Levels.Item2);
+                        t.SetProductVolume(Levels.Item1);
                     }
-
+                    Thread.Sleep(200);
                 }
-                Thread.Sleep(100);
+                
             }
+            
 
         }
 
         public Boolean Connect(TankProbe t)
         {
-            if (t.Connecting || Connecting)
+            if (t.MyTank.Connecting || MyTank.Connecting)
             {
                 return false;
             }
-            t.Connecting = true;
-            t.ConnectedTo = TankProbeId;
-
-            Connecting = true;
-            ConnectedTo = t.TankProbeId;
+            t.MyTank.Connecting = true;
+            t.MyTank.ConnectedTo = TankProbeId;
+            MyTank.Connecting = true;
+            MyTank.ConnectedTo = t.TankProbeId;
             Thread tankConnection = new Thread(() => TankConnectiongThread(t));
             tankConnection.Start();
             return true;
@@ -365,13 +365,13 @@ namespace PortVeederRootGaugeSim
 
         public Boolean Disconnect(TankProbe t)
         {
-            if (t.ConnectedTo == TankProbeId)
+            if (t.MyTank.ConnectedTo == TankProbeId)
             {
-                Connecting = false;
-                ConnectedTo = 456789; // 456789 means the tank is not connecting any
+                MyTank.Connecting = false;
+                MyTank.ConnectedTo = 456789; // 456789 means the tank is not MyTank.Connecting any
 
-                t.ConnectedTo = 456789;
-                t.Connecting = false;
+                t.MyTank.ConnectedTo = 456789;
+                t.MyTank.Connecting = false;
 
                 return true;
             }
@@ -385,12 +385,16 @@ namespace PortVeederRootGaugeSim
         {
             String returnString = "";
             returnString += "TankProbeId = " + TankProbeId.ToString() + "                                              ";
-            returnString += "productVolume = " + ProductVolume.ToString() + "                             ";
-            returnString += "productLevel = " + ProductLevel.ToString("0.00") + "                                  ";
-            returnString += "waterVolume = " + WaterVolume.ToString() + "                        ";
-            returnString += "waterLevel = " + WaterLevel.ToString("0.00") + "                                                 ";
+            returnString += "productVolume = " + ProductVolume.ToString("0.00") + "                             ";
+            returnString += "productLevel = " + ProductLevel.ToString("0.00") + "                                        ";
+            returnString += "waterVolume = " + WaterVolume.ToString("0.00") + "                               ";
+            returnString += "waterLevel = " + WaterLevel.ToString("0.00") + "                                             ";
             returnString += "ProductTemerature = " + ProductTemperature.ToString() + "                           ";
-            returnString += "TankDropCount = " + TankDropCount.ToString() + "                           ";
+            returnString += "TankDropCount = " + TankDropCount.ToString() + "                                         ";
+            returnString += "GOV = " + GetGrossObservedVolume().ToString("0.00") + "                                             ";
+            returnString += "GSV = " + GetGrossStandardVolume().ToString("0.00") + "                                             ";
+            returnString += "Ullage = " + GetUllage().ToString("0.00") + "                           ";
+            returnString += (WaterVolume + ProductVolume).ToString();
 
 
             return returnString;

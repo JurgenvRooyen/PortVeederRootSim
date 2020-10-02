@@ -29,13 +29,13 @@ namespace PortVeederRootGaugeSim.UI
             productVolume.Text = Convert.ToString(tankProbe.ProductVolume);
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
-            capacity.Text = Convert.ToString(tankProbe.FullVolume);
+            capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             TankGroupBox.Text = "Probe " + Convert.ToString(id + 1);
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
             waterVolume.Text = Convert.ToString(tankProbe.WaterVolume);
-            ProbeLength.Text = Convert.ToString(tankProbe.TankProbeLength);
-            ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
+            ProbeLength.Text = Convert.ToString(tankProbe.MyTank.TankLength);
+            ProbeDiameter.Text = Convert.ToString(tankProbe.MyTank.TankDiameter);
         }
 
         public void UpdateLabels()
@@ -47,11 +47,11 @@ namespace PortVeederRootGaugeSim.UI
             waterVolume.Text = Convert.ToString(tankProbe.WaterVolume);
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
-            capacity.Text = Convert.ToString(tankProbe.FullVolume);
+            capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
-            ProbeLength.Text = Convert.ToString(tankProbe.TankProbeLength);
-            ProbeDiameter.Text = Convert.ToString(tankProbe.TankProbeDiameter);
+            ProbeLength.Text = Convert.ToString(tankProbe.MyTank.TankLength);
+            ProbeDiameter.Text = Convert.ToString(tankProbe.MyTank.TankDiameter);
             if (this.tankProbe.TankDelivering)
             {
                 startLeakButton.Enabled = false;
@@ -95,7 +95,7 @@ namespace PortVeederRootGaugeSim.UI
 
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
         {
-            tankProbe.SetByProductLevel(Convert.ToSingle(productUpDown.Value));
+            tankProbe.SetProductLevel(Convert.ToSingle(productUpDown.Value));
             productVolume.Text = Convert.ToString(tankProbe.ProductVolume);
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
@@ -125,7 +125,7 @@ namespace PortVeederRootGaugeSim.UI
             form3.ShowDialog();
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
-            capacity.Text = Convert.ToString(tankProbe.FullVolume);
+            capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             this.Refresh();
         }

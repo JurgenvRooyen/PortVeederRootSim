@@ -233,20 +233,20 @@ namespace PortVeederRootGaugeSim.IO
             {
                 codes += "02";
             }
-            if(probe.WaterLevel >= probe.HighWaterAlarmLevel)
+            if(probe.WaterLevel >= probe.MyTank.HighWaterAlarmLevel)
             {
                 codes += "03";
             }
             // TODO need check  after change tank from Vertical to Horizontal
-            if (probe.ProductLevel + probe.WaterLevel >= probe.OverFillLimitLevel)
+            if (probe.ProductLevel + probe.WaterLevel >= probe.MyTank.OverFillLimitLevel)
             {
                 codes += "04";
             }
-            if(probe.ProductLevel <= probe.LowProductAlarmLevel)
+            if(probe.ProductLevel <= probe.MyTank.LowProductAlarmLevel)
             {
                 codes += "05";
             }
-            if(probe.ProductLevel >= probe.HighProductAlarmLevel)
+            if(probe.ProductLevel >= probe.MyTank.HighProductAlarmLevel)
             {
                 codes += "07";
             }
@@ -257,15 +257,15 @@ namespace PortVeederRootGaugeSim.IO
             }
             //Probe disconnected not implemented
 
-            if(probe.WaterLevel >= probe.HighWaterWarningLevel)
+            if(probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel)
             {
                 codes += "10";
             }
-            if(probe.ProductLevel <= probe.DeliveryNeededWarningLevel)
+            if(probe.ProductLevel <= probe.MyTank.DeliveryNeededWarningLevel)
             {
                 codes += "11";
             }
-            if(probe.ProductLevel >= probe.MaxSafeWorkingCapacity)
+            if(probe.ProductLevel >= probe.MyTank.MaxSafeWorkingCapacity)
             {
                 codes += "12";
             }

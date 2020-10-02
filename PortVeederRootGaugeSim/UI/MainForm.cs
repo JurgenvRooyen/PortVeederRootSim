@@ -39,7 +39,8 @@ namespace PortVeederRootGaugeSim
             }
             catch
             {
-                TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 3379, 1880, 0, 0, 15));
+
+                TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', new Tank(1000,2000), 0, 0, 15));
                 flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
                 deleteProbeButton.Enabled = false;
                 ConnectProbeButton.Enabled = false;
@@ -70,7 +71,8 @@ namespace PortVeederRootGaugeSim
             deleteProbeButton.Enabled = true;
             ConnectProbeButton.Enabled = true;
             numberOfTanks++;
-            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 3379, 1880, 0, 0, 15));
+            
+            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1',new Tank(1000,2000), 0, 0, 15));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));       
         }
 
