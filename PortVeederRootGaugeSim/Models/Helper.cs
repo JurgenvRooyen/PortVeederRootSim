@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace PortVeederRootGaugeSim.Models
 {
     static class Helper
     {
-     
 
-
-
-        // Horizontal cylinder only
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
         {
             double R = diameter / 2 ;
@@ -60,5 +57,20 @@ namespace PortVeederRootGaugeSim.Models
             return 0;
 
         }
+
+        public static Tuple<float, float> ProductFlowing(float productT1, float productT2,float speed)
+        {
+            float high = Math.Max(productT1, productT2);
+            float low = Math.Min(productT1, productT2);
+            float difference = high - low;
+            if (difference/2 <= speed)
+            {
+                return Tuple.Create((high + low) / 2, (high + low) / 2);
+            }
+
+            return Tuple.Create(high- speed, low+speed);
+        }
+
+
     }
 }

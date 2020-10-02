@@ -18,6 +18,7 @@ namespace PortVeederRootGaugeSim
         
 
             // critical section starts
+
         private readonly object ProductLevelLock = new object();
         public float ProductLevel { get; private set; }
 
@@ -90,12 +91,8 @@ namespace PortVeederRootGaugeSim
                 float totalVolume = Models.Helper.LevelToVolume_Horizontal(totalLevel, MyTank.TankLength, MyTank.TankDiameter);
 
                 float productVolume = totalVolume - WaterVolume;
-                if (productVolume < 0)
-                {
-                    productVolume = 0;
-                }
 
-                ProductVolume = productVolume;
+                ProductVolume = Math.Max(0,productVolume);
             }
 
             return true;
@@ -149,7 +146,7 @@ namespace PortVeederRootGaugeSim
         }
         public float GetGrossObservedVolume()
         {
-            return Models.Helper.LevelToVolume_Horizontal(WaterLevel + ProductLevel, MyTank.TankLength, MyTank.TankDiameter);
+            return WaterVolume + ProductVolume;
         }
 
         public float GetGrossStandardVolume()
@@ -246,13 +243,13 @@ namespace PortVeederRootGaugeSim
                     {
                         ProductChangePerInterval(MyTank.TankDeliveringPerInterval);
                         droppedVolume += MyTank.TankDeliveringPerInterval;
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                     }
                     else
                     {
                         ProductChangePerInterval(volume - droppedVolume);
                         droppedVolume += (volume - droppedVolume);
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                     }
                 }
                 td.Volume = droppedVolume;
@@ -277,7 +274,7 @@ namespace PortVeederRootGaugeSim
                 while (TankLeaking && ProductChangePerInterval(-MyTank.TankLeakingPerInterval))
                 {
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
                 TankLeaking = false;
             }
@@ -326,48 +323,28 @@ namespace PortVeederRootGaugeSim
         public void TankConnectiongThread(TankProbe t)
         {
             float speed = Math.Min(MyTank.TankDeliveringPerInterval, t.MyTank.TankDeliveringPerInterval);
-            float volumeDifference = ProductVolume - t.ProductVolume;
-
-            while (Math.Abs(volumeDifference) < speed)
-            {
-                speed /= 2;
-            }
-
-
             while (MyTank.Connecting)
             {
-                volumeDifference = ProductVolume - t.ProductVolume;
 
-                if (volumeDifference > 0)
+                while (ProductVolume != t.ProductVolume)
                 {
-                    if (Math.Abs(speed) < volumeDifference)
-                    {
-                        SetProductVolume(ProductVolume - speed);
-                        t.SetProductVolume(t.ProductVolume + speed);
-                    }
-                    else if (Math.Abs(speed) >= volumeDifference)
-                    {
-                        SetProductVolume(ProductVolume - volumeDifference / 2);
-                        t.SetProductVolume(t.ProductVolume + volumeDifference / 2);
-                    }
-                }
 
-                if (volumeDifference < 0)
-                {
-                    if (Math.Abs(speed) < Math.Abs(volumeDifference))
+                    Tuple<float, float> Levels = Models.Helper.ProductFlowing(ProductVolume, t.ProductVolume, speed);
+                    if (ProductVolume> t.ProductVolume)
                     {
-                        SetProductVolume(ProductVolume + speed);
-                        t.SetProductVolume(t.ProductVolume - speed);
+                        SetProductVolume(Levels.Item1);
+                        t.SetProductVolume(Levels.Item2);
                     }
-                    else if (Math.Abs(speed) >= Math.Abs(volumeDifference))
+                    else
                     {
-                        SetProductVolume(ProductVolume + volumeDifference / 2);
-                        t.SetProductVolume(t.ProductVolume - volumeDifference / 2);
+                        SetProductVolume(Levels.Item2);
+                        t.SetProductVolume(Levels.Item1);
                     }
-
+                    Thread.Sleep(200);
                 }
-                Thread.Sleep(100);
+                
             }
+            
 
         }
 
