@@ -223,9 +223,10 @@ namespace PortVeederRootGaugeSim.IO
         private string I205(int probeID)
         {
             List<TankProbe> probes = simulator.TankProbeList;
-
             StringBuilder probeString = new StringBuilder();
             TankProbe probe = probes[probeID - 1];
+            probeString.Append(probeID.ToString().PadLeft(2, '0'));
+
             string codes = "";
 
             if(probe.TankLeaking)
