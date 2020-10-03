@@ -90,7 +90,7 @@ namespace PortVeederRootGaugeSim.UI
                 {
                     string message = "Volume provided for delivery is too large";
                     string title = "Tank Delivery Error";
-                    MessageBox.Show(message, title);
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

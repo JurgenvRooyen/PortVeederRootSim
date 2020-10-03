@@ -45,7 +45,7 @@ namespace PortVeederRootGaugeSim
                 ConnectProbeButton.Enabled = false;
                 string title = "Error Loading File";
                 string message = "Probe Persistence file not found or invalid";
-                MessageBox.Show(message, title);
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -118,7 +118,7 @@ namespace PortVeederRootGaugeSim
                 case about:
                     string message = "About information";
                     string title = "About Veeder-Root TLS Simulator by ITL";
-                    MessageBox.Show(message, title);
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }
