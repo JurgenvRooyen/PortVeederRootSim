@@ -9,6 +9,24 @@ namespace SimulatorTest
     class TankProbeTest
     {
         [Test]
+        public void TestSetTankLength()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
+            tank1.SetTankLength(120);
+            Tank tank = tank1.MyTank;
+            Assert.AreEqual(120, tank.TankLength);
+        }
+
+        [Test]
+        public void TestSetTankDiameter()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
+            tank1.SetTankDiameter(120);
+            Tank tank = tank1.MyTank;
+            Assert.AreEqual(120, tank.TankDiameter);
+        }
+
+        [Test]
         public void TestGetProductLevel()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000,2000), 100, 100, 10);

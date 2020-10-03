@@ -3,6 +3,7 @@ using NUnit.Framework.Internal;
 using PortVeederRootGaugeSim;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SimulatorTest
 {
@@ -94,6 +95,14 @@ namespace SimulatorTest
             Assert.AreEqual(test.TankProbeList.Count, 1);
             test.RemoveTankProbe(-1);
             Assert.AreEqual(test.TankProbeList.Count, 1);
+        }
+
+        [Test]
+        public void TestLoadFileDoesNotExist()
+        {
+            String file = "testFile";
+            RootSim test = new RootSim();
+            Assert.Throws<FileNotFoundException>(() => test.LoadFile(file));
         }
     }
 }

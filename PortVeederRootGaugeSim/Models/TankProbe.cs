@@ -53,7 +53,7 @@ namespace PortVeederRootGaugeSim
 
         public void SetTankLength(float value)
         {          
-            MyTank.TankDiameter = value;
+            MyTank.TankLength = value;
             MyTank.FullVolume = Models.Helper.LevelToVolume_Horizontal(MyTank.TankDiameter, value, MyTank.TankDiameter);
             WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,WaterVolume,0,MyTank.TankLength, MyTank.TankDiameter);
             float totalVolume = WaterVolume + ProductVolume;
