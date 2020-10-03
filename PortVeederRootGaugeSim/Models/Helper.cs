@@ -7,6 +7,45 @@ namespace PortVeederRootGaugeSim.Models
 {
     static class Helper
     {
+        private static float workingTankDiameter;
+        private static float workingTankLength;
+        private static float workingSafeCapacity;
+        private static float workingFullVolume;
+
+        public static float GetWorkingSafeCapacity()
+        {
+
+            return workingSafeCapacity * workingFullVolume;
+        }
+
+        public static float GetWorkingCapacityModifier()
+        {
+            return workingSafeCapacity;
+        }
+
+        public static float SetTankLength(float length)
+        {
+            workingTankLength = length;
+            return workingTankLength;
+        }
+
+        public static float SetTankDiameter(float diameter)
+        {
+            workingTankDiameter = diameter;
+            return workingTankDiameter;
+        }
+
+        public static float SetSafeWorkingCapacity(float capacity)
+        {
+            workingSafeCapacity = capacity;
+            return workingSafeCapacity;
+        }
+
+        public static float GetFullVolume()
+        {
+            workingFullVolume = LevelToVolume_Horizontal(workingTankDiameter, workingTankLength, workingTankDiameter);
+            return workingFullVolume;
+        }
 
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
         {
