@@ -84,7 +84,18 @@ namespace PortVeederRootGaugeSim.UI
                 DateTime dropStartDate = tankDrop.GetStartDate();
                 float dropVolume = Convert.ToSingle(tankDrop.GetVolume());
                 Double dropDuration = Convert.ToDouble(tankDrop.GetDuration());
-                this.tankProbe.DeliverySwitch(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                float vol = this.tankProbe.ProductVolume;
+                float fullVol = this.tankProbe.MyTank.FullVolume;
+                if (vol + dropVolume > fullVol)
+                {
+                    string message = "Volume provided for delivery is too large";
+                    string title = "Tank Delivery Error";
+                    MessageBox.Show(message, title);
+                }
+                else
+                {
+                    this.tankProbe.DeliverySwitch(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                }
             }
         }
 

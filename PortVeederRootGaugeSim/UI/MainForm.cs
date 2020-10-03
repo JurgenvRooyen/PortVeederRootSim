@@ -39,11 +39,13 @@ namespace PortVeederRootGaugeSim
             }
             catch
             {
-
                 TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', new Tank(1000,2000), 0, 0, 15));
                 flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
                 deleteProbeButton.Enabled = false;
                 ConnectProbeButton.Enabled = false;
+                string title = "Error Loading File";
+                string message = "Probe Persistence file not found or invalid";
+                MessageBox.Show(message, title);
             }
         }
 
@@ -56,7 +58,10 @@ namespace PortVeederRootGaugeSim
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
+            if (flowLayoutPanel.Controls.Count > 1)
+            {
+                TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
+            }
             foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
             {
                 probeControl.tankProbe.TankDelivering = false;

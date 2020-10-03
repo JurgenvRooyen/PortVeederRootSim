@@ -269,14 +269,17 @@ namespace PortVeederRootGaugeSim
 
         private void ProductChangeThreadLeaking()
         {
-            if (TankLeaking)
+            while (TankLeaking)
             {
-                while (TankLeaking && ProductChangePerInterval(-MyTank.TankLeakingPerInterval))
+                if (ProductVolume > 0)
                 {
-
-                    Thread.Sleep(200);
+                    ProductChangePerInterval(-MyTank.TankLeakingPerInterval);
                 }
-                TankLeaking = false;
+                else
+                {
+                    TankLeaking = false;
+                }
+                Thread.Sleep(200);
             }
         }
 
