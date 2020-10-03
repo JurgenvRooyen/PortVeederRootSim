@@ -53,7 +53,7 @@ namespace PortVeederRootGaugeSim
 
         public void SetTankLength(float value)
         {          
-            MyTank.TankDiameter = value;
+            MyTank.TankLength = value;
             MyTank.FullVolume = Models.Helper.LevelToVolume_Horizontal(MyTank.TankDiameter, value, MyTank.TankDiameter);
             WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,WaterVolume,0,MyTank.TankLength, MyTank.TankDiameter);
             float totalVolume = WaterVolume + ProductVolume;
@@ -225,7 +225,7 @@ namespace PortVeederRootGaugeSim
             return SetProductVolume(ProductVolume + value);
         }
 
-        public void ProductChangeThreadDelivery(float volume, DateTime startTime, TimeSpan duration)
+        private void ProductChangeThreadDelivery(float volume, DateTime startTime, TimeSpan duration)
         {
             if (TankDelivering)
             {
@@ -267,7 +267,7 @@ namespace PortVeederRootGaugeSim
             return;
         }
 
-        public void ProductChangeThreadLeaking()
+        private void ProductChangeThreadLeaking()
         {
             if (TankLeaking)
             {
@@ -320,7 +320,7 @@ namespace PortVeederRootGaugeSim
     
 
 
-        public void TankConnectiongThread(TankProbe t)
+        private void TankConnectiongThread(TankProbe t)
         {
             float speed = Math.Min(MyTank.TankDeliveringPerInterval, t.MyTank.TankDeliveringPerInterval);
             while (MyTank.Connecting)
