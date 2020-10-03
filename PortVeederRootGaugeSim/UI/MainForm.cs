@@ -56,8 +56,7 @@ namespace PortVeederRootGaugeSim
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            TankGauges.TankProbeList[0].MyTank.Connecting = false;
-            TankGauges.TankProbeList[1].MyTank.Connecting = false;
+            TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
             foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
             {
                 probeControl.tankProbe.TankDelivering = false;
