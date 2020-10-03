@@ -239,7 +239,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
             tank1.SetMaxSafeWorkingCapacityByLevel(500);
-            float expectedResult = PortVeederRootGaugeSim.Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, 500, 0, tank1.MyTank.TankDiameter, tank1.MyTank.TankDiameter);
+            float expectedResult = PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(500,tank1.MyTank.TankLength, tank1.MyTank.TankDiameter);
             Assert.AreEqual(expectedResult, tank1.MyTank.MaxSafeWorkingCapacity);
         }
 
@@ -248,8 +248,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
             TankProbe tank2 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
-            tank1.MyTank.Connecting = true;
-            Assert.False(tank1.Connect(tank2));
+            Assert.True(tank1.Connect(tank2));
         }
 
         [Test]
@@ -257,8 +256,9 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
             TankProbe tank2 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
-            tank1.MyTank.Connecting = false;
-            Assert.True(tank1.Connect(tank2));
+            TankProbe tank3 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
+            tank1.Connect(tank2);
+            Assert.False(tank1.Connect(tank3));
         }
 
         [Test]
@@ -267,7 +267,7 @@ namespace SimulatorTest
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
             TankProbe tank2 = new TankProbe(2, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
             TankProbe tank3 = new TankProbe(3, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
-            tank2.MyTank.ConnectedTo = tank1.TankProbeId;
+            tank1.Connect(tank2);
             Assert.False(tank1.Disconnect(tank3));
         }
 
@@ -276,7 +276,7 @@ namespace SimulatorTest
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
             TankProbe tank2 = new TankProbe(2, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
-            tank2.MyTank.ConnectedTo = tank1.TankProbeId;
+            tank1.Connect(tank2);
             Assert.True(tank1.Disconnect(tank2));
         }
     }

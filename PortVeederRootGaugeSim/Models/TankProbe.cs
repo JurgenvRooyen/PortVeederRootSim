@@ -176,7 +176,7 @@ namespace PortVeederRootGaugeSim
 
         public void SetMaxSafeWorkingCapacityByLevel(float level)
         {
-            MyTank.MaxSafeWorkingCapacity = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, level, 0, MyTank.TankDiameter, MyTank.TankDiameter);
+            MyTank.MaxSafeWorkingCapacity = Models.Helper.LevelToVolume_Horizontal(level,MyTank.TankLength, MyTank.TankDiameter);
         }
 
 
