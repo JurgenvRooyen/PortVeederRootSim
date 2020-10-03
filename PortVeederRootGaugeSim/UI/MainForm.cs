@@ -64,8 +64,9 @@ namespace PortVeederRootGaugeSim
             }
             foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
             {
-                probeControl.tankProbe.TankDelivering = false;
-                probeControl.tankProbe.TankLeaking = false;
+                TankProbe tankProbe = probeControl.GetTankProbe();
+                tankProbe.TankDelivering = false;
+                tankProbe.TankLeaking = false;
             }
             TankGauges.SaveFile("ProbePersistence");
         }

@@ -6,7 +6,7 @@ namespace PortVeederRootGaugeSim.UI
     public partial class TankUserControl : UserControl
     {
         public int TankID { get; set; }
-        public TankProbe tankProbe;
+        private readonly TankProbe tankProbe;
 
         public TankUserControl()
         {
@@ -15,6 +15,11 @@ namespace PortVeederRootGaugeSim.UI
             tempUpDown.Value = 15;
             productUpDown.Value = 800;
             waterUpDown.Value = 20;
+        }
+
+        public TankProbe GetTankProbe()
+        {
+            return tankProbe;
         }
 
         public TankUserControl(int id, TankProbe tankProbe)
