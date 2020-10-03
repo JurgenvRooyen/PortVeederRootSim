@@ -325,12 +325,10 @@ namespace PortVeederRootGaugeSim
             float speed = Math.Min(MyTank.TankDeliveringPerInterval, t.MyTank.TankDeliveringPerInterval);
             while (MyTank.Connecting)
             {
-
-                while (ProductVolume != t.ProductVolume)
+                while (MyTank.Connecting & ProductVolume != t.ProductVolume)
                 {
-
                     Tuple<float, float> Levels = Models.Helper.ProductFlowing(ProductVolume, t.ProductVolume, speed);
-                    if (ProductVolume> t.ProductVolume)
+                    if (ProductVolume > t.ProductVolume)
                     {
                         SetProductVolume(Levels.Item1);
                         t.SetProductVolume(Levels.Item2);
@@ -342,7 +340,7 @@ namespace PortVeederRootGaugeSim
                     }
                     Thread.Sleep(200);
                 }
-                
+                Thread.Sleep(200);
             }
             
 
