@@ -6,7 +6,7 @@ namespace PortVeederRootGaugeSim.UI
     public partial class TankUserControl : UserControl
     {
         public int TankID { get; set; }
-        private readonly TankProbe tankProbe;
+        public TankProbe tankProbe;
 
         public TankUserControl()
         {
