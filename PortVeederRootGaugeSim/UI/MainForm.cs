@@ -56,6 +56,13 @@ namespace PortVeederRootGaugeSim
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            TankGauges.TankProbeList[0].MyTank.Connecting = false;
+            TankGauges.TankProbeList[1].MyTank.Connecting = false;
+            foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
+            {
+                probeControl.tankProbe.TankDelivering = false;
+                probeControl.tankProbe.TankLeaking = false;
+            }
             TankGauges.SaveFile("ProbePersistence");
         }
 
@@ -114,18 +121,18 @@ namespace PortVeederRootGaugeSim
 
         private void ConnectProbeButton_Click(object sender, EventArgs e)
         {
-            if (ConnectProbeButton.Text.StartsWith("Connect"))
-            {
-                TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
-                ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
-                ConnectProbeButton.BackColor = Color.Green;
-            }
-            else
+            if (TankGauges.TankProbeList[0].MyTank.Connecting)
             {
                 TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
                 ConnectProbeButton.Text = "Connect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Control.DefaultBackColor;
                 ConnectProbeButton.UseVisualStyleBackColor = true;
+            }
+            else
+            {
+                TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
+                ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Color.Green;
             }
         }
     }
