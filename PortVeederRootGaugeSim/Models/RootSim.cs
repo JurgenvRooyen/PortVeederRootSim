@@ -74,22 +74,21 @@ namespace PortVeederRootGaugeSim
             else
             {
                 this.TankProbeList.Clear();
-
+                Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
                 try
                 {
                     IFormatter formatter = new BinaryFormatter();
-                    Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
                     List<TankProbe> newList = (List<TankProbe>)formatter.Deserialize(stream);
                     foreach (TankProbe tank in newList)
                     {
                         this.AddTankProbe(tank);
                     }
-                    stream.Close();
                 }
                 catch (Exception e) 
                 { 
-                    Console.WriteLine(e); 
+                    Console.WriteLine(e);
                 }
+                stream.Close();
             }
         }
 

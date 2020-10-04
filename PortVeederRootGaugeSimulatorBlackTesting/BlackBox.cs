@@ -19,8 +19,8 @@ namespace BlackBoxTest
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            tankProbe = new TankProbe(1, 't', 100, 1, 10, 10, 15);
-            tankProbe2 = new TankProbe(1, 't', 100, 1, 10, 10, 15);
+            tankProbe = new TankProbe(1, 't', new Tank(100, 1), 10, 10, 15);
+            tankProbe2 = new TankProbe(1, 't', new Tank(100, 1), 10, 10, 15);
             List<TankProbe> tankprobeList = new List<TankProbe>();
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
@@ -199,7 +199,7 @@ namespace BlackBoxTest
         [Test]
         public void i628Test()
         {
-            string newMax = BitConverter.SingleToInt32Bits(rootSim.TankProbeList[0].FullVolume / 2)
+            string newMax = BitConverter.SingleToInt32Bits(rootSim.TankProbeList[0].MyTank.FullVolume / 2)
                 .ToString("x");
 
             string response = SendRequest("s62800" + newMax);

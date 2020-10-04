@@ -39,10 +39,13 @@ namespace PortVeederRootGaugeSim
             }
             catch
             {
-                TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 3379, 1880, 0, 0, 15));
+                TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', new Tank(1000,2000), 0, 0, 15));
                 flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
                 deleteProbeButton.Enabled = false;
                 ConnectProbeButton.Enabled = false;
+                string title = "Error Loading File";
+                string message = "Probe Persistence file not found or invalid";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -55,6 +58,16 @@ namespace PortVeederRootGaugeSim
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (flowLayoutPanel.Controls.Count > 1)
+            {
+                TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
+            }
+            foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
+            {
+                TankProbe tankProbe = probeControl.GetTankProbe();
+                tankProbe.TankDelivering = false;
+                tankProbe.TankLeaking = false;
+            }
             TankGauges.SaveFile("ProbePersistence");
         }
 
@@ -70,7 +83,8 @@ namespace PortVeederRootGaugeSim
             deleteProbeButton.Enabled = true;
             ConnectProbeButton.Enabled = true;
             numberOfTanks++;
-            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', 3379, 1880, 0, 0, 15));
+            
+            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1',new Tank(1000,2000), 0, 0, 15));
             flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));       
         }
 
@@ -105,25 +119,25 @@ namespace PortVeederRootGaugeSim
                 case about:
                     string message = "About information";
                     string title = "About Veeder-Root TLS Simulator by ITL";
-                    MessageBox.Show(message, title);
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }
 
         private void ConnectProbeButton_Click(object sender, EventArgs e)
         {
-            if (ConnectProbeButton.Text.StartsWith("Connect"))
-            {
-                TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
-                ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
-                ConnectProbeButton.BackColor = Color.Green;
-            }
-            else
+            if (TankGauges.TankProbeList[0].MyTank.Connecting)
             {
                 TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
                 ConnectProbeButton.Text = "Connect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Control.DefaultBackColor;
                 ConnectProbeButton.UseVisualStyleBackColor = true;
+            }
+            else
+            {
+                TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
+                ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
+                ConnectProbeButton.BackColor = Color.Green;
             }
         }
     }

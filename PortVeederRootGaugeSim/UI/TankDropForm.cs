@@ -10,7 +10,7 @@ namespace PortVeederRootGaugeSim
             InitializeComponent();
             startDate.Format = DateTimePickerFormat.Custom;
             startDate.CustomFormat = "dd/MM/yyyy hh:mm";
-            volumeLitres.Value = 5000;
+            volumeLitres.Value = 500;
             durationMinutes.Value = 20;
         }
         private void OkayButton_Click(object sender, EventArgs e)

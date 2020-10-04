@@ -28,7 +28,7 @@ namespace SimulatorTest
         {
             //tankId, productCode, tankLength, tankDiameter, productValue, waterValue, productTemerature
             // Test tank capacity is 3140L
-            TankProbe tankProbe = new TankProbe(1, 't', 1000, 2000, 500, 500, 15);
+            TankProbe tankProbe = new TankProbe(1, 't', new Tank(1000,2000), 500, 500, 15);
             List<TankProbe> tankprobeList = new List<TankProbe>();
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
@@ -93,7 +93,7 @@ namespace SimulatorTest
         [Test]
         public void i201MultipleTest()
         {
-            rootSim.AddTankProbe(new TankProbe(2, 't', 100, 1, 10, 10, 15));
+            rootSim.AddTankProbe(new TankProbe(2, 't', new Tank(100, 1), 10, 10, 15));
             string response = protocol.Parse("\x02i20100");
 
             Assert.AreEqual(154, response.Length);
@@ -145,8 +145,8 @@ namespace SimulatorTest
         [Test]
         public void s628Test()
         {
-            float originalMax = rootSim.TankProbeList[0].MaxSafeWorkingCapacity;
-            string newMax = BitConverter.SingleToInt32Bits(rootSim.TankProbeList[0].FullVolume / 2).ToString("x");
+            float originalMax = rootSim.TankProbeList[0].MyTank.MaxSafeWorkingCapacity;
+            string newMax = BitConverter.SingleToInt32Bits(rootSim.TankProbeList[0].MyTank.FullVolume / 2).ToString("x");
             string response = protocol.Parse("\x02s62800"+ newMax);
             Console.WriteLine(newMax);
             Assert.AreNotEqual(originalMax, rootSim.TankProbeList[0]);
