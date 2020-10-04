@@ -142,8 +142,10 @@ namespace SimulatorTest
         [Test]
         public void TestDeliverySwitchTrue()
         {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000,2000), 100, 100, 10);
-            tank1.TankDelivering = true;
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10)
+            {
+                TankDelivering = true
+            };
             tank1.DeliverySwitch(100, DateTime.Now, TimeSpan.Zero);
             Assert.False(tank1.TankDelivering);
         }
@@ -151,8 +153,10 @@ namespace SimulatorTest
         [Test]
         public void TestDeliverySwitchFalse()
         {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000,2000), 100, 100, 10);
-            tank1.TankDelivering = false;
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10)
+            {
+                TankDelivering = false
+            };
             tank1.DeliverySwitch(100, DateTime.Now, TimeSpan.Zero);
             Assert.True(tank1.TankDelivering);
         }
@@ -160,8 +164,10 @@ namespace SimulatorTest
         [Test]
         public void TestLeakingSwitchTrue()
         {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000,2000), 100, 100, 10);
-            tank1.TankLeaking = true;
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10)
+            {
+                TankLeaking = true
+            };
             tank1.LeakingSwitch();
             Assert.False(tank1.TankLeaking);
         }
@@ -169,8 +175,10 @@ namespace SimulatorTest
         [Test]
         public void TestLeakingSwitchFalse()
         {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000,2000), 100, 100, 10);
-            tank1.TankLeaking = false;
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10)
+            {
+                TankLeaking = false
+            };
             tank1.LeakingSwitch();
             Assert.True(tank1.TankLeaking);
         }

@@ -45,7 +45,7 @@ namespace PortVeederRootGaugeSim
                 ConnectProbeButton.Enabled = false;
                 string title = "Error Loading File";
                 string message = "Probe Persistence file not found or invalid";
-                MessageBox.Show(message, title);
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -64,8 +64,9 @@ namespace PortVeederRootGaugeSim
             }
             foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
             {
-                probeControl.tankProbe.TankDelivering = false;
-                probeControl.tankProbe.TankLeaking = false;
+                TankProbe tankProbe = probeControl.GetTankProbe();
+                tankProbe.TankDelivering = false;
+                tankProbe.TankLeaking = false;
             }
             TankGauges.SaveFile("ProbePersistence");
         }
@@ -118,7 +119,7 @@ namespace PortVeederRootGaugeSim
                 case about:
                     string message = "About information";
                     string title = "About Veeder-Root TLS Simulator by ITL";
-                    MessageBox.Show(message, title);
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }

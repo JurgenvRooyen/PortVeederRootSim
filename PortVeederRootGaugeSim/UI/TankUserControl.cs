@@ -6,7 +6,7 @@ namespace PortVeederRootGaugeSim.UI
     public partial class TankUserControl : UserControl
     {
         public int TankID { get; set; }
-        public TankProbe tankProbe;
+        private readonly TankProbe tankProbe;
 
         public TankUserControl()
         {
@@ -15,6 +15,11 @@ namespace PortVeederRootGaugeSim.UI
             tempUpDown.Value = 15;
             productUpDown.Value = 800;
             waterUpDown.Value = 20;
+        }
+
+        public TankProbe GetTankProbe()
+        {
+            return tankProbe;
         }
 
         public TankUserControl(int id, TankProbe tankProbe)
@@ -32,7 +37,7 @@ namespace PortVeederRootGaugeSim.UI
             capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             TankGroupBox.Text = "Probe " + Convert.ToString(id + 1);
-            tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
+            tankDropNumber.Text = Convert.ToString(tankProbe.TankDropCount) + " drops";
             waterVolume.Text = Convert.ToString(tankProbe.WaterVolume);
             ProbeLength.Text = Convert.ToString(tankProbe.MyTank.TankLength);
             ProbeDiameter.Text = Convert.ToString(tankProbe.MyTank.TankDiameter);
@@ -49,7 +54,7 @@ namespace PortVeederRootGaugeSim.UI
             gsv.Text = gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
-            tankDropNumber.Text = Convert.ToString(tankProbe.TankDroppedList.Count) + " drops";
+            tankDropNumber.Text = Convert.ToString(tankProbe.TankDropCount) + " drops";
             ProbeLength.Text = Convert.ToString(tankProbe.MyTank.TankLength);
             ProbeDiameter.Text = Convert.ToString(tankProbe.MyTank.TankDiameter);
             if (this.tankProbe.TankDelivering)
@@ -90,7 +95,7 @@ namespace PortVeederRootGaugeSim.UI
                 {
                     string message = "Volume provided for delivery is too large";
                     string title = "Tank Delivery Error";
-                    MessageBox.Show(message, title);
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

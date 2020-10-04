@@ -35,12 +35,12 @@
             this.okayButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.tankCapacityLabel = new System.Windows.Forms.Label();
-            this.overfillLimitText = new System.Windows.Forms.TextBox();
-            this.highLimitText = new System.Windows.Forms.TextBox();
-            this.deliveryWarningText = new System.Windows.Forms.TextBox();
-            this.lowLimitText = new System.Windows.Forms.TextBox();
-            this.waterWarningText = new System.Windows.Forms.TextBox();
-            this.waterAlarmText = new System.Windows.Forms.TextBox();
+            this.overfillLimitText = new System.Windows.Forms.NumericUpDown();
+            this.highLimitText = new System.Windows.Forms.NumericUpDown();
+            this.deliveryWarningText = new System.Windows.Forms.NumericUpDown();
+            this.lowLimitText = new System.Windows.Forms.NumericUpDown();
+            this.waterWarningText = new System.Windows.Forms.NumericUpDown();
+            this.waterAlarmText = new System.Windows.Forms.NumericUpDown();
             this.safeWorkingCapacityLabel = new System.Windows.Forms.Label();
             this.noteLabel = new System.Windows.Forms.Label();
             this.overfillLimitLabel = new System.Windows.Forms.Label();
@@ -49,13 +49,21 @@
             this.lowLimitLabel = new System.Windows.Forms.Label();
             this.waterAlarmLabel = new System.Windows.Forms.Label();
             this.waterWarningLabel = new System.Windows.Forms.Label();
-            this.tankDiameterText = new System.Windows.Forms.TextBox();
-            this.tankLengthText = new System.Windows.Forms.TextBox();
+            this.tankDiameterText = new System.Windows.Forms.NumericUpDown();
+            this.tankLengthText = new System.Windows.Forms.NumericUpDown();
             this.tankDiameterLabel = new System.Windows.Forms.Label();
             this.tankLengthLabel = new System.Windows.Forms.Label();
             this.tankVolumeText = new System.Windows.Forms.Label();
             this.safeWorkingCapacityText = new System.Windows.Forms.Label();
             this.safeWorkingCapacityBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overfillLimitText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.highLimitText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deliveryWarningText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lowLimitText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waterWarningText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waterAlarmText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tankDiameterText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tankLengthText)).BeginInit();
             this.SuspendLayout();
             // 
             // introText
@@ -64,6 +72,7 @@
             this.introText.Location = new System.Drawing.Point(13, 13);
             this.introText.Name = "introText";
             this.introText.Size = new System.Drawing.Size(427, 20);
+            this.introText.TabIndex = 20;
             this.introText.Text = "The following configurations apply to all tanks being simulated";
             // 
             // safeWorkingCapacityBox
@@ -73,6 +82,7 @@
             this.safeWorkingCapacityBox.Location = new System.Drawing.Point(13, 45);
             this.safeWorkingCapacityBox.Name = "safeWorkingCapacityBox";
             this.safeWorkingCapacityBox.Size = new System.Drawing.Size(379, 107);
+            this.safeWorkingCapacityBox.TabIndex = 19;
             this.safeWorkingCapacityBox.TabStop = false;
             this.safeWorkingCapacityBox.Text = "Level to use for Safe Working Capacity (Ullage)";
             // 
@@ -126,49 +136,86 @@
             this.tankCapacityLabel.Location = new System.Drawing.Point(115, 160);
             this.tankCapacityLabel.Name = "tankCapacityLabel";
             this.tankCapacityLabel.Size = new System.Drawing.Size(92, 20);
+            this.tankCapacityLabel.TabIndex = 18;
             this.tankCapacityLabel.Text = "Tank Volume";
             // 
             // overfillLimitText
             // 
             this.overfillLimitText.Location = new System.Drawing.Point(214, 212);
+            this.overfillLimitText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.overfillLimitText.Name = "overfillLimitText";
             this.overfillLimitText.Size = new System.Drawing.Size(178, 27);
             this.overfillLimitText.TabIndex = 2;
+            this.overfillLimitText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // highLimitText
             // 
             this.highLimitText.Location = new System.Drawing.Point(214, 245);
+            this.highLimitText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.highLimitText.Name = "highLimitText";
             this.highLimitText.Size = new System.Drawing.Size(178, 27);
             this.highLimitText.TabIndex = 3;
+            this.highLimitText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // deliveryWarningText
             // 
             this.deliveryWarningText.Location = new System.Drawing.Point(214, 277);
+            this.deliveryWarningText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.deliveryWarningText.Name = "deliveryWarningText";
             this.deliveryWarningText.Size = new System.Drawing.Size(178, 27);
             this.deliveryWarningText.TabIndex = 4;
+            this.deliveryWarningText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lowLimitText
             // 
             this.lowLimitText.Location = new System.Drawing.Point(214, 311);
+            this.lowLimitText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.lowLimitText.Name = "lowLimitText";
             this.lowLimitText.Size = new System.Drawing.Size(178, 27);
             this.lowLimitText.TabIndex = 5;
+            this.lowLimitText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // waterWarningText
             // 
             this.waterWarningText.Location = new System.Drawing.Point(214, 420);
+            this.waterWarningText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.waterWarningText.Name = "waterWarningText";
             this.waterWarningText.Size = new System.Drawing.Size(178, 27);
             this.waterWarningText.TabIndex = 7;
+            this.waterWarningText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // waterAlarmText
             // 
             this.waterAlarmText.Location = new System.Drawing.Point(214, 384);
+            this.waterAlarmText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.waterAlarmText.Name = "waterAlarmText";
             this.waterAlarmText.Size = new System.Drawing.Size(178, 27);
             this.waterAlarmText.TabIndex = 6;
+            this.waterAlarmText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // safeWorkingCapacityLabel
             // 
@@ -176,6 +223,7 @@
             this.safeWorkingCapacityLabel.Location = new System.Drawing.Point(49, 185);
             this.safeWorkingCapacityLabel.Name = "safeWorkingCapacityLabel";
             this.safeWorkingCapacityLabel.Size = new System.Drawing.Size(158, 20);
+            this.safeWorkingCapacityLabel.TabIndex = 17;
             this.safeWorkingCapacityLabel.Text = "Safe Working Capacity";
             // 
             // noteLabel
@@ -184,6 +232,7 @@
             this.noteLabel.Location = new System.Drawing.Point(6, 341);
             this.noteLabel.Name = "noteLabel";
             this.noteLabel.Size = new System.Drawing.Size(386, 40);
+            this.noteLabel.TabIndex = 16;
             this.noteLabel.Text = "NOTE: Fuel draw off level is usually between the low limit\r\nand high water alarm " +
     "levels\r\n";
             this.noteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -194,6 +243,7 @@
             this.overfillLimitLabel.Location = new System.Drawing.Point(114, 215);
             this.overfillLimitLabel.Name = "overfillLimitLabel";
             this.overfillLimitLabel.Size = new System.Drawing.Size(94, 20);
+            this.overfillLimitLabel.TabIndex = 15;
             this.overfillLimitLabel.Text = "Overfill Limit";
             // 
             // highLimitLabel
@@ -202,6 +252,7 @@
             this.highLimitLabel.Location = new System.Drawing.Point(130, 248);
             this.highLimitLabel.Name = "highLimitLabel";
             this.highLimitLabel.Size = new System.Drawing.Size(78, 20);
+            this.highLimitLabel.TabIndex = 14;
             this.highLimitLabel.Text = "High Limit";
             // 
             // deliveryWarningLabel
@@ -210,6 +261,7 @@
             this.deliveryWarningLabel.Location = new System.Drawing.Point(22, 281);
             this.deliveryWarningLabel.Name = "deliveryWarningLabel";
             this.deliveryWarningLabel.Size = new System.Drawing.Size(186, 20);
+            this.deliveryWarningLabel.TabIndex = 13;
             this.deliveryWarningLabel.Text = "Delivery Required Warning";
             // 
             // lowLimitLabel
@@ -218,6 +270,7 @@
             this.lowLimitLabel.Location = new System.Drawing.Point(135, 314);
             this.lowLimitLabel.Name = "lowLimitLabel";
             this.lowLimitLabel.Size = new System.Drawing.Size(73, 20);
+            this.lowLimitLabel.TabIndex = 12;
             this.lowLimitLabel.Text = "Low Limit";
             // 
             // waterAlarmLabel
@@ -226,6 +279,7 @@
             this.waterAlarmLabel.Location = new System.Drawing.Point(43, 387);
             this.waterAlarmLabel.Name = "waterAlarmLabel";
             this.waterAlarmLabel.Size = new System.Drawing.Size(165, 20);
+            this.waterAlarmLabel.TabIndex = 11;
             this.waterAlarmLabel.Text = "High Water Alarm Limit";
             // 
             // waterWarningLabel
@@ -234,23 +288,35 @@
             this.waterWarningLabel.Location = new System.Drawing.Point(27, 423);
             this.waterWarningLabel.Name = "waterWarningLabel";
             this.waterWarningLabel.Size = new System.Drawing.Size(180, 20);
+            this.waterWarningLabel.TabIndex = 10;
             this.waterWarningLabel.Text = "High Water Warning Limit";
             // 
             // tankDiameterText
             // 
             this.tankDiameterText.Location = new System.Drawing.Point(214, 472);
+            this.tankDiameterText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.tankDiameterText.Name = "tankDiameterText";
             this.tankDiameterText.Size = new System.Drawing.Size(178, 27);
             this.tankDiameterText.TabIndex = 8;
+            this.tankDiameterText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tankDiameterText.TextChanged += new System.EventHandler(this.TankDiameterText_TextChanged);
-
             // 
-            // tankHeightText
+            // tankLengthText
             // 
             this.tankLengthText.Location = new System.Drawing.Point(214, 508);
-            this.tankLengthText.Name = "tankHeightText";
+            this.tankLengthText.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.tankLengthText.Name = "tankLengthText";
             this.tankLengthText.Size = new System.Drawing.Size(178, 27);
             this.tankLengthText.TabIndex = 9;
+            this.tankLengthText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tankLengthText.TextChanged += new System.EventHandler(this.TankLengthText_TextChanged);
             // 
             // tankDiameterLabel
@@ -259,6 +325,7 @@
             this.tankDiameterLabel.Location = new System.Drawing.Point(104, 475);
             this.tankDiameterLabel.Name = "tankDiameterLabel";
             this.tankDiameterLabel.Size = new System.Drawing.Size(104, 20);
+            this.tankDiameterLabel.TabIndex = 3;
             this.tankDiameterLabel.Text = "Tank Diameter";
             // 
             // tankLengthLabel
@@ -267,6 +334,7 @@
             this.tankLengthLabel.Location = new System.Drawing.Point(120, 511);
             this.tankLengthLabel.Name = "tankLengthLabel";
             this.tankLengthLabel.Size = new System.Drawing.Size(87, 20);
+            this.tankLengthLabel.TabIndex = 2;
             this.tankLengthLabel.Text = "Tank Length";
             // 
             // tankVolumeText
@@ -274,6 +342,7 @@
             this.tankVolumeText.Location = new System.Drawing.Point(214, 160);
             this.tankVolumeText.Name = "tankVolumeText";
             this.tankVolumeText.Size = new System.Drawing.Size(178, 27);
+            this.tankVolumeText.TabIndex = 1;
             this.tankVolumeText.Text = "*VOL*";
             // 
             // safeWorkingCapacityText
@@ -281,6 +350,7 @@
             this.safeWorkingCapacityText.Location = new System.Drawing.Point(214, 185);
             this.safeWorkingCapacityText.Name = "safeWorkingCapacityText";
             this.safeWorkingCapacityText.Size = new System.Drawing.Size(178, 27);
+            this.safeWorkingCapacityText.TabIndex = 0;
             this.safeWorkingCapacityText.Text = "*SWC*";
             // 
             // GaugeSetup
@@ -317,6 +387,14 @@
             this.Text = "Gauge Setup & Alarm Levels";
             this.safeWorkingCapacityBox.ResumeLayout(false);
             this.safeWorkingCapacityBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.overfillLimitText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.highLimitText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deliveryWarningText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lowLimitText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waterWarningText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waterAlarmText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tankDiameterText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tankLengthText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,12 +409,12 @@
         private System.Windows.Forms.Button okayButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label tankCapacityLabel;
-        private System.Windows.Forms.TextBox overfillLimitText;
-        private System.Windows.Forms.TextBox highLimitText;
-        private System.Windows.Forms.TextBox deliveryWarningText;
-        private System.Windows.Forms.TextBox lowLimitText;
-        private System.Windows.Forms.TextBox waterWarningText;
-        private System.Windows.Forms.TextBox waterAlarmText;
+        private System.Windows.Forms.NumericUpDown overfillLimitText;
+        private System.Windows.Forms.NumericUpDown highLimitText;
+        private System.Windows.Forms.NumericUpDown deliveryWarningText;
+        private System.Windows.Forms.NumericUpDown lowLimitText;
+        private System.Windows.Forms.NumericUpDown waterWarningText;
+        private System.Windows.Forms.NumericUpDown waterAlarmText;
         private System.Windows.Forms.Label safeWorkingCapacityLabel;
         private System.Windows.Forms.Label noteLabel;
         private System.Windows.Forms.Label overfillLimitLabel;
@@ -345,8 +423,8 @@
         private System.Windows.Forms.Label lowLimitLabel;
         private System.Windows.Forms.Label waterAlarmLabel;
         private System.Windows.Forms.Label waterWarningLabel;
-        private System.Windows.Forms.TextBox tankDiameterText;
-        private System.Windows.Forms.TextBox tankLengthText;
+        private System.Windows.Forms.NumericUpDown tankDiameterText;
+        private System.Windows.Forms.NumericUpDown tankLengthText;
         private System.Windows.Forms.Label tankDiameterLabel;
         private System.Windows.Forms.Label tankLengthLabel;
         private System.Windows.Forms.Label tankVolumeText;
