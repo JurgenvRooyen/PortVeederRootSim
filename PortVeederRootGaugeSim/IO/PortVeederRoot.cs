@@ -237,7 +237,7 @@ namespace PortVeederRootGaugeSim.IO
             {
                 codes += "03";
             }
-            // TODO need check  after change tank from Vertical to Horizontal
+
             if (probe.ProductLevel + probe.WaterLevel >= probe.MyTank.OverFillLimitLevel)
             {
                 codes += "04";
@@ -343,7 +343,6 @@ namespace PortVeederRootGaugeSim.IO
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
 
-            // TODO need check  after change tank from Vertical to Horizontal
             void ProbeDetails(int probeID, Single limit)
             {
                 TankProbe probe = probes[probeID];
