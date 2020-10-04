@@ -72,7 +72,7 @@
             this.ExitMenuItem.Name = "ExitMenuItem";
             this.ExitMenuItem.Size = new System.Drawing.Size(116, 26);
             this.ExitMenuItem.Text = "Exit";
-            this.ExitMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
+            this.ExitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
             // 
             // OptionsMenuItem
             // 
@@ -94,14 +94,14 @@
             this.EchoTestMenuItem.Name = "EchoTestMenuItem";
             this.EchoTestMenuItem.Size = new System.Drawing.Size(206, 26);
             this.EchoTestMenuItem.Text = "Echo Test";
-            this.EchoTestMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
+            this.EchoTestMenuItem.Click += new System.EventHandler(this.EchoTestMenuItem_Click);
             // 
             // PortVeederRootMenuItem
             // 
             this.PortVeederRootMenuItem.Name = "PortVeederRootMenuItem";
             this.PortVeederRootMenuItem.Size = new System.Drawing.Size(206, 26);
             this.PortVeederRootMenuItem.Text = "Port Veeder-Root";
-            this.PortVeederRootMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
+            this.PortVeederRootMenuItem.Click += new System.EventHandler(this.PortVeederRootMenuItem_Click);
             // 
             // HelpMenuItem
             // 
@@ -117,7 +117,7 @@
             this.AboutMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.AboutMenuItem.Size = new System.Drawing.Size(157, 26);
             this.AboutMenuItem.Text = "About";
-            this.AboutMenuItem.Click += new System.EventHandler(this.MenuItem_Click);
+            this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
             // 
             // flowLayoutPanel
             // 
