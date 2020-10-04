@@ -103,25 +103,26 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        private void MenuItem_Click(object sender, EventArgs e)
+        private void ExitMenuItem_Click(object sender, EventArgs e)
         {
-            const string exit = "Exit";
-            const string about = "About";
-            var menuItem = (ToolStripMenuItem)sender;
-            var menuText = menuItem.Text;
+            Application.Exit();
+        }
 
-            switch(menuText)
-            {
-                case exit:
-                    Application.Exit();
-                    break;
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "About information";
+            string title = "About Veeder-Root TLS Simulator by ITL";
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
-                case about:
-                    string message = "About information";
-                    string title = "About Veeder-Root TLS Simulator by ITL";
-                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-            }
+        private void EchoTestMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PortVeederRootMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void ConnectProbeButton_Click(object sender, EventArgs e)
