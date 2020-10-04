@@ -40,17 +40,56 @@ namespace PortVeederRootGaugeSim
 
         private void OkayButton_Click(object sender, EventArgs e)
         {
-            tankGauge.SetTankDiameter(Convert.ToSingle(tankDiameterText.Value));
-            tankGauge.SetTankLength(Convert.ToSingle(tankLengthText.Value));
-            tankGauge.MaxSafeWorkingCapacityModifier = Helper.GetWorkingCapacityModifier();
-            tankGauge.MyTank.MaxSafeWorkingCapacity = Helper.GetWorkingSafeCapacity();
-            tankGauge.MyTank.OverFillLimitLevel = Convert.ToSingle(overfillLimitText.Value);
-            tankGauge.MyTank.HighProductAlarmLevel = Convert.ToSingle(highLimitText.Value);
-            tankGauge.MyTank.DeliveryNeededWarningLevel = Convert.ToSingle(deliveryWarningText.Value);
-            tankGauge.MyTank.LowProductAlarmLevel = Convert.ToSingle(lowLimitText.Value);
-            tankGauge.MyTank.HighWaterAlarmLevel = Convert.ToSingle(waterAlarmText.Value);
-            tankGauge.MyTank.HighWaterWarningLevel = Convert.ToSingle(waterWarningText.Value);
-            this.Close();
+            if (Convert.ToSingle(overfillLimitText.Value) > Helper.GetFullVolume())
+            {
+                string message = "Overfill Level is greater than Tank Capacity";
+                string title = "ERROR: Invalid Configuration";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (highLimitText.Value > overfillLimitText.Value)
+            {
+                string message = "High Product Level is greater than Overfill Level";
+                string title = "ERROR: Invalid Configuration";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (deliveryWarningText.Value > highLimitText.Value)
+            {
+                string message = "Delivery Required Level is greater than High Product Level";
+                string title = "ERROR: Invalid Configuration";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (lowLimitText.Value > deliveryWarningText.Value)
+            {
+                string message = "Low Product Level is greater than Delivery Required Level";
+                string title = "ERROR: Invalid Configuration";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (waterAlarmText.Value > lowLimitText.Value)
+            {
+                string message = "High Water Alarm Level is greater than Low Product Level";
+                string title = "ERROR: Invalid Configuration";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (waterWarningText.Value > waterAlarmText.Value)
+            {
+                string message = "High Water Warning Level is greater than High Water Alarm Level";
+                string title = "ERROR: Invalid Configuration";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                tankGauge.SetTankDiameter(Convert.ToSingle(tankDiameterText.Value));
+                tankGauge.SetTankLength(Convert.ToSingle(tankLengthText.Value));
+                tankGauge.MaxSafeWorkingCapacityModifier = Helper.GetWorkingCapacityModifier();
+                tankGauge.MyTank.MaxSafeWorkingCapacity = Helper.GetWorkingSafeCapacity();
+                tankGauge.MyTank.OverFillLimitLevel = Convert.ToSingle(overfillLimitText.Value);
+                tankGauge.MyTank.HighProductAlarmLevel = Convert.ToSingle(highLimitText.Value);
+                tankGauge.MyTank.DeliveryNeededWarningLevel = Convert.ToSingle(deliveryWarningText.Value);
+                tankGauge.MyTank.LowProductAlarmLevel = Convert.ToSingle(lowLimitText.Value);
+                tankGauge.MyTank.HighWaterAlarmLevel = Convert.ToSingle(waterAlarmText.Value);
+                tankGauge.MyTank.HighWaterWarningLevel = Convert.ToSingle(waterWarningText.Value);
+                this.Close();
+            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
