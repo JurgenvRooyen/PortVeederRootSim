@@ -1,5 +1,6 @@
 ﻿using PortVeederRootGaugeSim.UI;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,7 +14,7 @@ namespace PortVeederRootGaugeSim
         private readonly RootSim TankGauges;
         private static readonly Timer refreshTimer = new Timer();
 
-        public MainForm(RootSim r)
+        public MainForm(RootSim r, Dictionary<string, Func<bool>> debugOptionsItems)
         {
             TankGauges = r;
             InitializeComponent();
@@ -47,7 +48,14 @@ namespace PortVeederRootGaugeSim
                 string message = "Probe Persistence file not found or invalid";
                 MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
+            foreach(var menuItem in debugOptionsItems)
+            { 
+                OptionsMenuItem.DropDownItems.Add(menuItem.Key);
+                //MainMenu.Items[1].
+            }
         }
+        
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -140,6 +148,11 @@ namespace PortVeederRootGaugeSim
                 ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Color.Green;
             }
+        }
+
+        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

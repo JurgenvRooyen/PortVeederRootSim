@@ -4,17 +4,20 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
-namespace PortVeederRootGaugeSim.IO
+namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 {
 
-    class PortVeederRoot : IProtocol
+    class ProtocolPortVeederRoot : IProtocol
     {
         readonly RootSim simulator;
         readonly string dateFormatString = "yyMMddHHmm";
+        readonly string notSupported = "9999";
+        readonly DebugPortVeederRoot pvDebug;
 
-        public PortVeederRoot(RootSim simulator)
+        public ProtocolPortVeederRoot(RootSim simulator, DebugPortVeederRoot debug)
         {
             this.simulator = simulator;
+            this.pvDebug = debug;
         }
 
         // HELPER FUNCTIONS
@@ -47,7 +50,7 @@ namespace PortVeederRootGaugeSim.IO
         {
             int stringValue = 0;
 
-            foreach(char c in message)
+            foreach (char c in message)
             {
                 stringValue += c;
             }
@@ -64,10 +67,18 @@ namespace PortVeederRootGaugeSim.IO
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
             replyString.Append(echo);
-            replyString.Append(probeID.ToString().PadLeft(2, '0'));
+
+            if (echo == "i202" && pvDebug.InvalidTankDropNumber)
+            {
+                replyString.Append("xx");
+            } else
+            { 
+                replyString.Append(probeID.ToString().PadLeft(2, '0'));
+            }
+
             replyString.Append(DateFormat(simulator.SystemTime));
-            
-            if (probeID == 0)
+
+            if (probeID == 0 && pvDebug.RespondToAllProbes)
             {
                 probeID++;
                 foreach (TankProbe probe in probes)
@@ -85,10 +96,19 @@ namespace PortVeederRootGaugeSim.IO
 
         public string Parse(string toParse)
         {
+            // Check for a polling message immediately to avoid running the rest of the logic
+            bool pollingAck = toParse.Length == 1 && pvDebug.SupportBIR && pvDebug.EventAckNakRespond;
+            if (pollingAck)
+            {
+                return "\x01" + "\x06" + "\x03";
+            }
+
             StringBuilder sb = new StringBuilder("\x01");
             string protocolCommand;
             string tankNumber;
             int probeID;
+
+            
 
 
             // possible exceptions arise from:
@@ -103,23 +123,43 @@ namespace PortVeederRootGaugeSim.IO
                 Debug.WriteLine("Protocol Parses");
                 Debug.WriteLine("Protocol Command: " + protocolCommand);
                 Debug.WriteLine("Tank Number: " + tankNumber);
-
+      
                 switch (protocolCommand)
                 {
                     case "i201":
                         sb.Append(CommandResponse("i201", probeID, I201));
                         break;
                     case "i202":
-                        sb.Append(CommandResponse("i202", probeID, I202));
+                        if (pvDebug.TankDropRespond)
+                        { 
+                            sb.Append(CommandResponse("i202", probeID, I202)); 
+                        } else
+                        {
+                            sb.Append(notSupported);
+                        }
                         break;
                     case "i205":
                         sb.Append(CommandResponse("i205", probeID, I205));
                         break;
                     case "i501":
-                        sb.Append(I501());
+                        if (pvDebug.DateTimeRespond)
+                        { 
+                            sb.Append(I501()); 
+                        }
+                        else
+                        {
+                            sb.Append(notSupported);
+                        }
                         break;
                     case "i902":
-                        sb.Append(I902());
+                        if (pvDebug.VersionRespond)
+                        {
+                            sb.Append(I902());
+                        }
+                        else
+                        {
+                            sb.Append(notSupported);
+                        }
                         break;
 
                     case "s051":
@@ -132,24 +172,25 @@ namespace PortVeederRootGaugeSim.IO
                         sb.Append(S628(probeID, toParse.Substring(7, 8)));
                         break;
                     default:
-                        sb.Append("9999");
+                        sb.Append(notSupported);
                         break;
-                    }
                 }
+            }
             catch (ArgumentOutOfRangeException e)
             {
-                sb.Append("9999");
+                sb.Append(notSupported);
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace);
             }
             catch (FormatException e)
             {
-                sb.Append("9999");
+                sb.Append(notSupported);
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace);
-            }catch (OverflowException e)
+            }
+            catch (OverflowException e)
             {
-                sb.Append("9999");
+                sb.Append(notSupported);
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace);
             }
@@ -201,7 +242,13 @@ namespace PortVeederRootGaugeSim.IO
             {
                 probeString.Append(drop.StartTime.ToString(dateFormatString));
                 probeString.Append(drop.EndingTime.ToString(dateFormatString));
-                probeString.Append("10");
+                if (pvDebug.IncludeHeights)
+                {
+                    probeString.Append("0A");
+                } else
+                {
+                    probeString.Append("08");
+                }
 
                 probeString.Append(SingleToHex(drop.StartingVolume).PadLeft(8, '0'));
                 probeString.Append(SingleToHex(drop.StartingTemperatureCompensatedVolume).PadLeft(8, '0'));
@@ -212,8 +259,12 @@ namespace PortVeederRootGaugeSim.IO
                 probeString.Append(SingleToHex(drop.EndingTemperatureCompensatedVolume).PadLeft(8, '0'));
                 probeString.Append(SingleToHex(drop.EndingWaterVolume).PadLeft(8, '0'));
                 probeString.Append(SingleToHex(drop.EndingTemperature).PadLeft(8, '0'));
-                probeString.Append(SingleToHex(drop.StartingLevel).PadLeft(8, '0'));
-                probeString.Append(SingleToHex(drop.EndingLevel).PadLeft(8, '0'));
+
+                if (pvDebug.IncludeHeights)
+                {
+                    probeString.Append(SingleToHex(drop.StartingLevel).PadLeft(8, '0'));
+                    probeString.Append(SingleToHex(drop.EndingLevel).PadLeft(8, '0'));
+                }
             }
 
             return probeString.ToString();
@@ -223,17 +274,17 @@ namespace PortVeederRootGaugeSim.IO
         private string I205(int probeID)
         {
             List<TankProbe> probes = simulator.TankProbeList;
+
             StringBuilder probeString = new StringBuilder();
             TankProbe probe = probes[probeID - 1];
-            probeString.Append(probeID.ToString().PadLeft(2, '0'));
-
+            probeString.Append(probeID);
             string codes = "";
 
-            if(probe.TankLeaking)
+            if (probe.TankLeaking)
             {
                 codes += "02";
             }
-            if(probe.WaterLevel >= probe.MyTank.HighWaterAlarmLevel)
+            if (probe.WaterLevel >= probe.MyTank.HighWaterAlarmLevel)
             {
                 codes += "03";
             }
@@ -242,34 +293,34 @@ namespace PortVeederRootGaugeSim.IO
             {
                 codes += "04";
             }
-            if(probe.ProductLevel <= probe.MyTank.LowProductAlarmLevel)
+            if (probe.ProductLevel <= probe.MyTank.LowProductAlarmLevel)
             {
                 codes += "05";
             }
-            if(probe.ProductLevel >= probe.MyTank.HighProductAlarmLevel)
+            if (probe.ProductLevel >= probe.MyTank.HighProductAlarmLevel)
             {
                 codes += "07";
             }
             // Check for invalid fuel level alarm?
-            if(probe.ProductLevel <= 15)
+            if (probe.ProductLevel <= 15)
             {
                 codes += "08";
             }
             //Probe disconnected not implemented
 
-            if(probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel)
+            if (probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel)
             {
                 codes += "10";
             }
-            if(probe.ProductLevel <= probe.MyTank.DeliveryNeededWarningLevel)
+            if (probe.ProductLevel <= probe.MyTank.DeliveryNeededWarningLevel)
             {
                 codes += "11";
             }
-            if(probe.ProductLevel >= probe.MyTank.MaxSafeWorkingCapacity)
+            if (probe.ProductLevel >= probe.MyTank.MaxSafeWorkingCapacity)
             {
                 codes += "12";
             }
-            if(probe.ProductTemperature < 8)
+            if (probe.ProductTemperature < 8)
             {
                 codes += "27";
             }
@@ -297,6 +348,7 @@ namespace PortVeederRootGaugeSim.IO
         private string I902()
         {
             StringBuilder replyString = new StringBuilder();
+
             replyString.Append("i90200");
             replyString.Append(DateFormat(simulator.SystemTime));
             replyString.Append("SOFTWARE# ");
@@ -312,7 +364,7 @@ namespace PortVeederRootGaugeSim.IO
         //Command S051 - Clear In Tank delivery reports
         private string S051(int probeID)
         {
-            TankProbe probe = simulator.TankProbeList[probeID-1];
+            TankProbe probe = simulator.TankProbeList[probeID - 1];
             probe.ClearDeliveryReport();
 
             return "";
@@ -342,6 +394,7 @@ namespace PortVeederRootGaugeSim.IO
             replyString.Append("s628");
             replyString.Append(probeID.ToString().PadLeft(2, '0'));
             replyString.Append(DateFormat(simulator.SystemTime));
+
 
             void ProbeDetails(int probeID, Single limit)
             {

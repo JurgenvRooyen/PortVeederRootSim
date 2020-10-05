@@ -10,7 +10,7 @@ namespace BlackBoxTest
 {
     class BlackBox
     {
-        PortVeederRoot protocol;
+        ProtocolPortVeederRoot protocol;
         TcpServer server;
         TcpClient client;
         TankProbe tankProbe, tankProbe2;
@@ -26,7 +26,7 @@ namespace BlackBoxTest
             tankprobeList.Add(tankProbe);
             tankprobeList.Add(tankProbe2);
             rootSim = new RootSim(tankprobeList, timeSpan);
-            protocol = new PortVeederRoot(rootSim);
+            protocol = new ProtocolPortVeederRoot(rootSim);
             server = new TcpServer(protocol);
             server.Start();
         }
