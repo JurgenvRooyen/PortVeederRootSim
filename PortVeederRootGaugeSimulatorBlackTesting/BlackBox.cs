@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using PortVeederRootGaugeSim;
 using PortVeederRootGaugeSim.IO;
+using PortVeederRootGaugeSim.IO.PortVeederRoot;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -14,6 +15,7 @@ namespace BlackBoxTest
         TcpServer server;
         TcpClient client;
         TankProbe tankProbe, tankProbe2;
+        DebugPortVeederRoot debug;
         RootSim rootSim;
 
         [OneTimeSetUp]
@@ -26,7 +28,8 @@ namespace BlackBoxTest
             tankprobeList.Add(tankProbe);
             tankprobeList.Add(tankProbe2);
             rootSim = new RootSim(tankprobeList, timeSpan);
-            protocol = new ProtocolPortVeederRoot(rootSim);
+            debug = new DebugPortVeederRoot();
+            protocol = new ProtocolPortVeederRoot(rootSim, debug);
             server = new TcpServer(protocol);
             server.Start();
         }

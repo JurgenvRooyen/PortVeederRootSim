@@ -7,7 +7,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
     {
         public bool IncludeHeights { get; set; }
         public bool InvalidTankDropNumber { get; set; } 
-        public bool SupportBIR { get; set; } // TODO
+        public bool SupportBIR { get; set; } 
         public bool VersionRespond { get; set; }
         public bool TankDropRespond { get; set; }
         public bool DateTimeRespond { get; set; }
