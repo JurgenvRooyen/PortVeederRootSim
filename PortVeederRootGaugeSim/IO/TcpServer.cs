@@ -49,21 +49,34 @@ namespace PortVeederRootGaugeSim.IO
             {
                 while ((await nStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
                 {
+                    Debug.WriteLine("loop");
+                    Debug.WriteLine("Received");
                     Debug.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
                     string parsed = protocol.Parse((System.Text.Encoding.ASCII.GetString(buffer)));
+                    Debug.WriteLine("Parsed");
+                    Debug.WriteLine(parsed);
+                    if(parsed == "")
+                    {
+                        break;
+                    }
+                    if (parsed.Length > Offset + 1)
+                    {
+                        int breakPosition = parsed.Length - Offset;
+                        string starter = parsed.Substring(0, breakPosition);
+                        string ending = parsed.Substring(breakPosition, Offset);
 
-                    int breakPosition = parsed.Length - Offset;
-                    string starter = parsed.Substring(0, breakPosition);
-                    string ending = parsed.Substring(breakPosition, Offset);
-
-                    nStream.Write(System.Text.Encoding.ASCII.GetBytes(starter));
-                    System.Threading.Thread.Sleep(Wait);
-                    nStream.Write(System.Text.Encoding.ASCII.GetBytes(ending));
+                        nStream.Write(System.Text.Encoding.ASCII.GetBytes(starter));
+                        System.Threading.Thread.Sleep(Wait);
+                        nStream.Write(System.Text.Encoding.ASCII.GetBytes(ending));
+                    } else
+                    {
+                        nStream.Write(System.Text.Encoding.ASCII.GetBytes(parsed));
+                    }
                 }
 
                 nStream.Close();
                 client.Close();
-
+                Debug.WriteLine("Stream Closed");
             }
             catch (IOException)
             {

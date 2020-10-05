@@ -78,13 +78,19 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
             replyString.Append(DateFormat(simulator.SystemTime));
 
-            if (probeID == 0 && pvDebug.RespondToAllProbes)
+            if (probeID == 0)
             {
-                probeID++;
-                foreach (TankProbe probe in probes)
+                if (pvDebug.RespondToAllProbes)
                 {
-                    replyString.Append(function(probeID));
                     probeID++;
+                    foreach (TankProbe probe in probes)
+                    {
+                        replyString.Append(function(probeID));
+                        probeID++;
+                    }
+                }
+                else { 
+                    return notSupported; 
                 }
             }
             else
@@ -96,27 +102,77 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
         public string Parse(string toParse)
         {
-            // Check for a polling message immediately to avoid running the rest of the logic
-            bool pollingAck = toParse.Length == 1 && pvDebug.SupportBIR && pvDebug.EventAckNakRespond;
-            if (pollingAck)
+            StringBuilder sb = new StringBuilder("\x01");
+            Debug.WriteLine(toParse.Length + " " + toParse.Length + " " + toParse.Length);
+            //BIR Commands - seperate control flow as they don't echo back in the normal fashion
+            if (toParse.Substring(1, 1) == "D")
             {
-                return "\x01" + "\x06" + "\x03";
+               if(pvDebug.SupportBIR && pvDebug.EventAckNakRespond)
+                {
+                   return("\x06");
+                } 
+               else if(pvDebug.SupportBIR && !pvDebug.EventAckNakRespond)
+                {
+                    return "";
+                } 
+                else
+                {
+                    sb.Append(notSupported);
+                }
+            }
+            else if(toParse[1] == 'B')
+            {
+                if (pvDebug.SupportBIR)
+                {
+                    return ("\x06");
+                }
+                else
+                {
+                    sb.Append(notSupported);
+                }
+            }
+            else if (toParse[1] == 'C' && toParse[15] == '\x03')
+            {
+                if (pvDebug.SupportBIR)
+                {
+                    return ("\x06");
+                }
+                else
+                {
+                    sb.Append(notSupported);
+                }
+            }
+            //else if (toParse[1] == 'C' && toParse.Length == 35)
+            //{
+
+            //}
+            else if(toParse[1] == 'i' || toParse[1] == 's')
+            {
+                sb.Append(NormalCommandParse(toParse));
+            }
+            else
+            {
+                sb.Append(notSupported);
             }
 
-            StringBuilder sb = new StringBuilder("\x01");
+            sb.Append("&&");
+            sb.Append(CalculateChecksum(sb.ToString()));
+            sb.Append("\x03");
+            return sb.ToString();
+        }
+
+        private string NormalCommandParse(string toParse)
+        {
+            StringBuilder nsb = new StringBuilder();
             string protocolCommand;
             string tankNumber;
             int probeID;
 
-            
-
-
-            // possible exceptions arise from:
-            // String.Substring - ArgumentOutOfRangeException
-            // Convert.ToInt32 - FormatException, OverflowException
             try
             {
-
+                // possible exceptions arise from:
+                // String.Substring - ArgumentOutOfRangeException
+                // Convert.ToInt32 - FormatException, OverflowException
                 protocolCommand = toParse.Substring(1, 4);
                 tankNumber = toParse.Substring(5, 2);
                 probeID = Convert.ToInt32(tankNumber);
@@ -124,82 +180,80 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 Debug.WriteLine("Protocol Parses");
                 Debug.WriteLine("Protocol Command: " + protocolCommand);
                 Debug.WriteLine("Tank Number: " + tankNumber);
-      
+
                 switch (protocolCommand)
                 {
                     case "i201":
-                        sb.Append(CommandResponse("i201", probeID, I201));
+                        nsb.Append(CommandResponse("i201", probeID, I201));
                         break;
                     case "i202":
                         if (pvDebug.TankDropRespond)
-                        { 
-                            sb.Append(CommandResponse("i202", probeID, I202)); 
-                        } else
                         {
-                            sb.Append(notSupported);
-                        }
-                        break;
-                    case "i205":
-                        sb.Append(CommandResponse("i205", probeID, I205));
-                        break;
-                    case "i501":
-                        if (pvDebug.DateTimeRespond)
-                        { 
-                            sb.Append(I501()); 
+                            nsb.Append(CommandResponse("i202", probeID, I202));
                         }
                         else
                         {
-                            sb.Append(notSupported);
+                            nsb.Append(notSupported);
+                        }
+                        break;
+                    case "i205":
+                        nsb.Append(CommandResponse("i205", probeID, I205));
+                        break;
+                    case "i501":
+                        if (pvDebug.DateTimeRespond)
+                        {
+                            nsb.Append(I501());
+                        }
+                        else
+                        {
+                            nsb.Append(notSupported);
                         }
                         break;
                     case "i902":
                         if (pvDebug.VersionRespond)
                         {
-                            sb.Append(I902());
+                            nsb.Append(I902());
                         }
                         else
                         {
-                            sb.Append(notSupported);
+                            nsb.Append(notSupported);
                         }
                         break;
 
                     case "s051":
-                        sb.Append(CommandResponse("s051", probeID, S051));
+                        nsb.Append(CommandResponse("s051", probeID, S051));
                         break;
                     case "s501":
-                        sb.Append(S501(toParse.Substring(7, 10)));
+                        nsb.Append(S501(toParse.Substring(7, 10)));
                         break;
                     case "s628":
-                        sb.Append(S628(probeID, toParse.Substring(7, 8)));
+                        nsb.Append(S628(probeID, toParse.Substring(7, 8)));
                         break;
                     default:
-                        sb.Append(notSupported);
+                        nsb.Append(notSupported);
                         break;
                 }
             }
             catch (ArgumentOutOfRangeException e)
             {
-                sb.Append(notSupported);
+                nsb.Append(notSupported);
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace);
             }
             catch (FormatException e)
             {
-                sb.Append(notSupported);
+                nsb.Append(notSupported);
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace);
             }
             catch (OverflowException e)
             {
-                sb.Append(notSupported);
+                nsb.Append(notSupported);
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace);
             }
 
-            sb.Append("&&");
-            sb.Append(CalculateChecksum(sb.ToString()));
-            sb.Append("\x03");
-            return sb.ToString();
+            return nsb.ToString();
         }
 
         //Command I201 - In Tank inventory
@@ -402,6 +456,11 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 TankProbe probe = probes[probeID];
 
                 probe.SetMaxSafeWorkingCapacityByLevel(limit);
+            }
+
+            if(!pvDebug.RespondToAllProbes)
+            {
+                return (notSupported);
             }
 
             if (probeID == 0)

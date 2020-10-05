@@ -24,7 +24,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             DateTimeRespond = true;
             RespondToAllProbes = true;
             InvalidTankDropNumber = false;
-            SupportBIR = false;
+            SupportBIR = true;
             EventAckNakRespond = false;
         }
 
