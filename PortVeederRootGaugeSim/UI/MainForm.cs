@@ -51,7 +51,7 @@ namespace PortVeederRootGaugeSim
             
             foreach(var menuItem in debugOptionsItems)
             { 
-                OptionsMenuItem.DropDownItems.Add(menuItem.Key);
+                OptionsMenuItem.DropDownItems.Add(menuItem.Key, null, OptionMenuItem_Click);
                 //MainMenu.Items[1].
             }
         }
@@ -125,12 +125,56 @@ namespace PortVeederRootGaugeSim
 
         private void EchoTestMenuItem_Click(object sender, EventArgs e)
         {
-
+            //TODO: implement echo test click
         }
 
         private void PortVeederRootMenuItem_Click(object sender, EventArgs e)
         {
+            //TODO: implement port veeder root click
+        }
 
+        private void OptionMenuItem_Click(object sender, EventArgs e)
+        {
+            const string includeHeights = "Include Heights";
+            const string invalidDropNumber = "Invalid Drop Number";
+            const string supportBIR = "Support BIR";
+            const string versionRespond = "Version Respond";
+            const string tankDropRespond = "Tank Drop Respond";
+            const string dateTimeRespond = "Date Time Respond";
+            const string respondToAllProbes = "Respond to All Probes";
+            var menuItem = (ToolStripMenuItem)sender;
+            var menuText = menuItem.Text;
+
+            switch(menuText)
+            {
+                case includeHeights:
+                    //TODO: implement include heights click
+                    break;
+
+                case invalidDropNumber:
+                    //TODO: implement invalid drop number click
+                    break;
+
+                case supportBIR:
+                    //TODO: implement support BIR click
+                    break;
+
+                case versionRespond:
+                    //TODO: implement version respond click
+                    break;
+
+                case tankDropRespond:
+                    //TODO: implement tank drop respond click
+                    break;
+
+                case dateTimeRespond:
+                    //TODO: implement date time respond click
+                    break;
+
+                case respondToAllProbes:
+                    //TODO: implement respond to all probes click
+                    break;
+            }
         }
 
         private void ConnectProbeButton_Click(object sender, EventArgs e)
