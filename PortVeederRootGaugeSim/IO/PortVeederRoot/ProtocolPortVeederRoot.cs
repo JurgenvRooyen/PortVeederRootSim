@@ -116,6 +116,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             // Convert.ToInt32 - FormatException, OverflowException
             try
             {
+
                 protocolCommand = toParse.Substring(1, 4);
                 tankNumber = toParse.Substring(5, 2);
                 probeID = Convert.ToInt32(tankNumber);

@@ -13,6 +13,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool DateTimeRespond { get; set; }
         public bool RespondToAllProbes { get; set; }
         public bool EventAckNakRespond { get; set; }
+        public bool DeliveryTankZeroBased { get; set; }
 
         public DebugPortVeederRoot()
         {
