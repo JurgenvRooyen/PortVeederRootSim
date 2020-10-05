@@ -8,18 +8,14 @@ namespace PortVeederRootGaugeSim.UI
         public int TankID { get; set; }
         private readonly TankProbe tankProbe;
 
-        public TankUserControl()
-        {
-            InitializeComponent();
-            comboBox1.SelectedIndex = 0;
-            tempUpDown.Value = 15;
-            productUpDown.Value = 800;
-            waterUpDown.Value = 20;
-        }
-
         public TankProbe GetTankProbe()
         {
             return tankProbe;
+        }
+
+        public TankUserControl()
+        {
+            InitializeComponent();
         }
 
         public TankUserControl(int id, TankProbe tankProbe)
@@ -81,14 +77,14 @@ namespace PortVeederRootGaugeSim.UI
 
         private void StartDeliveryButton_Click(object sender, EventArgs e)
         {
-            TankDropForm tankDrop = new TankDropForm();
-            DialogResult result = tankDrop.ShowDialog();
+            TankDropForm tankDropForm = new TankDropForm();
+            DialogResult result = tankDropForm.ShowDialog();
 
             if (result == DialogResult.OK)
             {
-                DateTime dropStartDate = tankDrop.GetStartDate();
-                float dropVolume = Convert.ToSingle(tankDrop.GetVolume());
-                Double dropDuration = Convert.ToDouble(tankDrop.GetDuration());
+                DateTime dropStartDate = tankDropForm.GetStartDate();
+                float dropVolume = Convert.ToSingle(tankDropForm.GetVolume());
+                Double dropDuration = Convert.ToDouble(tankDropForm.GetDuration());
                 float vol = this.tankProbe.ProductVolume;
                 float fullVol = this.tankProbe.MyTank.FullVolume;
                 if (vol + dropVolume > fullVol)
@@ -137,8 +133,8 @@ namespace PortVeederRootGaugeSim.UI
 
         private void GaugeSetupButton_Click(object sender, EventArgs e)
         {
-            GaugeSetup form3 = new GaugeSetup(tankProbe);
-            form3.ShowDialog();
+            GaugeSetup gaugeSetupForm = new GaugeSetup(tankProbe);
+            gaugeSetupForm.ShowDialog();
             gov.Text = Convert.ToString(tankProbe.GetGrossObservedVolume());
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);

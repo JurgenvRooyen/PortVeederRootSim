@@ -129,7 +129,7 @@ namespace PortVeederRootGaugeSim
                 return false;
             }
             WaterLevel = value;
-            WaterVolume = Models.Helper.LevelToVolume_Horizontal(value, MyTank.TankLength, MyTank.TankDiameter); ;
+            WaterVolume = Models.Helper.LevelToVolume_Horizontal(value, MyTank.TankLength, MyTank.TankDiameter);
             float totalVolume = WaterVolume + ProductVolume;
             float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,totalVolume,0, MyTank.TankLength, MyTank.TankDiameter);
             lock (ProductLevelLock)
@@ -328,7 +328,7 @@ namespace PortVeederRootGaugeSim
             float speed = Math.Min(MyTank.TankDeliveringPerInterval, t.MyTank.TankDeliveringPerInterval);
             while (MyTank.Connecting)
             {
-                while (MyTank.Connecting & ProductVolume != t.ProductVolume)
+                while (MyTank.Connecting && ProductVolume != t.ProductVolume)
                 {
                     Tuple<float, float> Levels = Models.Helper.ProductFlowing(ProductVolume, t.ProductVolume, speed);
                     if (ProductVolume > t.ProductVolume)
