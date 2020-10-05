@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace PortVeederRootGaugeSim.Models
 {
@@ -15,7 +12,7 @@ namespace PortVeederRootGaugeSim.Models
 
         public static float GetFullVolume(float workingTankDiameter, float workingTankLength)
         {
-            return LevelToVolume_Horizontal(workingTankDiameter, workingTankLength, workingTankDiameter); ;
+            return LevelToVolume_Horizontal(workingTankDiameter, workingTankLength, workingTankDiameter);
         }
 
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
