@@ -151,9 +151,12 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             //End an event, with BIR data to update the tank volume
             else if (toParse[1] == 'C' && toParse[35] == '\x03')
             {
-                if (pvDebug.SupportBIR)
+                if (pvDebug.SupportBIR && pvDebug.UpdatevolumeUsingBIR)
                 {
                     return EndDelivery();
+                } else if (!pvDebug.SupportBIR)
+                {
+                    sb.Append(notSupported);
                 }
             }
 
@@ -281,9 +284,14 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 // Attempt to get the tank number directly from the fueling position in a 1:1 fashion
                 // Does NOT support blended operations in current setup
                 int tankNumber = int.Parse(toParse.Substring(12,1)); 
+                if(pvDebug.DeliveryTankZeroBased)
+                {
+                    tankNumber++;
+                }
+    
                 float transactionTotal = float.Parse(toParse.Substring(13, 9));
                 TankProbe tank = simulator.TankProbeList[tankNumber];
-
+    
                 tank.SetProductVolume(tank.ProductVolume - transactionTotal);
 
                 return "\x06";
