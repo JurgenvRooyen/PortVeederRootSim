@@ -18,10 +18,10 @@ namespace PortVeederRootGaugeSim.UI
             InitializeComponent();
         }
 
-        public TankUserControl(int id, TankProbe tank)
+        public TankUserControl(int id, TankProbe probe)
         {
             TankID = id;
-            tankProbe = tank;
+            tankProbe = probe;
             InitializeComponent();
             TankProbeStatus.SelectedIndex = 0;
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
