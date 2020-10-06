@@ -64,6 +64,16 @@ namespace PortVeederRootGaugeSim
             refreshTimer.Tick += TimerEventProcessor;
             refreshTimer.Interval = 500;
             refreshTimer.Enabled = true;
+            CheckIncludeHeights(debugOptions.IncludeHeights);
+            CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
+            CheckSupportBIR(debugOptions.SupportBIR);
+            CheckVersionRespond(debugOptions.VersionRespond);
+            CheckTankDropRespond(debugOptions.TankDropRespond);
+            CheckDateTimeRespond(debugOptions.DateTimeRespond);
+            CheckRespondToAllProbes(debugOptions.RespondToAllProbes);
+            CheckEventAckNakRespond(debugOptions.EventAckNakRespond);
+            CheckInvalidDataTerminationFlag(debugOptions.InvalidDataTerminationFlag);
+            CheckDeliveryTankZeroBased(debugOptions.DeliveryTankZeroBased);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
