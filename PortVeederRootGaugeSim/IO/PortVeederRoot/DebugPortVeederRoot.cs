@@ -14,6 +14,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool RespondToAllProbes { get; set; }
         public bool EventAckNakRespond { get; set; }
         public bool DeliveryTankZeroBased { get; set; }
+        public bool InvalidDataTerminationFlag { get; set; }
 
         public DebugPortVeederRoot()
         {
@@ -26,6 +27,8 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             InvalidTankDropNumber = false;
             SupportBIR = true;
             EventAckNakRespond = false;
+            InvalidDataTerminationFlag = false;
+            DeliveryTankZeroBased = false;
         }
 
         private bool InvertBool(bool input)
@@ -44,8 +47,9 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             menuItems.Add("Version Respond", ToggleVersionRespond);
             menuItems.Add("Tank Drop Respond", ToggleTankDropRespond);
             menuItems.Add("Date Time Respond", ToggleDateTimeRespond);
-            menuItems.Add("Repond to All Probes", ToggleRespondToAllProbes);
-
+            menuItems.Add("Respond to All Probes", ToggleRespondToAllProbes);
+            menuItems.Add("Invalid Data Termination Flag", ToggleInvalidDataTerminationFlag);
+            menuItems.Add("Zero Based Tank Delivery", ToggleDeliveryTankZeroBased);
             return menuItems;
         }
 
@@ -94,8 +98,20 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool ToggleEventAckNakRespond()
         {
             EventAckNakRespond = InvertBool(EventAckNakRespond);
-            //TODO support BIR logic0
+            //TODO support BIR logic
             return EventAckNakRespond;
+        }
+
+        public bool ToggleInvalidDataTerminationFlag()
+        {
+            InvalidDataTerminationFlag = InvertBool(InvalidDataTerminationFlag);
+            return InvalidDataTerminationFlag;
+        }
+
+        public bool ToggleDeliveryTankZeroBased()
+        {
+            DeliveryTankZeroBased = InvertBool(DeliveryTankZeroBased);
+            return DeliveryTankZeroBased;
         }
     }
 }

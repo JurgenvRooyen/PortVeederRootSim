@@ -180,6 +180,20 @@ namespace BlackBoxTest
         [TestCase("i20100")]
         [TestCase("i20200")]
         [TestCase("i20500")]
+        [TestCase("i90200")]
+        [TestCase("s05100")]
+        [TestCase("s501002001010101")]
+        [TestCase("s6280000000000")]
+        public void InvalidTerminatorTest(string toTest)
+        {
+            debug.InvalidDataTerminationFlag = true;
+            string response = SendRequest(toTest);
+            Assert.AreEqual("B8", response.Substring(response.Length-7, 2));
+        }
+
+        [TestCase("i20100")]
+        [TestCase("i20200")]
+        [TestCase("i20500")]
         [TestCase("s05100")]
         [TestCase("s6280000000000")]
         public void NoRespondToAllTest(string toTest)

@@ -154,8 +154,14 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             {
                 sb.Append(notSupported);
             }
-
-            sb.Append("&&");
+            if (pvDebug.InvalidDataTerminationFlag)
+            {
+                sb.Append("B8");
+            }
+            else
+            { 
+                sb.Append("&&"); 
+            }
             sb.Append(CalculateChecksum(sb.ToString()));
             sb.Append("\x03");
             return sb.ToString();
