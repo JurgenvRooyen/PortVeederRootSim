@@ -154,42 +154,126 @@ namespace PortVeederRootGaugeSim
             {
                 case includeHeights:
                     debugOptions.ToggleIncludeHeights();
+                    if (debugOptions.IncludeHeights)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = false;
+                    }
                     break;
 
                 case invalidDropNumber:
                     debugOptions.ToggleInvalidDropNumber();
+                    if (debugOptions.InvalidTankDropNumber)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = false;
+                    }
                     break;
 
                 case supportBIR:
                     debugOptions.ToggleSupportBIR();
+                    if (debugOptions.SupportBIR)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = true;
+                        OptionsMenuItem.DropDownItems[7].Enabled = true;
+                        OptionsMenuItem.DropDownItems[9].Enabled = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = false;
+                        OptionsMenuItem.DropDownItems[7].Enabled = true;
+                        OptionsMenuItem.DropDownItems[9].Enabled = true;
+                    }
                     break;
 
                 case versionRespond:
                     debugOptions.ToggleVersionRespond();
+                    if (debugOptions.VersionRespond)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = false;
+                    }
                     break;
 
                 case tankDropRespond:
                     debugOptions.ToggleTankDropRespond();
+                    if (debugOptions.TankDropRespond)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = false;
+                    }
                     break;
 
                 case dateTimeRespond:
                     debugOptions.ToggleDateTimeRespond();
+                    if (debugOptions.DateTimeRespond)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = false;
+                    }
                     break;
 
                 case respondToAllProbes:
                     debugOptions.ToggleRespondToAllProbes();
+                    if (debugOptions.RespondToAllProbes)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = false;
+                    }
                     break;
 
                 case eventAckNakRespond:
                     debugOptions.ToggleEventAckNakRespond();
+                    if (debugOptions.EventAckNakRespond)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = false;
+                    }
                     break;
 
                 case invalidDataTermination:
                     debugOptions.ToggleInvalidDataTerminationFlag();
+                    if (debugOptions.InvalidDataTerminationFlag)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = false;
+                    }
                     break;
 
                 case zeroBasedTankDelivery:
                     debugOptions.ToggleDeliveryTankZeroBased();
+                    if (debugOptions.DeliveryTankZeroBased)
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = true;
+                    }
+                    else
+                    {
+                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = false;
+                    }
                     break;
             }
         }
