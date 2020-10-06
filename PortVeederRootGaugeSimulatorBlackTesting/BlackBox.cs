@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using PortVeederRootGaugeSim;
 using PortVeederRootGaugeSim.IO;
+using PortVeederRootGaugeSim.IO.PortVeederRoot;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -10,10 +11,11 @@ namespace BlackBoxTest
 {
     class BlackBox
     {
-        PortVeederRoot protocol;
+        ProtocolPortVeederRoot protocol;
         TcpServer server;
         TcpClient client;
         TankProbe tankProbe, tankProbe2;
+        DebugPortVeederRoot debug;
         RootSim rootSim;
 
         [OneTimeSetUp]
@@ -26,7 +28,8 @@ namespace BlackBoxTest
             tankprobeList.Add(tankProbe);
             tankprobeList.Add(tankProbe2);
             rootSim = new RootSim(tankprobeList, timeSpan);
-            protocol = new PortVeederRoot(rootSim);
+            debug = new DebugPortVeederRoot();
+            protocol = new ProtocolPortVeederRoot(rootSim, debug);
             server = new TcpServer(protocol);
             server.Start();
         }
@@ -36,7 +39,6 @@ namespace BlackBoxTest
         {
             tankProbe.TankDroppedList.Clear();
             client = new TcpClient();
-
             TankDrop td = new TankDrop(10, DateTime.Now, 5, 5, 15, 6, 15);
             td.EndingTemperatureCompensatedVolume = 10;
             td.EndingTemperature = 20;
@@ -46,6 +48,21 @@ namespace BlackBoxTest
             td.EndingLevel = 10;
 
             tankProbe.TankDroppedList.Add(td);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            debug.IncludeHeights = true;
+            debug.VersionRespond = true;
+            debug.TankDropRespond = true;
+            debug.DateTimeRespond = true;
+            debug.RespondToAllProbes = true;
+            debug.InvalidTankDropNumber = false;
+            debug.SupportBIR = true;
+            debug.EventAckNakRespond = false;
+            debug.InvalidDataTerminationFlag = false;
+            rootSim.SystemTime = new TimeSpan();
         }
 
         private float HexToSingle(string hex)
@@ -69,6 +86,7 @@ namespace BlackBoxTest
         private string SendRequest(String request)
         {
             client.Connect("127.0.0.1", 10001);
+            Console.WriteLine(request.Length);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes("\x02" + request);
             NetworkStream nStream = client.GetStream();
             nStream.Write(data);
@@ -78,16 +96,48 @@ namespace BlackBoxTest
             while (true)
             {
                 byte[] bytes = new byte[1];
-                nStream.Read(bytes, 0, 1);
+                nStream.Read(bytes, 0, 1);                
                 string decode = Encoding.UTF8.GetString(bytes);
                 response += decode;
-                if (decode == "\x03") { break; }
+                if (decode == "\x03" || decode == "\x06") { break; }
             }
 
             nStream.Close();
             client.Close();
 
             return response;
+        }
+
+        [Test]
+        public void BIRPollTest()
+        {
+            debug.ToggleEventAckNakRespond();
+            string response = SendRequest("D");
+            Assert.AreEqual("\x06", response);
+        }
+
+        [Test]
+        public void BIRStartTest()
+        {
+            string response = SendRequest("B");
+            Assert.AreEqual("\x06", response);
+        }
+
+        [Test]
+        public void BIREndNoUpdateTest()
+        {
+            string response = SendRequest("CQlTv15tBMeTGy" + "\x03");
+            Assert.AreEqual("\x06", response);
+        }
+
+        [TestCase("D")]
+        [TestCase("B")]
+        [TestCase("CQlTv15tBMeTGy")]
+        public void BIRNotSupportTest(string toTest)
+        {
+            debug.SupportBIR = false;
+            string response = SendRequest(toTest);
+            Assert.AreEqual(response, "\x01" + "9999&&FECF" + "\x03");
         }
 
         [TestCase("test")]
@@ -125,6 +175,32 @@ namespace BlackBoxTest
         {
             string response = SendRequest(toTest);
 
+            Assert.AreEqual("\x001" + "9999&&FECF" + "\x003", response);
+        }
+
+        [TestCase("i20100")]
+        [TestCase("i20200")]
+        [TestCase("i20500")]
+        [TestCase("i90200")]
+        [TestCase("s05100")]
+        [TestCase("s501002001010101")]
+        [TestCase("s6280000000000")]
+        public void InvalidTerminatorTest(string toTest)
+        {
+            debug.InvalidDataTerminationFlag = true;
+            string response = SendRequest(toTest);
+            Assert.AreEqual("B8", response.Substring(response.Length-7, 2));
+        }
+
+        [TestCase("i20100")]
+        [TestCase("i20200")]
+        [TestCase("i20500")]
+        [TestCase("s05100")]
+        [TestCase("s6280000000000")]
+        public void NoRespondToAllTest(string toTest)
+        {
+            debug.RespondToAllProbes = false;
+            string response = SendRequest(toTest);
             Assert.AreEqual("\x001" + "9999&&FECF" + "\x003", response);
         }
 
@@ -171,6 +247,68 @@ namespace BlackBoxTest
             Assert.AreEqual(10, endGOV);
             Assert.AreEqual(11, endWater);
             Assert.AreEqual(20, endTemp);
+            Assert.AreEqual(131, response.Length);
+        }
+
+        [Test]
+        public void i202InvalidTankDropNumber()
+        {
+            debug.InvalidTankDropNumber = true;
+            string response = SendRequest("i20201");
+            Assert.AreEqual("xx", response.Substring(5, 2));
+        }
+
+        [Test]
+        public void i202NoRespondTest()
+        {
+            debug.ToggleTankDropRespond();
+            string response = SendRequest("i20200");
+
+            Assert.AreEqual("\x001" + "9999&&FECF" + "\x003", response);
+        }
+
+        [Test]
+        public void i202NoIncludeHeightTest()
+        {
+            debug.ToggleIncludeHeights();
+            string response = SendRequest("i20201");
+
+            Assert.AreEqual(115, response.Length);
+        }
+
+        [Test]
+        public void i501Test()
+        {
+            string response = SendRequest("i50100");
+            string current = DateTime.Now.ToString("yyMMddHHmm");
+
+            Assert.AreEqual(current, response.Substring(17, 10));
+        }
+
+        [Test]
+        public void i501NoRespondTest()
+        {
+            debug.ToggleDateTimeRespond();
+            string response = SendRequest("i50100");
+    
+
+            Assert.AreEqual("\x001" + "9999&&FECF" + "\x003", response);
+        }
+
+        [Test]
+        public void i902Test()
+        {
+            string response = SendRequest("i90200");
+            Assert.AreEqual(73, response.Length);
+        }
+
+        [Test]
+        public void i902NoRespondTest()
+        {
+            debug.ToggleVersionRespond();
+            string response = SendRequest("i90200");
+
+            Assert.AreEqual("\x001" + "9999&&FECF" + "\x003", response);
         }
 
         [Test]

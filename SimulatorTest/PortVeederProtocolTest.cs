@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using PortVeederRootGaugeSim;
-using PortVeederRootGaugeSim.IO;
+using PortVeederRootGaugeSim.IO.PortVeederRoot;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +8,8 @@ namespace SimulatorTest
 {
     class ProtocolTest
     {
-        PortVeederRoot protocol;
+        ProtocolPortVeederRoot protocol;
+        DebugPortVeederRoot debug;
         RootSim rootSim;
 
         private float HexToSingle(string hex)
@@ -33,7 +34,8 @@ namespace SimulatorTest
             TimeSpan timeSpan = new TimeSpan();
             tankprobeList.Add(tankProbe);
             rootSim = new RootSim(tankprobeList, timeSpan);
-            protocol = new PortVeederRoot(rootSim);
+            debug = new DebugPortVeederRoot();
+            protocol = new ProtocolPortVeederRoot(rootSim, debug);
 
             TankDrop td = new TankDrop(10, DateTime.Now, 5, 5, 15, 6, 15);
             td.EndingTemperatureCompensatedVolume = 10;

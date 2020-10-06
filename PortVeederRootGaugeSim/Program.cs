@@ -1,4 +1,5 @@
 using PortVeederRootGaugeSim.IO;
+using PortVeederRootGaugeSim.IO.PortVeederRoot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,15 @@ namespace PortVeederRootGaugeSim
         static void Main()
         {
             RootSim rootSim = new RootSim();
-            PortVeederRoot protocol = new PortVeederRoot(rootSim);
+            DebugPortVeederRoot debug = new DebugPortVeederRoot();
+            ProtocolPortVeederRoot protocol = new ProtocolPortVeederRoot(rootSim, debug);            
             TcpServer server = new TcpServer(protocol);
             server.Start();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(rootSim));
+            Application.Run(new MainForm(rootSim, debug.MenuOutput()));
         }
     }
 }
