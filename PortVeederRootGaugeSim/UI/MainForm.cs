@@ -154,126 +154,52 @@ namespace PortVeederRootGaugeSim
             {
                 case includeHeights:
                     debugOptions.ToggleIncludeHeights();
-                    if (debugOptions.IncludeHeights)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = false;
-                    }
+                    CheckIncludeHeights(debugOptions.IncludeHeights);
                     break;
 
                 case invalidDropNumber:
                     debugOptions.ToggleInvalidDropNumber();
-                    if (debugOptions.InvalidTankDropNumber)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = false;
-                    }
+                    CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
                     break;
 
                 case supportBIR:
                     debugOptions.ToggleSupportBIR();
-                    if (debugOptions.SupportBIR)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = true;
-                        OptionsMenuItem.DropDownItems[7].Enabled = true;
-                        OptionsMenuItem.DropDownItems[9].Enabled = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = false;
-                        OptionsMenuItem.DropDownItems[7].Enabled = true;
-                        OptionsMenuItem.DropDownItems[9].Enabled = true;
-                    }
+                    CheckSupportBIR(debugOptions.SupportBIR);
                     break;
 
                 case versionRespond:
                     debugOptions.ToggleVersionRespond();
-                    if (debugOptions.VersionRespond)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = false;
-                    }
+                    CheckVersionRespond(debugOptions.VersionRespond);
                     break;
 
                 case tankDropRespond:
                     debugOptions.ToggleTankDropRespond();
-                    if (debugOptions.TankDropRespond)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = false;
-                    }
+                    CheckTankDropRespond(debugOptions.TankDropRespond);
                     break;
 
                 case dateTimeRespond:
                     debugOptions.ToggleDateTimeRespond();
-                    if (debugOptions.DateTimeRespond)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = false;
-                    }
+                    CheckDateTimeRespond(debugOptions.DateTimeRespond);
                     break;
 
                 case respondToAllProbes:
                     debugOptions.ToggleRespondToAllProbes();
-                    if (debugOptions.RespondToAllProbes)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = false;
-                    }
+                    CheckRespondToAllProbes(debugOptions.RespondToAllProbes);
                     break;
 
                 case eventAckNakRespond:
                     debugOptions.ToggleEventAckNakRespond();
-                    if (debugOptions.EventAckNakRespond)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = false;
-                    }
+                    CheckEventAckNakRespond(debugOptions.EventAckNakRespond);
                     break;
 
                 case invalidDataTermination:
                     debugOptions.ToggleInvalidDataTerminationFlag();
-                    if (debugOptions.InvalidDataTerminationFlag)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = false;
-                    }
+                    CheckInvalidDataTerminationFlag(debugOptions.InvalidDataTerminationFlag);
                     break;
 
                 case zeroBasedTankDelivery:
                     debugOptions.ToggleDeliveryTankZeroBased();
-                    if (debugOptions.DeliveryTankZeroBased)
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = true;
-                    }
-                    else
-                    {
-                        ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = false;
-                    }
+                    CheckDeliveryTankZeroBased(debugOptions.DeliveryTankZeroBased);
                     break;
             }
         }
@@ -292,6 +218,130 @@ namespace PortVeederRootGaugeSim
                 TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
                 ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Color.Green;
+            }
+        }
+
+        private void CheckIncludeHeights(bool includeHeights)
+        {
+            if (includeHeights)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = false;
+            }
+        }
+
+        private void CheckInvalidTankDropNumber(bool invalidDropNumber)
+        {
+            if (invalidDropNumber)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = false;
+            }
+        }
+
+        private void CheckSupportBIR(bool supportBIR)
+        {
+            if (supportBIR)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = true;
+                OptionsMenuItem.DropDownItems[7].Enabled = true;
+                OptionsMenuItem.DropDownItems[9].Enabled = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = false;
+                OptionsMenuItem.DropDownItems[7].Enabled = true;
+                OptionsMenuItem.DropDownItems[9].Enabled = true;
+            }
+        }
+
+        private void CheckVersionRespond(bool versionRespond)
+        {
+            if (versionRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = false;
+            }
+        }
+
+        private void CheckTankDropRespond(bool dropRespond)
+        {
+            if (dropRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = false;
+            }
+        }
+        
+        private void CheckDateTimeRespond(bool dateRespond)
+        {
+            if (dateRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = false;
+            }
+        }
+
+        private void CheckRespondToAllProbes(bool probeRespond)
+        {
+            if (probeRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = false;
+            }
+        }
+
+        private void CheckEventAckNakRespond(bool eventRespond)
+        {
+            if (eventRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = false;
+            }
+        }
+
+        private void CheckInvalidDataTerminationFlag(bool invalidFlag)
+        {
+            if (invalidFlag)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = false;
+            }
+        }
+
+        private void CheckDeliveryTankZeroBased(bool deliveryZero)
+        {
+            if (deliveryZero)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = false;
             }
         }
     }
