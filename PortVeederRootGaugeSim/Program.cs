@@ -1,9 +1,6 @@
 using PortVeederRootGaugeSim.IO;
 using PortVeederRootGaugeSim.IO.PortVeederRoot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PortVeederRootGaugeSim
@@ -25,7 +22,7 @@ namespace PortVeederRootGaugeSim
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(rootSim, debug.MenuOutput()));
+            Application.Run(new MainForm(rootSim, debug));
         }
     }
 }

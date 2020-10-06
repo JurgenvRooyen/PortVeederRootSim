@@ -1,22 +1,23 @@
-﻿using PortVeederRootGaugeSim.UI;
+﻿using PortVeederRootGaugeSim.IO.PortVeederRoot;
+using PortVeederRootGaugeSim.UI;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 
 namespace PortVeederRootGaugeSim
 {
-
     public partial class MainForm : Form
     {
         private int numberOfTanks = 0;
         private readonly RootSim TankGauges;
+        private readonly DebugPortVeederRoot debugOptions;
         private static readonly Timer refreshTimer = new Timer();
 
-        public MainForm(RootSim r, Dictionary<string, Func<bool>> debugOptionsItems)
+        public MainForm(RootSim root, DebugPortVeederRoot debug)
         {
-            TankGauges = r;
+            TankGauges = root;
+            debugOptions = debug;
             InitializeComponent();
             try
             {
@@ -49,19 +50,27 @@ namespace PortVeederRootGaugeSim
                 MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
-            foreach(var menuItem in debugOptionsItems)
+            foreach(var menuItem in debugOptions.MenuOutput())
             { 
-                OptionsMenuItem.DropDownItems.Add(menuItem.Key, null, OptionMenuItem_Click);
-                //MainMenu.Items[1].
+                OptionsMenuItem.DropDownItems.Add(menuItem, null, OptionMenuItem_Click);
             }
-        }
-        
+        } 
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             refreshTimer.Tick += TimerEventProcessor;
             refreshTimer.Interval = 500;
             refreshTimer.Enabled = true;
+            CheckIncludeHeights(debugOptions.IncludeHeights);
+            CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
+            CheckSupportBIR(debugOptions.SupportBIR);
+            CheckVersionRespond(debugOptions.VersionRespond);
+            CheckTankDropRespond(debugOptions.TankDropRespond);
+            CheckDateTimeRespond(debugOptions.DateTimeRespond);
+            CheckRespondToAllProbes(debugOptions.RespondToAllProbes);
+            CheckEventAckNakRespond(debugOptions.EventAckNakRespond);
+            CheckInvalidDataTerminationFlag(debugOptions.InvalidDataTerminationFlag);
+            CheckDeliveryTankZeroBased(debugOptions.DeliveryTankZeroBased);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -123,16 +132,6 @@ namespace PortVeederRootGaugeSim
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void EchoTestMenuItem_Click(object sender, EventArgs e)
-        {
-            //TODO: implement echo test click
-        }
-
-        private void PortVeederRootMenuItem_Click(object sender, EventArgs e)
-        {
-            //TODO: implement port veeder root click
-        }
-
         private void OptionMenuItem_Click(object sender, EventArgs e)
         {
             const string includeHeights = "Include Heights";
@@ -142,37 +141,62 @@ namespace PortVeederRootGaugeSim
             const string tankDropRespond = "Tank Drop Respond";
             const string dateTimeRespond = "Date Time Respond";
             const string respondToAllProbes = "Respond to All Probes";
+            const string eventAckNakRespond = "Event AckNak Respond";
+            const string invalidDataTermination = "Invalid Data Termination Flag";
+            const string zeroBasedTankDelivery = "Zero Based Tank Delivery";
             var menuItem = (ToolStripMenuItem)sender;
             var menuText = menuItem.Text;
 
             switch(menuText)
             {
                 case includeHeights:
-                    //TODO: implement include heights click
+                    debugOptions.ToggleIncludeHeights();
+                    CheckIncludeHeights(debugOptions.IncludeHeights);
                     break;
 
                 case invalidDropNumber:
-                    //TODO: implement invalid drop number click
+                    debugOptions.ToggleInvalidDropNumber();
+                    CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
                     break;
 
                 case supportBIR:
-                    //TODO: implement support BIR click
+                    debugOptions.ToggleSupportBIR();
+                    CheckSupportBIR(debugOptions.SupportBIR);
                     break;
 
                 case versionRespond:
-                    //TODO: implement version respond click
+                    debugOptions.ToggleVersionRespond();
+                    CheckVersionRespond(debugOptions.VersionRespond);
                     break;
 
                 case tankDropRespond:
-                    //TODO: implement tank drop respond click
+                    debugOptions.ToggleTankDropRespond();
+                    CheckTankDropRespond(debugOptions.TankDropRespond);
                     break;
 
                 case dateTimeRespond:
-                    //TODO: implement date time respond click
+                    debugOptions.ToggleDateTimeRespond();
+                    CheckDateTimeRespond(debugOptions.DateTimeRespond);
                     break;
 
                 case respondToAllProbes:
-                    //TODO: implement respond to all probes click
+                    debugOptions.ToggleRespondToAllProbes();
+                    CheckRespondToAllProbes(debugOptions.RespondToAllProbes);
+                    break;
+
+                case eventAckNakRespond:
+                    debugOptions.ToggleEventAckNakRespond();
+                    CheckEventAckNakRespond(debugOptions.EventAckNakRespond);
+                    break;
+
+                case invalidDataTermination:
+                    debugOptions.ToggleInvalidDataTerminationFlag();
+                    CheckInvalidDataTerminationFlag(debugOptions.InvalidDataTerminationFlag);
+                    break;
+
+                case zeroBasedTankDelivery:
+                    debugOptions.ToggleDeliveryTankZeroBased();
+                    CheckDeliveryTankZeroBased(debugOptions.DeliveryTankZeroBased);
                     break;
             }
         }
@@ -194,9 +218,128 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void CheckIncludeHeights(bool includeHeights)
         {
+            if (includeHeights)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[0]).Checked = false;
+            }
+        }
 
+        private void CheckInvalidTankDropNumber(bool invalidDropNumber)
+        {
+            if (invalidDropNumber)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = false;
+            }
+        }
+
+        private void CheckSupportBIR(bool supportBIR)
+        {
+            if (supportBIR)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = true;
+                OptionsMenuItem.DropDownItems[7].Enabled = true;
+                OptionsMenuItem.DropDownItems[9].Enabled = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = false;
+                OptionsMenuItem.DropDownItems[7].Enabled = false;
+                OptionsMenuItem.DropDownItems[9].Enabled = false;
+            }
+        }
+
+        private void CheckVersionRespond(bool versionRespond)
+        {
+            if (versionRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[3]).Checked = false;
+            }
+        }
+
+        private void CheckTankDropRespond(bool dropRespond)
+        {
+            if (dropRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[4]).Checked = false;
+            }
+        }
+        
+        private void CheckDateTimeRespond(bool dateRespond)
+        {
+            if (dateRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[5]).Checked = false;
+            }
+        }
+
+        private void CheckRespondToAllProbes(bool probeRespond)
+        {
+            if (probeRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[6]).Checked = false;
+            }
+        }
+
+        private void CheckEventAckNakRespond(bool eventRespond)
+        {
+            if (eventRespond)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[7]).Checked = false;
+            }
+        }
+
+        private void CheckInvalidDataTerminationFlag(bool invalidFlag)
+        {
+            if (invalidFlag)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = false;
+            }
+        }
+
+        private void CheckDeliveryTankZeroBased(bool deliveryZero)
+        {
+            if (deliveryZero)
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = true;
+            }
+            else
+            {
+                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[9]).Checked = false;
+            }
         }
     }
 }

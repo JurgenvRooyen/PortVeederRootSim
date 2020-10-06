@@ -46,9 +46,6 @@ namespace PortVeederRootGaugeSim
             SystemTime = systemTime;
         }
 
-
-
-
         public void AddTankProbe(TankProbe t)
         {
             TankProbeList.Add(t);
@@ -103,7 +100,6 @@ namespace PortVeederRootGaugeSim
             formatter.Serialize(stream, this.TankProbeList);
             stream.Close();
         }
-
     }
 }
 
