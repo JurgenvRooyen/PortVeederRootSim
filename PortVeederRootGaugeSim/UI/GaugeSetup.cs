@@ -12,9 +12,9 @@ namespace PortVeederRootGaugeSim
         private float workingSafeCapacity;
         private float workingFullVolume;
 
-        public GaugeSetup(TankProbe tp)
+        public GaugeSetup(TankProbe tankProbe)
         {
-            tankGauge = tp;
+            tankGauge = tankProbe;
             InitializeComponent();
 
             if (tankGauge.MaxSafeWorkingCapacityModifier == 0.95f)
