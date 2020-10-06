@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace PortVeederRootGaugeSim.IO.PortVeederRoot
@@ -36,20 +37,21 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             return !input;
         }
 
-        public Dictionary<string, Func<bool>> MenuOutput()
+        public List<string> MenuOutput()
         {
-
-            Dictionary<string, Func<bool>> menuItems = new Dictionary<string, Func<bool>>();
-
-            menuItems.Add("Include Heights", ToggleIncludeHeights);
-            menuItems.Add("Invalid Drop Number", ToggleInvalidDropNumber);
-            menuItems.Add("Support BIR", ToggleSupportBIR);
-            menuItems.Add("Version Respond", ToggleVersionRespond);
-            menuItems.Add("Tank Drop Respond", ToggleTankDropRespond);
-            menuItems.Add("Date Time Respond", ToggleDateTimeRespond);
-            menuItems.Add("Respond to All Probes", ToggleRespondToAllProbes);
-            menuItems.Add("Invalid Data Termination Flag", ToggleInvalidDataTerminationFlag);
-            menuItems.Add("Zero Based Tank Delivery", ToggleDeliveryTankZeroBased);
+            List<string> menuItems = new List<string>
+            {
+                "Include Heights",
+                "Invalid Drop Number",
+                "Support BIR",
+                "Version Respond",
+                "Tank Drop Respond",
+                "Date Time Respond",
+                "Respond to All Probes",
+                "Event AckNak Respond",
+                "Invalid Data Termination Flag",
+                "Zero Based Tank Delivery"
+            };
             return menuItems;
         }
 
