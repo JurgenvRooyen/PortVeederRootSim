@@ -23,7 +23,7 @@ namespace PortVeederRootGaugeSim.UI
             TankID = id;
             this.tankProbe = tankProbe;
             InitializeComponent();
-            comboBox1.SelectedIndex = 0;
+            TankProbeStatus.SelectedIndex = 0;
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
             productUpDown.Value = Convert.ToDecimal(tankProbe.ProductLevel);
             waterUpDown.Value = Convert.ToDecimal(tankProbe.WaterLevel);
@@ -140,6 +140,22 @@ namespace PortVeederRootGaugeSim.UI
             capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
             this.Refresh();
+        }
+
+        private void TankProbeStatusChanged(object sender, EventArgs e)
+        {
+            if (TankProbeStatus.SelectedIndex == 0)
+            {
+                tankProbe.TankprobeStatus = "OK";
+            }
+            else if (TankProbeStatus.SelectedIndex == 1)
+            {
+                tankProbe.TankprobeStatus = "ERR";
+            }
+            else
+            {
+                tankProbe.TankprobeStatus = "OUT";
+            }
         }
     }
 }

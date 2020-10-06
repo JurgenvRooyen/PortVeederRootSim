@@ -34,7 +34,7 @@
             this.ProbeDiameterLabel = new System.Windows.Forms.Label();
             this.ProbeLength = new System.Windows.Forms.Label();
             this.ProbeLengthLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.TankProbeStatus = new System.Windows.Forms.ComboBox();
             this.gsv = new System.Windows.Forms.Label();
             this.ullage = new System.Windows.Forms.Label();
             this.ullageLabel = new System.Windows.Forms.Label();
@@ -69,7 +69,7 @@
             this.TankGroupBox.Controls.Add(this.ProbeDiameterLabel);
             this.TankGroupBox.Controls.Add(this.ProbeLength);
             this.TankGroupBox.Controls.Add(this.ProbeLengthLabel);
-            this.TankGroupBox.Controls.Add(this.comboBox1);
+            this.TankGroupBox.Controls.Add(this.TankProbeStatus);
             this.TankGroupBox.Controls.Add(this.gsv);
             this.TankGroupBox.Controls.Add(this.ullage);
             this.TankGroupBox.Controls.Add(this.ullageLabel);
@@ -148,16 +148,17 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.TankProbeStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.TankProbeStatus.FormattingEnabled = true;
+            this.TankProbeStatus.Items.AddRange(new object[] {
             "Probe Ok",
             "Setup Err",
             "Probe Out"});
-            this.comboBox1.Location = new System.Drawing.Point(8, 540);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(107, 28);
-            this.comboBox1.TabIndex = 4;
+            this.TankProbeStatus.Location = new System.Drawing.Point(8, 540);
+            this.TankProbeStatus.Name = "comboBox1";
+            this.TankProbeStatus.Size = new System.Drawing.Size(107, 28);
+            this.TankProbeStatus.TabIndex = 4;
+            this.TankProbeStatus.SelectedIndexChanged += new System.EventHandler(this.TankProbeStatusChanged);
             // 
             // gsv
             // 
@@ -393,7 +394,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox TankGroupBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox TankProbeStatus;
         private System.Windows.Forms.Label gsv;
         private System.Windows.Forms.Label ullage;
         private System.Windows.Forms.Label ullageLabel;
