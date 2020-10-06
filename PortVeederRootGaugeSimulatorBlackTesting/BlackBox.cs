@@ -61,6 +61,7 @@ namespace BlackBoxTest
             debug.InvalidTankDropNumber = false;
             debug.SupportBIR = true;
             debug.EventAckNakRespond = false;
+            debug.InvalidDataTerminationFlag = false;
             rootSim.SystemTime = new TimeSpan();
         }
 
