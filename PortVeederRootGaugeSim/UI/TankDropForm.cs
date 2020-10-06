@@ -15,13 +15,13 @@ namespace PortVeederRootGaugeSim
         }
         private void OkayButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         public DateTime GetStartDate()

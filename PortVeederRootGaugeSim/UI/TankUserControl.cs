@@ -18,12 +18,12 @@ namespace PortVeederRootGaugeSim.UI
             InitializeComponent();
         }
 
-        public TankUserControl(int id, TankProbe tankProbe)
+        public TankUserControl(int id, TankProbe probe)
         {
             TankID = id;
-            this.tankProbe = tankProbe;
+            tankProbe = probe;
             InitializeComponent();
-            comboBox1.SelectedIndex = 0;
+            TankProbeStatus.SelectedIndex = 0;
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
             productUpDown.Value = Convert.ToDecimal(tankProbe.ProductLevel);
             waterUpDown.Value = Convert.ToDecimal(tankProbe.WaterLevel);
@@ -53,22 +53,22 @@ namespace PortVeederRootGaugeSim.UI
             tankDropNumber.Text = Convert.ToString(tankProbe.TankDropCount) + " drops";
             ProbeLength.Text = Convert.ToString(tankProbe.MyTank.TankLength);
             ProbeDiameter.Text = Convert.ToString(tankProbe.MyTank.TankDiameter);
-            if (this.tankProbe.TankDelivering)
+            if (tankProbe.TankDelivering)
             {
                 startLeakButton.Enabled = false;
                 startDeliveryButton.Text = "Delivering...";
             }
-            if (!this.tankProbe.TankDelivering)
+            if (!tankProbe.TankDelivering)
             {
                 startLeakButton.Enabled = true;
                 startDeliveryButton.Text = "Start Delivery";
             }
-            if (this.tankProbe.TankLeaking)
+            if (tankProbe.TankLeaking)
             {
                 startDeliveryButton.Enabled = false;
                 startLeakButton.Text = "Stop Leak";
             }
-            if (!this.tankProbe.TankLeaking)
+            if (!tankProbe.TankLeaking)
             {
                 startDeliveryButton.Enabled = true;
                 startLeakButton.Text = "Start Leak";
@@ -85,8 +85,8 @@ namespace PortVeederRootGaugeSim.UI
                 DateTime dropStartDate = tankDropForm.GetStartDate();
                 float dropVolume = Convert.ToSingle(tankDropForm.GetVolume());
                 Double dropDuration = Convert.ToDouble(tankDropForm.GetDuration());
-                float vol = this.tankProbe.ProductVolume;
-                float fullVol = this.tankProbe.MyTank.FullVolume;
+                float vol = tankProbe.ProductVolume;
+                float fullVol = tankProbe.MyTank.FullVolume;
                 if (vol + dropVolume > fullVol)
                 {
                     string message = "Volume provided for delivery is too large";
@@ -95,14 +95,14 @@ namespace PortVeederRootGaugeSim.UI
                 }
                 else
                 {
-                    this.tankProbe.DeliverySwitch(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                    tankProbe.DeliverySwitch(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
                 }
             }
         }
 
         private void StartLeakButton_Click(object sender, EventArgs e)
         {
-            this.tankProbe.LeakingSwitch();
+            tankProbe.LeakingSwitch();
         }
 
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
@@ -139,7 +139,23 @@ namespace PortVeederRootGaugeSim.UI
             gsv.Text = Convert.ToString(tankProbe.GetGrossStandardVolume());
             capacity.Text = Convert.ToString(tankProbe.MyTank.FullVolume);
             ullage.Text = Convert.ToString(tankProbe.GetUllage());
-            this.Refresh();
+            Refresh();
+        }
+
+        private void TankProbeStatusChanged(object sender, EventArgs e)
+        {
+            if (TankProbeStatus.SelectedIndex == 0)
+            {
+                tankProbe.TankprobeStatus = "OK";
+            }
+            else if (TankProbeStatus.SelectedIndex == 1)
+            {
+                tankProbe.TankprobeStatus = "ERR";
+            }
+            else
+            {
+                tankProbe.TankprobeStatus = "OUT";
+            }
         }
     }
 }
