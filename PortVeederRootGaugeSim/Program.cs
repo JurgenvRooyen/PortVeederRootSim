@@ -25,7 +25,7 @@ namespace PortVeederRootGaugeSim
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(rootSim, debug.MenuOutput()));
+            Application.Run(new MainForm(rootSim, debug));
         }
     }
 }

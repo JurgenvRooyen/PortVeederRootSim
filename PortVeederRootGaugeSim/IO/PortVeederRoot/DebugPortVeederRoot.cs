@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 {
-    class DebugPortVeederRoot
+    public class DebugPortVeederRoot
     {
         public bool IncludeHeights { get; set; }
         public bool InvalidTankDropNumber { get; set; } 

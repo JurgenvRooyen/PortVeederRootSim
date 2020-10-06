@@ -1,4 +1,5 @@
-﻿using PortVeederRootGaugeSim.UI;
+﻿using PortVeederRootGaugeSim.IO.PortVeederRoot;
+using PortVeederRootGaugeSim.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,11 +13,13 @@ namespace PortVeederRootGaugeSim
     {
         private int numberOfTanks = 0;
         private readonly RootSim TankGauges;
+        private readonly DebugPortVeederRoot debugOptions;
         private static readonly Timer refreshTimer = new Timer();
 
-        public MainForm(RootSim r, Dictionary<string, Func<bool>> debugOptionsItems)
+        public MainForm(RootSim r, DebugPortVeederRoot debug)
         {
             TankGauges = r;
+            debugOptions = debug;
             InitializeComponent();
             try
             {
@@ -49,9 +52,9 @@ namespace PortVeederRootGaugeSim
                 MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
-            foreach(var menuItem in debugOptionsItems)
+            foreach(var menuItem in debugOptions.MenuOutput())
             { 
-                OptionsMenuItem.DropDownItems.Add(menuItem.Key, null, OptionMenuItem_Click);
+                OptionsMenuItem.DropDownItems.Add(menuItem, null, OptionMenuItem_Click);
             }
         }
         
@@ -141,37 +144,52 @@ namespace PortVeederRootGaugeSim
             const string tankDropRespond = "Tank Drop Respond";
             const string dateTimeRespond = "Date Time Respond";
             const string respondToAllProbes = "Respond to All Probes";
+            const string eventAckNakRespond = "Event AckNak Respond";
+            const string invalidDataTermination = "Invalid Data Termination Flag";
+            const string zeroBasedTankDelivery = "Zero Based Tank Delivery";
             var menuItem = (ToolStripMenuItem)sender;
             var menuText = menuItem.Text;
 
             switch(menuText)
             {
                 case includeHeights:
-                    //TODO: implement include heights click
+                    debugOptions.ToggleIncludeHeights();
                     break;
 
                 case invalidDropNumber:
-                    //TODO: implement invalid drop number click
+                    debugOptions.ToggleInvalidDropNumber();
                     break;
 
                 case supportBIR:
-                    //TODO: implement support BIR click
+                    debugOptions.ToggleSupportBIR();
                     break;
 
                 case versionRespond:
-                    //TODO: implement version respond click
+                    debugOptions.ToggleVersionRespond();
                     break;
 
                 case tankDropRespond:
-                    //TODO: implement tank drop respond click
+                    debugOptions.ToggleTankDropRespond();
                     break;
 
                 case dateTimeRespond:
-                    //TODO: implement date time respond click
+                    debugOptions.ToggleDateTimeRespond();
                     break;
 
                 case respondToAllProbes:
-                    //TODO: implement respond to all probes click
+                    debugOptions.ToggleRespondToAllProbes();
+                    break;
+
+                case eventAckNakRespond:
+                    debugOptions.ToggleEventAckNakRespond();
+                    break;
+
+                case invalidDataTermination:
+                    debugOptions.ToggleInvalidDataTerminationFlag();
+                    break;
+
+                case zeroBasedTankDelivery:
+                    debugOptions.ToggleDeliveryTankZeroBased();
                     break;
             }
         }
