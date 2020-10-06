@@ -192,10 +192,5 @@ namespace PortVeederRootGaugeSim
                 ConnectProbeButton.BackColor = Color.Green;
             }
         }
-
-        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
     }
 }
