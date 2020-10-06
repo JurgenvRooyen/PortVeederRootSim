@@ -92,13 +92,13 @@ namespace PortVeederRootGaugeSim
                 tankGauge.MyTank.LowProductAlarmLevel = Convert.ToSingle(lowLimitText.Value);
                 tankGauge.MyTank.HighWaterAlarmLevel = Convert.ToSingle(waterAlarmText.Value);
                 tankGauge.MyTank.HighWaterWarningLevel = Convert.ToSingle(waterWarningText.Value);
-                this.Close();
+                Close();
             }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void TankDiameterText_TextChanged(object sender, EventArgs e)
