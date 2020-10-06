@@ -266,8 +266,8 @@ namespace PortVeederRootGaugeSim
             else
             {
                 ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[2]).Checked = false;
-                OptionsMenuItem.DropDownItems[7].Enabled = true;
-                OptionsMenuItem.DropDownItems[9].Enabled = true;
+                OptionsMenuItem.DropDownItems[7].Enabled = false;
+                OptionsMenuItem.DropDownItems[9].Enabled = false;
             }
         }
 
