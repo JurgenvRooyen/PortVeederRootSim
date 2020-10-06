@@ -1,14 +1,12 @@
 ﻿using PortVeederRootGaugeSim.IO.PortVeederRoot;
 using PortVeederRootGaugeSim.UI;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 
 namespace PortVeederRootGaugeSim
 {
-
     public partial class MainForm : Form
     {
         private int numberOfTanks = 0;
@@ -16,9 +14,9 @@ namespace PortVeederRootGaugeSim
         private readonly DebugPortVeederRoot debugOptions;
         private static readonly Timer refreshTimer = new Timer();
 
-        public MainForm(RootSim r, DebugPortVeederRoot debug)
+        public MainForm(RootSim root, DebugPortVeederRoot debug)
         {
-            TankGauges = r;
+            TankGauges = root;
             debugOptions = debug;
             InitializeComponent();
             try
@@ -56,8 +54,7 @@ namespace PortVeederRootGaugeSim
             { 
                 OptionsMenuItem.DropDownItems.Add(menuItem, null, OptionMenuItem_Click);
             }
-        }
-        
+        } 
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -133,16 +130,6 @@ namespace PortVeederRootGaugeSim
             string message = "About information";
             string title = "About Veeder-Root TLS Simulator by ITL";
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void EchoTestMenuItem_Click(object sender, EventArgs e)
-        {
-            //TODO: implement echo test click
-        }
-
-        private void PortVeederRootMenuItem_Click(object sender, EventArgs e)
-        {
-            //TODO: implement port veeder root click
         }
 
         private void OptionMenuItem_Click(object sender, EventArgs e)
