@@ -268,11 +268,16 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder probeString = new StringBuilder();
             TankProbe probe = probes[probeID - 1];
-
+    
             probeString.Append(probeID.ToString().PadLeft(2, '0'));
             probeString.Append(probe.ProductCode);
-            //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
-            probeString.Append("0000");
+            
+            char delivering = '0';
+            if(probe.TankDelivering)
+            {
+                delivering = '1';
+            }
+            probeString.Append("000" + delivering);
             probeString.Append("07");
             probeString.Append(SingleToHex(probe.GetGrossObservedVolume()).PadLeft(8, '0'));
             probeString.Append(SingleToHex(probe.GetGrossStandardVolume()).PadLeft(8, '0'));
