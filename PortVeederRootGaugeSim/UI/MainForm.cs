@@ -52,7 +52,6 @@ namespace PortVeederRootGaugeSim
             foreach(var menuItem in debugOptionsItems)
             { 
                 OptionsMenuItem.DropDownItems.Add(menuItem.Key, null, OptionMenuItem_Click);
-                //MainMenu.Items[1].
             }
         }
         
