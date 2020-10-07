@@ -276,17 +276,26 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             if(pvDebug.RandomizeLevels)
             {
                 Random rand = new Random();
-                variance = rand.NextDouble()*5;
-                variance -= 2.5;
+                variance = Convert.ToSingle(rand.NextDouble()*5);
+                variance -= 2.5f;
             }
 
             char delivering = '0';
+            string preceedingBits = "000";
+            string fieldsToFollow = "07";
+
             if(probe.TankDelivering)
             {
                 delivering = '1';
             }
-            probeString.Append("000" + delivering);
-            probeString.Append("07");
+            if(pvDebug.ForceRndMsg)
+            {
+                preceedingBits = "00";
+                fieldsToFollow = "7";
+            }
+
+            probeString.Append(preceedingBits + delivering);
+            probeString.Append(fieldsToFollow);
             probeString.Append(SingleToHex(probe.GetGrossObservedVolume() + variance).PadLeft(8, '0'));
             probeString.Append(SingleToHex(probe.GetGrossStandardVolume()+ variance).PadLeft(8, '0'));
             probeString.Append(SingleToHex(probe.GetUllage()).PadLeft(8, '0'));
@@ -354,6 +363,10 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             probeString.Append(probeID);
             string codes = "";
 
+            if (probe.TankprobeStatus == "ERR")
+            {
+                codes += "01";
+            }
             if (probe.TankLeaking)
             {
                 codes += "02";
@@ -381,7 +394,10 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 codes += "08";
             }
             //Probe disconnected not implemented
-
+            if (probe.TankprobeStatus == "OUT")
+            {
+                codes += "09";
+            }
             if (probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel)
             {
                 codes += "10";
