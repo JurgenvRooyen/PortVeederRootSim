@@ -153,7 +153,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             {
                 if (pvDebug.SupportBIR && pvDebug.UpdatevolumeUsingBIR)
                 {
-                    return EndDelivery();
+                    return EndDelivery(toParse);
                 } else if (!pvDebug.SupportBIR)
                 {
                     sb.Append(notSupported);
