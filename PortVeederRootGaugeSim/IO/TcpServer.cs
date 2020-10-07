@@ -44,12 +44,11 @@ namespace PortVeederRootGaugeSim.IO
         private async Task HandleClient(TcpClient client)
         {
             NetworkStream nStream = client.GetStream();
-            byte[] buffer = new byte[256];
+            byte[] buffer = new byte[1024];
             try
             {
                 while ((await nStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
                 {
-                    Debug.WriteLine("loop");
                     Debug.WriteLine("Received");
                     Debug.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
                     string parsed = protocol.Parse((System.Text.Encoding.ASCII.GetString(buffer)));
