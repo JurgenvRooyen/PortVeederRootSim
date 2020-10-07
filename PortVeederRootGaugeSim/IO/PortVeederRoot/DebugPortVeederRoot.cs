@@ -16,6 +16,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool EventAckNakRespond { get; set; }
         public bool DeliveryTankZeroBased { get; set; }
         public bool InvalidDataTerminationFlag { get; set; }
+        public bool RandomizeLevels { get; set; }
 
         public DebugPortVeederRoot()
         {
@@ -30,6 +31,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             EventAckNakRespond = false;
             InvalidDataTerminationFlag = false;
             DeliveryTankZeroBased = false;
+            RandomizeLevels = false;
         }
 
         private bool InvertBool(bool input)
@@ -100,7 +102,6 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool ToggleEventAckNakRespond()
         {
             EventAckNakRespond = InvertBool(EventAckNakRespond);
-            //TODO support BIR logic
             return EventAckNakRespond;
         }
 
@@ -114,6 +115,11 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         {
             DeliveryTankZeroBased = InvertBool(DeliveryTankZeroBased);
             return DeliveryTankZeroBased;
+        }
+        public bool ToggleRandomizeLevels()
+        {
+            RandomizeLevels = InvertBool(RandomizeLevels);
+            return RandomizeLevels;
         }
     }
 }
