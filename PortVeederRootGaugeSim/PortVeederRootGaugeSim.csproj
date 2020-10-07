@@ -19,5 +19,8 @@
 			<_Parameter1>PortVeederRootGaugeSimulatorBlackTesting</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="System.IO.Ports" Version="4.7.0" />
+	</ItemGroup>
 
 </Project>
