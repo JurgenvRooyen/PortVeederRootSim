@@ -104,7 +104,10 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         {
             StringBuilder sb = new StringBuilder("\x01");
             Debug.WriteLine(toParse.Length + " " + toParse.Length + " " + toParse.Length);
-            //BIR Commands - seperate control flow as they don't echo back in the normal fashion
+
+            //BIR Commands - seperate control flow as they don't echo back in the normal fashion but instead use ACK/NACK control characters with no SOH or ETX
+            //Error codes however retain the <SOH>9999&&CHKS<ETX> format
+            //Polling for events
             if (toParse.Substring(1, 1) == "D")
             {
                if(pvDebug.SupportBIR && pvDebug.EventAckNakRespond)
@@ -120,6 +123,8 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                     sb.Append(notSupported);
                 }
             }
+
+            //Start an event, check if BIR infact supported
             else if(toParse[1] == 'B')
             {
                 if (pvDebug.SupportBIR)
@@ -131,6 +136,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                     sb.Append(notSupported);
                 }
             }
+            //End an event, in this case it is not necessary to update the tank volumne
             else if (toParse[1] == 'C' && toParse[15] == '\x03')
             {
                 if (pvDebug.SupportBIR)
@@ -142,10 +148,18 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                     sb.Append(notSupported);
                 }
             }
-            //else if (toParse[1] == 'C' && toParse.Length == 35)
-            //{
+            //End an event, with BIR data to update the tank volume
+            else if (toParse[1] == 'C' && toParse[35] == '\x03')
+            {
+                if (pvDebug.SupportBIR && pvDebug.UpdatevolumeUsingBIR)
+                {
+                    return EndDelivery(toParse);
+                } else if (!pvDebug.SupportBIR)
+                {
+                    sb.Append(notSupported);
+                }
+            }
 
-            //}
             else if(toParse[1] == 'i' || toParse[1] == 's')
             {
                 sb.Append(NormalCommandParse(toParse));
@@ -260,6 +274,34 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             }
 
             return nsb.ToString();
+        }
+
+        //BIR Command Ending a hose delivery
+        private string EndDelivery(string toParse)
+        {
+            try
+            {
+                // Attempt to get the tank number directly from the fueling position in a 1:1 fashion
+                // Does NOT support blended operations in current setup
+                int tankNumber = int.Parse(toParse.Substring(12,1)); 
+                if(pvDebug.DeliveryTankZeroBased)
+                {
+                    tankNumber++;
+                }
+    
+                float transactionTotal = float.Parse(toParse.Substring(13, 9));
+                TankProbe tank = simulator.TankProbeList[tankNumber];
+    
+                tank.SetProductVolume(tank.ProductVolume - transactionTotal);
+
+                return "\x06";
+            }
+            // Failures due to bad decimal encoding return a NAK
+            catch(InvalidCastException e)
+            {
+                Debug.WriteLine(e.Message);
+                return "\x15";
+            }
         }
 
         //Command I201 - In Tank inventory
