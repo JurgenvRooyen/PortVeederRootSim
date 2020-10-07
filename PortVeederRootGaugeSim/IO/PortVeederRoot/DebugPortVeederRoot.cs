@@ -18,6 +18,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool InvalidDataTerminationFlag { get; set; }
         public bool RandomizeLevels { get; set; }
         public bool ForceRndMsg { get; set; }
+        public bool UpdatevolumeUsingBIR { get; set; }
 
         public DebugPortVeederRoot()
         {
@@ -54,7 +55,8 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 "Respond to All Probes",
                 "Event AckNak Respond",
                 "Invalid Data Termination Flag",
-                "Zero Based Tank Delivery"
+                "Zero Based Tank Delivery",
+                "Update Volume Using BIR"
             };
             return menuItems;
         }
@@ -118,6 +120,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             DeliveryTankZeroBased = InvertBool(DeliveryTankZeroBased);
             return DeliveryTankZeroBased;
         }
+
         public bool ToggleRandomizeLevels()
         {
             RandomizeLevels = InvertBool(RandomizeLevels);
@@ -128,6 +131,13 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         {
             ForceRndMsg = InvertBool(ForceRndMsg);
             return ForceRndMsg;
+        }
+      
+        public bool ToggleUpdatevolumeUsingBIR()
+        {
+            UpdatevolumeUsingBIR = InvertBool(UpdatevolumeUsingBIR);
+            return UpdatevolumeUsingBIR;
+
         }
     }
 }
