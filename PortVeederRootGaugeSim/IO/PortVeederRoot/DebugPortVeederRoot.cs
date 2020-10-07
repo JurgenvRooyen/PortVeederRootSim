@@ -119,7 +119,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
         public bool ToggleUpdatevolumeUsingBIR()
         {
-            UpdateVolumeUsingBIR = InvertBool(UpdatevolumeUsingBIR);
+            UpdatevolumeUsingBIR = InvertBool(UpdatevolumeUsingBIR);
             return UpdatevolumeUsingBIR;
         }
     }
