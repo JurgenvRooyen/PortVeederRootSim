@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace PortVeederRootGaugeSim.IO.PortVeederRoot
@@ -46,10 +47,20 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             return converted.ToString("x");
         }
 
+        private string AddTerminator()
+        {
+            string terminator = "&&"; 
+            if (pvDebug.InvalidDataTerminationFlag)
+            {
+                terminator = "B8";
+            }
+
+            return terminator;
+        }
+
         private string CalculateChecksum(String message)
         {
             int stringValue = 0;
-
             foreach (char c in message)
             {
                 stringValue += c;
@@ -58,7 +69,9 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             int compliment = 0 - stringValue;
             string hexValue = compliment.ToString("X");
 
-            return hexValue.Substring(hexValue.Length - 4);
+            return hexValue.Substring(hexValue.Length - 4) + "\x03";
+
+
         }
 
         // Function to provide the necessary logic for looping where necessary
@@ -108,59 +121,35 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             //BIR Commands - seperate control flow as they don't echo back in the normal fashion but instead use ACK/NACK control characters with no SOH or ETX
             //Error codes however retain the <SOH>9999&&CHKS<ETX> format
             //Polling for events
-            if (toParse.Substring(1, 1) == "D")
+            if (pvDebug.SupportBIR)
             {
-               if(pvDebug.SupportBIR && pvDebug.EventAckNakRespond)
+                if (toParse.Substring(1, 1) == "D")
                 {
-                   return("\x06");
-                } 
-               else if(pvDebug.SupportBIR && !pvDebug.EventAckNakRespond)
-                {
-                    return "";
-                } 
-                else
-                {
-                    sb.Append(notSupported);
+                    if (pvDebug.EventAckNakRespond)
+                    {
+                        return ("\x06");
+                    }
+                        return "";
                 }
-            }
 
-            //Start an event, check if BIR infact supported
-            else if(toParse[1] == 'B')
-            {
-                if (pvDebug.SupportBIR)
+                //Start an event, check if BIR infact supported
+                else if (toParse[1] == 'B')
                 {
                     return ("\x06");
                 }
-                else
-                {
-                    sb.Append(notSupported);
-                }
-            }
-            //End an event, in this case it is not necessary to update the tank volumne
-            else if (toParse[1] == 'C' && toParse[15] == '\x03')
-            {
-                if (pvDebug.SupportBIR)
+                //End an event, in this case it is not necessary to update the tank volumne
+                else if (toParse[1] == 'C' && toParse[15] == '\x03')
                 {
                     return ("\x06");
                 }
-                else
-                {
-                    sb.Append(notSupported);
-                }
-            }
-            //End an event, with BIR data to update the tank volume
-            else if (toParse[1] == 'C' && toParse[35] == '\x03')
-            {
-                if (pvDebug.SupportBIR && pvDebug.UpdatevolumeUsingBIR)
-                {
+                //End an event, with BIR data to update the tank volume
+                else if (toParse[1] == 'C' && toParse[35] == '\x03')
+                {       
                     return EndDelivery(toParse);
-                } else if (!pvDebug.SupportBIR)
-                {
-                    sb.Append(notSupported);
                 }
             }
 
-            else if(toParse[1] == 'i' || toParse[1] == 's')
+            if (toParse[1] == 'i' || toParse[1] == 's')
             {
                 sb.Append(NormalCommandParse(toParse));
             }
@@ -168,16 +157,8 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             {
                 sb.Append(notSupported);
             }
-            if (pvDebug.InvalidDataTerminationFlag)
-            {
-                sb.Append("B8");
-            }
-            else
-            { 
-                sb.Append("&&"); 
-            }
+            sb.Append(AddTerminator());
             sb.Append(CalculateChecksum(sb.ToString()));
-            sb.Append("\x03");
             return sb.ToString();
         }
 
@@ -279,28 +260,35 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         //BIR Command Ending a hose delivery
         private string EndDelivery(string toParse)
         {
-            try
+            if (pvDebug.UpdatevolumeUsingBIR)
             {
-                // Attempt to get the tank number directly from the fueling position in a 1:1 fashion
-                // Does NOT support blended operations in current setup
-                int tankNumber = int.Parse(toParse.Substring(12,1)); 
-                if(pvDebug.DeliveryTankZeroBased)
+                try
                 {
-                    tankNumber++;
-                }
-    
-                float transactionTotal = float.Parse(toParse.Substring(13, 9));
-                TankProbe tank = simulator.TankProbeList[tankNumber];
-    
-                tank.SetProductVolume(tank.ProductVolume - transactionTotal);
+                    // Attempt to get the tank number directly from the fueling position in a 1:1 fashion
+                    // Does NOT support blended operations in current setup
+                    int tankNumber = int.Parse(toParse.Substring(12, 1));
+                    if (pvDebug.DeliveryTankZeroBased)
+                    {
+                        tankNumber++;
+                    }
 
-                return "\x06";
+                    float transactionTotal = float.Parse(toParse.Substring(13, 9));
+                    TankProbe tank = simulator.TankProbeList[tankNumber];
+
+                    tank.SetProductVolume(tank.ProductVolume - transactionTotal);
+
+                    return "\x06";
+                }
+                // Failures due to bad decimal encoding return a NAK
+                catch (InvalidCastException e)
+                {
+                    Debug.WriteLine(e.Message);
+                    return "\x15";
+                }
             }
-            // Failures due to bad decimal encoding return a NAK
-            catch(InvalidCastException e)
+            else
             {
-                Debug.WriteLine(e.Message);
-                return "\x15";
+                return "";
             }
         }
 
