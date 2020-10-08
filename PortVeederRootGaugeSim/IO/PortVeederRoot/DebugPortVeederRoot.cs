@@ -33,6 +33,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             EventAckNakRespond = false;
             InvalidDataTerminationFlag = false;
             DeliveryTankZeroBased = false;
+            UpdatevolumeUsingBIR = false;
             RandomizeLevels = false;
             ForceRndMsg = false;
         }
@@ -56,7 +57,9 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 "Event AckNak Respond",
                 "Invalid Data Termination Flag",
                 "Zero Based Tank Delivery",
-                "Update Volume Using BIR"
+                "Update Volume Using BIR",
+                "Randomize Levels",
+                "Force Rnd Msg"
             };
             return menuItems;
         }
