@@ -310,19 +310,41 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder probeString = new StringBuilder();
             TankProbe probe = probes[probeID - 1];
-
+    
             probeString.Append(probeID.ToString().PadLeft(2, '0'));
             probeString.Append(probe.ProductCode);
-            //Not implemented yet, as Delivery and Leak not implemented. Need clarification as to fuel height alarm.
-            probeString.Append("0000");
-            probeString.Append("07");
-            probeString.Append(SingleToHex(probe.GetGrossObservedVolume()).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.GetGrossStandardVolume()).PadLeft(8, '0'));
+            
+            float variance = 0;
+            if(pvDebug.RandomizeLevels)
+            {
+                Random rand = new Random();
+                variance = Convert.ToSingle(rand.NextDouble()*5);
+                variance -= 2.5f;
+            }
+
+            char delivering = '0';
+            string preceedingBits = "000";
+            string fieldsToFollow = "07";
+
+            if(probe.TankDelivering)
+            {
+                delivering = '1';
+            }
+            if(pvDebug.ForceRndMsg)
+            {
+                preceedingBits = "00";
+                fieldsToFollow = "7";
+            }
+
+            probeString.Append(preceedingBits + delivering);
+            probeString.Append(fieldsToFollow);
+            probeString.Append(SingleToHex(probe.GetGrossObservedVolume() + variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.GetGrossStandardVolume()+ variance).PadLeft(8, '0'));
             probeString.Append(SingleToHex(probe.GetUllage()).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.ProductLevel).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.WaterLevel).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.ProductTemperature).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.WaterVolume).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.ProductLevel+ variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.WaterLevel+ variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.ProductTemperature+ variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.WaterVolume+ variance).PadLeft(8, '0'));
 
             return probeString.ToString();
         }
@@ -383,6 +405,10 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             probeString.Append(probeID);
             string codes = "";
 
+            if (probe.TankprobeStatus == "ERR")
+            {
+                codes += "01";
+            }
             if (probe.TankLeaking)
             {
                 codes += "02";
@@ -410,7 +436,10 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 codes += "08";
             }
             //Probe disconnected not implemented
-
+            if (probe.TankprobeStatus == "OUT")
+            {
+                codes += "09";
+            }
             if (probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel)
             {
                 codes += "10";
