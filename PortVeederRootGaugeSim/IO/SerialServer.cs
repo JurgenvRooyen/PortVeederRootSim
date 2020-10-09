@@ -32,7 +32,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
             // Close before attempting to open incase the application somehow already has taken control of the comport and is holding it open
             serial.Close();
-            Sleep(1000);
+            Thread.Sleep(1000);
 
             serial.Close();
             if (serial.IsOpen)
