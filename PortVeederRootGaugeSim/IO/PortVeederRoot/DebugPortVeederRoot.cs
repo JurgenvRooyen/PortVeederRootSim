@@ -4,6 +4,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 {
     public class DebugPortVeederRoot
     {
+        // Class essentially a datastore for debug flags
         public bool IncludeHeights { get; set; }
         public bool InvalidTankDropNumber { get; set; } 
         public bool SupportBIR { get; set; } 
@@ -31,7 +32,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             EventAckNakRespond = false;
             InvalidDataTerminationFlag = false;
             DeliveryTankZeroBased = false;
-            UpdatevolumeUsingBIR = false;
+            UpdatevolumeUsingBIR = true;
             RandomizeLevels = false;
             ForceRndMsg = false;
         }
