@@ -10,24 +10,24 @@ namespace PortVeederRootGaugeSim
     public partial class MainForm : Form
     {
         private int numberOfTanks = 0;
-        private readonly RootSim TankGauges;
+        private readonly RootSim rootSim;
         private readonly DebugPortVeederRoot debugOptions;
         private static readonly Timer refreshTimer = new Timer();
 
         public MainForm(RootSim root, DebugPortVeederRoot debug)
         {
-            TankGauges = root;
+            rootSim = root;
             debugOptions = debug;
             InitializeComponent();
             try
             {
-                TankGauges.LoadFile("ProbePersistence");
-                foreach (TankProbe tank in TankGauges.TankProbeList)
+                rootSim.LoadFile("ProbePersistence");
+                foreach (TankProbe tank in rootSim.TankProbeList)
                 {
-                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
+                    flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, rootSim.TankProbeList[numberOfTanks]));
                     numberOfTanks++;
                 }
-                numberOfTanks--;
+                numberOfTanks--; // removes 1 as an extra 1 is added in the loop
                 if (flowLayoutPanel.Controls.Count < 2)
                 {
                     deleteProbeButton.Enabled = false;
@@ -41,8 +41,8 @@ namespace PortVeederRootGaugeSim
             }
             catch
             {
-                TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1', new Tank(1000,2000), 0, 0, 15));
-                flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));
+                rootSim.AddTankProbe(new TankProbe(numberOfTanks, '1', new Tank(1000,2000), 0, 0, 15));
+                flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, rootSim.TankProbeList[numberOfTanks]));
                 deleteProbeButton.Enabled = false;
                 ConnectProbeButton.Enabled = false;
                 string title = "Error Loading File";
@@ -61,6 +61,7 @@ namespace PortVeederRootGaugeSim
             refreshTimer.Tick += TimerEventProcessor;
             refreshTimer.Interval = 500;
             refreshTimer.Enabled = true;
+            // initialize check marks for debug menu options
             CheckIncludeHeights(debugOptions.IncludeHeights);
             CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
             CheckSupportBIR(debugOptions.SupportBIR);
@@ -78,9 +79,11 @@ namespace PortVeederRootGaugeSim
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // disconnect all potentially operating buttons when form is closed
+            // if buttons are not disconnected - issues when clicking buttons on re-opening
             if (flowLayoutPanel.Controls.Count > 1)
             {
-                TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
+                rootSim.TankProbeList[0].Disconnect(rootSim.TankProbeList[1]);
             }
             foreach (TankUserControl probeControl in flowLayoutPanel.Controls)
             {
@@ -88,7 +91,7 @@ namespace PortVeederRootGaugeSim
                 tankProbe.TankDelivering = false;
                 tankProbe.TankLeaking = false;
             }
-            TankGauges.SaveFile("ProbePersistence");
+            rootSim.SaveFile("ProbePersistence");
         }
 
         private void TimerEventProcessor(object sender, EventArgs e)
@@ -102,10 +105,9 @@ namespace PortVeederRootGaugeSim
         {
             deleteProbeButton.Enabled = true;
             ConnectProbeButton.Enabled = true;
-            numberOfTanks++;
-            
-            TankGauges.AddTankProbe(new TankProbe(numberOfTanks, '1',new Tank(1000,2000), 0, 0, 15));
-            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, TankGauges.TankProbeList[numberOfTanks]));       
+            numberOfTanks++; 
+            rootSim.AddTankProbe(new TankProbe(numberOfTanks, '1',new Tank(1000,2000), 0, 0, 15));
+            flowLayoutPanel.Controls.Add(new TankUserControl(numberOfTanks, rootSim.TankProbeList[numberOfTanks]));       
         }
 
         private void DeleteProbeButton_Click(object sender, EventArgs e)
@@ -113,7 +115,7 @@ namespace PortVeederRootGaugeSim
             if (flowLayoutPanel.Controls.Count > 1)
             {
                 flowLayoutPanel.Controls.RemoveAt(flowLayoutPanel.Controls.Count - 1);
-                TankGauges.RemoveTankProbe(numberOfTanks);
+                rootSim.RemoveTankProbe(numberOfTanks);
                 numberOfTanks--;
                 if (flowLayoutPanel.Controls.Count.Equals(1))
                 {
@@ -211,16 +213,16 @@ namespace PortVeederRootGaugeSim
 
         private void ConnectProbeButton_Click(object sender, EventArgs e)
         {
-            if (TankGauges.TankProbeList[0].MyTank.Connecting)
+            if (rootSim.TankProbeList[0].MyTank.Connecting)
             {
-                TankGauges.TankProbeList[0].Disconnect(TankGauges.TankProbeList[1]);
+                rootSim.TankProbeList[0].Disconnect(rootSim.TankProbeList[1]);
                 ConnectProbeButton.Text = "Connect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Control.DefaultBackColor;
                 ConnectProbeButton.UseVisualStyleBackColor = true;
             }
             else
             {
-                TankGauges.TankProbeList[0].Connect(TankGauges.TankProbeList[1]);
+                rootSim.TankProbeList[0].Connect(rootSim.TankProbeList[1]);
                 ConnectProbeButton.Text = "Disconnect Probe 1 + 2";
                 ConnectProbeButton.BackColor = Color.Green;
             }
