@@ -35,7 +35,7 @@ namespace PortVeederRootGaugeSim
             waterWarningText.Value = Convert.ToDecimal(tankGauge.MyTank.HighWaterWarningLevel);
             tankLengthText.Value = Convert.ToDecimal(tankGauge.MyTank.TankLength);
             tankDiameterText.Value = Convert.ToDecimal(tankGauge.MyTank.TankDiameter);
-            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity); 
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
             workingSafeCapacity = tankGauge.MaxSafeWorkingCapacityModifier;
             workingTankDiameter = tankGauge.MyTank.TankDiameter;
             workingTankLength = tankGauge.MyTank.TankLength;
@@ -108,7 +108,6 @@ namespace PortVeederRootGaugeSim
                 workingTankDiameter = Convert.ToSingle(tankDiameterText.Value);
                 workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
                 tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
-
                 safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
             }
             catch (FormatException)
@@ -147,6 +146,7 @@ namespace PortVeederRootGaugeSim
                 workingTankLength = 0F;
                 workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
                 tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
+                safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
             }
         }
     }
