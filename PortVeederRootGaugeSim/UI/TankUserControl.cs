@@ -56,6 +56,10 @@ namespace PortVeederRootGaugeSim.UI
                 startLeakButton.Enabled = false;
                 startDeliveryButton.Text = "Delivering...";
             }
+            if (startDeliveryButton.Text == "Delivering...")
+            {
+                startDeliveryButton.Enabled = false;
+            }
             if (!tankProbe.TankDelivering)
             {
                 startLeakButton.Enabled = true;
@@ -75,25 +79,32 @@ namespace PortVeederRootGaugeSim.UI
 
         private void StartDeliveryButton_Click(object sender, EventArgs e)
         {
-            TankDropForm tankDropForm = new TankDropForm();
-            DialogResult result = tankDropForm.ShowDialog();
-
-            if (result == DialogResult.OK)
+            if (tankProbe.TankDelivering)
             {
-                DateTime dropStartDate = tankDropForm.GetStartDate();
-                float dropVolume = Convert.ToSingle(tankDropForm.GetVolume());
-                Double dropDuration = Convert.ToDouble(tankDropForm.GetDuration());
-                float vol = tankProbe.ProductVolume;
-                float fullVol = tankProbe.MyTank.FullVolume;
-                if (vol + dropVolume > fullVol)
+                tankProbe.TankDelivering = false;
+            }
+            else
+            {
+                TankDropForm tankDropForm = new TankDropForm();
+                DialogResult result = tankDropForm.ShowDialog();
+
+                if (result == DialogResult.OK)
                 {
-                    string message = "Volume provided for delivery is too large";
-                    string title = "Tank Delivery Error";
-                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    tankProbe.StartDelivery(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                    DateTime dropStartDate = tankDropForm.GetStartDate();
+                    float dropVolume = Convert.ToSingle(tankDropForm.GetVolume());
+                    Double dropDuration = Convert.ToDouble(tankDropForm.GetDuration());
+                    float vol = tankProbe.ProductVolume;
+                    float fullVol = tankProbe.MyTank.FullVolume;
+                    if (vol + dropVolume > fullVol)
+                    {
+                        string message = "Volume provided for delivery is too large";
+                        string title = "Tank Delivery Error";
+                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        tankProbe.StartDelivery(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                    }
                 }
             }
         }
