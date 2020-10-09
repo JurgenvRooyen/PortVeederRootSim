@@ -21,7 +21,10 @@ namespace PortVeederRootGaugeSim
         public float EndingTemperatureCompensatedVolume { get; set; }
         public float EndingWaterVolume { get; set; }
         public float EndingTemperature { get; set; }
+       
         public TankDrop() { }
+
+
         public TankDrop(float volume, DateTime startTime, float startingVolume, float startingVLevel, float startingTemperatureCompensatedVolume, float startingWaterVolume, float startingTemperature)
         {
             Volume = volume;

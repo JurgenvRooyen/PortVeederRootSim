@@ -41,7 +41,7 @@ namespace PortVeederRootGaugeSim
         public float MaxSafeWorkingCapacityModifier { get; set; }
 
 
-        // tank dropping attributes
+        // A list for store dropped tank
         public List<TankDrop> TankDroppedList { get; set; }
 
 
@@ -51,10 +51,12 @@ namespace PortVeederRootGaugeSim
 
         // Getters and Setters
 
+        // set the tank length. Then regulate water level and product level based on current water volume and product volume
         public void SetTankLength(float value)
         {          
             MyTank.TankLength = value;
             MyTank.FullVolume = Models.Helper.LevelToVolume_Horizontal(MyTank.TankDiameter, value, MyTank.TankDiameter);
+            MyTank.MaxSafeWorkingCapacity = MyTank.FullVolume * MaxSafeWorkingCapacityModifier;
             WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,WaterVolume,0,MyTank.TankLength, MyTank.TankDiameter);
             float totalVolume = WaterVolume + ProductVolume;
             float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, totalVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
@@ -62,17 +64,19 @@ namespace PortVeederRootGaugeSim
 
         }
 
+        // set the tank diameter. Then regulate water level and product level based on current water volume and product volume
         public void SetTankDiameter(float value)
         {
             MyTank.TankDiameter = value;
             MyTank.FullVolume = Models.Helper.LevelToVolume_Horizontal(MyTank.TankDiameter, MyTank.TankLength, MyTank.TankDiameter);
+            MyTank.MaxSafeWorkingCapacity = MyTank.FullVolume * MaxSafeWorkingCapacityModifier;
             WaterLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, WaterVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
             float totalVolume = WaterVolume + ProductVolume;
             float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0, totalVolume, 0, MyTank.TankLength, MyTank.TankDiameter);
             ProductLevel = totalLevel - WaterLevel;
         }
 
-
+        // set the product level with a base level of water level
         public Boolean SetProductLevel(float value)
         {
 
@@ -98,6 +102,7 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
+        // set product volume. Then regulate product level based on product valume and water volume
         public Boolean SetProductVolume(float value)
         {
 
@@ -121,29 +126,36 @@ namespace PortVeederRootGaugeSim
         }
 
 
-
+        // set water level. Then regulate water volume and product level
+        // this funciton cause a minor product volume calculation error
         public Boolean SetWaterLevel(float value)
         {
-            if (value + ProductLevel > MyTank.TankDiameter || value < 0)
+            if (value < 0 || value > MyTank.TankDiameter)
             {
                 return false;
             }
-            WaterLevel = value;
-            WaterVolume = Models.Helper.LevelToVolume_Horizontal(value, MyTank.TankLength, MyTank.TankDiameter);
-            float totalVolume = WaterVolume + ProductVolume;
+
+            float waterVolume = Models.Helper.LevelToVolume_Horizontal(value, MyTank.TankLength, MyTank.TankDiameter);
+
+            if (waterVolume + ProductVolume > MyTank.FullVolume)
+            {
+                return false;
+            }
+
+            float totalVolume = waterVolume + ProductVolume;
             float totalLevel = Models.Helper.SearchLevelOnVolumeChange_Horizontal(0,totalVolume,0, MyTank.TankLength, MyTank.TankDiameter);
+
+
+            WaterVolume = waterVolume;
+            WaterLevel = value;
+
             lock (ProductLevelLock)
             {
-                float productVolume = totalVolume - WaterVolume;
-                if (productVolume < 0)
-                {
-                    productVolume = 0;
-                }
-
-                ProductVolume = productVolume;
+                ProductLevel = Math.Max(0,totalLevel - value);
             }
             return true;
         }
+
         public float GetGrossObservedVolume()
         {
             return WaterVolume + ProductVolume;
@@ -157,7 +169,6 @@ namespace PortVeederRootGaugeSim
 
         public float GetUllage()
         {
-
             return MyTank.FullVolume - WaterVolume - ProductVolume;
         }
 
@@ -169,10 +180,6 @@ namespace PortVeederRootGaugeSim
             return temp;
         }
 
-        public void ClearDeliveryReport()
-        {
-            TankDroppedList.Clear();
-        }
 
         public void SetMaxSafeWorkingCapacityByLevel(float level)
         {
@@ -204,9 +211,6 @@ namespace PortVeederRootGaugeSim
 
             InitializeTankLevels(MyTank,productLevel, waterLevel);
 
-
-
-
             TankDelivering = false;
             TankLeaking = false;
 
@@ -216,6 +220,12 @@ namespace PortVeederRootGaugeSim
         }
 
 
+        public void ClearDeliveryReport()
+        {
+            TankDroppedList.Clear();
+        }
+
+        // the method to increase or decrease product volume. used in delivery and leak
         public Boolean ProductChangePerInterval(float value)
         {
             if (TankLeaking && ProductVolume < Math.Abs(value))
@@ -225,6 +235,9 @@ namespace PortVeederRootGaugeSim
             return SetProductVolume(ProductVolume + value);
         }
 
+        // the thread for delivering product into the tank
+        // could change the delivery speed by change <Mytank.TankDeliveringPerInterval>   OR  change the thread sleep time
+        // after finish deliver,  the dropped tank will be stored in  <TankDroppedList>
         private void ProductChangeThreadDelivery(float volume, DateTime startTime, TimeSpan duration)
         {
             if (TankDelivering)
@@ -267,6 +280,9 @@ namespace PortVeederRootGaugeSim
             return;
         }
 
+
+        // the thread for leak product 
+        // could change the leak speed by change <Mytank.TankLeakingPerInterval>   OR  change the thread sleep time
         private void ProductChangeThreadLeaking()
         {
             while (TankLeaking)
@@ -282,8 +298,8 @@ namespace PortVeederRootGaugeSim
                 Thread.Sleep(200);
             }
         }
-
-        public Boolean DeliverySwitch(float volume, DateTime startTime, TimeSpan duration)
+        // start the delivery thread
+        public Boolean StartDelivery(float volume, DateTime startTime, TimeSpan duration)
         {
 
             if (TankDelivering)
@@ -303,6 +319,7 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
+        // start or stop tank leaking thread
         public void LeakingSwitch()
         {
 
@@ -318,11 +335,10 @@ namespace PortVeederRootGaugeSim
             }
         }
 
- 
-
-    
 
 
+        // this thread will balance product volume between two connected tanks
+        // could be more realistic if improve it to balance the levels between two tanks but may need to consider leak water if there's no product left
         private void TankConnectiongThread(TankProbe t)
         {
             float speed = Math.Min(MyTank.TankDeliveringPerInterval, t.MyTank.TankDeliveringPerInterval);
@@ -348,7 +364,8 @@ namespace PortVeederRootGaugeSim
             
 
         }
-
+        
+        // start the connection between two tank
         public Boolean Connect(TankProbe t)
         {
             if (t.MyTank.Connecting || MyTank.Connecting)
@@ -378,29 +395,8 @@ namespace PortVeederRootGaugeSim
             }
 
             return false;
-        }
+        } 
+        
 
-
-
-        public override string ToString()
-        {
-            String returnString = "";
-            returnString += "TankProbeId = " + TankProbeId.ToString() + "                                              ";
-            returnString += "productVolume = " + ProductVolume.ToString("0.00") + "                             ";
-            returnString += "productLevel = " + ProductLevel.ToString("0.00") + "                                        ";
-            returnString += "waterVolume = " + WaterVolume.ToString("0.00") + "                               ";
-            returnString += "waterLevel = " + WaterLevel.ToString("0.00") + "                                             ";
-            returnString += "ProductTemerature = " + ProductTemperature.ToString() + "                           ";
-            returnString += "TankDropCount = " + TankDropCount.ToString() + "                                         ";
-            returnString += "GOV = " + GetGrossObservedVolume().ToString("0.00") + "                                             ";
-            returnString += "GSV = " + GetGrossStandardVolume().ToString("0.00") + "                                             ";
-            returnString += "Ullage = " + GetUllage().ToString("0.00") + "                           ";
-            returnString += (WaterVolume + ProductVolume).ToString();
-
-
-            return returnString;
-        }
-
-      
     }
 }

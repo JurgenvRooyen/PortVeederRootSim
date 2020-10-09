@@ -9,7 +9,6 @@ namespace PortVeederRootGaugeSim
     [Serializable]
     public class RootSim
     {
-        // need to be changed after things are done 
         private const string SoftWareVersion = "612760-100";
         public string GetSoftWareVersion()
         {
@@ -17,20 +16,21 @@ namespace PortVeederRootGaugeSim
             return temp;
         }
 
-        // need to be changed after things are done 
+ 
         private const string SoftWareRevision = "001";
         public string GetSoftWareRevision()
         {
             string temp = SoftWareRevision;
             return temp;
         }
-        // DateTime can not be const and need to be changed after things are done 
-        private string CreationDate = "20.09.08.12.01";
+ 
+        private readonly string CreationDate = "20.09.08.12.01";
         public string GetCreationDate()
         {
             return CreationDate;
         }
 
+        // the list to store all the TankProbe
         public List<TankProbe> TankProbeList { get; set; }
         public TimeSpan SystemTime { get; set; }
 
