@@ -6,6 +6,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 {
     class SerialServer
     {
+        // Basic server for serial communication, doesn't support full duplex operations and requires further work
         readonly string[] ports;
         readonly IProtocol protocol;
         readonly SerialPort serial;
@@ -29,13 +30,14 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
             serial.DataReceived += new SerialDataReceivedEventHandler(ReceiveData);
 
+            // Close before attempting to open incase the application somehow already has taken control of the comport and is holding it open
             serial.Close();
-            System.Threading.Thread.Sleep(1000);
+            Thread.Sleep(1000);
 
             serial.Close();
             if (serial.IsOpen)
             {
-                Debug.WriteLine("opend");
+                Debug.WriteLine("open");
             }
             else
             {
@@ -47,7 +49,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
         public void ReceiveData(object sender, SerialDataReceivedEventArgs e)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(200);
             string data = serial.ReadExisting();
             string parsed = protocol.Parse(data);
             Debug.WriteLine("recv");

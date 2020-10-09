@@ -11,10 +11,10 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
     class ProtocolPortVeederRoot : IProtocol
     {
         readonly RootSim simulator;
-        readonly string dateFormatString = "yyMMddHHmm";
-        readonly string notSupported = "9999";
         readonly DebugPortVeederRoot pvDebug;
-
+        // String constants
+        readonly string dateFormatString = "yyMMddHHmm"; // date format as specified by TLS3XX protocol
+        readonly string notSupported = "9999";
         public ProtocolPortVeederRoot(RootSim simulator, DebugPortVeederRoot debug)
         {
             this.simulator = simulator;
@@ -24,6 +24,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         // HELPER FUNCTIONS
         private string DateFormat(TimeSpan offset)
         {
+            // Take the offset found in the RootSim object and apply it to the current date time to get the simulated date and return its appropriate string representation
             DateTime simulatorTime = System.DateTime.Now + offset;
             string formattedTime = simulatorTime.ToString(dateFormatString);
             return formattedTime;
@@ -31,6 +32,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
         private float HexToSingle(string hex)
         {
+            // Convert a hex representation of 4 byte float to c#
             byte[] singleByte = new byte[4];
 
             for (int i = 0; i < 4; i++)
@@ -49,7 +51,9 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
         private string AddTerminator()
         {
-            string terminator = "&&"; 
+            string terminator = "&&";
+
+            // Check for the invalid data terminator flag ES-3653
             if (pvDebug.InvalidDataTerminationFlag)
             {
                 terminator = "B8";
@@ -66,32 +70,37 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 stringValue += c;
             }
 
+            // Get the twos compliment of the given total string value and convert to a hex representation
             int compliment = 0 - stringValue;
             string hexValue = compliment.ToString("X");
 
+            // TLS3XX protocol ignores overflows, so simply return four characters, along with the ETX as checksums always precede message ending
             return hexValue.Substring(hexValue.Length - 4) + "\x03";
 
 
         }
 
-        // Function to provide the necessary logic for looping where necessary
         private string CommandResponse(string echo, int probeID, Func<int, string> function)
         {
+            // Provides the necessary logic to query a tank, or in the case of a 00 command, all tanks.
+            // Only supports functions that have the tank number parameter, if necessary function could be overloaded or reflection used for additional Func<> support.
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder replyString = new StringBuilder();
             replyString.Append(echo);
 
+            // Check for invalid drop tank data flag ES-3653
             if (echo == "i202" && pvDebug.InvalidTankDropNumber)
             {
                 replyString.Append("xx");
-            } else
-            { 
+            }
+            else
+            {
                 replyString.Append(probeID.ToString().PadLeft(2, '0'));
             }
 
             replyString.Append(DateFormat(simulator.SystemTime));
 
-            if (probeID == 0)
+            if (probeID == 0) // An all tank '00' query will only be supported if the RespondToAllProbes flag is true
             {
                 if (pvDebug.RespondToAllProbes)
                 {
@@ -102,8 +111,9 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                         probeID++;
                     }
                 }
-                else { 
-                    return notSupported; 
+                else
+                {
+                    return notSupported;
                 }
             }
             else
@@ -116,20 +126,18 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public string Parse(string toParse)
         {
             StringBuilder sb = new StringBuilder("\x01");
-            Debug.WriteLine(toParse.Length + " " + toParse.Length + " " + toParse.Length);
 
             //BIR Commands - seperate control flow as they don't echo back in the normal fashion but instead use ACK/NACK control characters with no SOH or ETX
-            //Error codes however retain the <SOH>9999&&CHKS<ETX> format
-            //Polling for events
+            //Error codes for the BIR commands however retain the <SOH>9999&&CHKS<ETX> format, requiring possible use of the strinbuilder
             if (pvDebug.SupportBIR)
             {
-                if (toParse.Substring(1, 1) == "D")
+                if (toParse.Substring(1, 1) == "D")  //Polling for events
                 {
                     if (pvDebug.EventAckNakRespond)
                     {
                         return ("\x06");
                     }
-                        return "";
+                    return "";
                 }
 
                 //Start an event, check if BIR infact supported
@@ -144,11 +152,11 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 }
                 //End an event, with BIR data to update the tank volume
                 else if (toParse[1] == 'C' && toParse[35] == '\x03')
-                {       
+                {
                     return EndDelivery(toParse);
                 }
             }
-
+            //Normal TLS3XX protocols
             if (toParse[1] == 'i' || toParse[1] == 's')
             {
                 sb.Append(NormalCommandParse(toParse));
@@ -171,16 +179,12 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
             try
             {
-                // possible exceptions arise from:
+                // If exceptions occur it is due to a malformed query, as a result a not supported error is returned. Possible exceptions arise from:
                 // String.Substring - ArgumentOutOfRangeException
                 // Convert.ToInt32 - FormatException, OverflowException
                 protocolCommand = toParse.Substring(1, 4);
                 tankNumber = toParse.Substring(5, 2);
                 probeID = Convert.ToInt32(tankNumber);
-
-                Debug.WriteLine("Protocol Parses");
-                Debug.WriteLine("Protocol Command: " + protocolCommand);
-                Debug.WriteLine("Tank Number: " + tankNumber);
 
                 switch (protocolCommand)
                 {
@@ -298,27 +302,29 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             List<TankProbe> probes = simulator.TankProbeList;
             StringBuilder probeString = new StringBuilder();
             TankProbe probe = probes[probeID - 1];
-    
+
             probeString.Append(probeID.ToString().PadLeft(2, '0'));
             probeString.Append(probe.ProductCode);
-            
+
+            // If randomize levels flag is true, create a constant variation to apply to tank levels
             float variance = 0;
-            if(pvDebug.RandomizeLevels)
+            if (pvDebug.RandomizeLevels)
             {
                 Random rand = new Random();
-                variance = Convert.ToSingle(rand.NextDouble()*5);
+                variance = Convert.ToSingle(rand.NextDouble() * 5);
                 variance -= 2.5f;
             }
 
+            // Build standard fields for the status bits and fields and update if necessary
             char delivering = '0';
             string preceedingBits = "000";
             string fieldsToFollow = "07";
 
-            if(probe.TankDelivering)
+            if (probe.TankDelivering)
             {
                 delivering = '1';
             }
-            if(pvDebug.ForceRndMsg)
+            if (pvDebug.ForceRndMsg)
             {
                 preceedingBits = "00";
                 fieldsToFollow = "7";
@@ -327,12 +333,12 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             probeString.Append(preceedingBits + delivering);
             probeString.Append(fieldsToFollow);
             probeString.Append(SingleToHex(probe.GetGrossObservedVolume() + variance).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.GetGrossStandardVolume()+ variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.GetGrossStandardVolume() + variance).PadLeft(8, '0'));
             probeString.Append(SingleToHex(probe.GetUllage()).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.ProductLevel+ variance).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.WaterLevel+ variance).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.ProductTemperature+ variance).PadLeft(8, '0'));
-            probeString.Append(SingleToHex(probe.WaterVolume+ variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.ProductLevel + variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.WaterLevel + variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.ProductTemperature + variance).PadLeft(8, '0'));
+            probeString.Append(SingleToHex(probe.WaterVolume + variance).PadLeft(8, '0'));
 
             return probeString.ToString();
         }
@@ -355,10 +361,13 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             {
                 probeString.Append(drop.StartTime.ToString(dateFormatString));
                 probeString.Append(drop.EndingTime.ToString(dateFormatString));
+
+                // Fields to follow will depend on if hieghts are included in the delivery reports
                 if (pvDebug.IncludeHeights)
                 {
                     probeString.Append("0A");
-                } else
+                }
+                else
                 {
                     probeString.Append("08");
                 }
@@ -393,59 +402,56 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             probeString.Append(probeID);
             string codes = "";
 
-            if (probe.TankprobeStatus == "ERR")
+            if (probe.TankprobeStatus == "ERR") // Tank Setup Data Warning
             {
                 codes += "01";
             }
-            if (probe.TankLeaking)
+            if (probe.TankLeaking) // Leak Alarm
             {
                 codes += "02";
             }
-            if (probe.WaterLevel >= probe.MyTank.HighWaterAlarmLevel)
+            if (probe.WaterLevel >= probe.MyTank.HighWaterAlarmLevel) // High Water Alarm
             {
                 codes += "03";
             }
-
-            if (probe.ProductLevel + probe.WaterLevel >= probe.MyTank.OverFillLimitLevel)
+            if (probe.ProductLevel + probe.WaterLevel >= probe.MyTank.OverFillLimitLevel) // Overfill Alarm
             {
                 codes += "04";
             }
-            if (probe.ProductLevel <= probe.MyTank.LowProductAlarmLevel)
+            if (probe.ProductLevel <= probe.MyTank.LowProductAlarmLevel) // Low Product Alarm
             {
                 codes += "05";
             }
-            if (probe.ProductLevel >= probe.MyTank.HighProductAlarmLevel)
+            if (probe.ProductLevel >= probe.MyTank.HighProductAlarmLevel) // High Product Alarm
             {
                 codes += "07";
             }
-            // Check for invalid fuel level alarm?
-            if (probe.ProductLevel <= 15)
+            if (probe.ProductLevel <= 15) // Tank Invalid Fuel Level Alarm
             {
                 codes += "08";
             }
-            //Probe disconnected not implemented
-            if (probe.TankprobeStatus == "OUT")
+            if (probe.TankprobeStatus == "OUT") // Probe Out Alarm
             {
                 codes += "09";
             }
-            if (probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel)
+            if (probe.WaterLevel >= probe.MyTank.HighWaterWarningLevel) // High Water Warning
             {
                 codes += "10";
             }
-            if (probe.ProductLevel <= probe.MyTank.DeliveryNeededWarningLevel)
+            if (probe.ProductLevel <= probe.MyTank.DeliveryNeededWarningLevel) // Delivery Needed Warning
             {
                 codes += "11";
             }
-            if (probe.ProductLevel >= probe.MyTank.MaxSafeWorkingCapacity)
+            if (probe.ProductLevel >= probe.MyTank.MaxSafeWorkingCapacity) // Maximum Product Alarm
             {
                 codes += "12";
             }
-            if (probe.ProductTemperature < 8)
+            if (probe.ProductTemperature < 8) // Cold Temperature Warning
             {
                 codes += "27";
             }
 
-            string totalAlarms = (codes.Length / 2).ToString().PadLeft(2, '0');
+            string totalAlarms = (codes.Length / 2).ToString("X").PadLeft(2, '0');
             probeString.Append(totalAlarms);
             probeString.Append(codes);
 
@@ -498,6 +504,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             replyString.Append("00");
             replyString.Append(DateFormat(simulator.SystemTime));
 
+            // Get the date time value of the new time to set and calculate the offset that will be passed to the RootSim object
             DateTime dateToSet = DateTime.ParseExact(setString, dateFormatString, new CultureInfo("en-NZ"));
             TimeSpan dateAsOffset = dateToSet - DateTime.Now;
             simulator.SystemTime = dateAsOffset;
@@ -523,7 +530,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
                 probe.SetMaxSafeWorkingCapacityByLevel(limit);
             }
 
-            if(!pvDebug.RespondToAllProbes)
+            if (!pvDebug.RespondToAllProbes)
             {
                 return (notSupported);
             }

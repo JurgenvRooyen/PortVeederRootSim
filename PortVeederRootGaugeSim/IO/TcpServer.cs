@@ -9,14 +9,17 @@ namespace PortVeederRootGaugeSim.IO
 {
     class TcpServer
     {
+        // A basic non-blocking TcpServer to handle requests, includes the capability to delay final Tx if necessary (currently not implemented on the front end)
         readonly TcpListener listener;
         public IProtocol protocol { get; set; }
         bool acceptIncoming;
+
         public int Wait { get; set; }
         public int Offset { get; set; }
 
         public TcpServer(IProtocol protocol)
         {
+            // Default settings for the simulator to simulate PVR gauages
             Int32 port = 10001;
             IPAddress addr = IPAddress.Parse("127.0.0.1");
             this.protocol = protocol;
@@ -32,8 +35,8 @@ namespace PortVeederRootGaugeSim.IO
             _ = Listen();
         }
 
-        private async Task Listen()
-        {
+        private async Task Listen() // returns a Task so that exceptions can still be raised
+        { 
             while (acceptIncoming)
             {
                 TcpClient client = await listener.AcceptTcpClientAsync();
@@ -41,7 +44,7 @@ namespace PortVeederRootGaugeSim.IO
             }
         }
 
-        private async Task HandleClient(TcpClient client)
+        private async Task HandleClient(TcpClient client) // returns a Task so that exceptions can still be raised
         {
             NetworkStream nStream = client.GetStream();
             byte[] buffer = new byte[1024];
@@ -49,17 +52,21 @@ namespace PortVeederRootGaugeSim.IO
             {
                 while ((await nStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
                 {
+                    string parsed = protocol.Parse((System.Text.Encoding.ASCII.GetString(buffer)));
+
+                    // Used for debugging and functional testing - only included with debug symbol present
+                    Debug.WriteLine(DateTime.Now.ToString());
                     Debug.WriteLine("Received");
                     Debug.WriteLine(System.Text.Encoding.ASCII.GetString(buffer));
-                    string parsed = protocol.Parse((System.Text.Encoding.ASCII.GetString(buffer)));
                     Debug.WriteLine("Parsed");
                     Debug.WriteLine(parsed);
-                    if(parsed == "")
+                    if(parsed == "") 
                     {
                         break;
                     }
                     if (parsed.Length > Offset + 1)
                     {
+                        // If the break position is reached (impossible on a value of zero), transmit the pre break message wait for the necessary time and transmit the final portion
                         int breakPosition = parsed.Length - Offset;
                         string starter = parsed.Substring(0, breakPosition);
                         string ending = parsed.Substring(breakPosition, Offset);
