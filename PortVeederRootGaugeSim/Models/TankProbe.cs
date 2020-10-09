@@ -15,9 +15,7 @@ namespace PortVeederRootGaugeSim
 
         public Tank MyTank { get; set; }
 
-        
-
-            // critical section starts
+        // critical section starts
 
         private readonly object ProductLevelLock = new object();
         public float ProductLevel { get; private set; }
@@ -30,20 +28,11 @@ namespace PortVeederRootGaugeSim
         public float WaterVolume { get; set; }
         public float ProductTemperature { get; set; }
         public float TankDropCount { get; set; }
-
         public const float thermalExpansionCoefficient = 0.0018F;
-
-        
-
-
-        // Alarm attributes TODO
-
         public float MaxSafeWorkingCapacityModifier { get; set; }
-
 
         // A list for store dropped tank
         public List<TankDrop> TankDroppedList { get; set; }
-
 
         public Boolean TankDelivering { get; set; }
         public Boolean TankLeaking { get; set; }
@@ -125,7 +114,6 @@ namespace PortVeederRootGaugeSim
             return true;
         }
 
-
         // set water level. Then regulate water volume and product level
         // this funciton cause a minor product volume calculation error
         public Boolean SetWaterLevel(float value)
@@ -172,22 +160,10 @@ namespace PortVeederRootGaugeSim
             return MyTank.FullVolume - WaterVolume - ProductVolume;
         }
 
-        public Boolean[] GetTankStatus()
-        {
-
-            Boolean[] temp = { TankDelivering, TankLeaking };
-
-            return temp;
-        }
-
-
         public void SetMaxSafeWorkingCapacityByLevel(float level)
         {
             MyTank.MaxSafeWorkingCapacity = Models.Helper.LevelToVolume_Horizontal(level,MyTank.TankLength, MyTank.TankDiameter);
         }
-
-
-
 
         private void InitializeTankLevels(Tank tank, float productLevel, float waterLevel)
         {
@@ -218,7 +194,6 @@ namespace PortVeederRootGaugeSim
 
             TankDroppedList = new List<TankDrop>();
         }
-
 
         public void ClearDeliveryReport()
         {
@@ -280,7 +255,6 @@ namespace PortVeederRootGaugeSim
             return;
         }
 
-
         // the thread for leak product 
         // could change the leak speed by change <Mytank.TankLeakingPerInterval>   OR  change the thread sleep time
         private void ProductChangeThreadLeaking()
@@ -298,6 +272,7 @@ namespace PortVeederRootGaugeSim
                 Thread.Sleep(200);
             }
         }
+
         // start the delivery thread
         public Boolean StartDelivery(float volume, DateTime startTime, TimeSpan duration)
         {
@@ -334,8 +309,6 @@ namespace PortVeederRootGaugeSim
                 ProductChanging.Start();
             }
         }
-
-
 
         // this thread will balance product volume between two connected tanks
         // could be more realistic if improve it to balance the levels between two tanks but may need to consider leak water if there's no product left
@@ -396,7 +369,5 @@ namespace PortVeederRootGaugeSim
 
             return false;
         } 
-        
-
     }
 }
