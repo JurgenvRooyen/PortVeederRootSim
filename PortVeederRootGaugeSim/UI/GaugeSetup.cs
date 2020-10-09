@@ -26,7 +26,7 @@ namespace PortVeederRootGaugeSim
                 capacity90.Checked = true;
             }
 
-            tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
+            tankVolumeText.Text = Convert.ToString(tankGauge.MyTank.FullVolume);
             overfillLimitText.Value = Convert.ToDecimal(tankGauge.MyTank.OverFillLimitLevel);
             highLimitText.Value = Convert.ToDecimal(tankGauge.MyTank.HighProductAlarmLevel);
             deliveryWarningText.Value = Convert.ToDecimal(tankGauge.MyTank.DeliveryNeededWarningLevel);
@@ -35,7 +35,7 @@ namespace PortVeederRootGaugeSim
             waterWarningText.Value = Convert.ToDecimal(tankGauge.MyTank.HighWaterWarningLevel);
             tankLengthText.Value = Convert.ToDecimal(tankGauge.MyTank.TankLength);
             tankDiameterText.Value = Convert.ToDecimal(tankGauge.MyTank.TankDiameter);
-            safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity); 
             workingSafeCapacity = tankGauge.MaxSafeWorkingCapacityModifier;
             workingTankDiameter = tankGauge.MyTank.TankDiameter;
             workingTankLength = tankGauge.MyTank.TankLength;
