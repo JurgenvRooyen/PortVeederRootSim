@@ -4,6 +4,18 @@ namespace PortVeederRootGaugeSim.Models
 {
     static class Helper
     {
+
+        public static float GetWorkingSafeCapacity(float workingSafeCapacity, float workingFullVolume)
+        {
+            return workingSafeCapacity * workingFullVolume;
+        }
+
+        public static float GetFullVolume(float workingTankDiameter, float workingTankLength)
+        {
+            return LevelToVolume_Horizontal(workingTankDiameter, workingTankLength, workingTankDiameter);
+        }
+
+
         // using liquid height to calculate the liquid volume
         public static float LevelToVolume_Horizontal(double l, double length, double diameter)
         {
