@@ -95,7 +95,7 @@ namespace PortVeederRootGaugeSim.UI
                 }
                 else
                 {
-                    tankProbe.DeliverySwitch(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
+                    tankProbe.StartDelivery(dropVolume, dropStartDate, TimeSpan.FromMinutes(dropDuration));
                 }
             }
         }

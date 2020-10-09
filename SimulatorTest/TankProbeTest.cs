@@ -146,7 +146,7 @@ namespace SimulatorTest
             {
                 TankDelivering = true
             };
-            tank1.DeliverySwitch(100, DateTime.Now, TimeSpan.Zero);
+            tank1.StartDelivery(100, DateTime.Now, TimeSpan.Zero);
             Assert.False(tank1.TankDelivering);
         }
 
@@ -157,7 +157,7 @@ namespace SimulatorTest
             {
                 TankDelivering = false
             };
-            tank1.DeliverySwitch(100, DateTime.Now, TimeSpan.Zero);
+            tank1.StartDelivery(100, DateTime.Now, TimeSpan.Zero);
             Assert.True(tank1.TankDelivering);
         }
 

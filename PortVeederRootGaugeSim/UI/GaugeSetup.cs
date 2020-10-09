@@ -39,7 +39,7 @@ namespace PortVeederRootGaugeSim
             workingSafeCapacity = tankGauge.MaxSafeWorkingCapacityModifier;
             workingTankDiameter = tankGauge.MyTank.TankDiameter;
             workingTankLength = tankGauge.MyTank.TankLength;
-            workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
+            workingFullVolume = tankGauge.MyTank.FullVolume;
         }
 
         private void OkayButton_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace PortVeederRootGaugeSim
                 tankGauge.SetTankDiameter(Convert.ToSingle(tankDiameterText.Value));
                 tankGauge.SetTankLength(Convert.ToSingle(tankLengthText.Value));
                 tankGauge.MaxSafeWorkingCapacityModifier = workingSafeCapacity;
-                tankGauge.MyTank.MaxSafeWorkingCapacity = Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume);
+                tankGauge.MyTank.MaxSafeWorkingCapacity = tankGauge.MyTank.MaxSafeWorkingCapacity;
                 tankGauge.MyTank.OverFillLimitLevel = Convert.ToSingle(overfillLimitText.Value);
                 tankGauge.MyTank.HighProductAlarmLevel = Convert.ToSingle(highLimitText.Value);
                 tankGauge.MyTank.DeliveryNeededWarningLevel = Convert.ToSingle(deliveryWarningText.Value);
@@ -106,16 +106,17 @@ namespace PortVeederRootGaugeSim
             try
             {
                 workingTankDiameter = Convert.ToSingle(tankDiameterText.Value);
-                workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
-                tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
-                safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+                workingFullVolume = tankGauge.MyTank.FullVolume;
+                tankVolumeText.Text = Convert.ToString(tankGauge.MyTank.FullVolume);
+
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
             }
             catch (FormatException)
             {
                 workingTankDiameter = 0F;
-                workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
-                tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
-                safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+                workingFullVolume = tankGauge.MyTank.FullVolume;
+                tankVolumeText.Text = Convert.ToString(tankGauge.MyTank.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
             }
 
         }
@@ -123,13 +124,13 @@ namespace PortVeederRootGaugeSim
         private void Capacity90_CheckedChanged(object sender, EventArgs e)
         {
             workingSafeCapacity = 0.9F;
-            safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
         }
 
         private void Capacity95_CheckedChanged(object sender, EventArgs e)
         {
             workingSafeCapacity = 0.95F;
-            safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+            safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
         }
 
         private void TankLengthText_TextChanged(object sender, EventArgs e)
@@ -137,16 +138,16 @@ namespace PortVeederRootGaugeSim
             try
             {
                 workingTankLength = Convert.ToSingle(tankLengthText.Value);
-                workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
-                tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
-                safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+                workingFullVolume = tankGauge.MyTank.FullVolume;
+                tankVolumeText.Text = Convert.ToString(tankGauge.MyTank.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
             }
             catch (FormatException)
             {
                 workingTankLength = 0F;
-                workingFullVolume = Helper.GetFullVolume(workingTankDiameter, workingTankLength);
-                tankVolumeText.Text = Convert.ToString(Helper.GetFullVolume(workingTankDiameter, workingTankLength));
-                safeWorkingCapacityText.Text = Convert.ToString(Helper.GetWorkingSafeCapacity(workingSafeCapacity, workingFullVolume));
+                workingFullVolume = tankGauge.MyTank.FullVolume;
+                tankVolumeText.Text = Convert.ToString(tankGauge.MyTank.FullVolume);
+                safeWorkingCapacityText.Text = Convert.ToString(tankGauge.MyTank.MaxSafeWorkingCapacity);
             }
         }
     }
