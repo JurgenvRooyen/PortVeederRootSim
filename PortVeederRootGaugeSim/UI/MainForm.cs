@@ -51,8 +51,10 @@ namespace PortVeederRootGaugeSim
             }
             
             foreach(var menuItem in debugOptions.MenuOutput())
-            { 
-                OptionsMenuItem.DropDownItems.Add(menuItem, null, OptionMenuItem_Click);
+            {
+                ToolStripMenuItem toolMenuItem = new ToolStripMenuItem(menuItem.Key, null, OptionMenuItem_Click);
+                toolMenuItem.Checked = menuItem.Value;
+                OptionsMenuItem.DropDownItems.Add(toolMenuItem);
             }
         } 
 
@@ -61,20 +63,6 @@ namespace PortVeederRootGaugeSim
             refreshTimer.Tick += TimerEventProcessor;
             refreshTimer.Interval = 500;
             refreshTimer.Enabled = true;
-            // initialize check marks for debug menu options
-            CheckIncludeHeights(debugOptions.IncludeHeights);
-            CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
-            CheckSupportBIR(debugOptions.SupportBIR);
-            CheckVersionRespond(debugOptions.VersionRespond);
-            CheckTankDropRespond(debugOptions.TankDropRespond);
-            CheckDateTimeRespond(debugOptions.DateTimeRespond);
-            CheckRespondToAllProbes(debugOptions.RespondToAllProbes);
-            CheckEventAckNakRespond(debugOptions.EventAckNakRespond);
-            CheckInvalidDataTerminationFlag(debugOptions.InvalidDataTerminationFlag);
-            CheckDeliveryTankZeroBased(debugOptions.DeliveryTankZeroBased);
-            CheckUpdateVolumeUsingBIR(debugOptions.UpdatevolumeUsingBIR);
-            CheckRandomizeLevels(debugOptions.RandomizeLevels);
-            CheckForceRndMsg(debugOptions.ForceRndMsg);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -144,14 +132,10 @@ namespace PortVeederRootGaugeSim
 
             switch(menuText)
             {
+#if ITLDEBUG
                 case "Include Heights":
                     debugOptions.ToggleIncludeHeights();
                     CheckIncludeHeights(debugOptions.IncludeHeights);
-                    break;
-
-                case "Invalid Drop Number":
-                    debugOptions.ToggleInvalidDropNumber();
-                    CheckInvalidTankDropNumber(debugOptions.InvalidTankDropNumber);
                     break;
 
                 case "Support BIR":
@@ -184,11 +168,6 @@ namespace PortVeederRootGaugeSim
                     CheckEventAckNakRespond(debugOptions.EventAckNakRespond);
                     break;
 
-                case "Invalid Data Termination Flag":
-                    debugOptions.ToggleInvalidDataTerminationFlag();
-                    CheckInvalidDataTerminationFlag(debugOptions.InvalidDataTerminationFlag);
-                    break;
-
                 case "Zero Based Tank Delivery":
                     debugOptions.ToggleDeliveryTankZeroBased();
                     CheckDeliveryTankZeroBased(debugOptions.DeliveryTankZeroBased);
@@ -196,7 +175,7 @@ namespace PortVeederRootGaugeSim
 
                 case "Update Volume Using BIR":
                     debugOptions.ToggleUpdatevolumeUsingBIR();
-                    CheckUpdateVolumeUsingBIR(debugOptions.UpdatevolumeUsingBIR);
+                    CheckUpdateVolumeUsingBIR(debugOptions.UpdateVolumeUsingBIR);
                     break;
 
                 case "Randomize Levels":
@@ -208,6 +187,27 @@ namespace PortVeederRootGaugeSim
                     debugOptions.ToggleForceRndMsg();
                     CheckForceRndMsg(debugOptions.ForceRndMsg);
                     break;
+
+                case "Invalid Drop Number":
+                    debugOptions.ToggleInvalidDropNumber();
+                    CheckInvalidTankDropNumber((ToolStripMenuItem) sender, debugOptions.InvalidTankDropNumber);
+                    break;
+
+                case "Invalid Data Termination Flag":
+                    debugOptions.ToggleInvalidDataTerminationFlag();
+                    CheckInvalidDataTerminationFlag((ToolStripMenuItem) sender, debugOptions.InvalidDataTerminationFlag);
+                    break;
+#else
+                case "Invalid Drop Number":
+                    debugOptions.ToggleInvalidDropNumber();
+                    CheckInvalidTankDropNumber((ToolStripMenuItem) sender, debugOptions.InvalidTankDropNumber);
+                    break;
+
+                case "Invalid Data Termination Flag":
+                    debugOptions.ToggleInvalidDataTerminationFlag();
+                    CheckInvalidDataTerminationFlag((ToolStripMenuItem) sender, debugOptions.InvalidDataTerminationFlag);
+                    break;
+#endif
             }
         }
 
@@ -240,15 +240,15 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        private void CheckInvalidTankDropNumber(bool invalidDropNumber)
+        private void CheckInvalidTankDropNumber(ToolStripMenuItem sender, bool invalidDropNumber)
         {
             if (invalidDropNumber)
             {
-                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = true;
+                sender.Checked = true;
             }
             else
             {
-                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[1]).Checked = false;
+                sender.Checked = false;
             }
         }
 
@@ -330,15 +330,17 @@ namespace PortVeederRootGaugeSim
             }
         }
 
-        private void CheckInvalidDataTerminationFlag(bool invalidFlag)
+        private void CheckInvalidDataTerminationFlag(ToolStripMenuItem sender, bool invalidFlag)
         {
             if (invalidFlag)
             {
-                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = true;
+                //((ToolStripMenuItem)OptionsMenuItem.DropDownItems[OptionsMenuItem.DropDownItems.IndexOfKey("Invalid Data Termination Flag")]).Checked = true;
+                sender.Checked = true;
             }
             else
             {
-                ((ToolStripMenuItem)OptionsMenuItem.DropDownItems[8]).Checked = false;
+                //((ToolStripMenuItem)OptionsMenuItem.DropDownItems[OptionsMenuItem.DropDownItems.IndexOfKey("Invalid Data Termination Flag")]).Checked = false;
+                sender.Checked = false;
             }
         }
 

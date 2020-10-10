@@ -17,7 +17,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         public bool InvalidDataTerminationFlag { get; set; }
         public bool RandomizeLevels { get; set; }
         public bool ForceRndMsg { get; set; }
-        public bool UpdatevolumeUsingBIR { get; set; }
+        public bool UpdateVolumeUsingBIR { get; set; }
 
         public DebugPortVeederRoot()
         {
@@ -32,7 +32,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             EventAckNakRespond = false;
             InvalidDataTerminationFlag = false;
             DeliveryTankZeroBased = false;
-            UpdatevolumeUsingBIR = true;
+            UpdateVolumeUsingBIR = true;
             RandomizeLevels = false;
             ForceRndMsg = false;
         }
@@ -42,25 +42,34 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
             return !input;
         }
 
-        public List<string> MenuOutput()
+        public Dictionary<string, bool> MenuOutput()
         {
-            List<string> menuItems = new List<string>
+#if ITLDEBUG
+            Dictionary<string, bool> menuItems = new Dictionary<string, bool>
             {
-                "Include Heights",
-                "Invalid Drop Number",
-                "Support BIR",
-                "Version Respond",
-                "Tank Drop Respond",
-                "Date Time Respond",
-                "Respond to All Probes",
-                "Event AckNak Respond",
-                "Invalid Data Termination Flag",
-                "Zero Based Tank Delivery",
-                "Update Volume Using BIR",
-                "Randomize Levels",
-                "Force Rnd Msg"
+                {"Include Heights", IncludeHeights},
+                {"Invalid Drop Number", InvalidTankDropNumber},
+                {"Support BIR", SupportBIR},
+                {"Version Respond", VersionRespond},
+                {"Tank Drop Respond", TankDropRespond},
+                {"Date Time Respond", DateTimeRespond},
+                {"Respond to All Probes", RespondToAllProbes},
+                {"Event AckNak Respond", EventAckNakRespond},
+                {"Invalid Data Termination Flag", InvalidDataTerminationFlag},
+                {"Zero Based Tank Delivery", DeliveryTankZeroBased},
+                {"Update Volume Using BIR", UpdateVolumeUsingBIR},
+                {"Randomize Levels", RandomizeLevels},
+                {"Force Rnd Msg", ForceRndMsg }
             };
+#else
+            Dictionary<string, bool> menuItems = new Dictionary<string, bool>
+            {
+                {"Invalid Drop Number", InvalidTankDropNumber},
+                {"Invalid Data Termination Flag", InvalidDataTerminationFlag}
+            };
+#endif
             return menuItems;
+        
         }
 
         public bool ToggleIncludeHeights()
@@ -137,8 +146,8 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
       
         public bool ToggleUpdatevolumeUsingBIR()
         {
-            UpdatevolumeUsingBIR = InvertBool(UpdatevolumeUsingBIR);
-            return UpdatevolumeUsingBIR;
+            UpdateVolumeUsingBIR = InvertBool(UpdateVolumeUsingBIR);
+            return UpdateVolumeUsingBIR;
 
         }
     }
