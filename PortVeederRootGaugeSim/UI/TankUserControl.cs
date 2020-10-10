@@ -113,37 +113,22 @@ namespace PortVeederRootGaugeSim.UI
         private void ProductUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetProductLevel(Convert.ToSingle(productUpDown.Value));
-            //productVolume.Text = Convert.ToString(Math.Round(tankProbe.ProductVolume));
-            //gov.Text = Convert.ToString(Math.Round(tankProbe.GetGrossObservedVolume()));
-            //gsv.Text = Convert.ToString(Math.Round(tankProbe.GetGrossStandardVolume()));
-            //ullage.Text = Convert.ToString(Math.Round(tankProbe.GetUllage()));
         }
 
         private void TempUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.ProductTemperature = Convert.ToInt32(tempUpDown.Value);
-            //gov.Text = Convert.ToString(Math.Round(tankProbe.GetGrossObservedVolume()));
-            //gsv.Text = Convert.ToString(Math.Round(tankProbe.GetGrossStandardVolume()));
-            //ullage.Text = Convert.ToString(Math.Round(tankProbe.GetUllage()));
         }
 
         private void WaterUpDown_ValueChanged(object sender, EventArgs e)
         {
             tankProbe.SetWaterLevel(Convert.ToSingle(waterUpDown.Value));
-            //waterVolume.Text = Convert.ToString(Math.Round(tankProbe.WaterVolume));
-            //gov.Text = Convert.ToString(Math.Round(tankProbe.GetGrossObservedVolume()));
-            //gsv.Text = Convert.ToString(Math.Round(tankProbe.GetGrossStandardVolume()));
-            //ullage.Text = Convert.ToString(Math.Round(tankProbe.GetUllage()));
         }
 
         private void GaugeSetupButton_Click(object sender, EventArgs e)
         {
             GaugeSetup gaugeSetupForm = new GaugeSetup(tankProbe);
             gaugeSetupForm.ShowDialog();
-            //gov.Text = Convert.ToString(Math.Round(tankProbe.GetGrossObservedVolume()));
-            //gsv.Text = Convert.ToString(Math.Round(tankProbe.GetGrossStandardVolume()));
-            //capacity.Text = Convert.ToString(Math.Round(tankProbe.MyTank.FullVolume));
-            //ullage.Text = Convert.ToString(Math.Round(tankProbe.GetUllage()));
         }
 
         private void TankProbeStatusChanged(object sender, EventArgs e)
