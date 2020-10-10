@@ -25,7 +25,7 @@ namespace PortVeederRootGaugeSim.UI
             tempUpDown.Value = Convert.ToDecimal(tankProbe.ProductTemperature);
             productUpDown.Value = Convert.ToDecimal(tankProbe.ProductLevel);
             waterUpDown.Value = Convert.ToDecimal(tankProbe.WaterLevel);
-            productVolume.Text = Convert.ToString(tankProbe.ProductVolume);
+            productVolume.Text = Convert.ToString(Math.Round(tankProbe.ProductVolume));
             gov.Text = Convert.ToString(Math.Round(tankProbe.GetGrossObservedVolume()));
             gsv.Text = gsv.Text = Convert.ToString(Math.Round(tankProbe.GetGrossStandardVolume()));
             capacity.Text = Convert.ToString(Math.Round(tankProbe.MyTank.FullVolume));
