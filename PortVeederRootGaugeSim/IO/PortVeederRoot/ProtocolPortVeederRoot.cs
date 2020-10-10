@@ -264,7 +264,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
         //BIR Command Ending a hose delivery
         private string EndDelivery(string toParse)
         {
-            if (pvDebug.UpdatevolumeUsingBIR)
+            if (pvDebug.UpdateVolumeUsingBIR)
             {
                 try
                 {
@@ -399,7 +399,7 @@ namespace PortVeederRootGaugeSim.IO.PortVeederRoot
 
             StringBuilder probeString = new StringBuilder();
             TankProbe probe = probes[probeID - 1];
-            probeString.Append(probeID);
+            probeString.Append(probeID.ToString().PadLeft(2, '0'));
             string codes = "";
 
             if (probe.TankprobeStatus == "ERR") // Tank Setup Data Warning
