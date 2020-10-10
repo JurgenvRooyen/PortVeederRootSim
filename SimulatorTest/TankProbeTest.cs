@@ -1,9 +1,7 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Internal;
 using PortVeederRootGaugeSim;
-using PortVeederRootGaugeSim.Models;
 using System;
-using System.Collections.Generic;
 
 namespace SimulatorTest
 {
@@ -207,29 +205,6 @@ namespace SimulatorTest
 
 
             Assert.AreEqual(Math.Round(tank1.GetUllage(),2), Math.Round(PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(tank1.MyTank.TankDiameter - tank1.WaterLevel - tank1.ProductLevel, tank1.MyTank.TankLength, tank1.MyTank.TankDiameter),2));
-        }
-
-        [Test]
-        public void TestGetTankStatus()
-        {
-            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000,2000), 100, 100, 10);
-            Boolean[] boolTest = { false, false };
-            Assert.AreEqual(tank1.GetTankStatus(), boolTest);
-            tank1.TankDelivering = true;
-            Boolean[] boolTest2 = { true, false };
-            Assert.AreEqual(tank1.GetTankStatus(), boolTest2);
-            tank1.TankDelivering = false;
-            tank1.TankLeaking = true;
-            Boolean[] boolTest3 = { false, true };
-            Assert.AreEqual(tank1.GetTankStatus(), boolTest3);
-            tank1.TankDelivering = true;
-            tank1.TankLeaking = true;
-            Boolean[] boolTest4 = { true, true };
-            Assert.AreEqual(tank1.GetTankStatus(), boolTest4);
-            tank1.TankDelivering = false;
-            tank1.TankLeaking = false;
-            Boolean[] boolTest5 = { false, false };
-            Assert.AreEqual(tank1.GetTankStatus(), boolTest5);
         }
 
         [Test]
