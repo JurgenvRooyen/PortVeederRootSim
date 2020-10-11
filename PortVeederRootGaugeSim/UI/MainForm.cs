@@ -334,12 +334,10 @@ namespace PortVeederRootGaugeSim
         {
             if (invalidFlag)
             {
-                //((ToolStripMenuItem)OptionsMenuItem.DropDownItems[OptionsMenuItem.DropDownItems.IndexOfKey("Invalid Data Termination Flag")]).Checked = true;
                 sender.Checked = true;
             }
             else
             {
-                //((ToolStripMenuItem)OptionsMenuItem.DropDownItems[OptionsMenuItem.DropDownItems.IndexOfKey("Invalid Data Termination Flag")]).Checked = false;
                 sender.Checked = false;
             }
         }
