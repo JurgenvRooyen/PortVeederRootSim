@@ -8,6 +8,15 @@ namespace SimulatorTest
     class TankProbeTest
     {
         [Test]
+        public void TestSetTankProbeId()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
+            tank1.TankProbeId = 2;
+            Assert.AreEqual(2, tank1.TankProbeId);
+        }
+
+
+        [Test]
         public void TestSetTankLength()
         {
             TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
@@ -124,10 +133,6 @@ namespace SimulatorTest
             Assert.AreEqual(tank1.WaterVolume, PortVeederRootGaugeSim.Models.Helper.LevelToVolume_Horizontal(tank1.WaterLevel,tank1.MyTank.TankLength,tank1.MyTank.TankDiameter));
         }
 
-
-
-
-
         [Test]
         public void TestProductChangePerInterval()
         {
@@ -135,6 +140,15 @@ namespace SimulatorTest
             float productVolume = tank1.ProductVolume;
             tank1.ProductChangePerInterval(100);           
             Assert.AreEqual(tank1.ProductVolume, productVolume+100);
+        }
+
+        [Test]
+        public void TestProductChangePerIntervalValueTooHigh()
+        {
+            TankProbe tank1 = new TankProbe(1, char.Parse("P"), new Tank(1000, 2000), 100, 100, 10);
+            tank1.TankLeaking = true;
+            tank1.ProductChangePerInterval(1000);
+            Assert.AreEqual(tank1.ProductVolume, 0);
         }
 
         [Test]
