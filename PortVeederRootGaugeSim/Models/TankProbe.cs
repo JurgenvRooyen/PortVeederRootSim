@@ -10,20 +10,16 @@ namespace PortVeederRootGaugeSim
         // Tank attributes
         public int TankProbeId { get; set; }
         public char ProductCode { get; set; }
-
         public string TankprobeStatus { get; set; }
-
         public Tank MyTank { get; set; }
 
         // critical section starts
-
         private readonly object ProductLevelLock = new object();
         public float ProductLevel { get; private set; }
-
         private readonly object ProductVolumeLock = new object();
         public float ProductVolume { get; private set; }
-            // critical section ends
-
+        
+        // critical section ends
         public float WaterLevel { get; set; }
         public float WaterVolume { get; set; }
         public float ProductTemperature { get; set; }
@@ -33,13 +29,10 @@ namespace PortVeederRootGaugeSim
 
         // A list for store dropped tank
         public List<TankDrop> TankDroppedList { get; set; }
-
         public Boolean TankDelivering { get; set; }
         public Boolean TankLeaking { get; set; }
 
-
         // Getters and Setters
-
         // set the tank length. Then regulate water level and product level based on current water volume and product volume
         public void SetTankLength(float value)
         {          
